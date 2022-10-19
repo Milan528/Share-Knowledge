@@ -1,0 +1,19 @@
+.container {
+  text-align: center;
+  width: 50px;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.score {
+  color: white;
+  margin-top: 0;
+}
+
+.percentage {
+  margin-bottom: 0;
+  font-size: x-large;
+}

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-bottom: 20px;
+  margin-left: -73px;
+}
+
+@media (max-width: 420px) {
+  .container {
+    flex-direction: column-reverse;
+    margin-left: -0px;
+    align-items: center;
+  }
+}
