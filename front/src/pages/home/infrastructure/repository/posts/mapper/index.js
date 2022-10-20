@@ -1,4 +1,4 @@
-export const mapperDTOToQuoteModel = (dto) => {
+export const mapDTOToPost = (dto) => {
   const {
     id,
     content,
@@ -48,14 +48,13 @@ export const mapperQuoteModelToDTO = (model) => {
   };
 };
 
-export const mapperQuotesDTOToModel = (dto) => {
-  const { quotesCount, quotes } = dto;
-  const quotesMap = quotes.map((quote) => mapperDTOToQuoteModel(quote));
+export const mapDTOToPosts = ({ data: { posts } }) => {
+  const map = posts.map((post) => ({
+    ...post,
+    type: post.type === "q" ? "question" : "answer",
+  }));
 
-  return {
-    quotesCount,
-    quotesMap,
-  };
+  console.log(map);
 };
 
 export const mapperQuotesModelToDTO = (model) => {

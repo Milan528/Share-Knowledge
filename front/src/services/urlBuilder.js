@@ -1,4 +1,5 @@
-const base_url = (url) => "http://localhost:3000" + url;
+// const base_url = (url) => "http://localhost:3000" + url;
+const base_url = (url) => process.env.REACT_APP_BASE_URL + url;
 
 const withURLSearchParams = (url, paramsDTO) => {
   return base_url(url) + "?" + new URLSearchParams(paramsDTO);

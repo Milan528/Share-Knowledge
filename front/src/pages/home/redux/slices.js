@@ -11,19 +11,13 @@ const homeSlice = createSlice({
         loading: action.payload,
       };
     },
-    setQuotes: (state, action) => {
+    setPosts: (state, action) => {
       return {
         ...state,
-        quotes: action.payload,
-      };
-    },
-    setQuotesCount: (state, action) => {
-      return {
-        ...state,
-        quotesCount: action.payload,
+        posts: action.payload,
       };
     },
   },
 });
-export const { loading, setQuotes, setQuotesCount } = homeSlice.actions;
+export const { loading, setPosts } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

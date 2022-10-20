@@ -1,9 +1,9 @@
 const QUERY = {
-  SELECT_POSTS: "SELECT * FROM post",
-  // SELECT_PATIENT: 'SELECT * FROM patients WHERE id = ?',
-  // CREATE_PATIENT: 'INSERT INTO patients(first_name, last_name, email, phone, address, diagnosis, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)',
-  // UPDATE_PATIENT: 'UPDATE patients SET first_name = ?, last_name = ?, email = ?, phone = ?, address = ?, diagnosis = ?, image_url = ? WHERE id = ?',
-  // DELETE_PATIENT: 'DELETE FROM patients WHERE id = ?',
+  SELECT_POSTS: 'SELECT * FROM post',
+  SELECT_POST: 'SELECT * FROM post WHERE id = ?',
+  CREATE_POST: 'INSERT INTO post(title, text, type, date, userId) VALUES (?, ?, ?, ?, ?)',
+  UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
+  DELETE_POST: 'DELETE FROM post WHERE id = ?'
   // CREATE_PATIENT_PROCEDURE: 'CALL create_and_return(?, ?, ?, ?, ?, ?, ?)'
 };
 

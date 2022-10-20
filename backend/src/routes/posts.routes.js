@@ -1,8 +1,14 @@
-import express from "express";
-import { getPosts, putPosts } from "../controllers/posts.controller.js";
+import express from 'express';
+import {
+  getPost,
+  getPosts,
+  createPost,
+  deletePost,
+  updatePost
+} from '../controllers/posts.controller.js';
 
 const postsRoutes = express.Router();
 
-postsRoutes.route("/").get(getPosts).put(putPosts);
-
+postsRoutes.route('/').get(getPosts).post(createPost);
+postsRoutes.route('/:id').get(getPost).put(updatePost).delete(deletePost);
 export default postsRoutes;

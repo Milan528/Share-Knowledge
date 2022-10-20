@@ -1,8 +1,6 @@
 const initialState = {
   loading: false,
-  quotes: [],
-  quotesCount: 0,
-  token: "",
+  posts: [],
 };
 
 const getState = () => {
