@@ -1,25 +1,7 @@
 export const mapDTOToPost = (dto) => {
-  const {
-    id,
-    content,
-    author,
-    tags,
-    userId,
-    upvotesCount,
-    downvotesCount,
-    createdAt,
-    givenVote,
-  } = dto;
   return {
-    id,
-    content,
-    author,
-    tags,
-    userId,
-    upvotesCount,
-    downvotesCount,
-    createdAt,
-    givenVote,
+    ...dto,
+    type: dto.type === "q" ? "question" : "answer",
   };
 };
 
@@ -48,13 +30,8 @@ export const mapperQuoteModelToDTO = (model) => {
   };
 };
 
-export const mapDTOToPosts = ({ data: { posts } }) => {
-  const map = posts.map((post) => ({
-    ...post,
-    type: post.type === "q" ? "question" : "answer",
-  }));
-
-  console.log(map);
+export const mapDTOToPosts = (dto) => {
+  return dto.map((post) => mapDTOToPost(post));
 };
 
 export const mapperQuotesModelToDTO = (model) => {

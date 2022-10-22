@@ -21,11 +21,9 @@ export const getPosts = (req, res) => {
         .status(HttpStatus.OK.code)
         .send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No posts found`));
     } else {
-      res.status(HttpStatus.OK.code).send(
-        new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Posts retrieved`, {
-          posts: results
-        })
-      );
+      res
+        .status(HttpStatus.OK.code)
+        .send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Posts retrieved`, results));
     }
   });
 };
@@ -49,11 +47,9 @@ export const getPost = (req, res) => {
         .send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No post found`));
     } else {
       console.log(results);
-      res.status(HttpStatus.OK.code).send(
-        new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Post retrieved`, {
-          post: results[0]
-        })
-      );
+      res
+        .status(HttpStatus.OK.code)
+        .send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Post retrieved`, results[0]));
     }
   });
 };
@@ -86,11 +82,11 @@ export const createPost = (req, res) => {
         id: results.insertId,
         ...req.body
       };
-      res.status(HttpStatus.CREATED.code).send(
-        new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Post created`, {
-          post: post
-        })
-      );
+      res
+        .status(HttpStatus.CREATED.code)
+        .send(
+          new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Post created`, post)
+        );
     }
   });
 };
@@ -113,12 +109,13 @@ export const updatePost = (req, res) => {
         [...Object.values(req.body), req.params.id],
         (error, results) => {
           if (!error) {
-            res.status(HttpStatus.OK.code).send(
-              new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Post updated`, {
-                id: req.params.id,
-                ...req.body
-              })
-            );
+            const post = {
+              id: req.params.id,
+              ...req.body
+            };
+            res
+              .status(HttpStatus.OK.code)
+              .send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Post updated`, post));
           } else {
             console.log(error);
             res

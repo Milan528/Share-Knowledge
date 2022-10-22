@@ -11,6 +11,12 @@ const homeSlice = createSlice({
         loading: action.payload,
       };
     },
+    setError: (state, action) => {
+      return {
+        ...state,
+        error: action.payload,
+      };
+    },
     setPosts: (state, action) => {
       return {
         ...state,
@@ -19,5 +25,5 @@ const homeSlice = createSlice({
     },
   },
 });
-export const { loading, setPosts } = homeSlice.actions;
+export const { loading, setError, setPosts } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

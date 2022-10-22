@@ -1,9 +1,14 @@
 import { getAllPostsRepository } from "../infrastructure/repository/posts";
-import { loading, setPosts } from "../redux/slices";
+import { loading, setPosts, setError } from "../redux/slices";
 
 export const loadPage = () => async (dispatch, getState) => {
-  dispatch(loading(true));
-  const { postsMap } = await getAllPostsRepository();
-  // dispatch(setPosts(postsMap));
-  dispatch(loading(false));
+  try {
+    dispatch(loading(true));
+    const posts = await getAllPostsRepository();
+    dispatch(setPosts(posts));
+  } catch (err) {
+    dispatch(setError(JSON.stringify(err, Object.getOwnPropertyNames(err))));
+  } finally {
+    dispatch(loading(false));
+  }
 };
