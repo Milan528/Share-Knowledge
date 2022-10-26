@@ -7,7 +7,7 @@ const tokenValidation = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) {
+  if (token == 'undefined') {
     next();
     return;
     // return res.sendStatus(401);

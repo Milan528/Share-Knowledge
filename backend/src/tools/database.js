@@ -16,6 +16,8 @@ const database = {
   query: (...args) => {
     return new Promise((resolve, reject) => {
       pool.query(...args, (error, results) => {
+        if (error) console.log(error);
+
         resolve({ results, error });
       });
     });
