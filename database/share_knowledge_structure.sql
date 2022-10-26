@@ -1,14 +1,13 @@
 -- CREATE DATABASE share_knowledge;
 -- USE share_knowledge;
 
-CREATE DATABASE share_knowledge;
-USE share_knowledge;
+CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `share_knowledge`;
 
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS email_tag;
 DROP TABLE IF EXISTS file;
 DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS email;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS tags;
 
