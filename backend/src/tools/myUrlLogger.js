@@ -2,7 +2,7 @@ var num = 0;
 
 const myUrlLogger = (req, res, next) => {
   var method = req.method;
-  var url = req.originalurl;
+  var url = req.url;
 
   console.log(++num + '. ' + method + ' ' + url);
   next();

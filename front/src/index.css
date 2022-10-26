@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Poppins';
-  font-size: 22px;
+  
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -10,19 +10,31 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html{
+  min-width: fit-content;
+  box-sizing: border-box;
+}
+
+*, *::after, *::before{
+  box-sizing: inherit;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
+
+
 #root{
-min-height: 100vh;
+  min-height: 100vh;
+ 
   /* padding: 0;
-  margin: 0;
+
   flex-grow: 1; */
   display: flex;
   flex-direction: column;
   /* background-color: white;
   background-attachment: fixed; */
   background-color: white;
+  margin: 0;
 }

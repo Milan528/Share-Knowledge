@@ -1,21 +1,33 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import logo from "../../assets/Logo.jpg"
-import { StyledLogo } from "./styles"; 
+import { StyledLogo, StyledNav, StyledHeader } from "./styles"; 
+import { useNavigate } from "react-router";
+import {homeRoute, loginRoute, registerRoute} from "../../router/routes"
 
 export const Navbar = () => {
-  const app = useSelector((state) => state.app);
+  const navigate = useNavigate();
 
   return (
-    <header>
-      <nav>
-        <StyledLogo>
-          <img src={logo} />
-          <p>ShareKnowledge</p>
-      </StyledLogo>
-      
-     </nav>
-    </header>
+    <StyledHeader>
+      <StyledNav>
+        <StyledLogo onClick={() => navigate(homeRoute)}>
+            <img src={logo} alt="logo"/>
+            <span>ShareKnowledge</span>
+        </StyledLogo>
+        <ul>
+          <li>
+          <div onClick={() => navigate(registerRoute)}>
+            Registracija
+          </div>
+          </li>
+          <li>
+          <div onClick={() => navigate(loginRoute)}>
+            Prijava
+          </div>
+          </li>
+        </ul>
+     </StyledNav>
+    </StyledHeader>
     
   );
 };
