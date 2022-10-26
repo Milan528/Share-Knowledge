@@ -1,16 +1,26 @@
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 const tokenValidation = (req, res, next) => {
-    const authHeader = req.headers['authorization']
-    // console.log("recived token: " + authHeader)
-    const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus(401)
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403)
-      req.user = user
-      next()
-    })
-}
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-module.exports = tokenValidation;
+  if (token == null) {
+    next();
+    return;
+    // return res.sendStatus(401);
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+
+    req.user = user;
+    next();
+  });
+};
+
+export default tokenValidation;
