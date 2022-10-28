@@ -7,7 +7,7 @@ import ErrorDialog from "../../components/errorDialog/index"
 import Loader from "../../components/loader"
 import { setError } from "./redux/slices";
 import Navbar from "../../components/navbar";
-
+import Content from "./components/Content";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export default function Home() {
       <ErrorDialog error={error} handleError={setError} /> : 
       (<>
          <Navbar/>
-          {loading? <Loader/> : "content"}
+          {loading? <Loader/> : <Content/>}
           <p>footer</p>
           </>
       )}
