@@ -13,6 +13,7 @@ export const StyledButton = styled.button`
   background-color: ${({ backgroudColor }) =>
     backgroudColor ? backgroudColor : "green"};
   color: ${({ textColor }) => (textColor ? textColor : "white")};
+  margin-left: ${({ marginLeft }) => (marginLeft ? marginLeft : "0px")};
   border-radius: 10px;
   padding: 0.5rem 1rem 0.5rem 1rem;
   border: 2px solid transparent;
@@ -20,9 +21,14 @@ export const StyledButton = styled.button`
 
 export const FlexContainer = styled.div`
   display: flex;
+  margin-top: 8px;
 `;
 
 export const ColumnFlexContainer = styled(FlexContainer)`
   flex-direction: column;
   align-items: center;
+`;
+
+export const Spacer = styled.div`
+  border-top: 1px solid #3f3r45;
 `;

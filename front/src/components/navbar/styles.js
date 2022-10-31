@@ -34,5 +34,6 @@ export const StyledNav = styled.nav`
     list-style: none;
     display: flex;
     column-gap: 1rem;
+    align-items: center;
   }
 `;

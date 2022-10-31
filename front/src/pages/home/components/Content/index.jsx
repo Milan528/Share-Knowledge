@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux'
 import Fliters from './components/filters';
-import { ColumnFlexContainer } from '../../../../components/styles.js';
+import { ContentContainer } from './styles';
 
 
 
@@ -11,12 +11,13 @@ const Content = () => {
     const posts = useSelector((state)=>state.home.posts);
     console.log("Content rendered")
   return (
-    <ColumnFlexContainer>
+    <ContentContainer>
      <Fliters/>
      {posts.map((post,index)=>(
         <div key={index}>{console.log(post)}</div>
      ))}
-    </ColumnFlexContainer>
+    
+    </ContentContainer>
   )
 }
 
