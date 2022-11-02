@@ -1,7 +1,7 @@
 import React from "react";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { withRouter } from "react-router-dom";
 import { rolesRoute } from "../../../../router/routes";
 

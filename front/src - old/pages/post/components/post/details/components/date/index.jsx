@@ -1,7 +1,7 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import classStyles from "./styles";
-import Today from "@material-ui/icons/Today";
+import Today from "@mui/icons-material/Today";
 import { withRouter } from "react-router-dom";
 
 const Post = (props) => {

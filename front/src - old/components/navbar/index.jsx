@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Toolbar } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
+import AppBar from "@mui/material/AppBar";
 import classStyles from "./styles";
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 import Home from "./components/home";
 import Spacer from "../spacer";
 import Login from "./components/login";

@@ -3,7 +3,7 @@ import classStyles from "./styles";
 import Slider from "../components/slider";
 import Year from "../components/year";
 import Department from "../components/department";
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 import { useSelector, useDispatch } from "react-redux";
 
 const LeftBar = () => {

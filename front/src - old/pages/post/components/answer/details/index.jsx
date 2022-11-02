@@ -1,11 +1,11 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import classStyles from "./styles";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import Today from "@material-ui/icons/Today";
-import Button from "@material-ui/core/Button";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import Today from "@mui/icons-material/Today";
+import Button from "@mui/material/Button";
 import { withRouter } from "react-router-dom";
-import Announcement from "@material-ui/icons/Announcement";
+import Announcement from "@mui/icons-material/Announcement";
 import Spacer from "../../../../../components/spacer";
 
 const Post = (props) => {

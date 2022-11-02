@@ -1,14 +1,14 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { withRouter } from "react-router-dom";
 import Account from "../../../../../assets/Account.jpg";
-import Avatar from "@material-ui/core/Avatar";
-import Link from "@material-ui/core/Link";
+import Avatar from "@mui/material/Avatar";
+import Link from "@mui/material/Link";
 import Spacer from "../../../../../components/spacer";
-import HelpIcon from "@material-ui/icons/Help";
-import Book from "@material-ui/icons/MenuBook";
+import HelpIcon from "@mui/icons-material/Help";
+import Book from "@mui/icons-material/MenuBook";
 
 const Post = (props) => {
   const classes = classStyles();

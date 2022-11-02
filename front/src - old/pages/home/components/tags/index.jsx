@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import classStyles from "./styles";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { setChosenTags } from "../../redux/slices";
 import { useSelector, useDispatch } from "react-redux";
-import Chip from "@material-ui/core/Chip";
+import Chip from "@mui/material/Chip";
 
 const ChipsArray = () => {
   const classes = classStyles();

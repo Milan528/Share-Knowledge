@@ -2,7 +2,7 @@ import React from 'react';
 import ListHeading from "../components/listHeading";
 import ListItem from "../components/listItem";
 // import { HOME_ADD_DEPARTMENTS, HOME_REMOVE_DEPARTMENTS } from '../../../../store/actions';
-import LocalLibrary from '@material-ui/icons/LocalLibrary';
+import LocalLibrary from '@mui/icons-material/LocalLibrary';
 import {useSelector, useDispatch} from "react-redux"
 
 export const optionsView = [

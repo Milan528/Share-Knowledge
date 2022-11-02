@@ -1,6 +1,6 @@
 import React from "react";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import GoogleIcon from "../../../../assets/Google.png";
 
 const Register = () => {

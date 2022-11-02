@@ -1,6 +1,6 @@
 import React, { createRef, useState, Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
+import Button from "@mui/material/Button";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 import classStyles from "./styles";
 import FileViewer from "../fileViewer";
 import { useDispatch } from "react-redux";

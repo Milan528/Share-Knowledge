@@ -2,9 +2,9 @@ import React from "react";
 import classStyles from "./styles";
 import Post from "./post";
 import { useSelector } from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Fade from "@material-ui/core/Fade";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Fade from "@mui/material/Fade";
 
 const Posts = () => {
   const classes = classStyles();

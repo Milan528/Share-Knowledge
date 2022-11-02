@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import classStyles from "./styles";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import { Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Dialog from "../../../../components/dialog";
 import { useDispatch } from "react-redux";
 import { addTag } from "../../reduxThunk/actions";

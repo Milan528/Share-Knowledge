@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../assets/Logo.jpg"
 import { StyledLogo, StyledNav, StyledHeader } from "./styles"; 
 import { useNavigate } from "react-router";
-import {homeRoute, loginRoute, registerRoute} from "../../router/routes"
+import {homeRoute, loginRoute, registerRoute} from "../../app/router/routes"
 
 export const Navbar = () => {
   const navigate = useNavigate();

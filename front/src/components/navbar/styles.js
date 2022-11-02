@@ -1,8 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
-  background-color: gray;
+  background-color: #18d4de;
   color: white;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
 `;
 
 export const StyledLogo = styled.div`

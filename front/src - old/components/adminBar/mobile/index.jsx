@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import Drawer from "@material-ui/core/Drawer";
+import Drawer from "@mui/material/Drawer";
 import { HOME_HIDE_LEFT_BAR } from "../../../store/actions";
 import classStyles from "./styles";
 import Year from "../components/year";
 import Department from "../components/department";
 import Logo from "../../../../../components/navbar/components/blog/index";
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function TemporaryDrawer() {

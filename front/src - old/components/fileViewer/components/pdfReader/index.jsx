@@ -1,8 +1,8 @@
 import React, { createRef, useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import classStyles from "./styles";
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

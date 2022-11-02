@@ -1,9 +1,9 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
+import Paper from "@mui/material/Paper";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../reduxThunk/actions";
 import { setSearch } from "../../redux/slices";

@@ -1,6 +1,6 @@
 import React from "react";
 import classStyles from "./styles";
-import Chip from "@material-ui/core/Chip";
+import Chip from "@mui/material/Chip";
 
 const Tags = (props) => {
   const classes = classStyles();

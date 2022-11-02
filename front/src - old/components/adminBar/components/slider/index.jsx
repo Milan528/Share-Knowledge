@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
-import DoubleArrow from "@material-ui/icons/DoubleArrow";
+import DoubleArrow from "@mui/icons-material/DoubleArrow";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 // import { HOME_HIDE_LEFT_BAR } from "../../../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { withRouter } from "react-router-dom";
-import EditIcon from "@material-ui/icons/Edit";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Post = (props) => {
   const classes = classStyles();

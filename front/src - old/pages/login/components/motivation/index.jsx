@@ -1,6 +1,6 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import Typography from "@mui/material/Typography";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import classStyles from "./styles";
 
 const Login = () => {

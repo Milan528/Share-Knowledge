@@ -1,14 +1,14 @@
 import React, { useContext, useState, Fragment } from "react";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
-import SearchIcon from "@material-ui/icons/Search";
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import SearchIcon from "@mui/icons-material/Search";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import classStyles from "./styles";
-import Checkbox from "@material-ui/core/Checkbox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import Button from "@material-ui/core/Button";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import Button from "@mui/material/Button";
 import { Context } from "../../../../store";
 import { SET_POSTS } from "../../../../store/actions";
 

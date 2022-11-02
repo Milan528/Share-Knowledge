@@ -1,6 +1,6 @@
 import React from "react";
 import classStyles from "./styles";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 
 const Post = () => {
   const classes = classStyles();

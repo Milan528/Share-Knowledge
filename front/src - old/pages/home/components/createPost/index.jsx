@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import classStyles from "./styles";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 import { withRouter } from "react-router-dom";
 import { createPostRoute } from "../../../../router/routes";
 import Dialog from "../../../../components/dialog";

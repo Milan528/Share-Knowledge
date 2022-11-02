@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
 import Dialog from "../../../../components/dialog";
 import { homeRoute } from "../../../../router/routes";
 import { withRouter } from "react-router-dom";

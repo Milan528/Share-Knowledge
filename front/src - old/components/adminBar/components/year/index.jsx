@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ListHeading from "../components/listHeading";
 import ListItem from "../components/listItem";
 // import { HOME_ADD_YEARS, HOME_REMOVE_YEARS } from '../../../../store/actions';
-import School from '@material-ui/icons/School';
+import School from '@mui/icons-material/School';
 import {useSelector, useDispatch} from "react-redux"
 
 export const optionsView = [

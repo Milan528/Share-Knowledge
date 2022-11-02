@@ -1,12 +1,12 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import classStyles from "./styles";
 import Title from "./title";
 import Text from "./text";
 import Tags from "./tags";
 import Documents from "./documents";
 import Images from "./images";
-import Divider from "@material-ui/core/Divider";
+import Divider from "@mui/material/Divider";
 import Details from "./details";
 import User from "./user";
 

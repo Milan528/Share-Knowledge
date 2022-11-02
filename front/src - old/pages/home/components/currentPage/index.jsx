@@ -3,10 +3,10 @@ import classStyles from './styles';
 import { withRouter } from 'react-router-dom';
 import {useSelector } from "react-redux"
 import Pagination from '@material-ui/lab/Pagination';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select'
-import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select'
+import FormHelperText from '@mui/material/FormHelperText';
 import {getPosts} from "../../reduxThunk/actions"
 import {setCurrentPageNumber, setPostsNumber} from "../../redux/slices"
 import { useDispatch } from "react-redux"

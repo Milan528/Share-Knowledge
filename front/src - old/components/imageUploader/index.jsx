@@ -1,6 +1,6 @@
 import React, { createRef, useState, Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import InsertPhoto from "@material-ui/icons/InsertPhoto";
+import Button from "@mui/material/Button";
+import InsertPhoto from "@mui/icons-material/InsertPhoto";
 import classStyles from "./styles";
 import Images from "./components/images";
 import { useDispatch } from "react-redux";

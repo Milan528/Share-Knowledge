@@ -1,6 +1,6 @@
 import React from "react";
 import classStyles from "./styles";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import OutlookIcon from "../../../../assets/Outlook.png";
 
 const Register = () => {

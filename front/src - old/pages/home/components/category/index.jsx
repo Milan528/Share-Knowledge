@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Divider from "@material-ui/core/Divider";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Divider from "@mui/material/Divider";
 import classStyles from "./styles";
-import ThumbDown from "@material-ui/icons/ThumbDown";
-import ThumbUp from "@material-ui/icons/ThumbUp";
-import HelpIcon from "@material-ui/icons/Help";
-import Time from "@material-ui/icons/AccessTime";
-import Book from "@material-ui/icons/MenuBook";
+import ThumbDown from "@mui/icons-material/ThumbDown";
+import ThumbUp from "@mui/icons-material/ThumbUp";
+import HelpIcon from "@mui/icons-material/Help";
+import Time from "@mui/icons-material/AccessTime";
+import Book from "@mui/icons-material/MenuBook";
 
 export default function ScrollableTabsButtonAuto() {
   const [value, setValue] = React.useState(0);

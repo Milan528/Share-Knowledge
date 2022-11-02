@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import classStyles, { styles } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Dialog from "../../../../components/dialog";
 import { getTags, deleteTag } from "../../reduxThunk/actions";
 import { updateTags as updateTagsRedux } from "../../redux/slices";

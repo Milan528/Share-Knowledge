@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import classStyles from "./styles";
 import Spacer from "../../../../../../components/spacer";
-import HelpIcon from "@material-ui/icons/Help";
-import Book from "@material-ui/icons/MenuBook";
+import HelpIcon from "@mui/icons-material/Help";
+import Book from "@mui/icons-material/MenuBook";
 
 const Title = (props) => {
   const classes = classStyles();

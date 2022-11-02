@@ -4,7 +4,7 @@ import classStyles from "./styles";
 import Title from "./components/title";
 import Type from "./components/type";
 import FormTitle from "./components/formTitle";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import FileUploader from "../../components/fileUploaderViewer";
 import Controlls from "./components/controlls";
 import TextArea from "./components/textArea";

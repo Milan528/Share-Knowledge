@@ -1,16 +1,16 @@
-import { makeStyles, Container } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles, Container } from '@material-ui/core';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles(() => ({
   main: {
     zIndex: 999,
-    width: "50vw",
-    height: "50vh",
-    margin: "auto",
-    overflow: "show",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '50vw',
+    height: '50vh',
+    margin: 'auto',
+    overflow: 'show',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 

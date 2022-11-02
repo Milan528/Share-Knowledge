@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { withRouter } from "react-router-dom";
 import { homeRoute } from "../../router/routes";
 import classStyles, { styles } from "./styles";
