@@ -1,57 +1,57 @@
 import React, { useState } from 'react'
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { TagsContainer, StyledChip } from './styles';
+import { TagsContainer } from './styles';
+import Checkbox from '@mui/material/Checkbox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { setSelectedTags } from '../../../../redux/slices';
+import { useDispatch, useSelector } from 'react-redux';
 
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 
 
 const Tags = () => {
-    const [tags, setTags] = useState([])
+    const dispatch = useDispatch();
+    const home = useSelector((state) => state.home);
+    const {selectedTags } = home;
+    // const [selectedTags, setSelectedTags] = useState([])
+    const handleOnChange = (event, value) => {
+        if(value)
+            dispatch(setSelectedTags(value));
+     }
+   
+  
 
-    const handleOnChange = (ev, value) => {
-        if(value && !tags.includes(value.label))
-            setTags(prev => [...prev, value.label])
-    }
-    const handleDelete = (value) => {
-        setTags(prev => prev.filter(item => item !== value))
-      };
   return (
     <TagsContainer>
-        <Autocomplete
-        onChange={handleOnChange}
-        id="country-select-demo"
-        sx={{ minWidth: 200 }}
-        options={countries}
-        autoHighlight
-        getOptionLabel={(option) => option.label}
-        renderOption={(props, option) => (
-            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-            <img
-                loading="lazy"
-                width="20"
-                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                alt=""
-            />
-            {option.label} ({option.code}) +{option.phone}
-            </Box>
-        )}
-        renderInput={(params) => (
-            <TextField
-            {...params}
-            label="Choose a country"
-            inputProps={{
-                ...params.inputProps,
-                autoComplete: 'new-password', // disable autocomplete and autofill
-            }}
-            />
-        )}
-        />
-            {tags.map((tag, index) => <StyledChip label={tag} key={index}  onDelete={() => handleDelete(tag)}/>)}
-    
+    <Autocomplete
+      multiple
+      onChange={handleOnChange}
+      id="checkboxes-tags"
+      options={countries}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option.label}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option.label}
+        </li>
+      )}
+      style={{ width: "80%" }}
+      renderInput={(params) => (
+        <TextField {...params} label="Selected Tags" placeholder="Tags" />
+      )}
+    />
     </TagsContainer>
   )
 }

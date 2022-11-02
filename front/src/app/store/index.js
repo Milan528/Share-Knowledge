@@ -1,11 +1,20 @@
 import rootReducer from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 
+function handleChange() {
+  console.log(store.getState());
+}
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
 });
+
+export const unsubscribe = store.subscribe(handleChange);
+window.onbeforeunload = () => {
+  unsubscribe();
+};
 
 export default store;
 

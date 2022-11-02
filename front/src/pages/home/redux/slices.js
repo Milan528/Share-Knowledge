@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import state from "./state";
+import { createSlice } from '@reduxjs/toolkit';
+import state from './state';
 
 const homeSlice = createSlice({
-  name: "home",
+  name: 'home',
   initialState: state,
   reducers: {
     loading: (state, action) => {
@@ -23,7 +23,14 @@ const homeSlice = createSlice({
         posts: action.payload,
       };
     },
+    setSelectedTags: (state, action) => {
+      return {
+        ...state,
+        selectedTags: action.payload,
+      };
+    },
   },
 });
-export const { loading, setError, setPosts } = homeSlice.actions;
+export const { loading, setError, setPosts, setSelectedTags } =
+  homeSlice.actions;
 export const homeReducer = homeSlice.reducer;
