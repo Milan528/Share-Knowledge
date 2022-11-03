@@ -2,7 +2,12 @@ import rootReducer from './rootReducer';
 import { configureStore } from '@reduxjs/toolkit';
 
 function handleChange() {
-  console.log(store.getState());
+  const state = store.getState();
+  const keys = Object.keys(state);
+
+  keys.forEach((key) => {
+    localStorage.setItem(key, JSON.stringify(state[key]));
+  });
 }
 
 const store = configureStore({

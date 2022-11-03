@@ -29,8 +29,14 @@ const homeSlice = createSlice({
         selectedTags: action.payload,
       };
     },
+    setAllTags: (state, action) => {
+      return {
+        ...state,
+        allTags: action.payload,
+      };
+    },
   },
 });
-export const { loading, setError, setPosts, setSelectedTags } =
+export const { loading, setError, setPosts, setSelectedTags, setAllTags } =
   homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

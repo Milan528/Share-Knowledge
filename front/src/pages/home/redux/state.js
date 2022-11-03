@@ -3,6 +3,7 @@ const initialState = {
   error: null,
   posts: [],
   selectedTags: [],
+  allTags: [],
 };
 
 const getState = () => {

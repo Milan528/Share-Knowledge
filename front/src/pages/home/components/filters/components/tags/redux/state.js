@@ -1,12 +1,19 @@
 export const initialState = {
-  loadingTags: false,
+  loading: false,
+  error: null,
+  selectedTags: [],
+  allTags: [],
 };
 
 const getState = () => {
-  if (localStorage.getItem('tags') === null)
-    localStorage.setItem('tags', JSON.stringify(initialState));
+  // if (localStorage.getItem('tags') === null)
+  //   localStorage.setItem('tags', JSON.stringify(initialState));
 
-  return JSON.parse(localStorage.getItem('tags'));
+  // console.log(JSON.parse(localStorage.getItem('tags')));
+
+  // return JSON.parse(localStorage.getItem('tags'));
+
+  return initialState;
 };
 
 export default getState();

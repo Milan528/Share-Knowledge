@@ -1,32 +1,13 @@
 export const mapDTOToPost = (dto) => {
   return {
     ...dto,
-    type: dto.type === "q" ? "question" : "answer",
+    type: dto.type === 'q' ? 'question' : 'answer',
   };
 };
 
 export const mapperQuoteModelToDTO = (model) => {
-  const {
-    id,
-    content,
-    author,
-    tags,
-    userId,
-    upvotesCount,
-    downvotesCount,
-    createdAt,
-    givenVote,
-  } = model;
   return {
-    id,
-    content,
-    author,
-    tags,
-    userId,
-    upvotesCount,
-    downvotesCount,
-    createdAt,
-    givenVote,
+    ...model,
   };
 };
 
