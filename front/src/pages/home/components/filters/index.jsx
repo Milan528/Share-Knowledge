@@ -10,7 +10,7 @@ const Fliters = () => {
        <SearchBar/>
       </FiltersSearchBar>
       <Tags/>
-  </FiltersContainer>
+    </FiltersContainer>
   )
 }
 
