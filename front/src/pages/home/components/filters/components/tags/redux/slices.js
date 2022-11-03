@@ -5,33 +5,23 @@ const tagsSlice = createSlice({
   name: 'tags',
   initialState: state,
   reducers: {
-    loading: (state, action) => {
-      return {
-        ...state,
-        loading: action.payload,
-      };
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     setError: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
-      };
+      state.error = action.payload;
     },
     setSelectedTags: (state, action) => {
-      return {
-        ...state,
-        selectedTags: action.payload,
-      };
+      state.selectedTags = action.payload;
     },
     setAllTags: (state, action) => {
-      return {
-        ...state,
-        allTags: action.payload,
-      };
+      state.allTags = action.payload;
     },
   },
 });
 
-export const { loading, setError, setSelectedTags, setAllTags } =
+export const { setLoading, setError, setSelectedTags, setAllTags } =
   tagsSlice.actions;
 export const tagsReducer = tagsSlice.reducer;
+
+export default tagsReducer;

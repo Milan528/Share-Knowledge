@@ -9,7 +9,8 @@ import Title from "./title";
 
 const Post = (props) => {
   const { data } = props;
-  const { title, type, text, images, documents, tags, likes, id, date } = data;
+  // const { title, type, text, images, documents, tags, likes, id, date } = data;
+  const { title, type } = data;
 
   return (
     <StyledPaper elevation={1}  >

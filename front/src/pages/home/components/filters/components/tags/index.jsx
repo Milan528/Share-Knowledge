@@ -5,7 +5,7 @@ import { TagsContainer } from './styles';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { setSelectedTags } from '../../../../redux/slices';
+import { setSelectedTags } from './redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTags } from "../../../../reduxThunk/actions";
 
@@ -15,8 +15,8 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const Tags = () => {
     const dispatch = useDispatch();
-    const home = useSelector((state) => state.home);
-    const { selectedTags, allTags} = home;
+    const state = useSelector((state) => state.home.tags);
+    const { selectedTags, allTags} = state;
   
     const handleOnChange = (event, value) => {
         if(value)

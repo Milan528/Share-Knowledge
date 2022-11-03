@@ -8,7 +8,6 @@ const SearchBar = () => {
     <SearchBarContainer>
       <SearchContent>
       <StyledInput placeholder='Pretrazi'></StyledInput>
-        
         <StyledButton>
             <SearchIcon/>
         </StyledButton>

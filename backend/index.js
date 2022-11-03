@@ -22,3 +22,4 @@ router.listen(process.env.SERVER_PORT, () => {
 
 router.use('/posts', routes.postsRoutes);
 router.use('/file', routes.fileRoutes);
+router.use('/tags', routes.tagsRoutes);

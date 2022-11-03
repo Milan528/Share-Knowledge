@@ -1,42 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit';
-import state from './state';
+import tagsReducer, {
+  setLoading as setLoadingTags,
+  setError as setErrorTags,
+  setSelectedTags,
+  setAllTags,
+} from '../components/filters/components/tags/redux/slices';
+import tags from '../components/filters/components/tags/redux/state';
+
+import postsReducer, {
+  setLoading as setLoadingPosts,
+  setError as setErrorPosts,
+  setPosts,
+} from '../components/posts/redux/slices';
+import posts from '../components/posts/redux/state';
 
 const homeSlice = createSlice({
   name: 'home',
-  initialState: state,
-  reducers: {
-    loading: (state, action) => {
-      return {
-        ...state,
-        loading: action.payload,
-      };
+  initialState: {
+    tags,
+    posts,
+  },
+  extraReducers: {
+    [setSelectedTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setError: (state, action) => {
-      return {
-        ...state,
-        error: action.payload,
-      };
+
+    [setAllTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setPosts: (state, action) => {
-      return {
-        ...state,
-        posts: action.payload,
-      };
+
+    [setLoadingTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setSelectedTags: (state, action) => {
-      return {
-        ...state,
-        selectedTags: action.payload,
-      };
+
+    [setErrorTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setAllTags: (state, action) => {
-      return {
-        ...state,
-        allTags: action.payload,
-      };
+
+    [setLoadingPosts]: (state, action) => {
+      state.posts = postsReducer(state.posts, action);
+    },
+
+    [setErrorPosts]: (state, action) => {
+      state.posts = postsReducer(state.posts, action);
+    },
+
+    [setPosts]: (state, action) => {
+      state.posts = postsReducer(state.posts, action);
     },
   },
 });
-export const { loading, setError, setPosts, setSelectedTags, setAllTags } =
-  homeSlice.actions;
+
+// export const {} = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

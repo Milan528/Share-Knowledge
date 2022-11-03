@@ -1,16 +1,23 @@
 import { getAllPostsRepository } from '../infrastructure/repository/posts';
 import { getAllTagsRepository } from '../infrastructure/repository/tags';
-import { loading, setPosts, setError, setAllTags } from '../redux/slices';
+import { setAllTags } from '../components/filters/components/tags/redux/slices';
+import {
+  setPosts,
+  setLoading as loadingPosts,
+  setError as setErrorPosts,
+} from '../components/posts/redux/slices';
 
-export const loadPage = () => async (dispatch, getState) => {
+export const loadPosts = () => async (dispatch, getState) => {
   try {
-    dispatch(loading(true));
+    dispatch(loadingPosts(true));
     const posts = await getAllPostsRepository();
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(setError(JSON.stringify(err, Object.getOwnPropertyNames(err))));
+    dispatch(
+      setErrorPosts(JSON.stringify(err, Object.getOwnPropertyNames(err)))
+    );
   } finally {
-    dispatch(loading(false));
+    dispatch(loadingPosts(false));
   }
 };
 
