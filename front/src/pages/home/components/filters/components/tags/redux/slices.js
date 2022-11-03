@@ -22,6 +22,5 @@ const tagsSlice = createSlice({
 
 export const { setLoading, setError, setSelectedTags, setAllTags } =
   tagsSlice.actions;
+export const actions = tagsSlice.actions;
 export const tagsReducer = tagsSlice.reducer;
-
-export default tagsReducer;
