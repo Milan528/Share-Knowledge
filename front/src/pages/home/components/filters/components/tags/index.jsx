@@ -50,7 +50,7 @@ const Tags = () => {
             </li>
           );
         }}
-        style={{ width: '80%' }}
+        style={{ width: '100%' }}
         renderInput={(params) => (
           <TextField {...params} label="Selected Tags" placeholder="Tags" />
         )}

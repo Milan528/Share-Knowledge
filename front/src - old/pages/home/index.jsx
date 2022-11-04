@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import CreatePost from "./components/createPost";
 import Search from "./components/search";
 import Category from "./components/category";
-import CurrentPage from "./components/currentPage";  
+import CurrentPage from "../../../src/pages/home/components/pagination";  
 import Posts from "./components/posts";  
 import Tags from "./components/tags";
 import classStyles from './styles';

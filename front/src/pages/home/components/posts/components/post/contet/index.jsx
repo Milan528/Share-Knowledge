@@ -10,15 +10,14 @@ const Content = (props) => {
      { 
       images.length >= 0 ?
             images.map((image, index) => (
-            <StyledImg 
-            src={image} 
-            alt="Smiley face" 
-            height="70" 
-            width="70" 
-            key={index}
-            />
-          
-          ))
+              <StyledImg 
+              src={image} 
+              alt="Smiley face" 
+              height="70" 
+              width="70" 
+              key={index}
+              />
+            ))
           :
           null
     }

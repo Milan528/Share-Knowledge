@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  border-top: solid 1px gray;
+  margin-top: 6px;
+`;
+
 export const SearchBarContainer = styled.div`
   border: solid 2px black;
   border-radius: 5px;

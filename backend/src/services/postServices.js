@@ -78,3 +78,14 @@ export const deletePost = async (req, res) => {
     ResponseManager.OK(`Post deleted`);
   }
 };
+
+export const getPostsWithTags = async (req, res) => {
+  const { results, error } = await database.query(QUERYS.SELECT_POSTS);
+  if (error) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  } else if (!results) {
+    ResponseManager.OK(res, `No posts found`);
+  } else {
+    ResponseManager.OK(res, `Posts retrieved`, results);
+  }
+};

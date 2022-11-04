@@ -4,7 +4,7 @@ const QUERY = {
   CREATE_POST: 'INSERT INTO post(title, text, type, date, userId) VALUES (?, ?, ?, ?, ?)',
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
-  CREATE_POST_PROCEDURE: get_posts_with_required_tags
+  SELECT_POSTS_WITH_TAGS: get_posts_with_required_tags
 };
 
 function get_posts_with_required_tags(tags) {

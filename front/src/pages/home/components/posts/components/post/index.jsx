@@ -19,7 +19,7 @@ const Post = (props) => {
     //   <Documents documents={documents} />
     //   <Tags tags={tags} />
     //   <Details likes={likes} postId={id} date={date} />
-  // </Paper> */}
+    */}
     </StyledPaper>
   
   );

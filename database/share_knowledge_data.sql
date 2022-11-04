@@ -12,3 +12,8 @@ INSERT INTO `share_knowledge`.`tags` (`tag`) VALUES
 ('D'),
 ('E'),
 ('F');
+
+INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
+(1, 1),
+(1, 2),
+(1, 3);

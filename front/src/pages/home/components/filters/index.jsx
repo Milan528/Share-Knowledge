@@ -1,15 +1,18 @@
 import React from 'react'
-import { FiltersSearchBar, FiltersContainer } from './styles'
+import { AdditionalFiltersContainer, FiltersContainer, StyledDivider } from './styles'
 import SearchBar from "./components/searchbar"
 import Tags from "./components/tags"
+import Category from "./components/category"
 
 const Fliters = () => {
   return (
     <FiltersContainer>
-      <FiltersSearchBar>
-       <SearchBar/>
-      </FiltersSearchBar>
-      <Tags/>
+      <SearchBar/>
+      <AdditionalFiltersContainer>
+        <Tags/>
+        <Category/>
+      </AdditionalFiltersContainer>
+      <StyledDivider/>
     </FiltersContainer>
   )
 }

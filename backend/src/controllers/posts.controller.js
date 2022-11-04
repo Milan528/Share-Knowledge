@@ -20,3 +20,7 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   return postServices.deletePost(req, res);
 };
+
+export const getPostsWithTags = async (req, res) => {
+  return postServices.getPostsWithTags(req, res);
+};

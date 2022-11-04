@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledButton, buttonSize } from '../../../../components/styles'
+import { StyledButton, buttonSize } from './styles'
 import { CreatePostContainer } from './styles'
 
 const CreatePost = () => {
