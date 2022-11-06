@@ -14,7 +14,7 @@ router.use(cors());
 router.use('/files', express.static('./files'));
 router.use(bodyParser.json());
 router.use(myUrlLogger);
-router.use(tokenValidation);
+// router.use(tokenValidation);
 
 router.listen(process.env.SERVER_PORT, () => {
   console.log(`Server je pokrenut!`);

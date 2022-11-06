@@ -1,4 +1,6 @@
 import QUERYS from '../sqlQuerys/posts.querys.js';
+import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
+import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 
@@ -79,13 +81,65 @@ export const deletePost = async (req, res) => {
   }
 };
 
-export const getPostsWithTags = async (req, res) => {
-  const { results, error } = await database.query(QUERYS.SELECT_POSTS);
-  if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-  } else if (!results) {
-    ResponseManager.OK(res, `No posts found`);
+export const getSpecificPosts = async (req, res) => {
+  let { search, startIndex, endIndex, tags } = req.body.params;
+  let postIds = [];
+  if (tags.length > 0) {
+    let sql = QUERYS.SELECT_SPECIFIC_POSTS_TAGS(tags);
+    let { results, error } = await database.query(sql);
+    if (error) {
+      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    }
+    if (tags.length > 0 && !results) {
+      return ResponseManager.OK(res, `No data for selected search`);
+    }
+    postIds = results.map((result) => result.postID);
+    selectSpecificPostsIds(postIds, res);
   } else {
-    ResponseManager.OK(res, `Posts retrieved`, results);
+    let { results, error } = await database.query(QUERYS.SELECT_POSTS);
+    if (error) {
+      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    }
+    if (tags.length > 0 && !results) {
+      return ResponseManager.OK(res, `No data for selected search`);
+    }
+    getTagsForPosts(results, res);
+    console.log(results.length);
+  }
+
+  async function selectSpecificPostsIds(postIds, res) {
+    let sql = QUERYS.SELECT_SPECIFIC_POSTS_IDS(postIds);
+    let { results, error } = await database.query(sql);
+    if (error) {
+      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    }
+    if (!results) {
+      return ResponseManager.OK(res, `No data for selected search`);
+    }
+    getTagsForPosts(results, res);
+  }
+
+  async function getTagsForPosts(posts, res) {
+    for (let post of posts) {
+      const { results: postTags, error } = await database.query(
+        TAG_QUERYS.SELECT_TAGS_FOR_POST,
+        post.id
+      );
+
+      post.tags = !postTags ? [] : postTags;
+    }
+    getPostFiles(posts, res);
+  }
+
+  async function getPostFiles(posts, res) {
+    for (let post of posts) {
+      const { results: postFiles, error } = await database.query(
+        FILE_QUERYS.SELECT_FILES_FOR_POST,
+        post.id
+      );
+
+      post.files = !postFiles ? [] : postFiles;
+    }
+    console.log(posts);
   }
 };

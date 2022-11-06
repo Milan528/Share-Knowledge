@@ -21,6 +21,6 @@ export const deletePost = async (req, res) => {
   return postServices.deletePost(req, res);
 };
 
-export const getPostsWithTags = async (req, res) => {
-  return postServices.getPostsWithTags(req, res);
+export const getSpecificPosts = async (req, res) => {
+  return postServices.getSpecificPosts(req, res);
 };

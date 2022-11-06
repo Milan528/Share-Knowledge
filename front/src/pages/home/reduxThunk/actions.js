@@ -1,4 +1,7 @@
-import { getAllPostsRepository } from '../infrastructure/repository/posts';
+import {
+  getAllPostsRepository,
+  getAllSpecificPostsRepository,
+} from '../infrastructure/repository/posts';
 import { getAllTagsRepository } from '../infrastructure/repository/tags';
 import { setAllTags } from '../components/filters/components/tags/redux/slices';
 import {
@@ -11,6 +14,30 @@ export const loadPosts = () => async (dispatch, getState) => {
   try {
     dispatch(loadingPosts(true));
     const posts = await getAllPostsRepository();
+    dispatch(setPosts(posts));
+  } catch (err) {
+    dispatch(
+      setErrorPosts(JSON.stringify(err, Object.getOwnPropertyNames(err)))
+    );
+  } finally {
+    dispatch(loadingPosts(false));
+  }
+};
+
+export const loadSpecificPosts = () => async (dispatch, getState) => {
+  const {
+    home: {
+      tags: { selectedTags },
+    },
+  } = getState();
+  let tagsId = selectedTags.map((tag) => tag.id);
+
+  let dto = {
+    tags: tagsId,
+  };
+  try {
+    dispatch(loadingPosts(true));
+    const posts = await getAllSpecificPostsRepository(dto);
     dispatch(setPosts(posts));
   } catch (err) {
     dispatch(
