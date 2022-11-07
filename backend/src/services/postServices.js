@@ -5,7 +5,8 @@ import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 
 export const getPosts = async (req, res) => {
-  const { results, error } = await database.query(QUERYS.SELECT_POSTS);
+  const { startIndex = 0, count = 2 } = req.query;
+  const { results, error } = await database.query(QUERYS.SELECT_POSTS, [startIndex, count]);
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {
@@ -82,51 +83,36 @@ export const deletePost = async (req, res) => {
 };
 
 export const getSpecificPosts = async (req, res) => {
-  let { search, startIndex, endIndex, tags } = req.body.params;
-  let postIds = [];
-  if (tags.length > 0) {
-    let sql = QUERYS.SELECT_SPECIFIC_POSTS_TAGS(tags);
-    let { results, error } = await database.query(sql);
-    if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-    }
-    if (tags.length > 0 && !results) {
-      return ResponseManager.OK(res, `No data for selected search`);
-    }
-    postIds = results.map((result) => result.postID);
-    selectSpecificPostsIds(postIds, res);
-  } else {
-    let { results, error } = await database.query(QUERYS.SELECT_POSTS);
-    if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-    }
-    if (tags.length > 0 && !results) {
-      return ResponseManager.OK(res, `No data for selected search`);
-    }
-    getTagsForPosts(results, res);
-    console.log(results.length);
-  }
+  let { search, startIndex, count, tags } = req.body.params;
 
-  async function selectSpecificPostsIds(postIds, res) {
-    let sql = QUERYS.SELECT_SPECIFIC_POSTS_IDS(postIds);
-    let { results, error } = await database.query(sql);
-    if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-    }
-    if (!results) {
-      return ResponseManager.OK(res, `No data for selected search`);
-    }
-    getTagsForPosts(results, res);
+  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, 'a', startIndex, count);
+  let { results, error } = await database.query(sql);
+
+  if (error) {
+    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   }
+  if (!results) {
+    return ResponseManager.OK(res, `No data for selected search`);
+  }
+  getTagsForPosts(results, res);
 
   async function getTagsForPosts(posts, res) {
-    for (let post of posts) {
-      const { results: postTags, error } = await database.query(
-        TAG_QUERYS.SELECT_TAGS_FOR_POST,
-        post.id
-      );
+    for (const post of posts) {
+      const tags = post.tags.split(',');
+      let tagsArray = [];
+      for (const tag of tags) {
+        let { results, error } = await database.query(TAG_QUERYS.SELECT_TAG_BY_ID, tag);
 
-      post.tags = !postTags ? [] : postTags;
+        if (error) {
+          return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+        }
+        if (!results) {
+          return ResponseManager.OK(res, `No data for selected search`);
+        }
+
+        tagsArray.push(results[0]);
+      }
+      post.tags = tagsArray;
     }
     getPostFiles(posts, res);
   }
@@ -137,6 +123,10 @@ export const getSpecificPosts = async (req, res) => {
         FILE_QUERYS.SELECT_FILES_FOR_POST,
         post.id
       );
+
+      if (error) {
+        return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+      }
 
       post.files = !postFiles ? [] : postFiles;
     }

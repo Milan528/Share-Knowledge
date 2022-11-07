@@ -34,6 +34,8 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
 
   let dto = {
     tags: tagsId,
+    startIndex: Number(0),
+    count: 5,
   };
   try {
     dispatch(loadingPosts(true));

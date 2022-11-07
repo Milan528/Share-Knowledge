@@ -1,12 +1,35 @@
 const QUERY = {
-  SELECT_POSTS: 'SELECT * FROM post',
+  SELECT_POSTS: 'SELECT * FROM post limit ?,?',
   SELECT_POST: 'SELECT * FROM post WHERE id = ?',
   CREATE_POST: 'INSERT INTO post(title, text, type, date, userId) VALUES (?, ?, ?, ?, ?)',
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
   SELECT_SPECIFIC_POSTS_TAGS: getSpecificPostsTags,
-  SELECT_SPECIFIC_POSTS_IDS: getSpecificPostsIds
+  SELECT_SPECIFIC_POSTS_IDS: getSpecificPostsIds,
+  SELECT_FILTERED_POSTS: getFilteredPosts
 };
+
+function getFilteredPosts(tags, search, startIndex, count) {
+  let sql = '';
+
+  sql += 'Select id, text, title, type, likes,date, group_concat(tagId) as tags ';
+  sql += 'from (SELECT post.id,text,title,type,likes,date,tagId ';
+  sql += 'FROM post ';
+  sql += 'JOIN post_tag ON post.id=post_tag.postId ';
+  sql += `where  (title LIKE "%${search}%" or text LIKE "%${search}%") `;
+  if (tags.length > 0) {
+    sql += `and tagId in ('${tags[0]}'`;
+    for (let i = 1; i < tags.length; i++) {
+      sql += `,'${tags[i]}'`;
+    }
+    sql += `) `;
+  }
+  sql += `and type='pitanje' `;
+  sql += `limit ${startIndex},${count}) as myTable `;
+  sql += 'group by id;';
+
+  return sql;
+}
 
 function getSpecificPostsTags(tags) {
   let sql;
@@ -18,13 +41,13 @@ function getSpecificPostsTags(tags) {
   return sql;
 }
 
-function getSpecificPostsIds(ids) {
+function getSpecificPostsIds(ids, startIndex, count) {
   let sql;
   sql = `SELECT * FROM post WHERE id in ('${ids[0]}'`;
   for (let i = 1; i < ids.length; i++) {
     sql += `,'${ids[i]}'`;
   }
-  sql += `) `;
+  sql += `)  limit ${startIndex},${count}`;
   return sql;
 }
 export default QUERY;
