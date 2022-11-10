@@ -19,8 +19,7 @@ export const StyledLogo = styled.div`
 export const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
-  max-width: 95%;
-  margin-right: auto;
+  margin-right: 5%;
 
   div {
     display: flex;

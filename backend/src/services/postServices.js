@@ -130,6 +130,7 @@ export const getSpecificPosts = async (req, res) => {
 
       post.files = !postFiles ? [] : postFiles;
     }
-    console.log(posts);
+
+    return ResponseManager.OK(res, `Posts retrieved`, posts);
   }
 };

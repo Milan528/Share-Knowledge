@@ -15,6 +15,7 @@ const SearchBar = () => {
   const handleSerch = () => {
     dispatch(loadSpecificPosts());
   };
+  
   return (
     <Container>
       <SearchBarContainer>

@@ -8,8 +8,9 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   return (
+
     <StyledHeader>
-      <StyledNav>
+       <StyledNav>
         <StyledLogo onClick={() => navigate(homeRoute)}>
             <img src={logo} alt="logo"/>
             <span>ShareKnowledge</span>
@@ -26,8 +27,8 @@ export const Navbar = () => {
           </div>
           </li>
         </ul>
-     </StyledNav>
-    </StyledHeader>
+     </StyledNav> 
+  </StyledHeader>
     
   );
 };

@@ -31,6 +31,7 @@ CREATE TABLE post (
     text varchar(1000) NOT NULL,
     type varchar(100) NOT NULL,
     date varchar(25) NOT NULL,
+    likes int NOT NULL,
     userId int NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES user(id) 

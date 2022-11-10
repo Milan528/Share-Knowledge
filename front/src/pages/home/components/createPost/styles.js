@@ -4,6 +4,7 @@ export const CreatePostContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0px 50px 0px 50px;
 `;
 
 export const buttonSize = {
@@ -24,4 +25,8 @@ export const StyledButton = styled.button`
   padding: 0.5rem 1rem 0.5rem 1rem;
   border: 2px solid transparent;
   cursor: pointer;
+`;
+
+export const StyledH2 = styled.h2`
+  text-align: center;
 `;

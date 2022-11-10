@@ -9,9 +9,6 @@ export const FiltersContainer = styled.div`
 
 export const AdditionalFiltersContainer = styled.div`
   display: flex;
-  @media (max-width: 1200px) {
-    flex-direction: column;
-  }
 `;
 
 export const StyledDivider = styled(Divider)`

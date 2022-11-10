@@ -13,11 +13,11 @@ const Fliters = () => {
   return (
     <FiltersContainer>
       <SearchBar />
-      <AdditionalFiltersContainer>
         <Tags />
-        <Category />
-      </AdditionalFiltersContainer>
-      <Order />
+        <AdditionalFiltersContainer>
+          <Category />
+          <Order />
+        </AdditionalFiltersContainer>
       <StyledDivider />
     </FiltersContainer>
   );

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import Tabs from '@mui/material/Tabs';
 
-export const StyledTabs = styled(Tabs)`
-  & .MuiTabs-flexContainer {
-    display: flex;
-    justify-content: center;
+export const OrdersContainer = styled.div`
+  flex: 1;
+  justify-content: center;
+  display: flex;
+
+  @media (max-width: 650px) : {
+    flex-direction: column;
   }
 `;
