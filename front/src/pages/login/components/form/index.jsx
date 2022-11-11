@@ -1,54 +1,67 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-// import { homeRoute } from "../../../../router/routes";
-// import { login } from "../../reduxThunk/actions";
-import { useDispatch } from "react-redux";
-import {FormContainer, FormHeading, StyledPaper, StyledLink, StyledButton } from "./styles"
+import React, { useEffect, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { login } from '../../reduxThunk/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as routes from '../../../../app/router/routes';
+import {
+  FormContainer,
+  FormHeading,
+  StyledPaper,
+  StyledLink,
+  StyledButton,
+} from './styles';
 
-const Form = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const Form = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.app.token);
+  const navigate = useNavigate();
 
-  const onClick = async () => {
-    // let success = await dispatch(login(username, password));
-    // if (success) props.history.push(homeRoute); //ovo treba da se cita iz redux-a, ne odavde
+  useEffect(() => {
+    if (token !== null) {
+      navigate(routes.homeRoute);
+    }
+  }, [token]);
+
+  const onClick = () => {
+    dispatch(login(email, password));
   };
 
   return (
     <FormContainer>
-      <FormHeading variant="h4">
-        Prijavljivanje
-      </FormHeading>
+      <FormHeading variant="h4">Prijavljivanje</FormHeading>
       <StyledPaper elevation={0}>
         <TextField
-          placeholder="Korisničko ime"
-          autoComplete="username"
+          placeholder="Email"
           fullWidth
-          margin="normal" 
+          type="email"
+          margin="normal"
           variant="outlined"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
-          <TextField
+        <TextField
           placeholder="Šifra"
           type="password"
-          autoComplete="current-password"
-          margin="normal" 
+          margin="normal"
           fullWidth
           variant="outlined"
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <StyledButton  
+        <StyledButton
           fullWidth
           variant="outlined"
           size="large"
           onClick={onClick}
-          >
+        >
           Prijavi me
         </StyledButton>
-        <StyledLink href="#" color="inherit" underline="always">Ne sećаš se lozinke?</StyledLink> 
-      </StyledPaper> 
+        <StyledLink href="#" color="inherit" underline="always">
+          Ne sećаš se lozinke?
+        </StyledLink>
+      </StyledPaper>
     </FormContainer>
   );
 };

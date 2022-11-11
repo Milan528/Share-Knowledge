@@ -30,6 +30,12 @@ const ResponseManager = {
     res
       .status(HttpStatus.NOT_FOUND.code)
       .send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, ...args));
+  },
+
+  BAD_REQUEST: (res, ...args) => {
+    res
+      .status(HttpStatus.BAD_REQUEST.code)
+      .send(new Response(HttpStatus.BAD_REQUEST.code, HttpStatus.BAD_REQUEST.status, ...args));
   }
 };
 

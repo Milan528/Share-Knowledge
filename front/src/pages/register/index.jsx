@@ -1,39 +1,37 @@
 import React from 'react';
-import Navbar from "../../components/navbar";
-import Quote from "./components/quote";
-import Form from "./components/form";
-import Logo from "./components/logo";
+import Navbar from '../../components/navbar';
+import Quote from './components/quote';
+import Form from './components/form';
+import Logo from './components/logo';
 import Footer from '../../components/footer';
-import { useSelector } from "react-redux"
-import { setError } from "./redux/slices";
-import ErrorDialog from "../../components/errorDialog"
-import Loader from "../../components/loader"
+import { useSelector } from 'react-redux';
+import { setError } from './redux/slices';
+import ErrorDialog from '../../components/errorDialog';
+import Loader from '../../components/loader';
 import { ContentContainer, MotivationContainer } from './styles';
-import AdditionalLogin from './components/additionalLogin';
+import AdditionalRegister from './components/additionalRegister';
 
-const Login = () => {
-  const { error, loading } = useSelector(state => state.login);
+const Register = () => {
+  const { error, loading } = useSelector((state) => state.login);
 
   const viewToRender = (
     <>
-      <Navbar/>
-       <ContentContainer>
+      <Navbar />
+      <ContentContainer>
         <MotivationContainer>
-          <Logo/>
-          <Quote/>
+          <Logo />
+          <Quote />
         </MotivationContainer>
-        <Form/>
-        <AdditionalLogin/>
-      </ContentContainer>  
-      <Footer/>   
+        <Form />
+        {/* <AdditionalRegister /> */}
+      </ContentContainer>
+      <Footer />
     </>
-  )
+  );
 
-  if (error) return <ErrorDialog error={error} handleError={setError}/>;
+  if (error) return <ErrorDialog error={error} handleError={setError} />;
   else if (loading) return <Loader />;
   else return viewToRender;
-}
+};
 
-export default Login;
-
-
+export default Register;

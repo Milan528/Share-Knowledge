@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-import state from "./state";
+import { createSlice } from '@reduxjs/toolkit';
+import state from './state';
 
 const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState: state,
   reducers: {
-    loading: (state, action) => {
-      return {
-        ...state,
-        loadingApp: action.payload,
-      };
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    setRole: (state, action) => {
+      state.role = action.payload;
     },
   },
 });
 
-export const { loading } = appSlice.actions;
+export const { setToken, setRole } = appSlice.actions;
 export const appReducer = appSlice.reducer;

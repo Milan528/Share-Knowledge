@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AdditionalLoginContainer = styled.div`
+export const AdditionalRegisterContainer = styled.div`
   display: flex;
   justify-content: center;
 `;

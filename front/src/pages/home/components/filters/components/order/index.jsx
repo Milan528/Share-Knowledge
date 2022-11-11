@@ -22,8 +22,8 @@ const ScrollableTabs = () => {
         TabIndicatorProps={{ style: { backgroundColor: '#0099feba' } }}
         textColor="inherit"
         variant="scrollable"
-        scrollButtons="auto"
-        >
+        scrollButtons={true}
+      >
         <Tab label="Najnovije" icon={<Time />} />
         <Tab label="Ocena" icon={<ThumbUp />} />
         <Tab label="Ocena" icon={<ThumbDown />} />

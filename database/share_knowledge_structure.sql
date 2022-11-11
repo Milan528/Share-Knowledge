@@ -4,7 +4,13 @@
 CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
+DROP TABLE IF EXISTS likedBy;
+DROP TABLE IF EXISTS post_tag;
+DROP TABLE IF EXISTS file;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS user;
+
 CREATE TABLE user (
     id int(15) NOT NULL AUTO_INCREMENT,
     username varchar(25) NOT NULL,
@@ -16,15 +22,6 @@ CREATE TABLE user (
     UNIQUE (email)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS tags;
-CREATE TABLE tags (
-    id int NOT NULL AUTO_INCREMENT,
-    tag varchar(100) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (tag)
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS post;
 CREATE TABLE post (
     id int NOT NULL AUTO_INCREMENT,
     title varchar(100) NOT NULL,
@@ -37,7 +34,13 @@ CREATE TABLE post (
     FOREIGN KEY (userId) REFERENCES user(id) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS likedBy;
+CREATE TABLE tags (
+    id int NOT NULL AUTO_INCREMENT,
+    tag varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (tag)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE likedBy (
 postId int NOT NULL,
 userId int NOT NULL, 
@@ -46,7 +49,6 @@ FOREIGN KEY (userId) REFERENCES user(id),
 FOREIGN KEY (postId) REFERENCES post(id) 
 ) DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS file;
 CREATE TABLE file (
     id int NOT NULL AUTO_INCREMENT,
     path varchar(256) NOT NULL,
@@ -56,7 +58,6 @@ CREATE TABLE file (
     FOREIGN KEY (postId) REFERENCES post(id) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS post_tag;
 CREATE TABLE post_tag (
     postId int NOT NULL,
     tagId int NOT NULL,
@@ -64,3 +65,4 @@ CREATE TABLE post_tag (
     FOREIGN KEY (postId) REFERENCES post(id), 
     FOREIGN KEY (tagId) REFERENCES tags(id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+

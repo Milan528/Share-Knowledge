@@ -1,24 +1,21 @@
-import { setUser } from "../../../redux/app/slices";
-import * as services from "../../../services";
-import * as urls from "./urls";
-import { handleError, loading } from "../redux/slices";
+import { setToken, setRole } from '../../../app/redux/slices';
+import { setError, setLoading } from '../redux/slices';
+import { registerUserRepository } from '../infrastructure/repository/auth';
 
-export const login = (username, password) => async (dispatch, getState) => {
+export const register = (email, password) => async (dispatch, getState) => {
   const DTO = {
-    username: username, 
-    password: password
-  }
+    email,
+    password,
+  };
 
-  try{
-    dispatch(loading(true))
-    const result = await services.post(urls.loginUser, DTO)
-    const {token, role} = result;
-    dispatch(setUser({token, role, loggedIn: true}))
-    return true
+  try {
+    dispatch(setLoading(true));
+    const user = await registerUserRepository(DTO);
+    dispatch(setToken(user.token));
+    dispatch(setRole(user.role));
   } catch (err) {
-    dispatch(handleError(err.message))
+    setError(JSON.stringify(err, Object.getOwnPropertyNames(err)));
+  } finally {
+    dispatch(setLoading(false));
   }
-  finally{
-    dispatch(loading(false))
-  }
-} 
+};

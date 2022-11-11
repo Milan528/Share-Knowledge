@@ -1,5 +1,5 @@
 INSERT INTO `share_knowledge`.`user` (`username`, `email`, `password`, `role`) VALUES
-('admin', 'admin@elfak.rs','$2b$10$8cJJ8ZirZ5mqIP5xH61QjukOxG8Ny3GrHGjnYPOwULazBHAmDO/8m', 'admin'),
+('admin', 'admin@elfak.rs','$2b$10$w1gSmaNYIDSH.xMGYF5OZOXTsIfskuW4BSlVmFR9yepzWDR/jvOIa', 'admin'), --password = 123
 ('aaaa','bbbbb@aaa.com','123','admin');
 
 INSERT INTO `share_knowledge`.`post` (`title`,`text`,`type`,`date`,`likes`,`userId`) VALUES
