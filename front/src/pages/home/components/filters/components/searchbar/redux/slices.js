@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import state from './state';
 
-const tagsSlice = createSlice({
-  name: 'tags',
+const searchBarSlice = createSlice({
+  name: 'searchBar',
   initialState: state,
   reducers: {
     setLoading: (state, action) => {
@@ -11,16 +11,15 @@ const tagsSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
-    setSelectedTags: (state, action) => {
-      state.selectedTags = action.payload;
+    setSuggestions: (state, action) => {
+      state.suggestions = action.payload;
     },
-    setAllTags: (state, action) => {
-      state.allTags = action.payload;
+    setSelectedSuggestion: (state, action) => {
+      state.selectedSuggestion = action.payload;
     },
   },
 });
-
-export const { setLoading, setError, setSelectedTags, setAllTags } =
-  tagsSlice.actions;
-export const actions = tagsSlice.actions;
-export const tagsReducer = tagsSlice.reducer;
+export const { setLoading, setError, setSuggestions, setSelectedSuggestion } =
+  searchBarSlice.actions;
+export const actions = searchBarSlice.actions;
+export const searchBarReducer = searchBarSlice.reducer;

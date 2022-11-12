@@ -2,24 +2,21 @@ import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTags } from '../../../../reduxThunk/actions';
+import { loadSearchSuggestions } from '../../../../reduxThunk/actions';
 import debounce from '../../../../../../components/debounce';
+import { setSelectedSuggestion } from './redux/slices';
 
 const Search = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.home.tags);
 
   const handleOnInputChange = (event, value) => {
-    console.log(value);
+    dispatch(loadSearchSuggestions(value));
   };
 
   const handleOnChange = (event, value) => {
-    console.log(value);
+    dispatch(setSelectedSuggestion(value));
   };
-
-  useEffect(() => {
-    dispatch(loadTags());
-  }, [dispatch]);
 
   return (
     <Autocomplete

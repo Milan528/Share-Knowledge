@@ -9,6 +9,8 @@ import {
   setLoading as loadingPosts,
   setError as setErrorPosts,
 } from '../components/posts/redux/slices';
+import { setLoading as loadingSearchBar } from '../components/filters/components/searchBar/redux/slices';
+import { getSuggestionsRepository } from '../infrastructure/repository/searchBar';
 
 export const loadPosts = () => async (dispatch, getState) => {
   try {
@@ -32,8 +34,6 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     },
   } = getState();
   let tagsId = selectedTags.map((tag) => tag.id);
-  console.log(getState());
-  console.log(search);
   let dto = {
     tags: tagsId,
     startIndex: Number(0),
@@ -42,7 +42,6 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   try {
     dispatch(loadingPosts(true));
     const posts = await getAllSpecificPostsRepository(dto);
-    console.log(posts);
     dispatch(setPosts(posts));
   } catch (err) {
     dispatch(
@@ -64,3 +63,17 @@ export const loadTags = () => async (dispatch, getState) => {
     // dispatch(loading(false));
   }
 };
+
+export const loadSearchSuggestions =
+  (searchText) => async (dispatch, getState) => {
+    try {
+      dispatch(loadingSearchBar(true));
+      const suggestions = await getSuggestionsRepository(searchText);
+      console.log(suggestions);
+      // dispatch(setAllTags(tags));
+    } catch (err) {
+      // dispatch(setError(JSON.stringify(err, Object.getOwnPropertyNames(err))));
+    } finally {
+      // dispatch(loading(false));
+    }
+  };

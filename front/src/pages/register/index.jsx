@@ -12,7 +12,7 @@ import { ContentContainer, MotivationContainer } from './styles';
 // import AdditionalRegister from './components/additionalRegister';
 
 const Register = () => {
-  const { error, loading } = useSelector((state) => state.login);
+  const { error, loading } = useSelector((state) => state.register);
   console.log(loading);
   const viewToRender = (
     <>

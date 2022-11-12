@@ -6,12 +6,18 @@ const QUERY = {
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
   SELECT_SPECIFIC_POSTS_TAGS: getSpecificPostsTags,
   SELECT_SPECIFIC_POSTS_IDS: getSpecificPostsIds,
-  SELECT_FILTERED_POSTS: getFilteredPosts
+  SELECT_FILTERED_POSTS: getFilteredPosts,
+  // SELECT_SUGGESTIONS: 'SELECT title,text FROM post where (title LIKE "%?%" or text LIKE "%?%") '
+  SELECT_SUGGESTIONS: getSuggestions
 };
 
-function getFilteredPosts(tags, search, startIndex, count) {
-  let sql = '';
+function getSuggestions(searchParams) {
+  let sql = `SELECT title,text FROM post where (lower(title) LIKE "%${searchParams}%" or lower(text) LIKE "%${searchParams}%") `;
 
+  return sql;
+}
+
+function getFilteredPosts(tags, search, startIndex, count) {
   sql += 'Select id, text, title, type, likes,date, group_concat(tagId) as tags ';
   sql += 'from (SELECT post.id,text,title,type,likes,date,tagId ';
   sql += 'FROM post ';

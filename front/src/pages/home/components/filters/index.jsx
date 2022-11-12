@@ -5,7 +5,7 @@ import {
   StyledDivider,
   StyledButtonResize,
 } from './styles';
-import SearchBar from './components/searchbar';
+import SearchBar from './components/searchBar';
 import Tags from './components/tags';
 import Category from './components/category';
 import Order from './components/order';

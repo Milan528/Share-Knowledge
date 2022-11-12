@@ -84,7 +84,6 @@ export const deletePost = async (req, res) => {
 
 export const getSpecificPosts = async (req, res) => {
   let { search, startIndex, count, tags } = req.body.params;
-  console.log(search, startIndex, count, tags);
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count);
   let { results, error } = await database.query(sql);
 
@@ -118,14 +117,11 @@ export const getSpecificPosts = async (req, res) => {
   }
 
   async function getPostFiles(posts, res) {
-    console.log('Eeeeee');
-    console.log(posts);
     for (let post of posts) {
       const { results: postFiles, error } = await database.query(
         FILE_QUERYS.SELECT_FILES_FOR_POST,
         post.id
       );
-      console.log('bbbbbb');
 
       if (error) {
         return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
@@ -134,5 +130,21 @@ export const getSpecificPosts = async (req, res) => {
     }
 
     return ResponseManager.OK(res, `Posts retrieved`, posts);
+  }
+};
+
+export const getSuggestions = async (req, res) => {
+  const { params: searchParams } = req.body;
+  console.log(searchParams);
+  const { results, error } = await database.query(
+    QUERYS.SELECT_SUGGESTIONS(searchParams.toLowerCase())
+  );
+  if (error) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  } else if (!results) {
+    ResponseManager.OK(res, `No suggestions found`);
+  } else {
+    ResponseManager.OK(res, `Suggestions retrieved`, results);
+    //TODO
   }
 };
