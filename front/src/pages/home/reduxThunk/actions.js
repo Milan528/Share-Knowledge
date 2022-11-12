@@ -28,10 +28,12 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
+      search,
     },
   } = getState();
   let tagsId = selectedTags.map((tag) => tag.id);
-
+  console.log(getState());
+  console.log(search);
   let dto = {
     tags: tagsId,
     startIndex: Number(0),

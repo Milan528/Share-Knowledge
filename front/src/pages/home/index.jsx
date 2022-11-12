@@ -4,11 +4,9 @@ import { ContentContainer } from './styles';
 import Fliters from './components/filters';
 import CreatePost from './components/createPost';
 import Posts from './components/posts';
-import Footer from '../../components/footer';
 import Pagination from './components/pagination';
 
 export default function Home() {
-
   return (
     <>
       <Navbar />
@@ -17,8 +15,7 @@ export default function Home() {
         <Fliters />
         <Posts />
       </ContentContainer>
-      <Pagination/>
-      <Footer/>
+      <Pagination />
     </>
   );
 }

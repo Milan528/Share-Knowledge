@@ -17,13 +17,14 @@ const Form = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const token = useSelector((state) => state.app.token);
+  const loading = useSelector((state) => state.login.loading);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (token !== null) {
       navigate(routes.homeRoute);
     }
-  }, [token]);
+  }, [token, navigate]);
 
   const onClick = () => {
     dispatch(login(email, password));
@@ -55,6 +56,7 @@ const Form = () => {
           variant="outlined"
           size="large"
           onClick={onClick}
+          disabled={loading}
         >
           Prijavi me
         </StyledButton>

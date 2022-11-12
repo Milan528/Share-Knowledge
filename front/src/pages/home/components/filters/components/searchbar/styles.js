@@ -1,38 +1,18 @@
 import styled from 'styled-components';
+import Chip from '@mui/material/Chip';
 
-export const Container = styled.div`
-  border-top: solid 1px gray;
-  margin-top: 6px;
-`;
-
-export const SearchBarContainer = styled.div`
-  border: solid 2px black;
-  border-radius: 5px;
+export const TagsContainer = styled.div`
   margin-top: 12px;
-`;
-
-export const SearchContent = styled.div`
   display: flex;
-  justify-content: space-between;
-`;
-
-export const StyledInput = styled.input`
-  border: none;
-  flex: 1;
-  font-size: 16px;
-  padding-left: 10px;
-  outline: none;
-  min-width: 0px;
-`;
-
-export const StyledButton = styled.button`
-  border: none;
-  background-color: #18d4de;
-  color: white;
-  width: 50px;
-  height: 50px;
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  min-width: 200px;
+  flex: 1;
+  margin-bottom: 10px;
+`;
+
+export const StyledChip = styled(Chip)`
+  &.MuiChip-root {
+    margin: 2px;
+  }
 `;

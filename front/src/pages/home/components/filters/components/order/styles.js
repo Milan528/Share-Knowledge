@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 export const OrdersContainer = styled.div`
+  display: flex;
   flex: 1;
   justify-content: center;
-  display: flex;
+  margin-top: 20px;
 
-  @media (max-width: 650px) : {
-    flex-direction: column;
+  min-width: 20rem;
+  @media (max-width: 650px) {
+    min-width: 10rem;
   }
 `;

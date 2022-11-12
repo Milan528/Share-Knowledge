@@ -4,7 +4,7 @@ import {
   actions as tagActions,
 } from '../components/filters/components/tags/redux/slices';
 import tags from '../components/filters/components/tags/redux/state';
-
+import state from './state';
 import {
   postsReducer,
   actions as postActions,
@@ -14,8 +14,14 @@ import posts from '../components/posts/redux/state';
 const homeSlice = createSlice({
   name: 'home',
   initialState: {
+    state,
     tags,
     posts,
+  },
+  reducers: {
+    setFiltersVisibility: (state, action) => {
+      state.state.filtersVisibility = action.payload;
+    },
   },
   extraReducers: {
     [tagActions.setSelectedTags]: (state, action) => {
@@ -48,5 +54,5 @@ const homeSlice = createSlice({
   },
 });
 
-// export const {} = homeSlice.actions;
+export const { setFiltersVisibility } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

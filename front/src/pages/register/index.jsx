@@ -9,11 +9,11 @@ import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { ContentContainer, MotivationContainer } from './styles';
-import AdditionalRegister from './components/additionalRegister';
+// import AdditionalRegister from './components/additionalRegister';
 
 const Register = () => {
   const { error, loading } = useSelector((state) => state.login);
-
+  console.log(loading);
   const viewToRender = (
     <>
       <Navbar />
@@ -23,6 +23,7 @@ const Register = () => {
           <Quote />
         </MotivationContainer>
         <Form />
+        {loading ? <Loader /> : null}
         {/* <AdditionalRegister /> */}
       </ContentContainer>
       <Footer />
@@ -30,7 +31,6 @@ const Register = () => {
   );
 
   if (error) return <ErrorDialog error={error} handleError={setError} />;
-  else if (loading) return <Loader />;
   else return viewToRender;
 };
 

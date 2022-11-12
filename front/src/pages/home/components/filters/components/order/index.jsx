@@ -15,7 +15,6 @@ const ScrollableTabs = () => {
 
   return (
     <OrdersContainer>
-      {/* eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee */}
       <Tabs
         value={value}
         onChange={handleChange}
@@ -23,6 +22,7 @@ const ScrollableTabs = () => {
         textColor="inherit"
         variant="scrollable"
         scrollButtons={true}
+        allowScrollButtonsMobile
       >
         <Tab label="Najnovije" icon={<Time />} />
         <Tab label="Ocena" icon={<ThumbUp />} />

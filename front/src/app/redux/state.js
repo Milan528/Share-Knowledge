@@ -1,5 +1,4 @@
 export const initialState = {
-  loadingApp: false,
   token: null,
   role: 'visitor',
 };

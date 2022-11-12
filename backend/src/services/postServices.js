@@ -84,8 +84,8 @@ export const deletePost = async (req, res) => {
 
 export const getSpecificPosts = async (req, res) => {
   let { search, startIndex, count, tags } = req.body.params;
-
-  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, 'a', startIndex, count);
+  console.log(search, startIndex, count, tags);
+  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count);
   let { results, error } = await database.query(sql);
 
   if (error) {
@@ -118,16 +118,18 @@ export const getSpecificPosts = async (req, res) => {
   }
 
   async function getPostFiles(posts, res) {
+    console.log('Eeeeee');
+    console.log(posts);
     for (let post of posts) {
       const { results: postFiles, error } = await database.query(
         FILE_QUERYS.SELECT_FILES_FOR_POST,
         post.id
       );
+      console.log('bbbbbb');
 
       if (error) {
         return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
       }
-
       post.files = !postFiles ? [] : postFiles;
     }
 

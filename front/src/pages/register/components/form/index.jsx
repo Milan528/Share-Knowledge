@@ -33,12 +33,13 @@ const Form = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.app.token);
   const navigate = useNavigate();
+  const loading = useSelector((state) => state.register.loading);
 
   useEffect(() => {
     if (token !== null) {
       navigate(routes.homeRoute);
     }
-  }, [token]);
+  }, [token, navigate]);
 
   const handleRegister = () => {
     if (password !== passwordConfirm) {
@@ -85,6 +86,7 @@ const Form = () => {
             variant="outlined"
             size="large"
             onClick={handleRegister}
+            disabled={loading}
           >
             Registruj me
           </StyledButton>

@@ -8,7 +8,6 @@ export const TagsContainer = styled.div`
   align-items: center;
   min-width: 200px;
   flex: 1;
-  margin-bottom: 10px;
 `;
 
 export const StyledChip = styled(Chip)`

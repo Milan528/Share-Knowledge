@@ -9,7 +9,7 @@ import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { ContentContainer, MotivationContainer } from './styles';
-import AdditionalLogin from './components/additionalLogin';
+// import AdditionalLogin from './components/additionalLogin';
 
 const Login = () => {
   const { error, loading } = useSelector((state) => state.login);
@@ -22,7 +22,8 @@ const Login = () => {
           <Logo />
           <Quote />
         </MotivationContainer>
-        {!loading ? <Form /> : <Loader />}
+        <Form />
+        {loading ? <Loader /> : null}
         {/* <AdditionalLogin/> */}
       </ContentContainer>
       <Footer />
