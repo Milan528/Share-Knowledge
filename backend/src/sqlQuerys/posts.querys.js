@@ -18,11 +18,17 @@ function getSuggestions(searchParams) {
 }
 
 function getFilteredPosts(tags, search, startIndex, count) {
+  let sql = '';
   sql += 'Select id, text, title, type, likes,date, group_concat(tagId) as tags ';
   sql += 'from (SELECT post.id,text,title,type,likes,date,tagId ';
   sql += 'FROM post ';
   sql += 'JOIN post_tag ON post.id=post_tag.postId ';
-  sql += `where  (title LIKE "%${search}%" or text LIKE "%${search}%") `;
+  sql += `where type='a' `;
+
+  if (search != '') {
+    `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
+  }
+
   if (tags.length > 0) {
     sql += `and tagId in ('${tags[0]}'`;
     for (let i = 1; i < tags.length; i++) {
@@ -30,7 +36,7 @@ function getFilteredPosts(tags, search, startIndex, count) {
     }
     sql += `) `;
   }
-  sql += `and type='pitanje' `;
+
   sql += `limit ${startIndex},${count}) as myTable `;
   sql += 'group by id;';
 

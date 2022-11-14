@@ -3,7 +3,11 @@ import {
   getAllSpecificPostsRepository,
 } from '../infrastructure/repository/posts';
 import { getAllTagsRepository } from '../infrastructure/repository/tags';
-import { setAllTags } from '../components/filters/components/tags/redux/slices';
+import {
+  setAllTags,
+  setLoading as setLoadingAllTags,
+  setError as setErrorAllTags,
+} from '../components/filters/components/tags/redux/slices';
 import {
   setPosts,
   setLoading as loadingPosts,
@@ -11,6 +15,7 @@ import {
 } from '../components/posts/redux/slices';
 import { setLoading as loadingSearchBar } from '../components/filters/components/searchBar/redux/slices';
 import { getSuggestionsRepository } from '../infrastructure/repository/searchBar';
+import serialize from '../../../components/serialize';
 
 export const loadPosts = () => async (dispatch, getState) => {
   try {
@@ -18,9 +23,7 @@ export const loadPosts = () => async (dispatch, getState) => {
     const posts = await getAllPostsRepository();
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(
-      setErrorPosts(JSON.stringify(err, Object.getOwnPropertyNames(err)))
-    );
+    dispatch(setErrorPosts(serialize(err)));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -30,23 +33,23 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
-      search,
+      searchBar: { selectedSuggestion },
     },
   } = getState();
+
   let tagsId = selectedTags.map((tag) => tag.id);
   let dto = {
     tags: tagsId,
     startIndex: Number(0),
     count: 5,
+    search: selectedSuggestion,
   };
   try {
     dispatch(loadingPosts(true));
     const posts = await getAllSpecificPostsRepository(dto);
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(
-      setErrorPosts(JSON.stringify(err, Object.getOwnPropertyNames(err)))
-    );
+    dispatch(setErrorPosts(serialize(err)));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -54,13 +57,13 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
 
 export const loadTags = () => async (dispatch, getState) => {
   try {
-    // dispatch(loading(true));
+    dispatch(setLoadingAllTags(true));
     const tags = await getAllTagsRepository();
     dispatch(setAllTags(tags));
   } catch (err) {
-    // dispatch(setError(JSON.stringify(err, Object.getOwnPropertyNames(err))));
+    dispatch(setErrorAllTags(serialize(err)));
   } finally {
-    // dispatch(loading(false));
+    dispatch(setLoadingAllTags(false));
   }
 };
 
@@ -72,7 +75,7 @@ export const loadSearchSuggestions =
       console.log(suggestions);
       // dispatch(setAllTags(tags));
     } catch (err) {
-      // dispatch(setError(JSON.stringify(err, Object.getOwnPropertyNames(err))));
+      // dispatch(setError(serialize(err)));
     } finally {
       // dispatch(loading(false));
     }

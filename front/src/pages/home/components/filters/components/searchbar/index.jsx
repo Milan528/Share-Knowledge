@@ -8,21 +8,19 @@ import { setSelectedSuggestion } from './redux/slices';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.home.tags);
+  const state = useSelector((state) => state.home);
+  // console.log(state)
 
   const handleOnInputChange = (event, value) => {
-    dispatch(loadSearchSuggestions(value));
-  };
-
-  const handleOnChange = (event, value) => {
     dispatch(setSelectedSuggestion(value));
+    // dispatch(loadSearchSuggestions(value));
   };
 
   return (
     <Autocomplete
+      freeSolo
       disablePortal
       onInputChange={debounce(handleOnInputChange, 500)}
-      onChange={handleOnChange}
       id="combo-box-demo"
       options={top100Films}
       renderInput={(params) => <TextField {...params} label="Search" />}

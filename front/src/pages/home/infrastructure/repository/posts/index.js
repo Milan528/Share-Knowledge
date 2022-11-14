@@ -12,6 +12,7 @@ export const getAllPostsRepository = async () => {
 };
 
 export const getAllSpecificPostsRepository = async (data) => {
+  console.log(data);
   const dto = await getAllSpecificPostsDataSource(data);
   httpStatusChecker(dto);
   return mapDTOToPosts(dto.data);
