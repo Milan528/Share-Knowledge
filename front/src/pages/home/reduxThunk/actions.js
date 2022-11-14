@@ -34,6 +34,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     home: {
       tags: { selectedTags },
       searchBar: { selectedSuggestion },
+      state: { type },
     },
   } = getState();
 
@@ -43,6 +44,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     startIndex: Number(0),
     count: 5,
     search: selectedSuggestion,
+    type,
   };
   try {
     dispatch(loadingPosts(true));

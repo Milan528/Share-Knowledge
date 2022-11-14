@@ -1,5 +1,6 @@
 export const initialState = {
   filtersVisibility: true,
+  type: 'all',
 };
 
 const getState = () => {

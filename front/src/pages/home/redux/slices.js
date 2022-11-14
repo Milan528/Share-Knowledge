@@ -28,6 +28,9 @@ const homeSlice = createSlice({
     setFiltersVisibility: (state, action) => {
       state.state.filtersVisibility = action.payload;
     },
+    setType: (state, action) => {
+      state.state.type = action.payload;
+    },
   },
   extraReducers: {
     [tagActions.setSelectedTags]: (state, action) => {
@@ -74,5 +77,5 @@ const homeSlice = createSlice({
   },
 });
 
-export const { setFiltersVisibility } = homeSlice.actions;
+export const { setFiltersVisibility, setType } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

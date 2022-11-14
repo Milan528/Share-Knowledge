@@ -23,6 +23,19 @@ INSERT INTO `share_knowledge`.`tags` (`tag`) VALUES
 ('F');
 
 INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
-(1, 1),
-(1, 2),
-(1, 3);
+("postId":1, "tagId":1),
+("postId":8, "tagId":1),
+("postId":1, "tagId":2),
+("postId":5, "tagId":2),
+("postId":2, "tagId":3),
+("postId":5, "tagId":3),
+("postId":7, "tagId":3),
+("postId":3, "tagId":4),
+("postId":4, "tagId":4),
+("postId":4, "tagId":5),
+("postId":5, "tagId":5),
+("postId":6, "tagId":5),
+("postId":8, "tagId":5),
+("postId":9, "tagId":5),
+("postId":7, "tagId":6),
+("postId":10, "tagId":6)

@@ -7,7 +7,7 @@ import {
 } from './styles';
 import SearchBar from './components/searchBar';
 import Tags from './components/tags';
-import Category from './components/category';
+import Type from './components/type';
 import Order from './components/order';
 import Submit from './components/submit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -39,7 +39,7 @@ const Fliters = () => {
           <SearchBar />
           <Tags />
           <AdditionalFiltersContainer>
-            <Category />
+            <Type />
             <Order />
             <Submit />
           </AdditionalFiltersContainer>
