@@ -8,7 +8,6 @@ import Content from './contet';
 
 const Post = (props) => {
   const { data } = props;
-  console.log(data);
   // const { title, type, text, images, documents, tags, likes, id, date } = data;
   const { title, type, text } = data;
 

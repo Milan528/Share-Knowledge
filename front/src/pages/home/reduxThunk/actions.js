@@ -15,7 +15,6 @@ import {
 } from '../components/posts/redux/slices';
 import { setLoading as loadingSearchBar } from '../components/filters/components/searchBar/redux/slices';
 import { getSuggestionsRepository } from '../infrastructure/repository/searchBar';
-import serialize from '../../../components/serialize';
 
 export const loadPosts = () => async (dispatch, getState) => {
   try {
@@ -23,7 +22,7 @@ export const loadPosts = () => async (dispatch, getState) => {
     const posts = await getAllPostsRepository();
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(setErrorPosts(serialize(err)));
+    dispatch(setErrorPosts(err));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -51,7 +50,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     const posts = await getAllSpecificPostsRepository(dto);
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(setErrorPosts(serialize(err)));
+    dispatch(setErrorPosts(err));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -63,7 +62,7 @@ export const loadTags = () => async (dispatch, getState) => {
     const tags = await getAllTagsRepository();
     dispatch(setAllTags(tags));
   } catch (err) {
-    dispatch(setErrorAllTags(serialize(err)));
+    dispatch(setErrorAllTags(err));
   } finally {
     dispatch(setLoadingAllTags(false));
   }
@@ -77,7 +76,7 @@ export const loadSearchSuggestions =
       console.log(suggestions);
       // dispatch(setAllTags(tags));
     } catch (err) {
-      // dispatch(setError(serialize(err)));
+      // dispatch(setError(err));
     } finally {
       // dispatch(loading(false));
     }

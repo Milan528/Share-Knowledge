@@ -29,7 +29,10 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { results, error } = await database.query(QUERYS.CREATE_POST, Object.values(req.body));
+  const { results, error } = await database.query(
+    QUERYS.CREATE_POST,
+    Object.values(req.body.params)
+  );
 
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
@@ -38,7 +41,7 @@ export const createPost = async (req, res) => {
   } else {
     const post = {
       id: results.insertId,
-      ...req.body
+      ...req.body.params
     };
 
     ResponseManager.CREATED(res, `Post created`, post);

@@ -1,8 +1,9 @@
 import express from 'express';
-import { getTags } from '../controllers/tags.controller.js';
+import { getTags, createTag, deleteTag } from '../controllers/tags.controller.js';
 
 const tagsRoutes = express.Router();
 
-tagsRoutes.route('/').get(getTags);
+tagsRoutes.route('/').get(getTags).post(createTag);
+tagsRoutes.route('/:id').delete(deleteTag);
 
 export default tagsRoutes;
