@@ -8,3 +8,7 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
   return authServices.registerUser(req, res);
 };
+
+export const getSerchSentenceToken = async (req, res) => {
+  return authServices.getSerchSentenceToken(req, res);
+};

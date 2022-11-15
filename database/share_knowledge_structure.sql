@@ -1,9 +1,8 @@
--- CREATE DATABASE share_knowledge;
--- USE share_knowledge;
-
 CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
+DROP TABLE IF EXISTS searchedBy;
+DROP TABLE IF EXISTS searchSentence;
 DROP TABLE IF EXISTS likedBy;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS file;
@@ -31,7 +30,8 @@ CREATE TABLE post (
     likes int NOT NULL,
     userId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES user(id) 
+    FOREIGN KEY (userId) REFERENCES user(id) ,
+    FULLTEXT (title,text)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE tags (
@@ -66,3 +66,23 @@ CREATE TABLE post_tag (
     FOREIGN KEY (tagId) REFERENCES tags(id)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE searchSentence (
+    id int(15) NOT NULL AUTO_INCREMENT,
+    sentence varchar(100) NOT NULL,
+    searchNumber int NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (sentence)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE searchedBy (
+    id int(15) NOT NULL AUTO_INCREMENT,
+    userSearchToken varchar(100) NOT NULL,
+	sentance_id int(15) NOT NULL,
+    PRIMARY KEY (id),
+     FOREIGN KEY (sentance_id) REFERENCES searchSentence(id) 
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE searchTokenCounter (
+    id int(15) NOT NULL AUTO_INCREMENT
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;

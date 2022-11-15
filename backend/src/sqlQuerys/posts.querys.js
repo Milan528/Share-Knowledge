@@ -31,7 +31,8 @@ function getFilteredPosts(tags, search, startIndex, count, type) {
   }
   sql += ') ';
   if (search && search !== '') {
-    sql += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
+    // sql += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
+    sql += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE)`;
   }
 
   if (tags.length > 0) {
@@ -44,7 +45,7 @@ function getFilteredPosts(tags, search, startIndex, count, type) {
 
   sql += `) as myTable `;
   sql += `group by id limit ${startIndex},${count};`;
-
+  console.log(sql);
   return sql;
 }
 
