@@ -1,12 +1,17 @@
-import { getAllTagsRepository, createTagRepository } from '../repository/tags';
+import {
+  getAllTagsRepository,
+  createTagRepository,
+  deleteTagRepository,
+} from '../repository/tags';
 import { setError, setLoading, setTags } from '../redux/slices';
+import state from '../redux/state';
 import serialize from '../../../components/serialize';
 
 export const loadTags = () => async (dispatch, getState) => {
   try {
     dispatch(setLoading(true));
     const tags = await getAllTagsRepository();
-    dispatch(setTags(tags));
+    dispatch(setTags([state.tags[0], ...tags]));
   } catch (err) {
     dispatch(setError(serialize(err)));
   } finally {
@@ -17,14 +22,13 @@ export const loadTags = () => async (dispatch, getState) => {
 export const deleteTag = (tag) => async (dispatch, getState) => {
   try {
     dispatch(setLoading(true));
-    let DTO = {
-      tag: tag,
-    };
+    const deletedId = await deleteTagRepository(tag);
 
-    // const result = await services.post(urls.deleteTag, DTO);
-    // const { status } = result;
+    const {
+      tags: { tags: prevTags },
+    } = getState();
 
-    // if (status === 'sucess') return true;
+    dispatch(setTags(prevTags.filter((prevTag) => prevTag.id != deletedId)));
   } catch (err) {
     dispatch(setError(serialize(err)));
   } finally {

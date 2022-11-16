@@ -2,7 +2,7 @@ export const initialState = {
   loading: false,
   error: null,
   updateTags: false,
-  tags: [],
+  tags: [{ id: -1, tag: 'none' }],
 };
 
 const getState = () => {
