@@ -1,10 +1,6 @@
-import urlBuilder from '../../../services/urlBuilder';
-import services from '../../../services';
+import services from '../../../services/index';
 
 export const registerUserRepository = async (model) => {
-  const dto = await services.postWithBodyNoParams(
-    urlBuilder.base_url('/auth/register'),
-    model
-  );
+  const dto = await services.post('/auth/register', model);
   return dto.data;
 };

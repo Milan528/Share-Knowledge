@@ -16,6 +16,8 @@ export default function ComboBox() {
   const state = useSelector((state) => state.tags);
   const { tags } = state;
 
+  console.log(tags)
+
   useEffect(() => { 
     dispatch(loadTags())
   }, [dispatch]);

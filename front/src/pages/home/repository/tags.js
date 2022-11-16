@@ -1,7 +1,6 @@
-import urlBuilder from '../../../services/urlBuilder';
-import services from '../../../services';
+import services from '../../../services/index';
 
 export const getAllTagsRepository = async () => {
-  const dto = await services.getAll(urlBuilder.base_url('/tags'));
+  const dto = await services.get('/tags');
   return dto.data;
 };

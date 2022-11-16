@@ -1,16 +1,14 @@
-import urlBuilder from '../../../services/urlBuilder';
-import services from '../../../services';
+import services from '../../../services/index';
 
 export const getAllPostsRepository = async () => {
-  const dto = await services.getAll(urlBuilder.base_url('/posts'));
+  const dto = await services.get('/posts');
+
   return mapDTOToPosts(dto.data);
 };
 
 export const getAllSpecificPostsRepository = async (data) => {
-  const dto = await services.postWithBodyNoParams(
-    urlBuilder.base_url('/posts/specificPosts'),
-    data
-  );
+  const dto = await services.post('/posts/specificPosts', data);
+
   return mapDTOToPosts(dto.data);
 };
 

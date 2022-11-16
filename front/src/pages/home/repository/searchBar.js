@@ -1,10 +1,6 @@
-import urlBuilder from '../../../services/urlBuilder';
-import services from '../../../services';
+import services from '../../../services/index';
 
 export const getSuggestionsRepository = async (model) => {
-  const dto = await services.postWithBodyNoParams(
-    urlBuilder.base_url('/posts/suggestions'),
-    model
-  );
+  const dto = await services.post('/posts/suggestions', model);
   return dto.data;
 };

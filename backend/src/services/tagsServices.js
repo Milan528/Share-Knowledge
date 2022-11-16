@@ -14,7 +14,7 @@ export const getTags = async (req, res) => {
 };
 
 export const createTag = async (req, res) => {
-  const tag = req.body.params;
+  const tag = req.body;
   const { results, error } = await database.query(QUERYS.CREATE_TAG, Object.values(tag));
 
   if (error) {
@@ -22,12 +22,12 @@ export const createTag = async (req, res) => {
   } else if (!results) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
   } else {
-    const tag = {
+    const createtag = {
       id: results.insertId,
-      ...req.body.params
+      ...tag
     };
 
-    ResponseManager.CREATED(res, `Tag created`, tag);
+    ResponseManager.CREATED(res, `Tag created`, createtag);
   }
 };
 

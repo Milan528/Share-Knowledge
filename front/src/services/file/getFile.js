@@ -3,8 +3,8 @@ const service = async (url) => {
 
   return fetch(url, {
     headers: {
-      Authorization: bearer
-    }
+      Authorization: bearer,
+    },
   })
     .then((resp) => resp.blob())
     .then((response) => new File([response], 'fileName'))

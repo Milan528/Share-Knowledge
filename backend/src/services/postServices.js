@@ -29,10 +29,7 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { results, error } = await database.query(
-    QUERYS.CREATE_POST,
-    Object.values(req.body.params)
-  );
+  const { results, error } = await database.query(QUERYS.CREATE_POST, Object.values(req.body));
 
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
@@ -41,7 +38,7 @@ export const createPost = async (req, res) => {
   } else {
     const post = {
       id: results.insertId,
-      ...req.body.params
+      ...req.body
     };
 
     ResponseManager.CREATED(res, `Post created`, post);
@@ -86,7 +83,7 @@ export const deletePost = async (req, res) => {
 };
 
 export const getSpecificPosts = async (req, res) => {
-  let { search, startIndex, count, tags, type } = req.body.params;
+  let { search, startIndex, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type);
   let { results, error } = await database.query(sql);
 
