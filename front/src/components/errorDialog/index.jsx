@@ -7,10 +7,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch } from 'react-redux';
 
+function isJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
+
 export default function ResponsiveDialog(props) {
   const { error, handleError } = props;
   const dispatch = useDispatch();
-
+  
   const handleClose = () => {
     dispatch(handleError(null));
   };
@@ -26,7 +35,7 @@ export default function ResponsiveDialog(props) {
       <DialogTitle>Error</DialogTitle>
       <DialogContent >
         <DialogContentText style={{whiteSpace: 'break-spaces'}}>
-          {`${error} For more details open developer tools.`}
+          {isJsonString(error) ? `${(JSON.parse(error)).message}\nFor more details open developer tools.` : error.toString()}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

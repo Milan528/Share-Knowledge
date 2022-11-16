@@ -1,8 +1,8 @@
 import {
   getAllPostsRepository,
   getAllSpecificPostsRepository,
-} from '../infrastructure/repository/posts';
-import { getAllTagsRepository } from '../infrastructure/repository/tags';
+} from '../repository/posts';
+import { getAllTagsRepository } from '../repository/tags';
 import {
   setAllTags,
   setLoading as setLoadingAllTags,
@@ -14,7 +14,8 @@ import {
   setError as setErrorPosts,
 } from '../components/posts/redux/slices';
 import { setLoading as loadingSearchBar } from '../components/filters/components/searchBar/redux/slices';
-import { getSuggestionsRepository } from '../infrastructure/repository/searchBar';
+import { getSuggestionsRepository } from '../repository/searchBar';
+import serialize from '../../../components/serialize';
 
 export const loadPosts = () => async (dispatch, getState) => {
   try {
@@ -22,7 +23,7 @@ export const loadPosts = () => async (dispatch, getState) => {
     const posts = await getAllPostsRepository();
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(setErrorPosts(err));
+    dispatch(setErrorPosts(serialize(err)));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -50,7 +51,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     const posts = await getAllSpecificPostsRepository(dto);
     dispatch(setPosts(posts));
   } catch (err) {
-    dispatch(setErrorPosts(err));
+    dispatch(setErrorPosts(serialize(err)));
   } finally {
     dispatch(loadingPosts(false));
   }
@@ -62,7 +63,7 @@ export const loadTags = () => async (dispatch, getState) => {
     const tags = await getAllTagsRepository();
     dispatch(setAllTags(tags));
   } catch (err) {
-    dispatch(setErrorAllTags(err));
+    dispatch(setErrorAllTags(serialize(err)));
   } finally {
     dispatch(setLoadingAllTags(false));
   }
@@ -76,7 +77,7 @@ export const loadSearchSuggestions =
       console.log(suggestions);
       // dispatch(setAllTags(tags));
     } catch (err) {
-      // dispatch(setError(err));
+      // dispatch(setError(serialize(err)));
     } finally {
       // dispatch(loading(false));
     }

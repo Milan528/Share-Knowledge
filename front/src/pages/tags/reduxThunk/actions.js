@@ -1,8 +1,6 @@
-import {
-  getAllTagsRepository,
-  createTagRepository,
-} from '../infrastructure/repository/tags';
+import { getAllTagsRepository, createTagRepository } from '../repository/tags';
 import { setError, setLoading, setTags } from '../redux/slices';
+import serialize from '../../../components/serialize';
 
 export const loadTags = () => async (dispatch, getState) => {
   try {
@@ -10,7 +8,7 @@ export const loadTags = () => async (dispatch, getState) => {
     const tags = await getAllTagsRepository();
     dispatch(setTags(tags));
   } catch (err) {
-    dispatch(setError(err));
+    dispatch(setError(serialize(err)));
   } finally {
     dispatch(setLoading(false));
   }
@@ -28,7 +26,7 @@ export const deleteTag = (tag) => async (dispatch, getState) => {
 
     // if (status === 'sucess') return true;
   } catch (err) {
-    dispatch(setError(err));
+    dispatch(setError(serialize(err)));
   } finally {
     dispatch(setLoading(false));
   }
@@ -49,7 +47,7 @@ export const addTag = (tag) => async (dispatch, getState) => {
 
     dispatch(setTags([...prevTags, createdTag]));
   } catch (err) {
-    dispatch(setError(err));
+    dispatch(setError(serialize(err)));
   } finally {
     dispatch(setLoading(false));
   }

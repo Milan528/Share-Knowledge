@@ -1,6 +1,7 @@
 import { setToken, setRole } from '../../../app/redux/slices';
 import { setError, setLoading } from '../redux/slices';
-import { registerUserRepository } from '../infrastructure/repository/auth';
+import { registerUserRepository } from '../repository/auth';
+import serialize from '../../../components/serialize';
 
 export const register = (email, password) => async (dispatch, getState) => {
   const DTO = {
@@ -14,7 +15,7 @@ export const register = (email, password) => async (dispatch, getState) => {
     dispatch(setToken(user.token));
     dispatch(setRole(user.role));
   } catch (err) {
-    setError(err);
+    setError(serialize(err));
   } finally {
     dispatch(setLoading(false));
   }
