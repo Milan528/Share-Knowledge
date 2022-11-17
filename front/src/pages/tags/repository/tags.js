@@ -13,5 +13,5 @@ export const createTagRepository = async (model) => {
 export const deleteTagRepository = async (tag) => {
   const { id } = tag;
   const dto = await services.delete(addUrlParams('/tags', `/${id}`));
-  return dto.data;
+  return parseInt(dto.data);
 };

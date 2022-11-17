@@ -28,7 +28,8 @@ export const deleteTag = (tag) => async (dispatch, getState) => {
       tags: { tags: prevTags },
     } = getState();
 
-    dispatch(setTags(prevTags.filter((prevTag) => prevTag.id != deletedId)));
+    const updatedTags = prevTags.filter((prevTag) => prevTag.id !== deletedId);
+    dispatch(setTags(updatedTags));
   } catch (err) {
     dispatch(setError(serialize(err)));
   } finally {

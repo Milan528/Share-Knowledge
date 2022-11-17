@@ -9,22 +9,22 @@ import { Container } from './styles';
 import { loadTags } from '../../reduxThunk/actions';
 
 export default function ComboBox() {
-  const [tag, setTag] = useState({ id: -1, tag: 'none' });
-  const loading = useSelector((state) => state.tags.loading);
-
   const dispatch = useDispatch();
   const state = useSelector((state) => state.tags);
   const { tags } = state;
-
-  console.log(tags);
+  const [tag, setTag] = useState(tags[0]);
+  const loading = useSelector((state) => state.tags.loading);
 
   useEffect(() => {
     dispatch(loadTags());
   }, [dispatch]);
 
-  const handleDeleteTag = (tag) => {
-    dispatch(deleteTag(tag));
-  };
+  const handleDeleteTag = () => {
+    if(tag.id!==-1){
+      dispatch(deleteTag(tag));
+      setTag(tags[0])
+    };
+  }
 
   return (
     <Container>
