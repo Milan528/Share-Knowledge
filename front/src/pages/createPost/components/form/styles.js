@@ -37,7 +37,6 @@ export const StyledTextareaAutosize = styled(TextareaAutosize)`
 
 export const Type = styled(FormControl)`
   && {
-    margin-bottom: 10px;
     width: 200px;
   }
 `;
