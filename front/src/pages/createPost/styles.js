@@ -1,30 +1,22 @@
-import { makeStyles } from '@material-ui/styles';
+import styled from 'styled-components';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-const classStyles = makeStyles({
-    container: {
-        flexGrow: 1,
-        display: "flex",
-        justifyContent: "center"
-    },
-    
-    contentContainer: {
-        display: "flex",
-        flexDirection: "column",
-        width: "60%",
-        minWidth: 250,
-        "@media (max-width: 650px)" : {
-            width: "90%",
-        }
-    },
+export const Container = styled.div`
+  flex-row: 1;
+  display: flex;
+  justify-content: center;
+`;
 
-    paper: {
-        padding: 10,
-        paddingRight: 15,
-        marginBottom: 30,
-        minHeight: 150,
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+`;
 
-        border: "0.5px solid #c9cace",
-    },
-});
-
-export default classStyles;
+export const PageHeading = styled(Typography)`
+  && {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+`;

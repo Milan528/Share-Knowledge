@@ -1,67 +1,33 @@
-import initialState from "./state"; 
-import { createSlice } from "@reduxjs/toolkit";
-  
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  tagsReducer,
+  actions as tagActions,
+} from '../components/form/components/tags/redux/slices';
+import tags from '../components/form/components/tags/redux/state';
+
 const createPostSlice = createSlice({
-  name: "createPost",
-  initialState: initialState,
-  reducers: {
-    setDocuments: (state, action) => {
-        return { 
-            ...state,
-            documents: action.payload
-        };
+  name: 'createPost',
+  initialState: {
+    tags,
+  },
+
+  extraReducers: {
+    [tagActions.setSelectedTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setImages: (state, action) => {
-        return { 
-            ...state,
-            images: action.payload
-        };
+
+    [tagActions.setAllTags]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setChosenTags: (state, action) => {
-        return { 
-            ...state,
-            chosenTags: action.payload
-        };
+
+    [tagActions.setLoading]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
-    setType: (state, action) => {
-        return { 
-            ...state,
-            type: action.payload
-        };
-    },
-    setText: (state, action) => {
-        return { 
-            ...state,
-            text: action.payload
-        };
-    },
-    setTitle: (state, action) => {
-        return { 
-            ...state,
-            title: action.payload
-        };
-    },
-    setAllTags: (state, action) => {
-        return { 
-            ...state,
-            allTags: action.payload
-        };
-    },
-    loading: (state, action) => {
-        return { 
-            ...state,
-            loading: action.payload
-        };
-    },
-    handleError: (state, action) => {
-        return { 
-            ...state,
-            error: action.payload
-        };
+
+    [tagActions.setError]: (state, action) => {
+      state.tags = tagsReducer(state.tags, action);
     },
   },
 });
 
-export const { loading, handleError, setDocuments, setImages, setChosenTags, setType, setText, setTitle, setAllTags} = createPostSlice.actions;
 export const createPostReducer = createPostSlice.reducer;
-

@@ -1,19 +1,10 @@
-const initialState = {
-    title: "",
-    text: "",
-    type: "",
-    likes: 50,
-    chosenTags: [],
-    images: [],
-    documents: [],
-
-    allTags: [],
-    loading: false,
-    error: null,
-};
+export const initialState = {};
 
 const getState = () => {
-    return initialState
-}
+  if (localStorage.getItem('home')) {
+    const state = JSON.parse(localStorage.getItem('home')).state;
+    return state;
+  } else return initialState;
+};
 
-export default getState()
+export default getState();
