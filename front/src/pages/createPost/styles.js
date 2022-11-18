@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 export const Container = styled.div`
