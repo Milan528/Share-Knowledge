@@ -6,6 +6,7 @@ import Login from '../../pages/login';
 import Register from '../../pages/register';
 import PrivateRoutes from './privateRoutes';
 import Tags from "../../pages/tags"
+import Profile from "../../pages/profile"
 
 export default function Router() {
   return (
@@ -14,6 +15,7 @@ export default function Router() {
         <Route element={<PrivateRoutes />}>
           <Route path={routes.createPostRoute} element={<CreatePost />} exact />
           <Route path={routes.tagsRoute} element={<Tags />} exact />
+          <Route path={routes.profileRoute} element={<Profile />} exact />
         </Route>
         <Route path={routes.homeRoute} element={<Home />} />
         <Route path={routes.loginRoute} element={<Login />} />
