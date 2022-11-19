@@ -5,6 +5,7 @@ import { createPostReducer } from '../../pages/createPost/redux/slices';
 import { appReducer } from '../redux/slices';
 import { tagsReducer } from '../../pages/tags/redux/slices';
 import { profileReducer } from '../../pages/profile/redux/slices';
+import { usersReducer } from '../../pages/users/redux/slices';
 
 const rootReducer = {
   app: appReducer,
@@ -14,6 +15,7 @@ const rootReducer = {
   register: registerReducer,
   tags: tagsReducer,
   profile: profileReducer,
+  users: usersReducer,
 };
 
 export default rootReducer;

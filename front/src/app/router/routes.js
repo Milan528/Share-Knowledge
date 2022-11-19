@@ -4,3 +4,4 @@ export const loginRoute = '/login';
 export const createPostRoute = '/createPost';
 export const tagsRoute = '/tags';
 export const profileRoute = '/profile';
+export const usersRoute = '/users';
