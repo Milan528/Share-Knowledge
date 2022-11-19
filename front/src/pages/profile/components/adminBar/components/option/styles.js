@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const StyledListItemIcon = styled(ListItemIcon)`
    {
-    color: blackl
+    color: black;
     justify-content: center;
   }
 `;

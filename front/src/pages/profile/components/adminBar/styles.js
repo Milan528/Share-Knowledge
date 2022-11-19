@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
 import DoubleArrow from '@mui/icons-material/DoubleArrow';
 
 export const StyledArrow = styled(DoubleArrow)`
@@ -10,46 +8,44 @@ export const StyledArrow = styled(DoubleArrow)`
   }
 `;
 
-export const StyledDrawer = styled(Drawer)`
-  && {
-    width: 200px;
-  }
-`;
-
 export const ToggleButton = styled(Button).attrs((/* props */) => ({
   fullWidth: true,
   disableRipple: true,
+  variant: 'contained',
 }))`
   && {
-    transition: 0.3s ease-out;
     color: black;
+    background: white;
     justify-content: flex-end;
+    border: 1px solid #e0e0e0;
+    box-shadow: none;
+    min-width: 250px;
+    &:hover {
+      background-color: white;,
+    }
   }
 `;
 
-export const SliderContainer = styled.div`
-  min-width: ${({ hidden }) => (hidden ? '80px' : '200px')};
-  transition: 0.3s ease-out;
-  width: 200px;
-  margin-top: -20px;
+export const FixedContainer = styled.div`
+  width: 50px;
   position: relative;
   overflow: hidden;
+  margin-top: -20px;
 `;
 
-export const Slider = styled.div`
+export const SlidingContainer = styled.div`
   display: block;
   position: fixed;
-  left: ${({ hidden }) => (hidden ? '-120px' : '0px')};
-  width: 200px;
+  left: ${({ hidden }) => (hidden ? '-200px' : '0px')};
   transition: 0.3s ease-out;
-  background-color: white;
   text-align: right;
   height: 100%;
-  border-right: 1px solid #e0e0e0;
-  box-shadow: 2px 0px 5px 0 #393a3d26;
   overflow: auto;
+  box-shadow: 2px 1px 5px 0 #393a3d26;
 `;
 
-export const StyledDivider = styled(Divider)`
+export const Options = styled.div`
+  margin-top: -1px;
   background-color: white;
+  position: relative;
 `;
