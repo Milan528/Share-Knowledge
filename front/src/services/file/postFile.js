@@ -6,8 +6,8 @@ const service = async (url, DTO) => {
     const res = await axios.post(url, {
       body: DTO,
       headers: {
-        Authorization: bearer
-      }
+        Authorization: bearer,
+      },
     });
     return res.data;
   } catch (error) {

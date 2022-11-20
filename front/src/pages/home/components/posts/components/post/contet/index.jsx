@@ -1,26 +1,31 @@
-import React from "react";
-import { StyledText, StyledImg } from "./styles"
+import React from 'react';
+import { StyledText, StyledImg } from './styles';
+import PDF from '../../../../../../../assets/pdf1.png';
+import DOCX from '../../../../../../../assets/docx.png';
+import Image from '../../../../../../../assets/image.jpg';
 
 const Content = (props) => {
-  const { text, images } = props;
+  const { text, files } = props;
+
+  const selectFileImage = (file) => {
+    const ext = file.ext;
+
+    if (ext.includes('.pdf')) return PDF;
+    if (ext.includes('.doc')) return DOCX;
+    if (ext.includes('.png') || ext.includes('.jpg')) return Image;
+  };
 
   return (
     <>
       <StyledText>{text}</StyledText>
-     { 
-      images.length >= 0 ?
-            images.map((image, index) => (
-              <StyledImg 
-              src={image} 
-              alt="Smiley face" 
-              height="70" 
-              width="70" 
-              key={index}
-              />
-            ))
-          :
-          null
-    }
+      {files.map((file, index) => (
+        <StyledImg
+          src={selectFileImage(file)}
+          height="30"
+          width="30"
+          key={index}
+        />
+      ))}
     </>
   );
 };

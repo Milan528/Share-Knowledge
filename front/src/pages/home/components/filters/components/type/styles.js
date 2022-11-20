@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
+export const StyledMenuItem = styled(MenuItem)`
+  && {
+    justify-content: space-between;
+  }
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -26,5 +33,10 @@ export const Container = styled.div`
 export const StyledSelect = styled(Select)`
   .MuiSelect-select {
     display: flex;
+    justify-content: space-between !important;
+  }
+
+  && {
+    width: 150px;
   }
 `;

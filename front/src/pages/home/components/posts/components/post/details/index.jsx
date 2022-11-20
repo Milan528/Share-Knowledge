@@ -1,71 +1,66 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import classStyles from "./styles";
-import Spacer from "../../../../../../components/spacer";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import Today from "@mui/icons-material/Today";
-import Button from "@mui/material/Button";
-import { withRouter } from "react-router-dom";
-import { postRoute } from "../../../../../../router/routes";
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import {
+  Container,
+  Likes,
+  DateIcon,
+  ButtonText,
+  DetailsContainer,
+} from './styles';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { useNavigate } from 'react-router';
+import { postRoute } from '../../../../../../../app/router/routes';
+import Button from '@mui/material/Button';
+
+const dateFormat = (date) => {
+  let splitedDate = date.split('-');
+  const day = splitedDate[0];
+  const month = splitedDate[1];
+  const year = splitedDate[2];
+  let formatedDate = `${day}.${month}.${year}`;
+  return formatedDate;
+};
 
 const Details = (props) => {
-  const classes = classStyles();
-  const { likes, postId, date } = props;
+  const navigate = useNavigate();
+  const { likes, postId, date, data } = props;
 
   const onClick = () => {
-    props.history.push({
-      pathname: postRoute,
-      // search: 'query=abc',
-      state: { postId: postId },
-    });
-  };
+    // navigate({
+    //   pathname: postRoute,
+    //   search: `postId=${postId}`,
+    // });
 
-  const dateFormat = (date) => {
-    let months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let d = date.split("-");
-    let formatedDate = d[0] + "." + (months.indexOf(d[1]) + 1) + "." + d[2];
+    //  navigate(postRoute, {
+    //    state: data,
+    //  });
 
-    return formatedDate;
+    navigate(
+      {
+        pathname: postRoute,
+        search: `postId=${postId}`,
+      },
+      {
+        state: data,
+      }
+    );
   };
 
   return (
-    <div className={classes.controlls}>
-      <ThumbUpIcon />
-      <Typography color="textSecondary" className={classes.like}>
-        {" "}
-        {likes}{" "}
-      </Typography>
-      <Today className={classes.date} />
-      <Typography> {dateFormat(date)} </Typography>
-      <Spacer />
-      <Button
-        size="small"
-        className={classes.backgroundColor}
-        onClick={onClick}
-      >
-        <Typography
-          variant="button"
-          color="inherit"
-          className={classes.fontType}
-        >
+    <Container>
+      <DetailsContainer>
+        <ThumbUpIcon />
+        <Likes color="textSecondary"> {likes} </Likes>
+        <DateIcon />
+        <Typography> {dateFormat(date)} </Typography>
+      </DetailsContainer>
+      <Button size="small" onClick={onClick} variant="outlined">
+        <ButtonText variant="button" color="inherit">
           Prikaži objavu
-        </Typography>
+        </ButtonText>
       </Button>
-    </div>
+    </Container>
   );
 };
 
-export default withRouter(Details);
+export default Details;

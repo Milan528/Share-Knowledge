@@ -1,7 +1,12 @@
-import React, { createRef, useState, useEffect } from "react";
-import { pdfjs } from "react-pdf";
-import CircularProgress from "@mui/material/CircularProgress";
-import {PositionContainer, StyledDocument, StyledPage, StyledDivider} from "./styles";
+import React, { createRef, useState, useEffect } from 'react';
+import { pdfjs } from 'react-pdf';
+import CircularProgress from '@mui/material/CircularProgress';
+import {
+  PositionContainer,
+  StyledDocument,
+  StyledPage,
+  StyledDivider,
+} from './styles';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -42,10 +47,7 @@ const PDFReader = (props) => {
             />
           ))}
         </StyledDocument>
-        <StyledDivider/>
-        <a href={URL.createObjectURL(file)} download>
-          Click to download
-        </a>
+        <StyledDivider />
       </PositionContainer>
     </div>
   );

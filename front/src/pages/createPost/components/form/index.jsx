@@ -19,12 +19,15 @@ import {
   FileViewer,
   fileType,
 } from '../../../../components/fileManager';
+import { useNavigate } from 'react-router';
+import { homeRoute } from '../../../../app/router/routes';
 
 const Form = () => {
   const [role, setRole] = useState('pitanje');
   const [message, setMessage] = useState('');
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const navigate = useNavigate();
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;
@@ -41,7 +44,11 @@ const Form = () => {
 
   const onSubmit = () => {};
 
-  const onCancel = () => {};
+  const onCancel = () => {
+    navigate(homeRoute);
+  };
+
+  const filesSrc = (files) => files.map((file) => URL.createObjectURL(file));
 
   return (
     <StyledPaper elevation={0}>
@@ -63,8 +70,8 @@ const Form = () => {
       <FileUploader setFiles={setImages} type={fileType.img} />
       <FileUploader setFiles={setDocuments} type={fileType.document} />
 
-      <FileViewer files={images} type={fileType.img} />
-      <FileViewer files={documents} type={fileType.document} />
+      <FileViewer files={filesSrc(images)} type={fileType.img} />
+      <FileViewer files={filesSrc(documents)} type={fileType.document} />
 
       <ControllsContainer>
         <CancelButton onClick={onCancel} variant="outlined">

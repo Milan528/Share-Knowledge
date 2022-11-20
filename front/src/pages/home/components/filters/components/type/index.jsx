@@ -1,8 +1,7 @@
 import React from 'react';
 import HelpIcon from '@mui/icons-material/Help';
 import Book from '@mui/icons-material/MenuBook';
-import { Container, StyledSelect } from './styles';
-import MenuItem from '@mui/material/MenuItem';
+import { Container, StyledSelect, StyledMenuItem } from './styles';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,15 +20,13 @@ const ScrollableTabs = () => {
       <FormControl>
         <InputLabel>Tip</InputLabel>
         <StyledSelect value={type} label="Tip" onChange={handleChange}>
-          <MenuItem value={'all'}>
-            <em>Sve</em>
-          </MenuItem>
-          <MenuItem value={'q'}>
+          <StyledMenuItem value={'all'}>Sve</StyledMenuItem>
+          <StyledMenuItem value={'q'}>
             Pitanja <HelpIcon />
-          </MenuItem>
-          <MenuItem value={'a'}>
+          </StyledMenuItem>
+          <StyledMenuItem value={'a'}>
             Materijali <Book />
-          </MenuItem>
+          </StyledMenuItem>
         </StyledSelect>
       </FormControl>
     </Container>

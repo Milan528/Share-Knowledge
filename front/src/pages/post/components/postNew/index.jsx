@@ -14,7 +14,7 @@ const Post = (props) => {
       <Title title={title} type={type} />
       <Content text={text} files={files} />
       <Tags tags={tags} />
-      <Details likes={likes} postId={id} date={date} data={data} />
+      <Details likes={likes} postId={id} date={date} />
     </StyledPaper>
   );
 };
