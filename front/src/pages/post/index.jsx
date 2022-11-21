@@ -7,7 +7,7 @@ import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { ContentContainer, StyledH1 } from './styles';
 import { useNavigate, useLocation } from 'react-router-dom';
-import FirstPost from './components/postNew';
+import FirstPost from './components/post';
 
 const Post = (props) => {
   let location = useLocation();

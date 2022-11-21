@@ -4,15 +4,11 @@ import ResponseManager from '../tools/ResponseManager/index.js';
 import fs from 'fs';
 
 export const getFile = async (req, res) => {
-  let filePath = req.query.filePath;
-  let splitResult = filePath.split('/');
-  let fileName = splitResult[splitResult.length - 1];
-  filePath = './' + process.env.SERVER_STORAGE + fileName; //"./files/1630585050554.docx"
-
-  let file = fs.createReadStream(filePath);
-  file.pipe(res);
-
-  // res.download(filePath) //this is the same as previous two lines
+  const fileName = req.params.fileName;
+  const filePath = './' + process.env.SERVER_STORAGE + fileName; //"./files/1630585050554.docx"
+  // let file = fs.createReadStream(filePath);
+  // file.pipe(res);
+  res.download(filePath); //this is the same as previous two lines
 };
 
 export const createFile = async (req, res) => {

@@ -82,7 +82,3 @@ CREATE TABLE searchedBy (
     PRIMARY KEY (id),
      FOREIGN KEY (sentance_id) REFERENCES searchSentence(id) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE searchTokenCounter (
-    id int(15) NOT NULL AUTO_INCREMENT
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;

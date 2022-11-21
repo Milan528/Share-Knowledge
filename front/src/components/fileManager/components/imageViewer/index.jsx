@@ -2,16 +2,15 @@ import React from 'react';
 import { Container, StyledImageList } from './styles';
 import ImageListItem from '@mui/material/ImageListItem';
 
-const Post = (props) => {
-  const { files } = props;
+const ImageViewer = (props) => {
+  const { files } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
 
   return files.length > 0 ? (
     <Container>
       <StyledImageList cols={2} rowHeight={300}>
-        {files.map((image, index) => (
+        {files.map((file, index) => (
           <ImageListItem key={index}>
-            {/* <img src={URL.createObjectURL(image)} alt={'loading...'} /> */}
-            <img src={image} alt={'loading...'} />
+            <img src={file.src} alt={`Loading ${file.name}...`} />
           </ImageListItem>
         ))}
       </StyledImageList>
@@ -19,4 +18,4 @@ const Post = (props) => {
   ) : null;
 };
 
-export default Post;
+export default ImageViewer;

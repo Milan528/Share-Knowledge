@@ -1,9 +1,6 @@
 import FileUploader from './components/fileUploader';
+import ImageUploader from './components/imageUploader';
 import FileViewer from './components/fileViewer';
+import ImageViewer from './components/imageViewer';
 
-const fileType = {
-  img: '.jpg, .png',
-  document: '.pdf, .doc*',
-};
-
-export { FileUploader, FileViewer, fileType };
+export { FileUploader, ImageUploader, FileViewer, ImageViewer };

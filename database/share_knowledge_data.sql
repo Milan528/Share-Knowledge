@@ -39,3 +39,8 @@ INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
 (9, 5),
 (7, 6),
 (10,6);
+
+INSERT INTO `share_knowledge`.`file` (`path`, `ext`, `postId`) VALUES
+('1.docx', '.docx', '1'),
+('1.pdf', '.pdf', '1'),
+('1.png', '.png', '1');

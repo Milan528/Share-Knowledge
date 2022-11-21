@@ -17,7 +17,8 @@ import Tags from './components/tags';
 import {
   FileUploader,
   FileViewer,
-  fileType,
+  ImageUploader,
+  ImageViewer,
 } from '../../../../components/fileManager';
 import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
@@ -30,7 +31,7 @@ const Form = () => {
   const navigate = useNavigate();
 
   const handleTextareaChange = (event) => {
-    const value = event.target.value;
+    // const value = event.target.value;
   };
 
   const handleTypeChange = (event) => {
@@ -39,7 +40,7 @@ const Form = () => {
   };
 
   const handleTtileChange = (event) => {
-    const value = event.target.value;
+    // const value = event.target.value;
   };
 
   const onSubmit = () => {};
@@ -48,7 +49,8 @@ const Form = () => {
     navigate(homeRoute);
   };
 
-  const filesSrc = (files) => files.map((file) => URL.createObjectURL(file));
+  console.log(images);
+  // console.log(documents);
 
   return (
     <StyledPaper elevation={0}>
@@ -66,12 +68,20 @@ const Form = () => {
         </Select>
       </Type>
       <Tags />
-
-      <FileUploader setFiles={setImages} type={fileType.img} />
-      <FileUploader setFiles={setDocuments} type={fileType.document} />
-
-      <FileViewer files={filesSrc(images)} type={fileType.img} />
-      <FileViewer files={filesSrc(documents)} type={fileType.document} />
+      <ImageUploader setFiles={setImages} />
+      <FileUploader setFiles={setDocuments} />
+      <ImageViewer
+        files={images.map((image) => ({
+          src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'
+          name: image.name, //'1.png'
+        }))}
+      />
+      <FileViewer
+        files={documents.map((document) => ({
+          src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
+          name: document.name, //'1.pdf'
+        }))}
+      />
 
       <ControllsContainer>
         <CancelButton onClick={onCancel} variant="outlined">

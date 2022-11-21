@@ -1,8 +1,8 @@
 import React, { createRef } from 'react';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
+import InsertPhoto from '@mui/icons-material/InsertPhoto';
 import { StyledButton } from './styles';
 
-const FileUploader = (props) => {
+const ImageUploader = (props) => {
   const { setFiles } = props;
   const inputRef = createRef();
 
@@ -14,18 +14,18 @@ const FileUploader = (props) => {
   return (
     <>
       <StyledButton onClick={() => inputRef.current.click()}>
-        <AttachFileIcon /> Dodaj prilog...
+        <InsertPhoto /> Dodaj slike...
       </StyledButton>
       <input
         type="file"
         ref={inputRef}
         style={{ display: 'none' }}
         onChange={onInputChange}
-        accept=".pdf, .doc*"
+        accept=".jpg, .png"
         multiple="multiple"
       />
     </>
   );
 };
 
-export default FileUploader;
+export default ImageUploader;

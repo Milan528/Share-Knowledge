@@ -122,7 +122,6 @@ export const getSpecificPosts = async (req, res) => {
         FILE_QUERYS.SELECT_FILES_FOR_POST,
         post.id
       );
-
       if (error) {
         return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
       }

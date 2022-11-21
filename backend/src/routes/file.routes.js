@@ -1,19 +1,8 @@
 import express from 'express';
 import { createFile, getFile } from '../controllers/files.controller.js';
-import multer from 'multer';
-import path from 'path';
+import upload from '../tools/multer.js';
 
 const fileRoutes = express.Router();
-
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: process.env.SERVER_STORAGE, //putanja je relativna u odnosu na glavni inex.js
-    filename: (req, file, cb) => {
-      console.log(file);
-      cb(null, Date.now() + path.extname(file.originalname));
-    }
-  })
-});
-
-fileRoutes.route('/:id').get(getFile).post(upload.single('file'), createFile);
+fileRoutes.route('/').post(upload.single('file'), createFile);
+fileRoutes.route('/:fileName').get(getFile);
 export default fileRoutes;
