@@ -3,7 +3,7 @@ import { axiosErrorLoger } from '../components/errorDialog/axiosErrorLogger';
 
 const request = async (method, url, DTO) => {
   const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('app')).token;
-
+  console.log(process.env.REACT_APP_BASE_URL + url);
   try {
     const res = await axios({
       method: method,

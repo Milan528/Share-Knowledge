@@ -11,6 +11,10 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+
+  @media (max-width: 650px) {
+    width: 100%;
+  }
 `;
 
 export const PageHeading = styled(Typography)`

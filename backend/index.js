@@ -19,6 +19,6 @@ router.listen(process.env.SERVER_PORT, () => {
 });
 
 router.use('/posts', routes.postsRoutes);
-router.use('/file', routes.fileRoutes);
+router.use('/upload', routes.uploadRoutes);
 router.use('/tags', routes.tagsRoutes);
 router.use('/auth', routes.authRoutes);

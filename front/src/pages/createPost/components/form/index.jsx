@@ -22,6 +22,8 @@ import {
 } from '../../../../components/fileManager';
 import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
+import { addPost } from '../../reduxThunk/actions';
+import { useDispatch } from 'react-redux';
 
 const Form = () => {
   const [role, setRole] = useState('pitanje');
@@ -29,6 +31,7 @@ const Form = () => {
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleTextareaChange = (event) => {
     // const value = event.target.value;
@@ -43,7 +46,9 @@ const Form = () => {
     // const value = event.target.value;
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    dispatch(addPost(images));
+  };
 
   const onCancel = () => {
     navigate(homeRoute);

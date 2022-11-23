@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Viewer from 'react-file-viewer';
-import { Link } from './styles';
+import { Link, FileContainer } from './styles';
 
 const FileViewer = (props) => {
   const { files } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
@@ -44,10 +44,12 @@ const FileViewer = (props) => {
               Open file in new tab
             </Link>
           ) : null}
-          <Viewer
-            fileType={selectedFile.name.split('.')[1]}
-            filePath={selectedFile.src}
-          />
+          <FileContainer>
+            <Viewer
+              fileType={selectedFile.name.split('.')[1]}
+              filePath={selectedFile.src}
+            />
+          </FileContainer>
         </>
       ) : null}
     </>

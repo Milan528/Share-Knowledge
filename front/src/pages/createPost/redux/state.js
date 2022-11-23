@@ -1,8 +1,11 @@
-export const initialState = {};
+export const initialState = {
+  loading: false,
+  error: null,
+};
 
 const getState = () => {
-  if (localStorage.getItem('home')) {
-    const state = JSON.parse(localStorage.getItem('home')).state;
+  if (localStorage.getItem('createPost')) {
+    const state = JSON.parse(localStorage.getItem('createPost')).state;
     return state;
   } else return initialState;
 };

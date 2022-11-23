@@ -4,9 +4,11 @@ import Form from './components/form';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/loader';
 import { Container, ContentContainer, PageHeading } from './styles';
+import { setError } from './redux/slices';
+import ErrorDialog from '../../components/errorDialog';
 
 const CreatePost = () => {
-  const { error, loading } = useSelector((state) => state.createPost);
+  const { error, loading } = useSelector((state) => state.createPost.state);
 
   const viewToRender = (
     <>
@@ -16,11 +18,12 @@ const CreatePost = () => {
           <PageHeading variant="h5">Kreiranje objave</PageHeading>
           <Form />
         </ContentContainer>
+        {loading ? <Loader /> : null}
       </Container>
     </>
   );
 
-  if (loading) return <Loader />;
+  if (error) return <ErrorDialog error={error} handleError={setError} />;
   else return viewToRender;
 };
 
