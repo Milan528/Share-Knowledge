@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
 
 export const Container = styled.div`
-  flex-row: 1;
+  flex: 1;
   display: flex;
   justify-content: center;
 `;

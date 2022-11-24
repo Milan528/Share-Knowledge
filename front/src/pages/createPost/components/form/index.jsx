@@ -59,6 +59,7 @@ const Form = () => {
 
   return (
     <StyledPaper elevation={0}>
+      {/* <div> */}
       <Tile label="Naslov" fullWidth onChange={handleTtileChange} />
       <StyledTextareaAutosize
         minRows={10}
@@ -87,7 +88,6 @@ const Form = () => {
           name: document.name, //'1.pdf'
         }))}
       />
-
       <ControllsContainer>
         <CancelButton onClick={onCancel} variant="outlined">
           <ControllsText variant="button" color="inherit">
