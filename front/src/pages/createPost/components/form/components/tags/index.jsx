@@ -12,13 +12,13 @@ import { loadTags } from '../../../../reduxThunk/actions';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const Tags = () => {
+const Tags = ({ selectedTags, setSelectedTags }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.home.tags);
-  const { selectedTags, allTags } = state;
+  const { allTags } = state;
 
   const handleOnChange = (event, value) => {
-    if (value) dispatch(setSelectedTags(value));
+    if (value) setSelectedTags(value);
   };
 
   useEffect(() => {

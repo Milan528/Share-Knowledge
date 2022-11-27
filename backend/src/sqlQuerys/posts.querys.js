@@ -1,7 +1,7 @@
 const QUERY = {
   SELECT_POSTS: 'SELECT * FROM post limit ?,?',
   SELECT_POST: 'SELECT * FROM post WHERE id = ?',
-  CREATE_POST: 'INSERT INTO post(title, text, type, date, userId) VALUES (?, ?, ?, ?, ?)',
+  CREATE_POST: 'INSERT INTO post(title, text, type, date, likes ,userId) VALUES (?, ?, ?, ?, ?, ?)',
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
   SELECT_SPECIFIC_POSTS_TAGS: getSpecificPostsTags,

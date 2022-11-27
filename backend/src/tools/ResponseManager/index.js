@@ -22,6 +22,7 @@ const ResponseManager = {
 
   CREATED: (res, ...args) => {
     res
+      // .setHeader('Content-Type', 'application/json')
       .status(HttpStatus.CREATED.code)
       .send(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, ...args));
   },

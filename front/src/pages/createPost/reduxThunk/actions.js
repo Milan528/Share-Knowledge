@@ -7,65 +7,19 @@ import serialize from '../../../components/serialize';
 import { getAllTagsRepository } from '../repository/tags';
 import { currentDate } from '../../../components/date';
 import axios from 'axios';
+import { setLoading } from '../redux/slices';
+import { createPostRepository } from '../repository/post';
 
-export const addPost = (images) => async (dispatch, getState) => {
+export const addPost = (post) => async (dispatch, getState) => {
   try {
-    // dispatch(loading(true));
+    dispatch(setLoading(true));
 
-    // const { createPost } = getState();
-    // const { title, text, type, likes, chosenTags, images, documents } =
-    //   createPost;
-
-    // let DTO = {
-    //   title: title, //   title: "Ovo je naslov.",
-    //   text: text, //   text: "Ovo je sadrzaj",
-    //   type: type, //   type: "clan",
-    //   likes: likes, //   likes: 50,
-    //   date: currentDate, //   date: currentDate,
-    //   tags: chosenTags, //   tags: [{id: 8, tag: "darjan"}, {id: 14, tag: "sada"}]
-    // };
-
-    // const posts = await services.post(urls.addPost, DTO);
-    // const { postId } = posts;
-
-    // for (const image of images) {
-    //   let formData = new FormData();
-    //   formData.append('file', image);
-    // }
-    const formData = new FormData();
-    images.forEach((image, index) => {
-      formData.append(`files${index}`, image);
-    });
-    formData.append('postId', 1);
-    console.log(formData);
-
-    const res = await axios.post(
-      'http://localhost:4000/upload/post',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            )
-          );
-        },
-
-        // for (const document of documents) {
-        //   let formData = new FormData();
-        //   formData.append('file', document);
-        //   formData.append('postId', postId);
-        //   await services.postFile(urls.uploadFile, formData);
-        // }
-      }
-    );
+    const response = await createPostRepository(post);
+    console.log(response);
   } catch (err) {
     console.log(err);
   } finally {
-    // dispatch(loading(false));
+    dispatch(setLoading(false));
   }
 };
 

@@ -13,15 +13,13 @@ const validateEmail = (email) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { params } = req.body;
-  const { email, password } = params;
+  const { email, password } = req.body;
 
   if (validateEmail(email) === null) {
     return ResponseManager.BAD_REQUEST(res, `Not a valid email address`);
   }
 
   const { results, error } = await database.query(QUERYS.SELECT_USER_BY_EMAIL, email);
-
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {
@@ -34,6 +32,8 @@ export const loginUser = async (req, res) => {
         token: accessToken,
         role: user.role
       });
+    } else {
+      ResponseManager.NOT_FOUND(res, `Wrong email or password`);
     }
   }
 };

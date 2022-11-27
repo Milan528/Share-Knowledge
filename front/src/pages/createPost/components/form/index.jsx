@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyledPaper,
   StyledTextareaAutosize,
@@ -26,40 +26,65 @@ import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 
 const Form = () => {
-  const [role, setRole] = useState('pitanje');
+  const [type, setType] = useState('pitanje');
   const [message, setMessage] = useState('');
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedTags, setSelectedTags] = useState([]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleTextareaChange = (event) => {
-    // const value = event.target.value;
+    const value = event.target.value;
+    setDescription(value);
   };
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
-    setRole(value);
+    setType(value);
   };
 
   const handleTtileChange = (event) => {
-    // const value = event.target.value;
+    const value = event.target.value;
+    setTitle(value);
+  };
+
+  const checkPostParams = () => {
+    if (title.trim() === '') {
+      setMessage('Title can not be empty.');
+      return false;
+    } else if (description.trim() === '') {
+      setMessage('Description can not be empty.');
+      return false;
+    } else if (selectedTags.length === 0) {
+      setMessage('Select at least one tag for your post.');
+      return false;
+    } else return true;
   };
 
   const onSubmit = () => {
-    dispatch(addPost(images));
+    if (checkPostParams()) {
+      const post = {
+        title,
+        description,
+        selectedTags,
+        type,
+        images,
+        documents,
+      };
+      dispatch(addPost(post));
+    }
   };
 
   const onCancel = () => {
     navigate(homeRoute);
   };
 
-  console.log(images);
-  // console.log(documents);
-
   return (
     <StyledPaper elevation={0}>
-      {/* <div> */}
       <Tile label="Naslov" fullWidth onChange={handleTtileChange} />
       <StyledTextareaAutosize
         minRows={10}
@@ -68,12 +93,12 @@ const Form = () => {
       />
       <Type>
         <InputLabel>Tip</InputLabel>
-        <Select value={role} onChange={handleTypeChange}>
+        <Select value={type} onChange={handleTypeChange}>
           <MenuItem value={'pitanje'}>Pitanje</MenuItem>
           <MenuItem value={'materijal'}>Materijal</MenuItem>
         </Select>
       </Type>
-      <Tags />
+      <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
       <ImageUploader setFiles={setImages} />
       <FileUploader setFiles={setDocuments} />
       <ImageViewer
