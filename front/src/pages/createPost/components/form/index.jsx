@@ -9,6 +9,7 @@ import {
   CancelButton,
   SubmitButton,
   FileControlls,
+  StyledDeleteButton,
 } from './styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -108,15 +109,24 @@ const Form = () => {
       <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
       <FileControlls>
         <ImageUploader setFiles={setImages} />
+        {images.length > 0 ? (
+          <StyledDeleteButton
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            onClick={() => setImages([])}
+          >
+            Delete images
+          </StyledDeleteButton>
+        ) : null}
         <FileUploader setFiles={setDocuments} />
         {documents.length > 0 ? (
-          <Button
+          <StyledDeleteButton
             variant="outlined"
             startIcon={<DeleteIcon />}
             onClick={() => setDocuments([])}
           >
             Delete files
-          </Button>
+          </StyledDeleteButton>
         ) : null}
       </FileControlls>
       <ImageViewer
@@ -124,6 +134,7 @@ const Form = () => {
           src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'
           name: image.name, //'1.png'
         }))}
+        setFiles={setImages}
       />
       <FileViewer
         files={documents.map((document) => ({

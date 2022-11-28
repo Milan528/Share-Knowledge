@@ -4,7 +4,6 @@ import { useState } from 'react';
 import {
   Container,
   ControlsContainer,
-  DeleteIconContainer,
   Image,
   ImageContainer,
   MinHeightContainer,
@@ -14,10 +13,9 @@ import {
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import IconButton from '@mui/material/IconButton';
-import Delete from '@mui/icons-material/Delete';
 
 const ImageViewer = (props) => {
-  const { files, setFiles } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
+  const { files } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -93,14 +91,7 @@ const ImageViewer = (props) => {
     <MinHeightContainer>
       <Container>
         <ImageContainer>
-          <Image image={files[activeSlide].src}>
-            {' '}
-            <DeleteIconContainer>
-              <IconButton style={{ backgroundColor: 'white' }}>
-                <Delete />
-              </IconButton>
-            </DeleteIconContainer>
-          </Image>
+          <Image image={files[activeSlide].src} />
         </ImageContainer>
         <ControlsContainer>
           {files.length > 1 ? (

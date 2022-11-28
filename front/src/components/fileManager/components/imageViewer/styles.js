@@ -12,15 +12,6 @@ export const MinHeightContainer = styled.div`
   height: 500px;
 `;
 
-export const DeleteIconContainer = styled.div`
-  position: absolute;
-  color: red;
-
-  top: 0px;
-  right: -20px;
-  z-index: 1;
-`;
-
 export const ImageContainer = styled.div`
   flex: 0.8;
   width: 65%;
