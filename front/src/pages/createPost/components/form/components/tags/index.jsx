@@ -14,7 +14,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const Tags = ({ selectedTags, setSelectedTags }) => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.home.tags);
+  const state = useSelector((state) => state.createPost.tags);
   const { allTags } = state;
 
   const handleOnChange = (event, value) => {

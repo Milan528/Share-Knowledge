@@ -8,6 +8,7 @@ import {
   ControllsText,
   CancelButton,
   SubmitButton,
+  FileControlls,
 } from './styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,6 +25,8 @@ import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
 import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Form = () => {
   const [type, setType] = useState('pitanje');
@@ -36,6 +39,10 @@ const Form = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(documents);
+  }, [documents]);
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;
@@ -99,8 +106,19 @@ const Form = () => {
         </Select>
       </Type>
       <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-      <ImageUploader setFiles={setImages} />
-      <FileUploader setFiles={setDocuments} />
+      <FileControlls>
+        <ImageUploader setFiles={setImages} />
+        <FileUploader setFiles={setDocuments} />
+        {documents.length > 0 ? (
+          <Button
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+            onClick={() => setDocuments([])}
+          >
+            Delete files
+          </Button>
+        ) : null}
+      </FileControlls>
       <ImageViewer
         files={images.map((image) => ({
           src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'

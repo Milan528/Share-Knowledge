@@ -6,6 +6,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+export const FileControlls = styled.div`
+  margin-bottom: 10px;
+`;
+
 export const ControllsText = styled(Typography)`
   && {
     text-transform: none;
