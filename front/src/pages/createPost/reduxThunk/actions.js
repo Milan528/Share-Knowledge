@@ -5,8 +5,6 @@ import {
 } from '../components/form/components/tags/redux/slices';
 import serialize from '../../../components/serialize';
 import { getAllTagsRepository } from '../repository/tags';
-import { currentDate } from '../../../components/date';
-import axios from 'axios';
 import { setLoading } from '../redux/slices';
 import { createPostRepository } from '../repository/post';
 

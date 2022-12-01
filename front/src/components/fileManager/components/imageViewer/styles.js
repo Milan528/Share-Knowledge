@@ -32,6 +32,7 @@ export const Image = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  position: relative;
   background-image: ${(props) =>
     props.image ? `url(${props.image})` : 'transparent'};
   background-repeat: no-repeat;

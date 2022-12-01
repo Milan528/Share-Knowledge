@@ -9,6 +9,7 @@ const FileUploader = (props) => {
   const onInputChange = (e) => {
     let files = Array.from(e.target.files);
     setFiles(files);
+    inputRef.current.value = '';
   };
 
   return (

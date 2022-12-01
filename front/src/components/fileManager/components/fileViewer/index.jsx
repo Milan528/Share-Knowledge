@@ -25,7 +25,11 @@ const FileViewer = (props) => {
     <>
       <FormControl fullWidth>
         <InputLabel>Odaberi fajl</InputLabel>
-        <Select value={fileIndex} onChange={handleFileChange}>
+        <Select
+          value={fileIndex}
+          onChange={handleFileChange}
+          label="Odaberi fajl"
+        >
           <MenuItem value={-1}>Nijedan</MenuItem>
           {files.map((file, index) => (
             <MenuItem key={index} value={index}>
