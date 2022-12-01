@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyledText } from './styles';
-import { FileViewer, ImageViewer } from '../../../../../components/fileManager';
+import { StyledText, ContentContainer } from './styles';
+import { FileViewer, ImageViewer } from '../../../../../../../components/fileManager';
 
 const Content = (props) => {
   const { text, files } = props;
@@ -20,7 +20,7 @@ const Content = (props) => {
   };
 
   return (
-    <>
+    <ContentContainer>
       <StyledText>{text}</StyledText>
       <ImageViewer
         files={images(files).map((image) => ({
@@ -34,7 +34,7 @@ const Content = (props) => {
           name: document.path, //'1.pdf'
         }))}
       />
-    </>
+    </ContentContainer>
   );
 };
 

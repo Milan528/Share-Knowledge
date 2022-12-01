@@ -18,15 +18,20 @@ export const uploadPostFile = async (req, res) => {
         return ResponseManager.INTERNAL_SERVER_ERROR(res, err);
       } else {
         //WRITE FILEPATH TO DATABASE
-        await insertDataIntoFileTable(filepath, files[key].mimetype.split('/')[1], postId);
+        await insertDataIntoPostFileTable(filepath, files[key].mimetype.split('/')[1], postId);
       }
     });
   });
   // Object.keys(files).toString()
   return ResponseManager.OK(res, 'Files uploaded');
 };
-async function insertDataIntoFileTable(filepath, ext, postId) {
-  const { results, error } = await database.query(FILE_QUERYS.CREATE_FILE, [filepath, ext, postId]);
+
+async function insertDataIntoPostFileTable(filepath, ext, postId) {
+  const { results, error } = await database.query(FILE_QUERYS.CREATE_FILE_FOR_POST, [
+    filepath,
+    ext,
+    postId
+  ]);
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);

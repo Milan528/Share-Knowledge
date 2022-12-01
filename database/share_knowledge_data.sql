@@ -43,7 +43,7 @@ INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
 (7, 6),
 (10,6);
 
-INSERT INTO `share_knowledge`.`file` (`path`, `ext`, `postId`) VALUES
+INSERT INTO `share_knowledge`.`post_file` (`path`, `ext`, `postId`) VALUES
 ('1.docx', '.docx', '1'),
 ('1.pdf', '.pdf', '1'),
 ('1.png', '.png', '1');
@@ -71,3 +71,15 @@ INSERT INTO `share_knowledge`.`commentLikedBy` (`commentId`, `userId`) VALUES
 (3, 1),
 (3, 2),
 (4, 1);
+
+INSERT INTO `share_knowledge`.`post_comment` (`postId`,`commentId`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4);
+
+INSERT INTO `share_knowledge`.`comment_file` (`path`, `ext`, `commentId`) VALUES
+('2.docx', '.docx', '1'),
+('2.pdf', '.pdf', '1'),
+('2.png', '.png', '1');
+

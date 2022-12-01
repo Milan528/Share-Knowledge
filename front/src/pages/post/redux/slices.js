@@ -13,7 +13,7 @@ const postSlice = createSlice({
     },
 
     setComments: (state, action) => {
-      state.post = action.payload;
+      state.comments = action.payload;
     },
   },
 });

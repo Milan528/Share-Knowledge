@@ -23,12 +23,12 @@ function getFilteredPosts(tags, search, startIndex, count, type) {
   sql2 += 'from post ';
   sql2 += 'join postLikedBy ';
   sql2 += 'ON post.id=postLikedBy.postId ';
-  sql2 += 'GROUP BY id';
+  sql2 += 'GROUP BY id ';
 
   sql1 += sql2;
-  sql1 += ` ) as myTable2 `;
+  sql1 += `) as myTable2 `;
   sql1 += 'JOIN post_tag ON myTable2.id=post_tag.postId ';
-  sql1 += `where type in(`;
+  sql1 += `where type in( `;
   if (type && (type === 'q' || type === 'a')) {
     sql1 += `'${type}'`;
   } else {
@@ -38,7 +38,7 @@ function getFilteredPosts(tags, search, startIndex, count, type) {
 
   if (search && search.trim() !== '') {
     // sql += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
-    sql1 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE)`;
+    sql1 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
   }
 
   if (tags.length > 0) {
@@ -54,7 +54,6 @@ function getFilteredPosts(tags, search, startIndex, count, type) {
 
   sql += `group by id limit ${startIndex},${count};`;
 
-  console.log(sql);
   return sql;
 }
 

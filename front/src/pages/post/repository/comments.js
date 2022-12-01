@@ -1,4 +1,6 @@
 import services from '../../../services';
-import fileServices from '../../../services/fileServices';
 
-export const getCommentsRepository = async (postId) => {};
+export const getCommentsRepository = async (postId) => {
+  const dto = await services.post('/comments/commentsForPost', { postId });
+  return dto.data;
+};
