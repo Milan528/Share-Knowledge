@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
-import { ContentContainer, StyledH1 } from './styles';
+import { ContentContainer, StyledButton, StyledH1 } from './styles';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FirstPost from './components/post';
 import { loadComments } from './reduxThunk/actions';
@@ -17,6 +17,9 @@ const Post = (props) => {
   const post = location.state;
   const { error, loading } = useSelector((state) => state.post);
   const dispatch = useDispatch();
+  const createCommentRef = useRef(null);
+
+  console.log(createCommentRef);
 
   useEffect(() => {
     dispatch(loadComments(post.id));
@@ -25,11 +28,17 @@ const Post = (props) => {
   const viewToRender = (
     <>
       <Navbar />
+      <StyledButton
+        variant="contained"
+        onClick={() => createCommentRef.current.scrollIntoView()}
+      >
+        Kreiraj komentar
+      </StyledButton>
       <StyledH1> {post.type === 'answer' ? 'Materijal' : 'Pitanje'}</StyledH1>
       <ContentContainer>
         <FirstPost data={post} />
         <Comments />
-        <CreateComment />
+        <CreateComment ref={createCommentRef} />
       </ContentContainer>
       {loading ? <Loader /> : null}
       <Footer />

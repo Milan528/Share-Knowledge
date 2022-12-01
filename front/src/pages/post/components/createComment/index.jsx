@@ -1,7 +1,13 @@
 import React from 'react';
+import Form from './components/form';
 
-const CreateComment = (props) => {
-  return <h1>Create comment</h1>;
-};
+const CreateComment = React.forwardRef((props, ref) => {
+  return (
+    <>
+      <h1 ref={ref}>Create comment</h1>
+      <Form />
+    </>
+  );
+});
 
 export default CreateComment;

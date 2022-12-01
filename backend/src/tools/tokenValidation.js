@@ -8,7 +8,7 @@ const tokenValidation = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == 'undefined') {
+  if (token === 'undefined' || token === 'null') {
     return ResponseManager.BAD_REQUEST(res, `Token is undefined`);
   }
 

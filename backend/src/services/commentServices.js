@@ -31,3 +31,23 @@ export const getCommentsForPost = async (req, res) => {
     return ResponseManager.OK(res, `Comments retrieved`, comments);
   }
 };
+
+export const createComment = async (req, res) => {
+  const { comment, userID } = req.body;
+  comment.userId = userID;
+  console.log(comment);
+
+  const { results, error } = await database.query(QUERYS.CREATE_COMMENT, [...comment]);
+
+  if (error) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  } else if (!results) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+  } else {
+    const commentID = results.insertId;
+
+    ResponseManager.CREATED(res, `Post created`, commentID);
+  }
+};
+
+createComment;

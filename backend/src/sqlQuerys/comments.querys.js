@@ -1,4 +1,5 @@
 const QUERY = {
+  CREATE_COMMENT: 'INSERT INTO comment(text, date, postId, userId) VALUES (?, ?, ?,?)',
   // SELECT_COMMENTS_FOR_POST:
   // 'SELECT id, text, date, userId FROM post_comment JOIN comment ON post_comment.commentId=comment.id WHERE postId = ?'
   SELECT_COMMENTS_FOR_POST: selectCommentsForPost

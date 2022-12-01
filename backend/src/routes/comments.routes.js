@@ -1,11 +1,11 @@
 import express from 'express';
-import { getCommentsForPost } from '../controllers/comment.controller.js';
-// import tokenValidation from '../tools/tokenValidation.js';
+import { getCommentsForPost, createComment } from '../controllers/comment.controller.js';
+import tokenValidation from '../tools/tokenValidation.js';
 
-const postsRoutes = express.Router();
+const commentRoutes = express.Router();
 
-// postsRoutes.route('/').get(getPosts).post(tokenValidation, createPost);
+commentRoutes.route('/').post(tokenValidation, createComment);
 // postsRoutes.route('/:id').get(getPost).put(updatePost).delete(deletePost);
-postsRoutes.route('/commentsForPost').post(getCommentsForPost);
+commentRoutes.route('/commentsForPost').post(getCommentsForPost);
 
-export default postsRoutes;
+export default commentRoutes;

@@ -73,3 +73,16 @@ export const CancelButton = styled(Button)`
     margin-right: 10px;
   }
 `;
+
+export const ErrorHolder = styled.p`
+  width: 100%;
+  text-align: center;
+  color: red;
+  display: ${(props) => (props.exists ? 'block' : 'none')};
+
+  > span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: red;
+  }
+`;
