@@ -1,4 +1,4 @@
-import QUERYS from '../sqlQuerys/posts.querys.js';
+import QUERYS from '../sqlQuerys/comments.querys.js';
 import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
@@ -128,5 +128,20 @@ export const getSpecificPosts = async (req, res) => {
     }
 
     return ResponseManager.OK(res, `Posts retrieved`, posts);
+  }
+};
+
+export const getSuggestions = async (req, res) => {
+  const { params: searchParams } = req.body;
+  console.log(searchParams);
+  const { results, error } = await database.query(
+    QUERYS.SELECT_SUGGESTIONS(searchParams.toLowerCase())
+  );
+  if (error) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  } else if (!results) {
+    ResponseManager.OK(res, `No suggestions found`);
+  } else {
+    ResponseManager.OK(res, `Suggestions retrieved`, results);
   }
 };

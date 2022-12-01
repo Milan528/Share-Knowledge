@@ -10,11 +10,6 @@ import {
   actions as postActions,
 } from '../components/posts/redux/slices';
 import posts from '../components/posts/redux/state';
-import {
-  searchBarReducer,
-  actions as searchBarActions,
-} from '../components/filters/components/searchBar/redux/slices';
-import searchBar from '../components/filters/components/searchBar/redux/state';
 
 const homeSlice = createSlice({
   name: 'home',
@@ -22,7 +17,6 @@ const homeSlice = createSlice({
     state,
     tags,
     posts,
-    searchBar,
   },
   reducers: {
     setFiltersVisibility: (state, action) => {
@@ -30,6 +24,9 @@ const homeSlice = createSlice({
     },
     setType: (state, action) => {
       state.state.type = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.state.search = action.payload;
     },
   },
   extraReducers: {
@@ -60,22 +57,8 @@ const homeSlice = createSlice({
     [postActions.setPosts]: (state, action) => {
       state.posts = postsReducer(state.posts, action);
     },
-    [searchBarActions.setLoading]: (state, action) => {
-      state.searchBar = searchBarReducer(state.searchBar, action);
-    },
-
-    [searchBarActions.setError]: (state, action) => {
-      state.searchBar = searchBarReducer(state.searchBar, action);
-    },
-
-    [searchBarActions.setSuggestions]: (state, action) => {
-      state.searchBar = searchBarReducer(state.searchBar, action);
-    },
-    [searchBarActions.setSelectedSuggestion]: (state, action) => {
-      state.searchBar = searchBarReducer(state.searchBar, action);
-    },
   },
 });
 
-export const { setFiltersVisibility, setType } = homeSlice.actions;
+export const { setFiltersVisibility, setType, setSearch } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

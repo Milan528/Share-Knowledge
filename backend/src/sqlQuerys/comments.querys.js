@@ -6,8 +6,15 @@ const QUERY = {
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
   SELECT_SPECIFIC_POSTS_TAGS: getSpecificPostsTags,
   SELECT_SPECIFIC_POSTS_IDS: getSpecificPostsIds,
-  SELECT_FILTERED_POSTS: getFilteredPosts
+  SELECT_FILTERED_POSTS: getFilteredPosts,
+  SELECT_SUGGESTIONS: getSuggestions
 };
+
+function getSuggestions(searchParams) {
+  let sql = `SELECT title,text FROM post where (lower(title) LIKE "%${searchParams}%" or lower(text) LIKE "%${searchParams}%") `;
+
+  return sql;
+}
 
 function getFilteredPosts(tags, search, startIndex, count, type) {
   let sql = '';

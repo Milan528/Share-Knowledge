@@ -2,13 +2,13 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux';
 import debounce from '../../../../../../components/debounce';
-import { setSelectedSuggestion } from './redux/slices';
+import { setSearch } from '../../../../redux/slices';
 
 const Search = () => {
   const dispatch = useDispatch();
 
   const handleOnInputChange = (event) => {
-    dispatch(setSelectedSuggestion(event.target.value));
+    dispatch(setSearch(event.target.value));
   };
 
   return (

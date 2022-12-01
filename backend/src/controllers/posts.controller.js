@@ -24,7 +24,3 @@ export const deletePost = async (req, res) => {
 export const getSpecificPosts = async (req, res) => {
   return postServices.getSpecificPosts(req, res);
 };
-
-export const getSuggestions = async (req, res) => {
-  return postServices.getSuggestions(req, res);
-};

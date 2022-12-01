@@ -13,8 +13,6 @@ import {
   setLoading as loadingPosts,
   setError as setErrorPosts,
 } from '../components/posts/redux/slices';
-import { setLoading as loadingSearchBar } from '../components/filters/components/searchBar/redux/slices';
-import { getSuggestionsRepository } from '../repository/searchBar';
 import serialize from '../../../components/serialize';
 
 export const loadPosts = () => async (dispatch, getState) => {
@@ -33,8 +31,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
-      searchBar: { selectedSuggestion },
-      state: { type },
+      state: { type, search },
     },
   } = getState();
 
@@ -43,7 +40,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     tags: tagsId,
     startIndex: Number(0),
     count: 5,
-    search: selectedSuggestion,
+    search,
     type,
   };
   try {
@@ -68,17 +65,3 @@ export const loadTags = () => async (dispatch, getState) => {
     dispatch(setLoadingAllTags(false));
   }
 };
-
-export const loadSearchSuggestions =
-  (searchText) => async (dispatch, getState) => {
-    try {
-      dispatch(loadingSearchBar(true));
-      const suggestions = await getSuggestionsRepository(searchText);
-      console.log(suggestions);
-      // dispatch(setAllTags(tags));
-    } catch (err) {
-      // dispatch(setError(serialize(err)));
-    } finally {
-      // dispatch(loading(false));
-    }
-  };

@@ -1,6 +1,7 @@
 export const initialState = {
   filtersVisibility: true,
   type: 'all',
+  search: '',
 };
 
 const getState = () => {
