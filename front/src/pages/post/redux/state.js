@@ -1,8 +1,7 @@
 const initialState = {
   loading: false,
   error: null,
-  post: null,
-  files: [],
+  comments: [],
 };
 
 const getState = () => {

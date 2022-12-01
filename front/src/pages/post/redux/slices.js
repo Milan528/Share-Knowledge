@@ -12,15 +12,11 @@ const postSlice = createSlice({
       state.error = action.payload;
     },
 
-    setPost: (state, action) => {
+    setComments: (state, action) => {
       state.post = action.payload;
-    },
-
-    setFiles: (state, action) => {
-      state.files = action.payload;
     },
   },
 });
 
-export const { setLoading, setError, setPost, setFiles } = postSlice.actions;
+export const { setLoading, setError, setComments } = postSlice.actions;
 export const postReducer = postSlice.reducer;

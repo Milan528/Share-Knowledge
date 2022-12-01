@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
+DROP TABLE IF EXISTS commentLikedBy;
+DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS searchedBy;
 DROP TABLE IF EXISTS searchSentence;
 DROP TABLE IF EXISTS postLikedBy;
@@ -81,3 +83,21 @@ CREATE TABLE searchedBy (
     PRIMARY KEY (id),
      FOREIGN KEY (sentance_id) REFERENCES searchSentence(id) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE comment (
+    id int NOT NULL AUTO_INCREMENT,
+    text varchar(1000) NOT NULL,
+    date varchar(25) NOT NULL,
+    likes int NOT NULL,
+    userId int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userId) REFERENCES user(id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE commentLikedBy (
+commentId int NOT NULL,
+userId int NOT NULL, 
+PRIMARY KEY (commentId,userId),
+FOREIGN KEY (userId) REFERENCES user(id), 
+FOREIGN KEY (commentId) REFERENCES comment(id) 
+) DEFAULT CHARSET=utf8;

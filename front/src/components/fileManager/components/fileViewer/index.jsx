@@ -8,7 +8,7 @@ import { Link, FileContainer } from './styles';
 
 const FileViewer = (props) => {
   const { files } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
-  const [fileIndex, setFileIndex] = useState(0);
+  const [fileIndex, setFileIndex] = useState(-1);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
