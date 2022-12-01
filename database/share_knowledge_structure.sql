@@ -3,7 +3,7 @@ USE `share_knowledge`;
 
 DROP TABLE IF EXISTS searchedBy;
 DROP TABLE IF EXISTS searchSentence;
-DROP TABLE IF EXISTS likedBy;
+DROP TABLE IF EXISTS postLikedBy;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS file;
 DROP TABLE IF EXISTS tags;
@@ -27,7 +27,6 @@ CREATE TABLE post (
     text varchar(1000) NOT NULL,
     type varchar(100) NOT NULL,
     date varchar(25) NOT NULL,
-    likes int NOT NULL,
     userId int NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES user(id) ,
@@ -41,7 +40,7 @@ CREATE TABLE tags (
     UNIQUE (tag)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE likedBy (
+CREATE TABLE postLikedBy (
 postId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (postId,userId),
