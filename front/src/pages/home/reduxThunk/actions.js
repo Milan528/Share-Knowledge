@@ -13,7 +13,7 @@ import {
   setLoading as loadingPosts,
   setError as setErrorPosts,
 } from '../components/posts/redux/slices';
-import serialize from '../../../components/serialize';
+import serialize from '../../../utils/serialize';
 
 export const loadPosts = () => async (dispatch, getState) => {
   try {

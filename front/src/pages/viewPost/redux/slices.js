@@ -1,8 +1,8 @@
 import initialState from './state';
 import { createSlice } from '@reduxjs/toolkit';
 
-const postSlice = createSlice({
-  name: 'post',
+const viewPostSlice = createSlice({
+  name: 'viewPost',
   initialState: initialState,
   reducers: {
     setLoading: (state, action) => {
@@ -18,5 +18,5 @@ const postSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setComments } = postSlice.actions;
-export const postReducer = postSlice.reducer;
+export const { setLoading, setError, setComments } = viewPostSlice.actions;
+export const viewPostReducer = viewPostSlice.reducer;

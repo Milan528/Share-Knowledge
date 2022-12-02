@@ -1,19 +1,23 @@
 import axios from 'axios';
-import { axiosErrorLoger } from '../components/errorDialog/axiosErrorLogger';
+import { axiosErrorLoger } from '../utils/axiosErrorLogger';
 
-const request = async (method, url, DTO) => {
+const request = async (method, url, DTO, formData) => {
   const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('app')).token;
-  console.log(process.env.REACT_APP_BASE_URL + url);
+
+  const headers = {
+    Authorization: bearer,
+    Accept: DTO ? 'application/json' : 'multipart/form-data',
+    ...(DTO && { 'Content-Type': 'application/json' }),
+  };
+
   try {
     const res = await axios({
       method: method,
+      responseType: 'json', // if there would be a need to download files, responseType: 'blob'
       url: process.env.REACT_APP_BASE_URL + url,
       ...(DTO && { data: DTO }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: bearer,
-      },
+      ...(formData && { data: formData }),
+      headers,
     });
     return res.data;
   } catch (error) {
@@ -44,6 +48,8 @@ const services = {
   post: async (url, DTO) => await request(method.post, url, DTO),
   put: async (url, DTO) => await request(method.put, url, DTO),
   delete: async (url, DTO) => await request(method.delete, url, DTO),
+  postFile: async (url, formData) =>
+    await request(method.post, url, undefined, formData),
 };
 
 export default services;

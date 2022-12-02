@@ -4,7 +4,7 @@ import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 
 export const getCommentsForPost = async (req, res) => {
-  let { postId } = req.body;
+  const { postId } = req.params;
   let { results, error } = await database.query(QUERYS.SELECT_COMMENTS_FOR_POST(postId));
 
   if (error) {

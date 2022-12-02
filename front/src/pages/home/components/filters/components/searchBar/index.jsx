@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux';
-import debounce from '../../../../../../components/debounce';
+import debounce from '../../../../../../utils/debounce';
 import { setSearch } from '../../../../redux/slices';
 
 const Search = () => {

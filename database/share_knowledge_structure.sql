@@ -2,7 +2,6 @@ CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COL
 USE `share_knowledge`;
 
 DROP TABLE IF EXISTS comment_file;
-DROP TABLE IF EXISTS post_comment;
 DROP TABLE IF EXISTS commentLikedBy;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS postLikedBy;
@@ -72,9 +71,11 @@ CREATE TABLE comment (
     text varchar(1000) NOT NULL,
     date varchar(25) NOT NULL,
     userId int NOT NULL,
+    postId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES user(id)
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+    FOREIGN KEY (userId) REFERENCES user(id),
+    FOREIGN KEY (postId) REFERENCES post(id)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 CREATE TABLE commentLikedBy (
 commentId int NOT NULL,
@@ -83,14 +84,6 @@ PRIMARY KEY (commentId,userId),
 FOREIGN KEY (userId) REFERENCES user(id), 
 FOREIGN KEY (commentId) REFERENCES comment(id) 
 ) DEFAULT CHARSET=utf8;
-
-CREATE TABLE post_comment (
-    postId int NOT NULL,
-    commentId int NOT NULL,
-    PRIMARY KEY (postId,commentId),
-    FOREIGN KEY (postId) REFERENCES post(id), 
-    FOREIGN KEY (commentId) REFERENCES comment(id)
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE comment_file (
     id int NOT NULL AUTO_INCREMENT,

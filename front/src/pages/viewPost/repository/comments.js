@@ -1,9 +1,8 @@
-import { currentDate } from '../../../components/date';
+import { currentDate } from '../../../utils/date';
 import services from '../../../services';
-import fileServices from '../../../services/fileServices';
 
 export const getCommentsRepository = async (postId) => {
-  const dto = await services.post('/comments/commentsForPost', { postId });
+  const dto = await services.get(`/comments/post/${postId}`);
   return dto.data;
 };
 
@@ -21,7 +20,7 @@ export const addCommentRepository = async (comment) => {
   // });
   // formData.append('commentId', response.data);
 
-  // const dto = await fileServices.post('/upload/comment', formData);
+  // const dto = await services.postFile('/upload/comment', formData);
   // return dto.message;
   return response;
 };

@@ -5,4 +5,4 @@ export const createPostRoute = '/createPost';
 export const tagsRoute = '/tags';
 export const profileRoute = '/profile';
 export const usersRoute = '/users';
-export const postRoute = '/post';
+export const viewPostRoute = '/viewPost';

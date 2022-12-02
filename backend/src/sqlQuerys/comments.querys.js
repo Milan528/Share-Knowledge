@@ -14,9 +14,7 @@ function selectCommentsForPost(postId) {
 
   let sql1 = '';
   sql1 += 'SELECT id, text, date, userId  ';
-  sql1 += 'FROM post_comment ';
-  sql1 += 'JOIN comment ';
-  sql1 += 'ON post_comment.commentId=comment.id ';
+  sql1 += 'FROM comment ';
   sql1 += `WHERE postId = ${postId} `;
 
   sql += sql1;

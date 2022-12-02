@@ -6,6 +6,6 @@ const commentRoutes = express.Router();
 
 commentRoutes.route('/').post(tokenValidation, createComment);
 // postsRoutes.route('/:id').get(getPost).put(updatePost).delete(deletePost);
-commentRoutes.route('/commentsForPost').post(getCommentsForPost);
+commentRoutes.route('/post/:postId').get(getCommentsForPost);
 
 export default commentRoutes;

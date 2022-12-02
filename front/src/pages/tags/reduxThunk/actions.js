@@ -5,7 +5,7 @@ import {
 } from '../repository/tags';
 import { setError, setLoading, setTags } from '../redux/slices';
 import state from '../redux/state';
-import serialize from '../../../components/serialize';
+import serialize from '../../../utils/serialize';
 
 export const loadTags = () => async (dispatch, getState) => {
   try {

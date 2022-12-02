@@ -15,11 +15,9 @@ import CreateComment from './components/createComment';
 const Post = (props) => {
   let location = useLocation();
   const post = location.state;
-  const { error, loading } = useSelector((state) => state.post);
+  const { error, loading } = useSelector((state) => state.viewPost);
   const dispatch = useDispatch();
   const createCommentRef = useRef(null);
-
-  console.log(createCommentRef);
 
   useEffect(() => {
     dispatch(loadComments(post.id));

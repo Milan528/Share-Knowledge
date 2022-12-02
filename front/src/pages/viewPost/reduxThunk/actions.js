@@ -1,5 +1,5 @@
 import { setLoading, setError, setComments } from '../redux/slices';
-import serialize from '../../../components/serialize';
+import serialize from '../../../utils/serialize';
 import {
   getCommentsRepository,
   addCommentRepository,

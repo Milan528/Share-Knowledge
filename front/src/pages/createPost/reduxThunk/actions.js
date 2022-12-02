@@ -3,7 +3,7 @@ import {
   setLoading as setLoadingAllTags,
   setError as setErrorAllTags,
 } from '../components/form/components/tags/redux/slices';
-import serialize from '../../../components/serialize';
+import serialize from '../../../utils/serialize';
 import { getAllTagsRepository } from '../repository/tags';
 import { setLoading } from '../redux/slices';
 import { createPostRepository } from '../repository/post';

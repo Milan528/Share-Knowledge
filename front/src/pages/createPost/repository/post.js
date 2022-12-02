@@ -1,6 +1,5 @@
-import { currentDate } from '../../../components/date';
+import { currentDate } from '../../../utils/date';
 import services from '../../../services/index';
-import fileServices from '../../../services/fileServices';
 
 export const createPostRepository = async (post) => {
   const postDTO = mapPostToDto(post);
@@ -16,7 +15,7 @@ export const createPostRepository = async (post) => {
   });
   formData.append('postId', response.data);
 
-  const dto = await fileServices.post('/upload/post', formData);
+  const dto = await services.postFile('/upload/post', formData);
   return dto.message;
 };
 

@@ -30,7 +30,7 @@ import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useLocation } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
-import { currentDate } from '../../../../../../components/date';
+import { currentDate } from '../../../../../../utils/date';
 
 const Form = () => {
   const [error, setError] = useState('');
@@ -45,10 +45,6 @@ const Form = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(documents);
-  }, [documents]);
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;

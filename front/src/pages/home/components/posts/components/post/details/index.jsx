@@ -9,7 +9,7 @@ import {
 } from './styles';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useNavigate } from 'react-router';
-import { postRoute } from '../../../../../../../app/router/routes';
+import { viewPostRoute } from '../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
 
 const dateFormat = (date) => {
@@ -27,17 +27,17 @@ const Details = (props) => {
 
   const onClick = () => {
     // navigate({
-    //   pathname: postRoute,
+    //   pathname: viewPostRoute,
     //   search: `postId=${postId}`,
     // });
 
-    //  navigate(postRoute, {
+    //  navigate(viewPostRoute, {
     //    state: data,
     //  });
 
     navigate(
       {
-        pathname: postRoute,
+        pathname: viewPostRoute,
         search: `postId=${postId}`,
       },
       {

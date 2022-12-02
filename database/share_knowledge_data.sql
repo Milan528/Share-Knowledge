@@ -57,11 +57,11 @@ INSERT INTO `share_knowledge`.`postLikedBy` (`postId`, `userId`) VALUES
 (3, 2),
 (4, 1);
 
-INSERT INTO `share_knowledge`.`comment` (`text`, `date`, `userId`) VALUES
-( 'Ovo je prvi komentar ', '27-11-97', 1),
-( 'Ovo je drugi komentar ', '28-11-97', 1),
-( 'Ovo je treci komentar ', '29-11-97', 1),
-( 'Ovo je cetvrti komentar ', '30-11-97', 1);
+INSERT INTO `share_knowledge`.`comment` (`text`, `date`, `userId`, `postId`) VALUES
+( 'Ovo je prvi komentar ', '27-11-97', 1, 1),
+( 'Ovo je drugi komentar ', '28-11-97', 1, 1),
+( 'Ovo je treci komentar ', '29-11-97', 1, 1),
+( 'Ovo je cetvrti komentar ', '30-11-97', 1, 1);
 
 INSERT INTO `share_knowledge`.`commentLikedBy` (`commentId`, `userId`) VALUES
 (1, 1),
@@ -71,12 +71,6 @@ INSERT INTO `share_knowledge`.`commentLikedBy` (`commentId`, `userId`) VALUES
 (3, 1),
 (3, 2),
 (4, 1);
-
-INSERT INTO `share_knowledge`.`post_comment` (`postId`,`commentId`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4);
 
 INSERT INTO `share_knowledge`.`comment_file` (`path`, `ext`, `commentId`) VALUES
 ('2.docx', '.docx', '1'),

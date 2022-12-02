@@ -8,7 +8,7 @@ import PrivateRoutes from './privateRoutes';
 import Tags from '../../pages/tags';
 import Profile from '../../pages/profile';
 import Users from '../../pages/users';
-import Post from '../../pages/post';
+import ViewPost from '../../pages/viewPost';
 
 export default function Router() {
   return (
@@ -20,7 +20,7 @@ export default function Router() {
           <Route path={routes.profileRoute} element={<Profile />} exact />
           <Route path={routes.usersRoute} element={<Users />} exact />
         </Route>
-        <Route path={routes.postRoute} element={<Post />} exact />
+        <Route path={routes.viewPostRoute} element={<ViewPost />} exact />
         <Route path={routes.homeRoute} element={<Home />} />
         <Route path={routes.loginRoute} element={<Login />} />
         <Route path={routes.registerRoute} element={<Register />} />

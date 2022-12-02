@@ -1,7 +1,7 @@
 import { setToken, setRole } from '../../../app/redux/slices';
 import { setError, setLoading } from '../redux/slices';
 import { registerUserRepository } from '../repository/auth';
-import serialize from '../../../components/serialize';
+import serialize from '../../../utils/serialize';
 
 export const register = (email, password) => async (dispatch, getState) => {
   const DTO = {

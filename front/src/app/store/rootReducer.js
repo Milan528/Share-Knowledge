@@ -6,7 +6,7 @@ import { appReducer } from '../redux/slices';
 import { tagsReducer } from '../../pages/tags/redux/slices';
 import { profileReducer } from '../../pages/profile/redux/slices';
 import { usersReducer } from '../../pages/users/redux/slices';
-import { postReducer } from '../../pages/post/redux/slices';
+import { viewPostReducer } from '../../pages/viewPost/redux/slices';
 
 const rootReducer = {
   app: appReducer,
@@ -17,7 +17,7 @@ const rootReducer = {
   tags: tagsReducer,
   profile: profileReducer,
   users: usersReducer,
-  post: postReducer,
+  viewPost: viewPostReducer,
 };
 
 export default rootReducer;

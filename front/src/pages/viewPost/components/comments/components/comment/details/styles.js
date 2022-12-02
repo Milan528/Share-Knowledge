@@ -18,6 +18,7 @@ export const Container = styled.div`
 export const DetailsContainer = styled.div`
   display: flex;
   flex: 1;
+  justify-content: space-between;
 `;
 
 export const Likes = styled(Typography)`
@@ -30,4 +31,12 @@ export const DateIcon = styled(Today)`
   && {
     margin-left: 10px;
   }
+`;
+
+export const LikesContainer = styled.div`
+  display: flex;
+`;
+
+export const DateContainer = styled.div`
+  display: flex;
 `;

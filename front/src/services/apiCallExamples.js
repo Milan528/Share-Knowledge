@@ -4,12 +4,6 @@ export const addUrlSearchParams = (url, paramsDTO) => {
   //func result: /quotes?page=1&pageSize=5
 };
 
-export const addUrlParams = (...params) => {
-  return params.join('');
-  //func call: urlBuilder.urlWithMultipleParams('/quotes', `/${id}`, '/upvote')
-  //func result: /quotes/147dc7ad-e752-4f7c-9d4d-1bf41153001e/upvote
-};
-
 //*************************************EXAMPLES**********************************/
 // [
 // 	{

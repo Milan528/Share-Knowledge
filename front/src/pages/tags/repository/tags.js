@@ -1,5 +1,5 @@
 import services from '../../../services';
-import { addUrlParams } from '../../../services/urlParams';
+
 export const getAllTagsRepository = async () => {
   const dto = await services.get('/tags');
   return dto.data;
@@ -12,6 +12,6 @@ export const createTagRepository = async (model) => {
 
 export const deleteTagRepository = async (tag) => {
   const { id } = tag;
-  const dto = await services.delete(addUrlParams('/tags', `/${id}`));
+  const dto = await services.delete(`/tags/${id}`);
   return parseInt(dto.data);
 };
