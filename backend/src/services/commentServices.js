@@ -6,7 +6,7 @@ import ResponseManager from '../tools/ResponseManager/index.js';
 export const getCommentsForPost = async (req, res) => {
   const { postId } = req.params;
   let { results, error } = await database.query(QUERYS.SELECT_COMMENTS_FOR_POST(postId));
-
+  console.log(results);
   if (error) {
     return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   }
@@ -35,9 +35,14 @@ export const getCommentsForPost = async (req, res) => {
 export const createComment = async (req, res) => {
   const { comment, userID } = req.body;
   comment.userId = userID;
-  console.log(comment);
+  const { text, date, postID } = comment;
 
-  const { results, error } = await database.query(QUERYS.CREATE_COMMENT, [...comment]);
+  const { results, error } = await database.query(QUERYS.CREATE_COMMENT, [
+    text,
+    date,
+    postID,
+    userID
+  ]);
 
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
@@ -49,5 +54,3 @@ export const createComment = async (req, res) => {
     ResponseManager.CREATED(res, `Post created`, commentID);
   }
 };
-
-createComment;

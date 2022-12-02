@@ -41,10 +41,6 @@ const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(documents);
-  }, [documents]);
-
   const handleTextareaChange = (event) => {
     const value = event.target.value;
     setDescription(value);

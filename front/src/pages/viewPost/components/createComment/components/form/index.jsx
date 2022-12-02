@@ -71,10 +71,6 @@ const Form = () => {
     }
   };
 
-  const onCancel = () => {
-    navigate(homeRoute);
-  };
-
   return (
     <StyledPaper elevation={0}>
       <StyledTextareaAutosize

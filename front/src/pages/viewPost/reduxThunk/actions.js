@@ -18,18 +18,15 @@ export const loadComments = (postId) => async (dispatch, getState) => {
 };
 
 export const addComment =
-  (setError, setloading, comment) => async (dispatch, getState) => {
+  (setError, setLoading, comment) => async (dispatch, getState) => {
     try {
-      // dispatch(setLoading(true));
-      setloading(true);
-      const res = await addCommentRepository(comment);
+      setLoading(true);
+      const commentId = await addCommentRepository(comment);
+
       //add files for comment
-      // dispatch(setComments(comments));
     } catch (err) {
       setError(err);
-      // dispatch(setError(serialize(err)));
     } finally {
-      setloading(false);
-      // dispatch(setLoading(false));
+      setLoading(true);
     }
   };

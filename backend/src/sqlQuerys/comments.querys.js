@@ -24,5 +24,6 @@ function selectCommentsForPost(postId) {
   sql += 'on myTable.id=commentLikedBy.commentId ';
   sql += 'GROUP BY commentLikedBy.commentId; ';
 
+  console.log(sql);
   return sql;
 }
