@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import Comment from './components/comment';
 
 const Comments = () => {
-  const comments= useSelector((state) => state.viewPost.comments);
-  console.log(comments)
-  return (comments.map(comment => <Comment key={JSON.stringify(comment)} data={comment}/>))
+  const comments = useSelector((state) => state.viewPost.comments);
+  return comments.map((comment) => (
+    <Comment key={JSON.stringify(comment)} data={comment} />
+  ));
 };
 
 export default Comments;
