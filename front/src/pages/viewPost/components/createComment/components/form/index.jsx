@@ -2,21 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {
   StyledPaper,
   StyledTextareaAutosize,
-  Type,
-  Tile,
   ControllsContainer,
   ControllsText,
-  CancelButton,
   SubmitButton,
   FileControlls,
   StyledDeleteButton,
   ErrorHolder,
 } from './styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Dialog from '../../../../../../components/dialog';
-import Tags from './components/tags';
 import {
   FileUploader,
   FileViewer,
@@ -24,13 +17,10 @@ import {
   ImageViewer,
 } from '../../../../../../components/fileManager';
 import { useNavigate } from 'react-router';
-import { homeRoute } from '../../../../../../app/router/routes';
-// import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useLocation } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
-import { currentDate } from '../../../../../../utils/date';
 
 const Form = () => {
   const [error, setError] = useState('');
@@ -45,6 +35,15 @@ const Form = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!loading) {
+      setMessage('');
+      setDescription('');
+      setImages([]);
+      setDocuments([]);
+    }
+  }, [loading]);
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;
@@ -63,11 +62,10 @@ const Form = () => {
       const comment = {
         postID,
         description,
-        currentDate,
         images,
         documents,
       };
-      dispatch(addComment(setError, setLoading, comment));
+      dispatch(addComment(setError, setLoading, comment, postID));
     }
   };
 
@@ -77,6 +75,7 @@ const Form = () => {
         minRows={10}
         placeholder="Sadrzaj"
         onChange={handleTextareaChange}
+        value={description}
       />
       <FileControlls>
         <ImageUploader setFiles={setImages} />

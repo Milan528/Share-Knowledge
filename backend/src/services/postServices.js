@@ -3,6 +3,7 @@ import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
+import { getTodaysDate } from '../tools/dateFormater.js';
 
 export const getPosts = async (req, res) => {
   const { startIndex = 0, count = 2 } = req.query;
@@ -31,6 +32,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   const { userID, post } = req.body;
   post.userId = userID;
+  post.date = getTodaysDate();
   const { results, error } = await database.query(QUERYS.CREATE_POST, Object.values(post));
 
   if (error) {

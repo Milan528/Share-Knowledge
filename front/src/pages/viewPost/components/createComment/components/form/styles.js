@@ -44,18 +44,6 @@ export const StyledTextareaAutosize = styled(TextareaAutosize)`
   padding: 10px;
 `;
 
-export const Type = styled(FormControl)`
-  && {
-    width: 200px;
-  }
-`;
-
-export const Tile = styled(TextField)`
-  && {
-    margin-bottom: 10px;
-  }
-`;
-
 export const ControllsContainer = styled.div`
   margin-top: 30px;
   display: flex;
@@ -65,12 +53,6 @@ export const ControllsContainer = styled.div`
 export const SubmitButton = styled(Button)`
   && {
     margin-left: 10px;
-  }
-`;
-
-export const CancelButton = styled(Button)`
-  && {
-    margin-right: 10px;
   }
 `;
 

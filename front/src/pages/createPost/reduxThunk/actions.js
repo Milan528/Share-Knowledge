@@ -5,7 +5,7 @@ import {
 } from '../components/form/components/tags/redux/slices';
 import serialize from '../../../utils/serialize';
 import { getAllTagsRepository } from '../repository/tags';
-import { setLoading } from '../redux/slices';
+import { setLoading, setError } from '../redux/slices';
 import { createPostRepository } from '../repository/post';
 
 export const addPost = (post) => async (dispatch, getState) => {
@@ -13,9 +13,8 @@ export const addPost = (post) => async (dispatch, getState) => {
     dispatch(setLoading(true));
 
     const response = await createPostRepository(post);
-    console.log(response);
   } catch (err) {
-    console.log(err);
+    dispatch(setError(serialize(err)));
   } finally {
     dispatch(setLoading(false));
   }

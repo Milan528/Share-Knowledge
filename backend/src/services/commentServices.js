@@ -1,12 +1,12 @@
 import QUERYS from '../sqlQuerys/comments.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
+import { getTodaysDate } from '../tools/dateFormater.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 
 export const getCommentsForPost = async (req, res) => {
   const { postId } = req.params;
   let { results, error } = await database.query(QUERYS.SELECT_COMMENTS_FOR_POST(postId));
-  console.log(results);
   if (error) {
     return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   }
@@ -35,7 +35,8 @@ export const getCommentsForPost = async (req, res) => {
 export const createComment = async (req, res) => {
   const { comment, userID } = req.body;
   comment.userId = userID;
-  const { text, date, postID } = comment;
+  const { text, postID } = comment;
+  const date = getTodaysDate();
 
   const { results, error } = await database.query(QUERYS.CREATE_COMMENT, [
     text,

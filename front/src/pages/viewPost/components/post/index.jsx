@@ -8,7 +8,6 @@ import Tags from './tags';
 const Post = (props) => {
   const { data } = props;
   const { title, type, text, files, tags, likes, id, date } = data;
-
   return (
     <StyledPaper elevation={1}>
       <Title title={title} type={type} />

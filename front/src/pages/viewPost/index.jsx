@@ -18,7 +18,6 @@ const Post = (props) => {
   const { error, loading } = useSelector((state) => state.viewPost);
   const dispatch = useDispatch();
   const createCommentRef = useRef(null);
-
   useEffect(() => {
     dispatch(loadComments(post.id));
   }, [dispatch, post.id]);

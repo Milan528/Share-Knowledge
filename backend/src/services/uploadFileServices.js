@@ -6,36 +6,49 @@ import { dirname } from 'path';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-export const uploadPostFile = async (req, res) => {
+const createFilePath = (filename) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  return path.join(__dirname, '../..', 'files', filename);
+};
+
+async function insertFileInfoIntoTable(res, query, filepath, ext, postId) {
+  const { results, error } = await database.query(query, [filepath, ext, postId]);
+  if (error) {
+    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  } else if (!results) {
+    return ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+  }
+}
+
+const uploadFile = async (req, res, table, fileId) => {
   const files = req.files;
-  const postId = req.body.postId;
+
   Object.keys(files).forEach((key) => {
-    const filepath = path.join(__dirname, '../..', 'files', uuidv4() + ' ' + files[key].name);
+    const file = files[key];
+    const uniqueFileName = uuidv4() + '-' + file.name;
+    const filepath = createFilePath(uniqueFileName);
+    const ext = '.' + file.mimetype.split('/')[1];
+
     files[key].mv(filepath, async (err) => {
       if (err) {
         return ResponseManager.INTERNAL_SERVER_ERROR(res, err);
       } else {
-        //WRITE FILEPATH TO DATABASE
-        await insertDataIntoPostFileTable(filepath, files[key].mimetype.split('/')[1], postId);
+        await insertFileInfoIntoTable(res, table, uniqueFileName, ext, fileId);
       }
     });
   });
-  // Object.keys(files).toString()
+
   return ResponseManager.OK(res, 'Files uploaded');
 };
 
-async function insertDataIntoPostFileTable(filepath, ext, postId) {
-  const { results, error } = await database.query(FILE_QUERYS.CREATE_FILE_FOR_POST, [
-    filepath,
-    ext,
-    postId
-  ]);
-  if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-  } else if (!results) ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
-  //   } else {
-  //     const postID = results.insertId;
-  // }
-}
+export const uploadPostFile = async (req, res) => {
+  const postId = req.body.postId;
+  uploadFile(req, res, FILE_QUERYS.CREATE_FILE_FOR_POST, postId);
+};
+
+export const uploadCommentFile = async (req, res) => {
+  const commentId = req.body.commentId;
+  uploadFile(req, res, FILE_QUERYS.CREATE_FILE_FOR_COMMENT, commentId);
+};

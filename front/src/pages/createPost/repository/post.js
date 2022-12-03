@@ -1,4 +1,3 @@
-import { currentDate } from '../../../utils/date';
 import services from '../../../services/index';
 
 export const createPostRepository = async (post) => {
@@ -24,7 +23,5 @@ function mapPostToDto(post) {
     title: post.title,
     text: post.description,
     type: post.type === 'pitanje' ? 'q' : 'a',
-    date: currentDate,
-    likes: 0,
   };
 }

@@ -13,7 +13,7 @@ const request = async (method, url, DTO, formData) => {
   try {
     const res = await axios({
       method: method,
-      responseType: 'json', // if there would be a need to download files, responseType: 'blob'
+      responseType: 'json', // if there would be a need to download files, responseType would be 'blob'
       url: process.env.REACT_APP_BASE_URL + url,
       ...(DTO && { data: DTO }),
       ...(formData && { data: formData }),

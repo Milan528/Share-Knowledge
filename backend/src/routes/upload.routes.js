@@ -1,5 +1,5 @@
 import express from 'express';
-import { uploadPostFile } from '../controllers/upload.controller.js';
+import { uploadCommentFile, uploadPostFile } from '../controllers/upload.controller.js';
 import filesPayloadExists from '../tools/fileUploader/filesPayloadExists.js';
 import fileExtLimiter from '../tools/fileUploader/fileExtLimiter.js';
 import fileSizeLimiter from '../tools/fileUploader/fileSizeLimiter.js';
@@ -10,7 +10,7 @@ const uploadRoutes = express.Router();
 
 function recursion(obj, numOfKeys) {
   if (numOfKeys < 0) return [];
-  var key = Object.keys(obj)[numOfKeys]; //fetched the key at second index
+  const key = Object.keys(obj)[numOfKeys]; //fetched the key at second index
   return obj[key].concat(recursion(obj, numOfKeys - 1));
 }
 
@@ -22,6 +22,16 @@ uploadRoutes
     fileExtLimiter(recursion(allowed_ext, Object.keys(allowed_ext).length - 1)),
     fileSizeLimiter,
     uploadPostFile
+  );
+
+uploadRoutes
+  .route('/comment')
+  .post(
+    fileUpload({ createParentPath: true }),
+    filesPayloadExists,
+    fileExtLimiter(recursion(allowed_ext, Object.keys(allowed_ext).length - 1)),
+    fileSizeLimiter,
+    uploadCommentFile
   );
 
 export default uploadRoutes;

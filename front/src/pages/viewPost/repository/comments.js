@@ -1,4 +1,3 @@
-import { currentDate } from '../../../utils/date';
 import services from '../../../services';
 
 export const getCommentsRepository = async (postId) => {
@@ -12,23 +11,24 @@ export const addCommentRepository = async (comment) => {
     comment: commentDTO,
   };
   const response = await services.post('/comments', DTO);
+  const commentId = response.data;
 
-  // const formData = new FormData();
-  // const allFiles = comment.images.concat(comment.documents);
-  // allFiles.forEach((file, index) => {
-  //   formData.append(`files${index}`, file);
-  // });
-  // formData.append('commentId', response.data);
+  const formData = new FormData();
+  const allFiles = comment.images.concat(comment.documents);
 
-  // const dto = await services.postFile('/upload/comment', formData);
-  // return dto.message;
-  return response;
+  if (allFiles.length > 0) {
+    allFiles.forEach((file, index) => {
+      formData.append(`files${index}`, file);
+    });
+    formData.append('commentId', commentId);
+
+    await services.postFile('/upload/comment', formData);
+  }
 };
 
 function mapCommentToDto(comment) {
   return {
     text: comment.description,
-    date: currentDate,
     postID: comment.postID,
   };
 }

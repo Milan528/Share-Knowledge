@@ -46,6 +46,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   try {
     dispatch(loadingPosts(true));
     const posts = await getAllSpecificPostsRepository(dto);
+    console.log(posts);
     dispatch(setPosts(posts));
   } catch (err) {
     dispatch(setErrorPosts(serialize(err)));
