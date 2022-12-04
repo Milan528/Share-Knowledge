@@ -9,39 +9,24 @@ import {
 } from './styles';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useNavigate } from 'react-router';
-import { viewPostRoute } from '../../../../../../../app/router/routes';
+import { viewPostRoute } from '../../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
-
-const dateFormat = (date) => {
-  let splitedDate = date.split('-');
-  const day = splitedDate[0];
-  const month = splitedDate[1];
-  const year = splitedDate[2];
-  let formatedDate = `${day}.${month}.${year}`;
-  return formatedDate;
-};
+import { useSelector } from 'react-redux';
 
 const Details = (props) => {
   const navigate = useNavigate();
-  const { likes, postId, date, data } = props;
+  const { likes, postId, date } = props;
+  const postsState = useSelector((state) => state.home.posts);
+  const { posts } = postsState;
 
   const onClick = () => {
-    // navigate({
-    //   pathname: viewPostRoute,
-    //   search: `postId=${postId}`,
-    // });
-
-    //  navigate(viewPostRoute, {
-    //    state: data,
-    //  });
-
     navigate(
       {
         pathname: viewPostRoute,
         search: `postId=${postId}`,
       },
       {
-        state: data,
+        state: posts.map((post) => post.id),
       }
     );
   };
@@ -52,7 +37,7 @@ const Details = (props) => {
         <ThumbUpIcon />
         <Likes color="textSecondary"> {likes} </Likes>
         <DateIcon />
-        <Typography> {dateFormat(date)} </Typography>
+        <Typography> {date}</Typography>
       </DetailsContainer>
       <Button size="small" onClick={onClick} variant="outlined">
         <ButtonText variant="button" color="inherit">

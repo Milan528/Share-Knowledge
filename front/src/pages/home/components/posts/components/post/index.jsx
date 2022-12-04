@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyledPaper } from './styles';
-import Title from './title';
-import Content from './contet';
-import Details from './details';
-import Tags from './tags';
+import Title from './components/title';
+import Content from './components/contet';
+import Details from './components/details';
+import Tags from './components/tags';
 
 const Post = (props) => {
   const { data } = props;

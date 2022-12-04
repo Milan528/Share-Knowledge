@@ -5,9 +5,9 @@ const initialState = {
 };
 
 const getState = () => {
-  if (localStorage.getItem('post')) {
-    const state = JSON.parse(localStorage.getItem('post'));
-    return state;
+  if (localStorage.getItem('viewPost')) {
+    const state = JSON.parse(localStorage.getItem('viewPost'));
+    return state.comments;
   } else return initialState;
 };
 

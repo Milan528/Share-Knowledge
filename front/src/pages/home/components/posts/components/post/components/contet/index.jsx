@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyledText, StyledImg } from './styles';
-import PDF from '../../../../../../../assets/pdf1.png';
-import DOCX from '../../../../../../../assets/docx.png';
-import Image from '../../../../../../../assets/image.jpg';
+import PDF from '../../../../../../../../assets/pdf1.png';
+import DOCX from '../../../../../../../../assets/docx.png';
+import Image from '../../../../../../../../assets/image.jpg';
 
 const Content = (props) => {
   const { text, files } = props;

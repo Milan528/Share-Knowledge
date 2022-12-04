@@ -16,10 +16,9 @@ import {
   ImageUploader,
   ImageViewer,
 } from '../../../../../../components/fileManager';
-import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
 
 const Form = () => {
@@ -30,10 +29,9 @@ const Form = () => {
   const [documents, setDocuments] = useState([]);
   const [description, setDescription] = useState('');
 
-  let location = useLocation();
-  let postID = location.state.id;
+  const [searchParams, setSearchParams] = useSearchParams();
+  let postID = searchParams.get('postId');
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {

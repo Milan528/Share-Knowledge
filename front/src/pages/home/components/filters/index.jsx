@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AdditionalFiltersContainer,
   FiltersContainer,
@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Fliters = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.home.state);
+
   const { filtersVisibility } = state;
 
   return (

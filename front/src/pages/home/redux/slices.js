@@ -28,6 +28,15 @@ const homeSlice = createSlice({
     setSearch: (state, action) => {
       state.state.search = action.payload;
     },
+    setCurrentPage: (state, action) => {
+      state.state.currentPage = action.payload;
+    },
+    setPostPerPage: (state, action) => {
+      state.state.postPerPage = action.payload;
+    },
+    setTotalNumberOfPages: (state, action) => {
+      state.state.totalNumberOfPages = action.payload;
+    },
   },
   extraReducers: {
     [tagActions.setSelectedTags]: (state, action) => {
@@ -60,5 +69,12 @@ const homeSlice = createSlice({
   },
 });
 
-export const { setFiltersVisibility, setType, setSearch } = homeSlice.actions;
+export const {
+  setFiltersVisibility,
+  setType,
+  setSearch,
+  setCurrentPage,
+  setPostPerPage,
+  setTotalNumberOfPages,
+} = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

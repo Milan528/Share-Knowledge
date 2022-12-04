@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from '@mui/material';
 
 export const ContentContainer = styled.div`
   width: 70%;
@@ -8,16 +7,28 @@ export const ContentContainer = styled.div`
   flex: 1;
 `;
 
-export const StyledH1 = styled.h1`
-  text-align: center;
+export const AddCommentContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  padding-right: 20px;
+  margin-bottom: 10px;
 `;
 
-export const StyledButton = styled(Button)`
-  && {
-    border-radius: 10px;
-    margin-left: 10px;
-    position: absolute;
-    top: 75px;
-    right: 50px;
+export const HeadingContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 70%;
+  min-width: 230px;
+  margin: 5px auto 0 auto;
+  flex: 1;
+
+  @media screen and (max-width: 400px) {
+    width: 100%;
+    justify-content: space-evenly;
   }
+`;
+
+export const StyledH1 = styled.h1`
+  text-align: center;
 `;

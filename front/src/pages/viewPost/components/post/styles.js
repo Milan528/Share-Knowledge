@@ -10,3 +10,20 @@ export const StyledPaper = styled(Paper)`
   display: flex-block;
   border: 0.5px solid #c9cace;
 `;
+
+export const HeadingContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  min-width: 230px;
+  margin: 5px auto 0 auto;
+  flex: 1;
+
+  @media screen and (max-width: 400px) {
+    justify-content: space-evenly;
+  }
+`;
+
+export const StyledH1 = styled.h1`
+  text-align: center;
+`;

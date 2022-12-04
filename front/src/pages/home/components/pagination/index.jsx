@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -10,7 +10,8 @@ import { PaginationContainer, StyledPagination } from './styles';
 import PostsPerPageContainer from './components/postsPerPage';
 
 const PaginationComponent = () => {
-  // const home = useSelector(state => state.home);
+  const home = useSelector((state) => state.home.state);
+  const { currentPage, postPerPage } = home;
   // const { postsNumber, pagesNumber, currentPageNumber } = home;
   // const dispatch = useDispatch();
 

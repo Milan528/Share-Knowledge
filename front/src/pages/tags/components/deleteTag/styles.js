@@ -16,7 +16,7 @@ export const Container = styled.div`
   width: 40%;
   align-items: center;
 
-  @media (max-width: 650px) : {
+  @media (max-width: 650px) {
     width: 90%;
   }
 `;

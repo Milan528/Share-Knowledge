@@ -2,6 +2,9 @@ export const initialState = {
   filtersVisibility: true,
   type: 'all',
   search: '',
+  currentPage: 1,
+  postPerPage: 5,
+  totalNumberOfPages: null,
 };
 
 const getState = () => {
