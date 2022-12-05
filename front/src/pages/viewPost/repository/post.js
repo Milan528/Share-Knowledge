@@ -3,7 +3,7 @@ import { formatDate } from '../../../utils/dateFormater';
 
 export const getPostRepository = async (postId) => {
   const dto = await services.get(`/posts/${postId}`);
-  return mapDTOToPost(dto.data[0]);
+  return mapDTOToPost(dto.data.posts[0]);
 };
 
 export const mapDTOToPost = (dto) => {

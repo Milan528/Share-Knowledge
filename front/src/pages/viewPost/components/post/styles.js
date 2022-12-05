@@ -16,7 +16,7 @@ export const HeadingContainer = styled.div`
   justify-content: space-between;
 
   min-width: 230px;
-  margin: 5px auto 0 auto;
+  margin: 5px auto 20px auto;
   flex: 1;
 
   @media screen and (max-width: 400px) {
