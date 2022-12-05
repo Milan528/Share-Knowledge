@@ -7,11 +7,11 @@ export default QUERY;
 
 function selectCommentsForPost(postId) {
   let sql = '';
-  sql += 'SELECT id, text, date, SUM(if(commentId=0,0,1)) AS likes ';
+  sql += 'SELECT id, text, date, SUM(if(likedCommentId=0,0,1)) AS likes ';
   sql += 'FROM ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as commentId ';
+  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as likedCommentId ';
   sql1 += 'FROM ( ';
 
   let sql2 = '';
@@ -28,7 +28,8 @@ function selectCommentsForPost(postId) {
   sql += sql1;
   sql += ') ';
   sql += 'as myTable2 ';
-  sql += 'GROUP BY id, text, date, commentId; ';
-
+  sql += 'GROUP BY id, text, date, likedCommentId; ';
+  console.log('darjan');
+  console.log(sql);
   return sql;
 }

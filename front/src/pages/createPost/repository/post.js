@@ -6,22 +6,25 @@ export const createPostRepository = async (post) => {
     post: postDTO,
   };
   const response = await services.post('/posts', DTO);
+  const postId = response.data;
 
   const formData = new FormData();
   const allFiles = post.images.concat(post.documents);
-  allFiles.forEach((file, index) => {
-    formData.append(`files${index}`, file);
-  });
-  formData.append('postId', response.data);
 
-  const dto = await services.postFile('/upload/post', formData);
-  return dto.message;
+  if (allFiles.length > 0) {
+    allFiles.forEach((file, index) => {
+      formData.append(`files${index}`, file);
+    });
+    formData.append('postId', postId);
+
+    await services.postFile('/upload/post', formData);
+  }
 };
 
 function mapPostToDto(post) {
   return {
     title: post.title,
     text: post.description,
-    type: post.type === 'pitanje' ? 'q' : 'a',
+    type: post.type,
   };
 }

@@ -9,7 +9,7 @@ export const getPostRepository = async (postId) => {
 export const mapDTOToPost = (dto) => {
   return {
     ...dto,
-    type: dto.type === 'q' ? 'question' : 'answer',
+    type: dto.type === 'question' ? 'pitanje' : 'materijal',
     date: formatDate(new Date(dto.date)),
   };
 };

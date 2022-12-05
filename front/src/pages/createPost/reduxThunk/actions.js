@@ -11,8 +11,7 @@ import { createPostRepository } from '../repository/post';
 export const addPost = (post) => async (dispatch, getState) => {
   try {
     dispatch(setLoading(true));
-
-    const response = await createPostRepository(post);
+    await createPostRepository(post);
   } catch (err) {
     dispatch(setError(serialize(err)));
   } finally {

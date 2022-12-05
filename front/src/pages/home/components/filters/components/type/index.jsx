@@ -21,10 +21,10 @@ const ScrollableTabs = () => {
         <InputLabel>Tip</InputLabel>
         <StyledSelect value={type} label="Tip" onChange={handleChange}>
           <StyledMenuItem value={'all'}>Sve</StyledMenuItem>
-          <StyledMenuItem value={'q'}>
+          <StyledMenuItem value={'question'}>
             Pitanja <HelpIcon />
           </StyledMenuItem>
-          <StyledMenuItem value={'a'}>
+          <StyledMenuItem value={'material'}>
             Materijali <Book />
           </StyledMenuItem>
         </StyledSelect>

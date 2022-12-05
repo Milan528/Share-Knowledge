@@ -88,6 +88,7 @@ export const deletePost = async (req, res) => {
 export const getSpecificPosts = async (req, res) => {
   let { search, startIndex, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type);
+  console.log(sql);
   let { results, error } = await database.query(sql);
 
   if (error) {

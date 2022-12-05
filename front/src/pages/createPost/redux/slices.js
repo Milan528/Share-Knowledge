@@ -14,10 +14,10 @@ const createPostSlice = createSlice({
   },
   reducers: {
     setLoading: (state, action) => {
-      state.loading = action.payload;
+      state.state.loading = action.payload;
     },
     setError: (state, action) => {
-      state.error = action.payload;
+      state.state.error = action.payload;
     },
   },
   extraReducers: {

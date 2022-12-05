@@ -57,27 +57,38 @@ function getFilteredPosts(tags, search, type) {
   sql1 += 'FROM ( ';
 
   let sql2 = '';
-  sql2 += 'select id, title, text, type, date, postId, COUNT(*) AS likes ';
-  sql2 += 'from post ';
-  sql2 += 'join postLikedBy ';
-  sql2 += 'ON post.id=postLikedBy.postId ';
+  sql2 += 'SELECT id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
+  sql2 += 'FROM (  ';
 
-  sql2 += `where type in( `;
+  let sql3 = '';
+  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
+  sql3 += 'FROM ( ';
 
-  if (type && (type === 'q' || type === 'a')) {
-    sql2 += `'${type}'`;
+  let sql4 = '';
+  sql4 += 'SELECT * FROM post where type in( ';
+
+  if (type && (type === 'question' || type === 'material')) {
+    sql4 += `'${type}'`;
   } else {
-    sql2 += `'a','q'`;
+    sql4 += `'material','question'`;
   }
 
-  sql2 += ') ';
+  sql4 += ') ';
 
   if (search && search.trim() !== '') {
-    // sql += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
-    sql2 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
+    // sql4 += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
+    sql4 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
   }
 
-  sql2 += 'GROUP BY id ';
+  sql3 += sql4;
+  sql3 += `) as myTable4 `;
+  sql3 += `left join postLikedBy `;
+  sql3 += `on myTable4.id=postLikedBy.postId `;
+
+  sql2 += sql3;
+
+  sql2 += ') as myTable3 ';
+  sql2 += 'GROUP BY id, text, date, likedPostId ';
 
   sql1 += sql2;
   sql1 += `) as myTable2 `;
@@ -93,8 +104,10 @@ function getFilteredPosts(tags, search, type) {
 
   sql += sql1;
   sql += ` ) as myTable `;
+  sql += `group by id, text, title, type, likes, date `;
 
-  return (sql += `group by id `);
+  console.log(sql);
+  return sql;
 }
 
 function getSpecificPosts(tags, search, startIndex, count, type) {

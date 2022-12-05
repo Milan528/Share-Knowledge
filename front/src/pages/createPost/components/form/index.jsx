@@ -28,9 +28,10 @@ import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
 
 const Form = () => {
-  const [type, setType] = useState('pitanje');
+  const [type, setType] = useState('question');
   const [message, setMessage] = useState('');
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -98,8 +99,8 @@ const Form = () => {
       <Type>
         <InputLabel>Tip</InputLabel>
         <Select value={type} onChange={handleTypeChange}>
-          <MenuItem value={'pitanje'}>Pitanje</MenuItem>
-          <MenuItem value={'materijal'}>Materijal</MenuItem>
+          <MenuItem value={'question'}>Pitanje</MenuItem>
+          <MenuItem value={'material'}>Materijal</MenuItem>
         </Select>
       </Type>
       <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />

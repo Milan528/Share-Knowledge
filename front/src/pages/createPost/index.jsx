@@ -9,7 +9,7 @@ import ErrorDialog from '../../components/errorDialog';
 
 const CreatePost = () => {
   const { error, loading } = useSelector((state) => state.createPost.state);
-
+  
   const viewToRender = (
     <>
       <Navbar />
