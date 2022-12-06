@@ -150,7 +150,7 @@ const Form = () => {
           name: document.name, //'1.pdf'
         }))}
       />
-       <VideoLinkInputContainer>
+      <VideoLinkInputContainer>
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           placeholder="Dodaj video URL"
@@ -169,7 +169,7 @@ const Form = () => {
             value={-1}
             label="Odaberi video"
             onChange={() => {}}
-            >
+          >
             <MenuItem value={-1}>Nijedan</MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
@@ -177,15 +177,14 @@ const Form = () => {
           </Select>
         </FormControl>
         <Tooltip title="Obrisi selektovani video">
-          <DeleteVideoUrlButton color="primary" variant='outlined'>
+          <DeleteVideoUrlButton color="primary" variant="outlined">
             <DeleteIcon />
           </DeleteVideoUrlButton>
         </Tooltip>
       </VideoViewerContainer>
 
+      <VideoViewer />
 
-      <VideoViewer/>
-     
       <ControllsContainer>
         <CancelButton onClick={onCancel} variant="outlined">
           <ControllsText variant="button" color="inherit">

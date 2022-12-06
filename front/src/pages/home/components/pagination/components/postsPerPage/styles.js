@@ -9,9 +9,3 @@ export const StyledFormControl = styled(FormControl)`
     position: absolute;
   }
 `;
-
-// export const PostsPerPageContainer = styled.div`
-//   display: flex;
-//   align-items: end;
-//   margin-right: 20px;
-// `;

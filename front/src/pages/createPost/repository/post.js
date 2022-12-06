@@ -26,5 +26,6 @@ function mapPostToDto(post) {
     title: post.title,
     text: post.description,
     type: post.type,
+    tags: post.selectedTags.map((selectedTag) => selectedTag.id),
   };
 }

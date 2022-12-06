@@ -20,15 +20,15 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
-      state: { type, search },
+      state: { type, search, currentPage, postPerPage },
     },
   } = getState();
 
   let tagsId = selectedTags.map((tag) => tag.id);
   let dto = {
     tags: tagsId,
-    startIndex: Number(0),
-    count: 5,
+    startIndex: (currentPage - 1) * postPerPage,
+    count: postPerPage,
     search,
     type,
   };
@@ -38,8 +38,10 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
       dto
     );
 
+    console.log(totalNumberOfPages);
+
     dispatch(setPosts(posts));
-    dispatch(setTotalNumberOfPages(posts));
+    dispatch(setTotalNumberOfPages(totalNumberOfPages));
   } catch (err) {
     dispatch(setErrorPosts(serialize(err)));
   } finally {

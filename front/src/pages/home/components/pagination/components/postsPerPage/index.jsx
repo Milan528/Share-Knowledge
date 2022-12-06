@@ -1,33 +1,28 @@
 import React from 'react';
-// import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
-// import {getPosts} from "../../../../../src - old/pages/home/reduxThunk/actions"
-// import {setCurrentPageNumber, setPostsNumber} from "../../../../../src - old/pages/home/redux/slices"
-import { StyledFormControl, PostsPerPageContainer } from './styles';
+import { StyledFormControl } from './styles';
+import { setCurrentPage, setPostPerPage } from '../../../../redux/slices';
+import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const PostsPerPage = () => {
-  // const home = useSelector(state => state.home);
-  // const { postsNumber, pagesNumber, currentPageNumber } = home;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const postPerPage = useSelector((state) => state.home.state.postPerPage);
 
-  // const handleCurrentPageNumberChange = (event, paginationCurrentPage) => {
-  //   dispatch(setCurrentPageNumber(paginationCurrentPage))
-  //   dispatch(getPosts())
-  // }
-
-  // const handlePostNumberChange = (event) => {
-  //   dispatch(setPostsNumber(event.target.value))
-  //   dispatch(getPosts())
-  // };
+  const handlePostNumberChange = (event) => {
+    dispatch(setPostPerPage(event.target.value));
+    dispatch(setCurrentPage(1));
+    dispatch(loadSpecificPosts());
+  };
 
   return (
     <StyledFormControl variant="standard">
       <Select
         // value={postsNumber}
-        value={5}
-        // onChange={handlePostNumberChange}
+        value={postPerPage}
+        onChange={handlePostNumberChange}
       >
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
           <MenuItem key={value} value={value}>

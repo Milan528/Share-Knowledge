@@ -29,7 +29,5 @@ function selectCommentsForPost(postId) {
   sql += ') ';
   sql += 'as myTable2 ';
   sql += 'GROUP BY id, text, date, likedCommentId; ';
-  console.log('darjan');
-  console.log(sql);
   return sql;
 }

@@ -1,6 +1,7 @@
 import QUERYS from '../sqlQuerys/posts.querys.js';
 import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
+import POST_TAG_QUERYS from '../sqlQuerys/postTag.querys.js';
 import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 import { getTodaysDate } from '../tools/dateFormater.js';
@@ -35,8 +36,14 @@ export const createPost = async (req, res) => {
   const { userID, post } = req.body;
   post.userId = userID;
   post.date = getTodaysDate();
-  const { results, error } = await database.query(QUERYS.CREATE_POST, Object.values(post));
-
+  const { results, error } = await database.query(QUERYS.CREATE_POST, [
+    post.title,
+    post.text,
+    post.type,
+    post.userId,
+    post.date
+  ]);
+  console.log(post);
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {
@@ -44,7 +51,24 @@ export const createPost = async (req, res) => {
   } else {
     const postID = results.insertId;
 
-    ResponseManager.CREATED(res, `Post created`, postID);
+    await addTagForPost(res, postID, post.tags);
+  }
+
+  async function addTagForPost(res, postID, tags) {
+    for (const tag of tags) {
+      const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [
+        postID,
+        tag
+      ]);
+
+      if (error) {
+        return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+      } else if (!results) {
+        return ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+      }
+    }
+
+    return ResponseManager.CREATED(res, `Post created`, postID);
   }
 };
 
@@ -88,7 +112,6 @@ export const deletePost = async (req, res) => {
 export const getSpecificPosts = async (req, res) => {
   let { search, startIndex, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type);
-  console.log(sql);
   let { results, error } = await database.query(sql);
 
   if (error) {
@@ -106,7 +129,7 @@ export const getSpecificPosts = async (req, res) => {
 };
 
 export const getTotalNumberOfPagesForSpecificPosts = async (req, res, dto) => {
-  let { search, startIndex, count, tags, type } = req.body;
+  let { search, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS(tags, search, type);
   let { results, error } = await database.query(sql);
 

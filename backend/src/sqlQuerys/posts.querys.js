@@ -106,7 +106,6 @@ function getFilteredPosts(tags, search, type) {
   sql += ` ) as myTable `;
   sql += `group by id, text, title, type, likes, date `;
 
-  console.log(sql);
   return sql;
 }
 
