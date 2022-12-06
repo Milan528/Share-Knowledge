@@ -52,3 +52,36 @@ export const addComment =
       setLoading(false);
     }
   };
+
+// export const loadSpecificPosts = () => async (dispatch, getState) => {
+//   const {
+//     home: {
+//       tags: { selectedTags },
+//       state: { type, search, currentPage, postPerPage },
+//     },
+//   } = getState();
+
+//   let tagsId = selectedTags.map((tag) => tag.id);
+//   let dto = {
+//     tags: tagsId,
+//     startIndex: (currentPage - 1) * postPerPage,
+//     count: postPerPage,
+//     search,
+//     type,
+//   };
+//   try {
+//     dispatch(loadingPosts(true));
+//     const { posts, totalNumberOfPages } = await getAllSpecificPostsRepository(
+//       dto
+//     );
+
+//     console.log(totalNumberOfPages);
+
+//     dispatch(setPosts(posts));
+//     dispatch(setTotalNumberOfPages(totalNumberOfPages));
+//   } catch (err) {
+//     dispatch(setErrorPosts(serialize(err)));
+//   } finally {
+//     dispatch(loadingPosts(false));
+//   }
+// };

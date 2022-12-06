@@ -17,16 +17,40 @@ const Details = (props) => {
   const navigate = useNavigate();
   const { likes, postId, date } = props;
   const postsState = useSelector((state) => state.home.posts);
+  const currentPage = useSelector((state) => state.home.state.currentPage);
+  const postPerPage = useSelector((state) => state.home.state.postPerPage);
   const { posts } = postsState;
 
+  //  home: {
+  //     tags: { selectedTags },
+  //     state: { type, search, currentPage, postPerPage },
+  //   },
+  // } = getState();
+
+  // let tagsId = selectedTags.map((tag) => tag.id);
+  // let dto = {
+  //   tags: tagsId,
+  //   startIndex: (currentPage - 1) * postPerPage,
+  //   count: postPerPage,
+  //   search,
+  //   type,
+  // };
+
   const onClick = () => {
+    const postIndex =
+      posts.findIndex((post) => post.id === postId) +
+      (currentPage - 1) * postPerPage;
+
     navigate(
       {
         pathname: viewPostRoute,
         search: `postId=${postId}`,
       },
       {
-        state: posts.map((post) => post.id),
+        state: {
+          postsIds: posts.map((post) => post.id),
+          postIndex,
+        },
       }
     );
   };

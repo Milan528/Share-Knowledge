@@ -17,3 +17,7 @@ export const mapDTOToPost = (dto) => {
 export const mapDTOToPosts = (dto) => {
   return dto.map((post) => mapDTOToPost(post));
 };
+
+const mapPostIndexToPageNumberForPageWithSinglePost = (postIndex) => {
+  const numberOfPageWithSinglePost = postIndex + 1;
+};

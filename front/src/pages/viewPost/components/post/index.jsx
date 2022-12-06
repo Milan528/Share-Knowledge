@@ -22,7 +22,9 @@ const Post = () => {
   const { loading, error, post } = state;
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const postsIds = location.state;
+  const postsIds = location.state.postsIds;
+  const postIndex = location.state.postIndex;
+  console.log(postIndex);
   const selectedPostId = searchParams.get('postId');
   const navigate = useNavigate();
 
@@ -43,7 +45,9 @@ const Post = () => {
         search: `postId=${newPostId}`,
       },
       {
-        state: postsIds,
+        state: {
+          postsIds,
+        },
       }
     );
   };
