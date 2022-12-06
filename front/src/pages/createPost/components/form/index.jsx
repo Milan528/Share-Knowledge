@@ -10,6 +10,9 @@ import {
   SubmitButton,
   FileControlls,
   StyledDeleteButton,
+  VideoLinkInputContainer,
+  VideoViewerContainer,
+  DeleteVideoUrlButton,
 } from './styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -26,9 +29,17 @@ import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
 import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
-import { Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, FormControl, InputAdornment, Tooltip } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import VideoViewer from '../../../../components/fileManager/components/videoViewer';
 
 const Form = () => {
   const [type, setType] = useState('question');
@@ -139,6 +150,42 @@ const Form = () => {
           name: document.name, //'1.pdf'
         }))}
       />
+       <VideoLinkInputContainer>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Dodaj video URL"
+          inputProps={{ 'aria-label': 'search google maps' }}
+        />
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <Button color="primary" sx={{ p: '10px' }} aria-label="directions">
+          <AddCircleIcon />
+        </Button>
+      </VideoLinkInputContainer>
+      <VideoViewerContainer>
+        <FormControl fullWidth>
+          <InputLabel id="select-video">Odaberi video</InputLabel>
+          <Select
+            labelId="select-video"
+            value={-1}
+            label="Odaberi video"
+            onChange={() => {}}
+            >
+            <MenuItem value={-1}>Nijedan</MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+        <Tooltip title="Obrisi selektovani video">
+          <DeleteVideoUrlButton color="primary" variant='outlined'>
+            <DeleteIcon />
+          </DeleteVideoUrlButton>
+        </Tooltip>
+      </VideoViewerContainer>
+
+
+      <VideoViewer/>
+     
       <ControllsContainer>
         <CancelButton onClick={onCancel} variant="outlined">
           <ControllsText variant="button" color="inherit">

@@ -73,3 +73,22 @@ export const CancelButton = styled(Button)`
     margin-right: 10px;
   }
 `;
+
+export const VideoLinkInputContainer = styled.div`
+  display: flex;
+  border: 1px solid #c4c4c4;
+  align-items: center;
+  border-radius: 4px;
+  height: 56px;
+  margin-bottom: 20px;
+`;
+
+export const VideoViewerContainer = styled.div`
+  display: flex;
+`;
+
+export const DeleteVideoUrlButton = styled(Button)`
+  && {
+    margin-left: 10px;
+  }
+`;
