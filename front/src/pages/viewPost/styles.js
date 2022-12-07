@@ -5,6 +5,10 @@ export const ContentContainer = styled.div`
   min-width: 230px;
   margin: 5px auto 0 auto;
   flex: 1;
+
+  @media screen and (max-width: 800px) {
+    width: 95%;
+  }
 `;
 
 export const AddCommentContainer = styled.div`
