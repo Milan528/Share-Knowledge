@@ -8,7 +8,7 @@ import Details from './components/details';
 import Tags from './components/tags';
 import { setError } from './redux/slices';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadPost } from '../../reduxThunk/actions';
+import { loadPost, loadPostId, loadSpecificPost } from '../../reduxThunk/actions';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HeadingContainer, StyledH1 } from './styles';
 import Button from '@mui/material/Button';
@@ -20,54 +20,53 @@ const Post = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.viewPost.post);
   const { loading, error, post } = state;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const location = useLocation();
-  const postsIds = location.state.postsIds;
-  const postIndex = location.state.postIndex;
-  console.log(postIndex);
-  const selectedPostId = searchParams.get('postId');
+  const [selectedPostIndex, setSelectedPostIndex] = useState(location.state.selectedPostIndex)
+  const homepageFilters = location.state.homepageFilters;
+  const searchParamsPostId = searchParams.get('postId');
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(loadPost(selectedPostId));
-  }, [dispatch, selectedPostId]);
+    if(!selectedPostIndex){
+      dispatch(loadPost(searchParamsPostId));
+    }
+  }, [searchParamsPostId]);
+
+  useEffect(()=> {
+    if(Number.isFinite(selectedPostIndex)){
+      dispatch(loadSpecificPost(selectedPostIndex, homepageFilters, (postId) => {
+        navigate(
+          {
+            pathname: viewPostRoute,
+            search: `postId=${postId}`,
+          },
+          {
+            state: {
+              homepageFilters,
+              selectedPostIndex
+            },
+          }
+        );
+      }))
+    }
+  },[selectedPostIndex])
 
   const handleNextPost = () => {
-    const selectedPostIndex = postsIds.findIndex(
-      (postId) => Number(postId) === Number(selectedPostId)
-    );
-
-    const newPostIndex = (selectedPostIndex + 1) % postsIds.length;
-    const newPostId = postsIds[newPostIndex];
-    navigate(
-      {
-        pathname: viewPostRoute,
-        search: `postId=${newPostId}`,
-      },
-      {
-        state: {
-          postsIds,
-        },
-      }
-    );
+    const { totalNumberOfPosts } = homepageFilters;
+    setSelectedPostIndex(prev => (prev+1)%totalNumberOfPosts)
   };
-  const handlePreviousPost = () => {
-    const selectedPostIndex = postsIds.findIndex(
-      (postId) => Number(postId) === Number(selectedPostId)
-    );
 
-    const newPostIndex =
-      (selectedPostIndex - 1 < 0 ? postsIds.length : selectedPostIndex) - 1;
-    const newPostId = postsIds[newPostIndex];
-    navigate(
-      {
-        pathname: viewPostRoute,
-        search: `postId=${newPostId}`,
-      },
-      {
-        state: postsIds,
-      }
-    );
+  const handlePreviousPost = () => {
+    const { totalNumberOfPosts } = homepageFilters;
+    if(selectedPostIndex - 1 < 0 ){
+      setSelectedPostIndex(totalNumberOfPosts-1)
+    }else {
+      console.log("ddddddddd")
+      console.log(selectedPostIndex-1)
+      setSelectedPostIndex(selectedPostIndex-1)
+    }
   };
 
   const viewToRender = () => {
@@ -76,7 +75,7 @@ const Post = () => {
     return (
       <>
         <HeadingContainer>
-          {postsIds ? (
+          {location.state ? (
             <Button variant="outlined" onClick={handlePreviousPost}>
               <ChevronLeftIcon />
             </Button>
@@ -84,7 +83,7 @@ const Post = () => {
           <StyledH1>
             {post.type === 'answer' ? 'Materijal' : 'Pitanje'}
           </StyledH1>
-          {postsIds ? (
+          {location.state ? (
             <Button variant="outlined" onClick={handleNextPost}>
               <ChevronRightIcon />
             </Button>

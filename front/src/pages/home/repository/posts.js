@@ -6,6 +6,7 @@ export const getAllSpecificPostsRepository = async (data) => {
   return {
     posts: mapDTOToPosts(dto.data.posts),
     totalNumberOfPages: dto.data.totalNumberOfPages,
+    totalNumberOfPosts: dto.data.totalNumberOfPosts,
   };
 };
 

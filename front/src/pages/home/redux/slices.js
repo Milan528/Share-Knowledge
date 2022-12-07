@@ -37,6 +37,9 @@ const homeSlice = createSlice({
     setTotalNumberOfPages: (state, action) => {
       state.state.totalNumberOfPages = action.payload;
     },
+    setTotalNumberOfPosts: (state, action) => {
+      state.state.totalNumberOfPosts = action.payload;
+    },
   },
   extraReducers: {
     [tagActions.setSelectedTags]: (state, action) => {
@@ -76,5 +79,6 @@ export const {
   setCurrentPage,
   setPostPerPage,
   setTotalNumberOfPages,
+  setTotalNumberOfPosts,
 } = homeSlice.actions;
 export const homeReducer = homeSlice.reducer;

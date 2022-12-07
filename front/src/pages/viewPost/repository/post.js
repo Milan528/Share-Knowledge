@@ -18,6 +18,11 @@ export const mapDTOToPosts = (dto) => {
   return dto.map((post) => mapDTOToPost(post));
 };
 
-const mapPostIndexToPageNumberForPageWithSinglePost = (postIndex) => {
-  const numberOfPageWithSinglePost = postIndex + 1;
+export const getSpecificPostRepository = async (data) => {
+  const dto = await services.post('/posts/specificPosts', data);
+  return {
+    post: mapDTOToPost(dto.data.posts[0]),
+    // totalNumberOfPages: dto.data.totalNumberOfPages,
+    // totalNumberOfPosts: dto.data.totalNumberOfPosts,
+  };
 };

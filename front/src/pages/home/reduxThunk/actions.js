@@ -14,7 +14,7 @@ import {
   setError as setErrorPosts,
 } from '../components/posts/redux/slices';
 import serialize from '../../../utils/serialize';
-import { setTotalNumberOfPages } from '../redux/slices';
+import { setTotalNumberOfPages, setTotalNumberOfPosts } from '../redux/slices';
 
 export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
@@ -34,14 +34,12 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   };
   try {
     dispatch(loadingPosts(true));
-    const { posts, totalNumberOfPages } = await getAllSpecificPostsRepository(
-      dto
-    );
-
-    console.log(totalNumberOfPages);
+    const { posts, totalNumberOfPages, totalNumberOfPosts } =
+      await getAllSpecificPostsRepository(dto);
 
     dispatch(setPosts(posts));
     dispatch(setTotalNumberOfPages(totalNumberOfPages));
+    dispatch(setTotalNumberOfPosts(totalNumberOfPosts));
   } catch (err) {
     dispatch(setErrorPosts(serialize(err)));
   } finally {

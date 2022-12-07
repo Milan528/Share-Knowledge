@@ -13,7 +13,10 @@ import {
   getCommentsRepository,
   addCommentRepository,
 } from '../repository/comments';
-import { getPostRepository } from '../repository/post';
+import {
+  getPostRepository,
+  getSpecificPostRepository,
+} from '../repository/post';
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {
@@ -53,35 +56,26 @@ export const addComment =
     }
   };
 
-// export const loadSpecificPosts = () => async (dispatch, getState) => {
-//   const {
-//     home: {
-//       tags: { selectedTags },
-//       state: { type, search, currentPage, postPerPage },
-//     },
-//   } = getState();
+export const loadSpecificPost =
+  (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
+    const { selectedTags, type, search } = homepageFilters;
 
-//   let tagsId = selectedTags.map((tag) => tag.id);
-//   let dto = {
-//     tags: tagsId,
-//     startIndex: (currentPage - 1) * postPerPage,
-//     count: postPerPage,
-//     search,
-//     type,
-//   };
-//   try {
-//     dispatch(loadingPosts(true));
-//     const { posts, totalNumberOfPages } = await getAllSpecificPostsRepository(
-//       dto
-//     );
+    let dto = {
+      tags: selectedTags.map((tag) => tag.id),
+      startIndex: selectedPostIndex, // redni_broj_strane===redni_broj_posta, kada je broj postova po strani===1
+      count: 1, //1 post po stranici
+      search,
+      type,
+    };
 
-//     console.log(totalNumberOfPages);
-
-//     dispatch(setPosts(posts));
-//     dispatch(setTotalNumberOfPages(totalNumberOfPages));
-//   } catch (err) {
-//     dispatch(setErrorPosts(serialize(err)));
-//   } finally {
-//     dispatch(loadingPosts(false));
-//   }
-// };
+    try {
+      dispatch(setLoadingPost(true));
+      const { post } = await getSpecificPostRepository(dto);
+      dispatch(setPost(post));
+      clb(post.id);
+    } catch (err) {
+      dispatch(setErrorPost(serialize(err)));
+    } finally {
+      dispatch(setLoadingPost(false));
+    }
+  };

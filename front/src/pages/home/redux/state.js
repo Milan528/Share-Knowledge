@@ -5,6 +5,7 @@ export const initialState = {
   currentPage: 1,
   postPerPage: 5,
   totalNumberOfPages: null,
+  totalNumberOfPosts: null,
 };
 
 const getState = () => {

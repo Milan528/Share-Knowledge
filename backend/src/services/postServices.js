@@ -144,6 +144,7 @@ export const getTotalNumberOfPagesForSpecificPosts = async (req, res, dto) => {
 
   const totalNumberOfPages = Math.ceil(totalRows / count);
   dto.totalNumberOfPages = totalNumberOfPages;
+  dto.totalNumberOfPosts = totalRows;
 
   await getTagsForPosts(dto, res);
 };

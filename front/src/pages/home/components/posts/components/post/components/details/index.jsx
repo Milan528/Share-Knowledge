@@ -19,25 +19,12 @@ const Details = (props) => {
   const postsState = useSelector((state) => state.home.posts);
   const currentPage = useSelector((state) => state.home.state.currentPage);
   const postPerPage = useSelector((state) => state.home.state.postPerPage);
+  const homepageFilters = useSelector((state) => state.home.state);
+  const selectedTags = useSelector((state) => state.home.tags.selectedTags);
   const { posts } = postsState;
 
-  //  home: {
-  //     tags: { selectedTags },
-  //     state: { type, search, currentPage, postPerPage },
-  //   },
-  // } = getState();
-
-  // let tagsId = selectedTags.map((tag) => tag.id);
-  // let dto = {
-  //   tags: tagsId,
-  //   startIndex: (currentPage - 1) * postPerPage,
-  //   count: postPerPage,
-  //   search,
-  //   type,
-  // };
-
   const onClick = () => {
-    const postIndex =
+    const selectedPostIndex =
       posts.findIndex((post) => post.id === postId) +
       (currentPage - 1) * postPerPage;
 
@@ -48,8 +35,11 @@ const Details = (props) => {
       },
       {
         state: {
-          postsIds: posts.map((post) => post.id),
-          postIndex,
+          homepageFilters: {
+            ...homepageFilters,
+            selectedTags
+          },
+          selectedPostIndex
         },
       }
     );
