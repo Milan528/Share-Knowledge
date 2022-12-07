@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import styled from 'styled-components';
 
 export const VideoContainer = styled.div`
@@ -15,4 +16,11 @@ export const VideoContainer = styled.div`
     height: 100%;
     width: 100%;
   }
+`;
+
+export const Link = styled.a`
+  text-decoration: underline;
+  color: #0000ee;
+  margin-left: 10px;
+  cursor: pointer;
 `;

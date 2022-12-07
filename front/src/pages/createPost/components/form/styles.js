@@ -12,10 +12,6 @@ export const StyledDeleteButton = styled(Button)`
   }
 `;
 
-export const FileControlls = styled.div`
-  margin-bottom: 10px;
-`;
-
 export const ControllsText = styled(Typography)`
   && {
     text-transform: none;
@@ -74,21 +70,18 @@ export const CancelButton = styled(Button)`
   }
 `;
 
-export const VideoLinkInputContainer = styled.div`
-  display: flex;
-  border: 1px solid #c4c4c4;
-  align-items: center;
-  border-radius: 4px;
-  height: 56px;
-  margin-bottom: 20px;
+export const ImageUploaderViewerContainer = styled.div`
+  margin-bottom: 10px;
 `;
 
-export const VideoViewerContainer = styled.div`
-  display: flex;
+export const FileUploaderViewerContainer = styled.div`
+  margin-bottom: 10px;
 `;
 
-export const DeleteVideoUrlButton = styled(Button)`
-  && {
-    margin-left: 10px;
-  }
+export const VideoUploaderViewerContainer = styled.div`
+  margin-bottom: 10px;
+`;
+
+export const AttatchemntsContainer = styled.div`
+  display: ${({ attatchemntExists }) => (attatchemntExists ? 'block' : 'flex')};
 `;

@@ -6,3 +6,13 @@ export const StyledButton = styled(Button)`
   margin-top: 10px;
   margin-left: -5px;
 `;
+
+export const StyledDeleteButton = styled(Button)`
+  && {
+    margin-left: 10px;
+  }
+`;
+
+export const UploadContainer = styled.div`
+  margin-bottom: 10px;
+`;

@@ -8,6 +8,10 @@ import {
   FileControlls,
   StyledDeleteButton,
   ErrorHolder,
+  AttatchemntsContainer,
+  ImageUploaderViewerContainer,
+  FileUploaderViewerContainer,
+  VideoUploaderViewerContainer,
 } from './styles';
 import Dialog from '../../../../../../components/dialog';
 import {
@@ -15,9 +19,10 @@ import {
   FileViewer,
   ImageUploader,
   ImageViewer,
+  VideoUploader,
+  VideoViewer,
 } from '../../../../../../components/fileManager';
 import { useDispatch } from 'react-redux';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useSearchParams } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
 
@@ -27,6 +32,7 @@ const Form = () => {
   const [message, setMessage] = useState('');
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [description, setDescription] = useState('');
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,6 +46,7 @@ const Form = () => {
       setDescription('');
       setImages([]);
       setDocuments([]);
+      setVideos([]);
     }
   }, [loading]);
 
@@ -75,41 +82,40 @@ const Form = () => {
         onChange={handleTextareaChange}
         value={description}
       />
-      <FileControlls>
-        <ImageUploader setFiles={setImages} />
-        {images.length > 0 ? (
-          <StyledDeleteButton
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={() => setImages([])}
-          >
-            Delete images
-          </StyledDeleteButton>
-        ) : null}
-        <FileUploader setFiles={setDocuments} />
-        {documents.length > 0 ? (
-          <StyledDeleteButton
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={() => setDocuments([])}
-          >
-            Delete files
-          </StyledDeleteButton>
-        ) : null}
-      </FileControlls>
-      <ImageViewer
-        files={images.map((image) => ({
-          src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'
-          name: image.name, //'1.png'
-        }))}
-        setFiles={setImages}
-      />
-      <FileViewer
-        files={documents.map((document) => ({
-          src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
-          name: document.name, //'1.pdf'
-        }))}
-      />
+      <AttatchemntsContainer 
+        attatchemntExists={images.length>0 || documents.length>0 || videos.length > 0}
+      >
+        <ImageUploaderViewerContainer>
+          <ImageUploader setFiles={setImages} files={images} />
+          <ImageViewer
+            files={images.map((image) => ({
+              src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'
+              name: image.name, //'1.png'
+            }))}
+            setFiles={setImages}
+            />
+        </ImageUploaderViewerContainer>
+
+        <FileUploaderViewerContainer>
+          <FileUploader setFiles={setDocuments} files={documents} />
+          <FileViewer
+            files={documents.map((document) => ({
+              src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
+              name: document.name, //'1.pdf'
+            }))}
+            />
+        </FileUploaderViewerContainer>
+
+        <VideoUploaderViewerContainer>
+          <VideoUploader setFiles={setVideos} files={videos}/>
+          <VideoViewer
+            files={videos.map((video) => ({
+              src: URL.createObjectURL(video), //'http://localhost:4000/files/1.pdf'
+              name: video.name, //'1.pdf'
+            }))}
+            />
+        </VideoUploaderViewerContainer>
+      </AttatchemntsContainer>
       <ControllsContainer>
         <SubmitButton disabled={loading} onClick={onSubmit} variant="outlined">
           <ControllsText variant="button" color="inherit">

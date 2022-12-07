@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Viewer from 'react-file-viewer';
 
 export const Link = styled.a`
   text-decoration: underline;
