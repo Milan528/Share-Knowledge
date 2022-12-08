@@ -1,16 +1,8 @@
 import styled from 'styled-components';
 import Paper from '@mui/material/Paper';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
-import { FormControl } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
-export const StyledDeleteButton = styled(Button)`
-  && {
-    margin-left: 10px;
-  }
-`;
 
 export const ControllsText = styled(Typography)`
   && {

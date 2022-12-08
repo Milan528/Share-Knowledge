@@ -23,7 +23,7 @@ const VideoUploader = (props) => {
         ref={inputRef}
         style={{ display: 'none' }}
         onChange={onInputChange}
-        accept=".mp4, .avi"
+        accept=".mp4"
         multiple="multiple"
       />
       {files.length > 0 ? (

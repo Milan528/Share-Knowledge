@@ -5,8 +5,6 @@ import {
   ControllsContainer,
   ControllsText,
   SubmitButton,
-  FileControlls,
-  StyledDeleteButton,
   ErrorHolder,
   AttatchemntsContainer,
   ImageUploaderViewerContainer,
@@ -35,7 +33,7 @@ const Form = () => {
   const [videos, setVideos] = useState([]);
   const [description, setDescription] = useState('');
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   let postID = searchParams.get('postId');
 
   const dispatch = useDispatch();
@@ -69,6 +67,7 @@ const Form = () => {
         description,
         images,
         documents,
+        videos
       };
       dispatch(addComment(setError, setLoading, comment, postID));
     }

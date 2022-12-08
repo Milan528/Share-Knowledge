@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { AddCommentContainer, ContentContainer } from './styles';

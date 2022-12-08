@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyledPaper,
   StyledTextareaAutosize,
@@ -82,6 +82,7 @@ const Form = () => {
         type,
         images,
         documents,
+        videos
       };
       dispatch(addPost(post));
     }

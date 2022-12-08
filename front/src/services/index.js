@@ -18,6 +18,12 @@ const request = async (method, url, DTO, formData) => {
       ...(DTO && { data: DTO }),
       ...(formData && { data: formData }),
       headers,
+      // onUploadProgress: (progressEvent) => {
+      //   const percentage = Math.floor(
+      //     (progressEvent.loaded * 100) / progressEvent.total
+      //   );
+      //   console.log(percentage);
+      // },
     });
     return res.data;
   } catch (error) {

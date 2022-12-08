@@ -9,4 +9,5 @@ const selectFiles = (files, ...fileTypes) => {
 export const FilesSelector = {
   selectImages: (files) => selectFiles(files, '.png', '.jpg', '.jpeg'),
   selectDocuments: (files) => selectFiles(files, '.doc', '.docx', '.pdf'),
+  selectVideos: (files) => selectFiles(files, '.mp4'),
 };

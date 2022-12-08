@@ -26,7 +26,9 @@ export const addCommentRepository = async (comment) => {
   const commentId = response.data;
 
   const formData = new FormData();
-  const allFiles = comment.images.concat(comment.documents);
+  const allFiles = comment.images.concat(
+    comment.documents.concat(comment.videos)
+  );
 
   if (allFiles.length > 0) {
     allFiles.forEach((file, index) => {

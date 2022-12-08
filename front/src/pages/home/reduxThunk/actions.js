@@ -1,7 +1,4 @@
-import {
-  getAllSpecificPostsRepository,
-  getTotalNumberOfPagesForSpecificPostsRepository,
-} from '../repository/posts';
+import { getAllSpecificPostsRepository } from '../repository/posts';
 import { getAllTagsRepository } from '../repository/tags';
 import {
   setAllTags,

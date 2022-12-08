@@ -46,7 +46,7 @@ const VideoViewer = (props) => {
             Open file in new tab
           </Link>
           <VideoContainer>
-            <iframe width="420" height="345" src={files[0].src}/>
+            <iframe src={files[0].src}/>
           </VideoContainer>
         </>
       ) : null}

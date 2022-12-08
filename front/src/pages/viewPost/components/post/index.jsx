@@ -8,7 +8,7 @@ import Details from './components/details';
 import Tags from './components/tags';
 import { setError } from './redux/slices';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadPost, loadPostId, loadSpecificPost } from '../../reduxThunk/actions';
+import { loadPost, loadSpecificPost } from '../../reduxThunk/actions';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HeadingContainer, StyledH1 } from './styles';
 import Button from '@mui/material/Button';
@@ -29,13 +29,14 @@ const Post = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!selectedPostIndex){
+    if(!Number.isFinite(selectedPostIndex)){
       dispatch(loadPost(searchParamsPostId));
     }
-  }, [searchParamsPostId]);
+  }, [dispatch, searchParamsPostId, selectedPostIndex]);
 
   useEffect(()=> {
     if(Number.isFinite(selectedPostIndex)){
+
       dispatch(loadSpecificPost(selectedPostIndex, homepageFilters, (postId) => {
         navigate(
           {
@@ -51,7 +52,7 @@ const Post = () => {
         );
       }))
     }
-  },[selectedPostIndex])
+  },[selectedPostIndex, dispatch, homepageFilters, navigate])
 
   const handleNextPost = () => {
     const { totalNumberOfPosts } = homepageFilters;
@@ -63,8 +64,6 @@ const Post = () => {
     if(selectedPostIndex - 1 < 0 ){
       setSelectedPostIndex(totalNumberOfPosts-1)
     }else {
-      console.log("ddddddddd")
-      console.log(selectedPostIndex-1)
       setSelectedPostIndex(selectedPostIndex-1)
     }
   };

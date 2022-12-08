@@ -9,7 +9,7 @@ export const createPostRepository = async (post) => {
   const postId = response.data;
 
   const formData = new FormData();
-  const allFiles = post.images.concat(post.documents);
+  const allFiles = post.images.concat(post.documents.concat(post.videos));
 
   if (allFiles.length > 0) {
     allFiles.forEach((file, index) => {

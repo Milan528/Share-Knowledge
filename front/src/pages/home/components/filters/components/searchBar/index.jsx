@@ -1,18 +1,21 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import debounce from '../../../../../../utils/debounce';
 import { setSearch } from '../../../../redux/slices';
+import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const Search = () => {
   const dispatch = useDispatch();
+  const search = useSelector((state) => state.home.state.search);
 
-  const handleOnInputChange = (event) => {
+  const handleOnChange = (event) => {
     dispatch(setSearch(event.target.value));
+    dispatch(loadSpecificPosts());
   };
 
   return (
-    <TextField label="Search" onChange={debounce(handleOnInputChange, 500)} />
+    <TextField label="Search" defaultValue={search} onChange={debounce(handleOnChange, 500)} />
   );
 };
 

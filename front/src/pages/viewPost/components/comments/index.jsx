@@ -11,7 +11,7 @@ const Comments = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.viewPost.comments);
   const { loading, error, comments } = state;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const postID = searchParams.get('postId');
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   AdditionalFiltersContainer,
   FiltersContainer,
@@ -9,7 +9,6 @@ import SearchBar from './components/searchBar';
 import Tags from './components/tags';
 import Type from './components/type';
 import Order from './components/order';
-import Submit from './components/submit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { setFiltersVisibility } from '../../redux/slices';
@@ -42,7 +41,6 @@ const Fliters = () => {
           <AdditionalFiltersContainer>
             <Type />
             <Order />
-            <Submit />
           </AdditionalFiltersContainer>
           <StyledDivider />
         </>
