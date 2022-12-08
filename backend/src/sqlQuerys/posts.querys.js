@@ -10,6 +10,12 @@ const QUERY = {
   SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS: getTotalNumberOfPagesForSpecificPosts
 };
 
+const orderSql = {
+  newest: 'date DESC',
+  like: 'likes DESC',
+  dislike: 'likes ASC'
+};
+
 function selectPost(postId) {
   let sql = '';
   sql += 'Select id, text, title, type, likes, date, group_concat(tagId) as tags ';
@@ -109,10 +115,13 @@ function getFilteredPosts(tags, search, type) {
   return sql;
 }
 
-function getSpecificPosts(tags, search, startIndex, count, type) {
-  let sql = '';
+function getSpecificPosts(tags, search, startIndex, count, type, order) {
+  let sql = 'SELECT * FROM ( ';
   sql += getFilteredPosts(tags, search, type);
+  sql += `order by ${orderSql[order]} `;
+  sql += ') as tableToLimit ';
   sql += `limit ${startIndex},${count}; `;
+  console.log(sql);
   return sql;
 }
 

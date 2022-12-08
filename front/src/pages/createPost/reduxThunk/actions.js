@@ -8,10 +8,11 @@ import { getAllTagsRepository } from '../repository/tags';
 import { setLoading, setError } from '../redux/slices';
 import { createPostRepository } from '../repository/post';
 
-export const addPost = (post) => async (dispatch, getState) => {
+export const addPost = (post, clb) => async (dispatch, getState) => {
   try {
     dispatch(setLoading(true));
     await createPostRepository(post);
+    clb();
   } catch (err) {
     dispatch(setError(serialize(err)));
   } finally {

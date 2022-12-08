@@ -19,6 +19,8 @@ const Tags = () => {
 
   const handleOnChange = (event, value) => {
     if (value) dispatch(setSelectedTags(value));
+
+    if (value.length < selectedTags.length) dispatch(loadSpecificPosts());
   };
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const Tags = () => {
 
   const handleOnClose = () => {
     dispatch(loadSpecificPosts());
-  } 
+  };
 
   return (
     <TagsContainer>

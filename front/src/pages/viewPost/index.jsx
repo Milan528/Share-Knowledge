@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { AddCommentContainer, ContentContainer } from './styles';
@@ -7,9 +7,42 @@ import Comments from './components/comments';
 import CreateComment from './components/createComment';
 import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { loginRoute } from '../../app/router/routes';
 
 const ViewPost = () => {
   const createCommentRef = useRef(null);
+  const token = useSelector((state) => state.app.token);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [selectedPostIndex, setSelectedPostIndex] = useState(
+    location.state.selectedPostIndex
+  );
+  const homepageFilters = location.state.homepageFilters;
+  const [searchParams] = useSearchParams();
+  const postID = searchParams.get('postId');
+
+  const handleCreateComment = () => {
+    if (token) {
+      createCommentRef.current.scrollIntoView();
+    } else {
+      navigate(
+        {
+          pathname: loginRoute,
+        },
+        {
+          state: {
+            homepageFilters,
+            selectedPostIndex,
+            from: location.pathname,
+            searchParams: `postId=${postID}`,
+          },
+        }
+      );
+    }
+  };
 
   return (
     <>
@@ -17,7 +50,7 @@ const ViewPost = () => {
       <AddCommentContainer>
         <Button
           variant="contained"
-          onClick={() => createCommentRef.current.scrollIntoView()}
+          onClick={handleCreateComment}
           startIcon={<AddCircleIcon />}
         >
           komentar
@@ -26,7 +59,7 @@ const ViewPost = () => {
       <ContentContainer>
         <FirstPost />
         <Comments />
-        <CreateComment ref={createCommentRef} />
+        {token ? <CreateComment ref={createCommentRef} /> : null}
       </ContentContainer>
       <Footer />
     </>

@@ -43,7 +43,6 @@ export const createPost = async (req, res) => {
     post.userId,
     post.date
   ]);
-  console.log(post);
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {
@@ -110,8 +109,8 @@ export const deletePost = async (req, res) => {
 };
 
 export const getSpecificPosts = async (req, res) => {
-  let { search, startIndex, count, tags, type } = req.body;
-  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type);
+  let { search, startIndex, count, tags, type, order } = req.body;
+  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order);
   let { results, error } = await database.query(sql);
 
   if (error) {
@@ -152,19 +151,21 @@ export const getTotalNumberOfPagesForSpecificPosts = async (req, res, dto) => {
 async function getTagsForPosts(responseData, res) {
   const posts = responseData.posts;
   for (const post of posts) {
-    const tags = post.tags.split(',');
+    let { results, error } = await database.query(TAG_QUERYS.SELECT_TAGS_FOR_POST_ID, post.id);
     let tagsArray = [];
-    for (const tag of tags) {
-      let { results, error } = await database.query(TAG_QUERYS.SELECT_TAG_BY_ID, tag);
 
-      if (error) {
-        return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-      }
-      if (!results) {
-        return ResponseManager.OK(res, `No data for selected search`);
-      }
-
-      tagsArray.push(results[0]);
+    if (error) {
+      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    }
+    if (!results) {
+      return ResponseManager.OK(res, `No data for selected search`);
+    }
+    for (const result of results) {
+      let tag = {
+        id: result.id,
+        tag: result.tag
+      };
+      tagsArray.push(tag);
     }
     post.tags = tagsArray;
   }

@@ -17,7 +17,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
-      state: { type, search, currentPage, postPerPage },
+      state: { type, search, currentPage, postPerPage, order },
     },
   } = getState();
 
@@ -28,6 +28,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     count: postPerPage,
     search,
     type,
+    order,
   };
   try {
     dispatch(loadingPosts(true));

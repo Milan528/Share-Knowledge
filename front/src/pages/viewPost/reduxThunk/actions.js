@@ -58,7 +58,7 @@ export const addComment =
 
 export const loadSpecificPost =
   (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
-    const { selectedTags, type, search } = homepageFilters;
+    const { selectedTags, type, search, order } = homepageFilters;
 
     let dto = {
       tags: selectedTags.map((tag) => tag.id),
@@ -66,6 +66,7 @@ export const loadSpecificPost =
       count: 1, //1 post po stranici
       search,
       type,
+      order,
     };
 
     try {

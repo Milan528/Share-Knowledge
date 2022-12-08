@@ -28,6 +28,9 @@ const homeSlice = createSlice({
     setSearch: (state, action) => {
       state.state.search = action.payload;
     },
+    setOrder: (state, action) => {
+      state.state.order = action.payload;
+    },
     setCurrentPage: (state, action) => {
       state.state.currentPage = action.payload;
     },
@@ -76,6 +79,7 @@ export const {
   setFiltersVisibility,
   setType,
   setSearch,
+  setOrder,
   setCurrentPage,
   setPostPerPage,
   setTotalNumberOfPages,

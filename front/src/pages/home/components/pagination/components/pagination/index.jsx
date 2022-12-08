@@ -16,13 +16,13 @@ const Pagination = () => {
     dispatch(loadSpecificPosts());
   };
 
-  return (
+  return totalNumberOfPages ? (
     <StyledPagination
       onChange={handleCurrentPageNumberChange}
       count={totalNumberOfPages}
       page={currentPage}
     />
-  );
+  ) : null;
 };
 
 export default Pagination;

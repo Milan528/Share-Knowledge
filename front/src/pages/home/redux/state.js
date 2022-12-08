@@ -1,3 +1,9 @@
+export const orderEnum = {
+  newest: 'newest',
+  like: 'like',
+  dislike: 'dislike',
+};
+
 export const initialState = {
   filtersVisibility: true,
   type: 'all',
@@ -6,6 +12,7 @@ export const initialState = {
   postPerPage: 5,
   totalNumberOfPages: null,
   totalNumberOfPosts: null,
+  order: orderEnum.newest,
 };
 
 const getState = () => {

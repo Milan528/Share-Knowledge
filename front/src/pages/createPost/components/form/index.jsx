@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyledPaper,
   StyledTextareaAutosize,
@@ -24,13 +24,14 @@ import {
   ImageUploader,
   ImageViewer,
   VideoUploader,
-  VideoViewer
+  VideoViewer,
 } from '../../../../components/fileManager';
 import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
 import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
+import * as routes from '../../../../app/router/routes';
 
 const Form = () => {
   const [type, setType] = useState('question');
@@ -41,14 +42,20 @@ const Form = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.createPost.state.loading);
+  console.log(loading);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;
     setDescription(value);
   };
+
+  useEffect(() => {
+    if (submitSuccess) navigate(routes.homeRoute);
+  }, [submitSuccess]);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
@@ -82,9 +89,9 @@ const Form = () => {
         type,
         images,
         documents,
-        videos
+        videos,
       };
-      dispatch(addPost(post));
+      dispatch(addPost(post, () => setSubmitSuccess(true)));
     }
   };
 
@@ -92,7 +99,7 @@ const Form = () => {
     navigate(homeRoute);
   };
 
-  console.log(videos)
+  console.log(videos);
 
   return (
     <StyledPaper elevation={0}>
@@ -111,8 +118,10 @@ const Form = () => {
       </Type>
       <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 
-      <AttatchemntsContainer 
-        attatchemntExists={images.length>0 || documents.length>0 || videos.length > 0}
+      <AttatchemntsContainer
+        attatchemntExists={
+          images.length > 0 || documents.length > 0 || videos.length > 0
+        }
       >
         <ImageUploaderViewerContainer>
           <ImageUploader setFiles={setImages} files={images} />
@@ -122,7 +131,7 @@ const Form = () => {
               name: image.name, //'1.png'
             }))}
             setFiles={setImages}
-            />
+          />
         </ImageUploaderViewerContainer>
 
         <FileUploaderViewerContainer>
@@ -132,17 +141,17 @@ const Form = () => {
               src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
               name: document.name, //'1.pdf'
             }))}
-            />
+          />
         </FileUploaderViewerContainer>
 
         <VideoUploaderViewerContainer>
-          <VideoUploader setFiles={setVideos} files={videos}/>
+          <VideoUploader setFiles={setVideos} files={videos} />
           <VideoViewer
             files={videos.map((video) => ({
               src: URL.createObjectURL(video), //'http://localhost:4000/files/1.pdf'
               name: video.name, //'1.pdf'
             }))}
-            />
+          />
         </VideoUploaderViewerContainer>
       </AttatchemntsContainer>
 
@@ -152,7 +161,7 @@ const Form = () => {
             Odustani
           </ControllsText>
         </CancelButton>
-        <SubmitButton onClick={onSubmit} variant="outlined">
+        <SubmitButton onClick={onSubmit} variant="outlined" disabled={loading}>
           <ControllsText variant="button" color="inherit">
             Potvrdi
           </ControllsText>

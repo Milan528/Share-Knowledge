@@ -5,18 +5,24 @@ import ThumbUp from '@mui/icons-material/ThumbUp';
 import Time from '@mui/icons-material/AccessTime';
 import { OrdersContainer } from './styles';
 import Tabs from '@mui/material/Tabs';
+import { orderEnum } from '../../../../redux/state';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrder } from '../../../../redux/slices';
+import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const ScrollableTabs = () => {
-  const [value, setValue] = useState(0);
+  const order = useSelector((state) => state.home.state.order);
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    dispatch(setOrder(newValue));
+    dispatch(loadSpecificPosts());
   };
 
   return (
     <OrdersContainer>
       <Tabs
-        value={value}
+        value={order}
         onChange={handleChange}
         TabIndicatorProps={{ style: { backgroundColor: '#0099feba' } }}
         textColor="inherit"
@@ -24,9 +30,9 @@ const ScrollableTabs = () => {
         scrollButtons={true}
         allowScrollButtonsMobile
       >
-        <Tab label="Najnovije" icon={<Time />} />
-        <Tab label="Ocena" icon={<ThumbUp />} />
-        <Tab label="Ocena" icon={<ThumbDown />} />
+        <Tab value={orderEnum.newest} label="Najnovije" icon={<Time />} />
+        <Tab value={orderEnum.like} label="Ocena" icon={<ThumbUp />} />
+        <Tab value={orderEnum.dislike} label="Ocena" icon={<ThumbDown />} />
       </Tabs>
     </OrdersContainer>
   );

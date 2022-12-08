@@ -1,10 +1,21 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import * as routes from './routes';
 
 const PrivateRoutes = () => {
-  let auth = { token: true };
-  return auth.token ? <Outlet /> : <Navigate to={routes.loginRoute} />;
+  const location = useLocation();
+  const token = useSelector((state) => state.app.token);
+
+  return token ? (
+    <Outlet />
+  ) : (
+    <Navigate
+      replace
+      to={routes.loginRoute}
+      state={{ ...location.state, from: location.pathname }}
+    />
+  );
 };
 
 export default PrivateRoutes;

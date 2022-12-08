@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { login } from '../../reduxThunk/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as routes from '../../../../app/router/routes';
 import {
   FormContainer,
@@ -19,16 +19,35 @@ const Form = () => {
   const token = useSelector((state) => state.app.token);
   const loading = useSelector((state) => state.login.loading);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token !== null) {
-      navigate(routes.homeRoute);
-    }
-  }, [token, navigate]);
+  const location = useLocation();
 
   const onClick = () => {
     dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    if (token !== null) {
+      if (location.state ? location.state.from : false) {
+        if (location.state.searchParams) {
+          const { searchParams, ...state } = location.state;
+
+          navigate(
+            {
+              pathname: location.state.from,
+              search: searchParams,
+            },
+            {
+              state: state,
+            }
+          );
+        } else {
+          navigate(location.state.from, { replace: true });
+        }
+      } else {
+        navigate(routes.homeRoute, { replace: true });
+      }
+    }
+  }, [token, navigate, location]);
 
   return (
     <FormContainer>
