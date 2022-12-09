@@ -17,7 +17,11 @@ export const initialState = {
 
 const getState = () => {
   if (localStorage.getItem('home')) {
-    const state = JSON.parse(localStorage.getItem('home')).state;
+    const state = JSON.parse(localStorage.getItem('home'));
+
+    delete state.tags;
+    delete state.posts;
+
     return state;
   } else return initialState;
 };

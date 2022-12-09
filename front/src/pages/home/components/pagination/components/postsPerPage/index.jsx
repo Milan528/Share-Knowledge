@@ -9,7 +9,7 @@ import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const PostsPerPage = () => {
   const dispatch = useDispatch();
-  const postPerPage = useSelector((state) => state.home.state.postPerPage);
+  const postPerPage = useSelector((state) => state.home.postPerPage);
 
   const handlePostNumberChange = (event) => {
     dispatch(setPostPerPage(event.target.value));

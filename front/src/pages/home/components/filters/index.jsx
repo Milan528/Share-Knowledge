@@ -16,9 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Fliters = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.home.state);
+  const filtersVisibility = useSelector((state) => state.home.filtersVisibility);
 
-  const { filtersVisibility } = state;
 
   return (
     <FiltersContainer>

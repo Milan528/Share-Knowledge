@@ -14,34 +14,34 @@ import posts from '../components/posts/redux/state';
 const homeSlice = createSlice({
   name: 'home',
   initialState: {
-    state,
+    ...state,
     tags,
     posts,
   },
   reducers: {
     setFiltersVisibility: (state, action) => {
-      state.state.filtersVisibility = action.payload;
+      state.filtersVisibility = action.payload;
     },
     setType: (state, action) => {
-      state.state.type = action.payload;
+      state.type = action.payload;
     },
     setSearch: (state, action) => {
-      state.state.search = action.payload;
+      state.search = action.payload;
     },
     setOrder: (state, action) => {
-      state.state.order = action.payload;
+      state.order = action.payload;
     },
     setCurrentPage: (state, action) => {
-      state.state.currentPage = action.payload;
+      state.currentPage = action.payload;
     },
     setPostPerPage: (state, action) => {
-      state.state.postPerPage = action.payload;
+      state.postPerPage = action.payload;
     },
     setTotalNumberOfPages: (state, action) => {
-      state.state.totalNumberOfPages = action.payload;
+      state.totalNumberOfPages = action.payload;
     },
     setTotalNumberOfPosts: (state, action) => {
-      state.state.totalNumberOfPosts = action.payload;
+      state.totalNumberOfPosts = action.payload;
     },
   },
   extraReducers: {

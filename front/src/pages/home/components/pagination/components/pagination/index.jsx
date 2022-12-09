@@ -6,9 +6,9 @@ import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const currentPage = useSelector((state) => state.home.state.currentPage);
+  const currentPage = useSelector((state) => state.home.currentPage);
   const totalNumberOfPages = useSelector(
-    (state) => state.home.state.totalNumberOfPages
+    (state) => state.home.totalNumberOfPages
   );
 
   const handleCurrentPageNumberChange = (event, paginationCurrentPage) => {

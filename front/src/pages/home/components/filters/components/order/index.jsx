@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tab from '@mui/material/Tab';
 import ThumbDown from '@mui/icons-material/ThumbDown';
 import ThumbUp from '@mui/icons-material/ThumbUp';
@@ -11,7 +11,7 @@ import { setOrder } from '../../../../redux/slices';
 import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const ScrollableTabs = () => {
-  const order = useSelector((state) => state.home.state.order);
+  const order = useSelector((state) => state.home.order);
   const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {

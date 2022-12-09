@@ -4,10 +4,8 @@ import ResponseManager from '../ResponseManager/index.js';
 const fileExtLimiter = (allowedExtArray) => {
   return (req, res, next) => {
     const files = req.files;
-    console.log(files);
     const fileExtensions = [];
     Object.keys(files).forEach((key) => {
-      console.log(files[key].name);
       fileExtensions.push(path.extname(files[key].name));
     });
 

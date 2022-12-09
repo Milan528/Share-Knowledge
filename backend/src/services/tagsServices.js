@@ -33,7 +33,6 @@ export const createTag = async (req, res) => {
 
 export const deleteTag = async (req, res) => {
   const { results, error } = await database.query(QUERYS.DELETE_TAG, [req.params.id]);
-  console.log(results);
   if (error) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   }

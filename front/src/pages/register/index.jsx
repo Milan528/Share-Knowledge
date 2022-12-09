@@ -13,7 +13,6 @@ import { ContentContainer, MotivationContainer } from './styles';
 
 const Register = () => {
   const { error, loading } = useSelector((state) => state.register);
-  console.log(loading);
   const viewToRender = (
     <>
       <Navbar />

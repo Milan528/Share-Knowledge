@@ -5,7 +5,8 @@ export const initialState = {
 
 const getState = () => {
   if (localStorage.getItem('createPost')) {
-    const state = JSON.parse(localStorage.getItem('createPost')).state;
+    const state = JSON.parse(localStorage.getItem('createPost'));
+    delete state.tags;
     return state;
   } else return initialState;
 };

@@ -8,7 +8,7 @@ import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 
 const CreatePost = () => {
-  const { error, loading } = useSelector((state) => state.createPost.state);
+  const { error, loading } = useSelector((state) => state.createPost);
   
   const viewToRender = (
     <>

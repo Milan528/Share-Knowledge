@@ -121,7 +121,6 @@ function getSpecificPosts(tags, search, startIndex, count, type, order) {
   sql += `order by ${orderSql[order]} `;
   sql += ') as tableToLimit ';
   sql += `limit ${startIndex},${count}; `;
-  console.log(sql);
   return sql;
 }
 

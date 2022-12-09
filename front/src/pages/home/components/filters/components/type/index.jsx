@@ -10,7 +10,7 @@ import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const ScrollableTabs = () => {
   const dispatch = useDispatch();
-  const type = useSelector((state) => state.home.state.type);
+  const type = useSelector((state) => state.home.type);
 
   const handleChange = (event) => {
     dispatch(setType(event.target.value));

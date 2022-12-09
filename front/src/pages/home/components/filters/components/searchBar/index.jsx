@@ -7,7 +7,7 @@ import { loadSpecificPosts } from '../../../../reduxThunk/actions';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const search = useSelector((state) => state.home.state.search);
+  const search = useSelector((state) => state.home.search);
 
   const handleOnChange = (event) => {
     dispatch(setSearch(event.target.value));

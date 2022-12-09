@@ -16,12 +16,11 @@ import { useSelector } from 'react-redux';
 const Details = (props) => {
   const navigate = useNavigate();
   const { likes, postId, date } = props;
-  const postsState = useSelector((state) => state.home.posts);
-  const currentPage = useSelector((state) => state.home.state.currentPage);
-  const postPerPage = useSelector((state) => state.home.state.postPerPage);
-  const homepageFilters = useSelector((state) => state.home.state);
-  const selectedTags = useSelector((state) => state.home.tags.selectedTags);
-  const { posts } = postsState;
+
+  const currentPage = useSelector((state) => state.home.currentPage);
+  const postPerPage = useSelector((state) => state.home.postPerPage);
+  
+  const {tags: {selectedTags}, posts : { posts }, ...homepageFilters} = useSelector((state) => state.home);
 
   const onClick = () => {
     const selectedPostIndex =

@@ -44,8 +44,7 @@ const Form = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.createPost.state.loading);
-  console.log(loading);
+  const loading = useSelector((state) => state.createPost.loading);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleTextareaChange = (event) => {
@@ -55,7 +54,7 @@ const Form = () => {
 
   useEffect(() => {
     if (submitSuccess) navigate(routes.homeRoute);
-  }, [submitSuccess]);
+  }, [submitSuccess, navigate]);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
@@ -98,8 +97,6 @@ const Form = () => {
   const onCancel = () => {
     navigate(homeRoute);
   };
-
-  console.log(videos);
 
   return (
     <StyledPaper elevation={0}>

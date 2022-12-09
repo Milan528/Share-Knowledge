@@ -17,7 +17,11 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
-      state: { type, search, currentPage, postPerPage, order },
+      type,
+      search,
+      currentPage,
+      postPerPage,
+      order,
     },
   } = getState();
 
