@@ -6,7 +6,7 @@ import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { ContentContainer } from './styles';
-import LeftBar from './components/adminBar';
+import SideNavbar from '../../components/sideNavbar';
 
 const Profile = () => {
   const { error, loading } = useSelector((state) => state.profile);
@@ -14,9 +14,9 @@ const Profile = () => {
   const viewToRender = (
     <>
       <Navbar />
+      <SideNavbar/>
       <ContentContainer>
-        <LeftBar/>
-        <h1>content</h1>
+        <h1>Profil</h1>
         {loading ? <Loader /> : null}
       </ContentContainer>
       <Footer />

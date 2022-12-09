@@ -1,5 +1,5 @@
 import React from 'react';
-import { homeRoute } from '../../../../app/router/routes';
+import { profileRoute, tagsRoute, usersRoute } from '../../../../app/router/routes';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../../../app/redux/slices';
@@ -16,7 +16,13 @@ const Authorized = () => {
   return token ? (
     <ul>
       <li>
-        <div onClick={() => console.log('profil...')}>Profil</div>
+        <div onClick={() => navigate(usersRoute)}>Korisnici</div>
+      </li>
+      <li>
+        <div onClick={() => navigate(tagsRoute)}>Tagovi</div>
+      </li>
+      <li>
+        <div onClick={() => navigate(profileRoute)}>Profil</div>
       </li>
       <li>
         <div onClick={handleLogout}>Odjavi se</div>

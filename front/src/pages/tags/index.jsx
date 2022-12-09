@@ -9,7 +9,7 @@ import Loader from "../../components/loader"
 import { Container, Content, LoaderContainer } from './styles';
 import Footer from '../../components/footer';
 
-const Login = () => {
+const Tags = () => {
   const error = useSelector(state => state.tags.error);
   const loading  = useSelector(state => state.tags.loading);
   
@@ -33,4 +33,4 @@ const Login = () => {
   else return viewToRender;
 }
 
-export default Login;
+export default Tags;
