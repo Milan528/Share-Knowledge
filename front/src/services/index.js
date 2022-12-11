@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { axiosErrorLoger } from '../utils/axiosErrorLogger';
 
-const request = async (method, url, DTO, formData) => {
+const request = async (method, url, DTO, formData, setUploadProgress) => {
   const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('app')).token;
 
   const headers = {
@@ -18,12 +18,12 @@ const request = async (method, url, DTO, formData) => {
       ...(DTO && { data: DTO }),
       ...(formData && { data: formData }),
       headers,
-      // onUploadProgress: (progressEvent) => {
-      //   const percentage = Math.floor(
-      //     (progressEvent.loaded * 100) / progressEvent.total
-      //   );
-      //   console.log(percentage);
-      // },
+      onUploadProgress: (progressEvent) => {
+        const percentage = Math.floor(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        if (setUploadProgress) setUploadProgress(percentage);
+      },
     });
     return res.data;
   } catch (error) {
@@ -54,8 +54,8 @@ const services = {
   post: async (url, DTO) => await request(method.post, url, DTO),
   put: async (url, DTO) => await request(method.put, url, DTO),
   delete: async (url, DTO) => await request(method.delete, url, DTO),
-  postFile: async (url, formData) =>
-    await request(method.post, url, undefined, formData),
+  postFile: async (url, formData, setUploadProgress) =>
+    await request(method.post, url, undefined, formData, setUploadProgress),
 };
 
 export default services;

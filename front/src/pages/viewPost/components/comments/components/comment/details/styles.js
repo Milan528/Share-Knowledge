@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Today from '@mui/icons-material/Today';
+import { Button } from '@mui/material';
 
 export const ButtonText = styled(Typography)`
   && {
@@ -18,7 +19,6 @@ export const Container = styled.div`
 export const DetailsContainer = styled.div`
   display: flex;
   flex: 1;
-  justify-content: space-between;
 `;
 
 export const Likes = styled(Typography)`
@@ -33,10 +33,15 @@ export const DateIcon = styled(Today)`
   }
 `;
 
-export const LikesContainer = styled.div`
-  display: flex;
-`;
-
 export const DateContainer = styled.div`
   display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: end;
+`;
+
+export const StyledButton = styled(Button)`
+  && {
+    color: rgb(0 0 0 / 87%);
+  }
 `;

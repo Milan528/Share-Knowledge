@@ -3,8 +3,10 @@ USE `share_knowledge`;
 
 DROP TABLE IF EXISTS comment_file;
 DROP TABLE IF EXISTS commentLikedBy;
+DROP TABLE IF EXISTS commentDislikedBy;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS postLikedBy;
+DROP TABLE IF EXISTS postDislikedBy;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS post_file;
 DROP TABLE IF EXISTS tags;
@@ -49,6 +51,14 @@ FOREIGN KEY (userId) REFERENCES user(id),
 FOREIGN KEY (postId) REFERENCES post(id) 
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE postDislikedBy (
+postId int NOT NULL,
+userId int NOT NULL, 
+PRIMARY KEY (postId,userId),
+FOREIGN KEY (userId) REFERENCES user(id), 
+FOREIGN KEY (postId) REFERENCES post(id) 
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE post_file (
     id int NOT NULL AUTO_INCREMENT,
     path varchar(256) NOT NULL,
@@ -78,6 +88,14 @@ CREATE TABLE comment (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 CREATE TABLE commentLikedBy (
+commentId int NOT NULL,
+userId int NOT NULL, 
+PRIMARY KEY (commentId,userId),
+FOREIGN KEY (userId) REFERENCES user(id), 
+FOREIGN KEY (commentId) REFERENCES comment(id) 
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE commenDislikedBy (
 commentId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (commentId,userId),

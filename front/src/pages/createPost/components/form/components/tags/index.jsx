@@ -5,9 +5,11 @@ import { TagsContainer } from './styles';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { setSelectedTags } from './redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTags } from '../../../../reduxThunk/actions';
+import ErrorDialog from '../../../../../../components/errorDialog';
+import { setError } from './redux/slices';
+import Loader from '../../../../../../components/loader';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -15,7 +17,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const Tags = ({ selectedTags, setSelectedTags }) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.createPost.tags);
-  const { allTags } = state;
+  const { allTags, loading, error } = state;
 
   const handleOnChange = (event, value) => {
     if (value) setSelectedTags(value);
@@ -25,7 +27,7 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
     dispatch(loadTags());
   }, [dispatch]);
 
-  return (
+  const viewToRender = (
     <TagsContainer>
       <Autocomplete
         multiple
@@ -57,6 +59,10 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
       />
     </TagsContainer>
   );
+
+  if (error) return <ErrorDialog error={error} handleError={setError} />;
+  else if (loading) return <Loader />;
+  else return viewToRender;
 };
 
 export default Tags;

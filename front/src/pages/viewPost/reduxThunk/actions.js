@@ -43,11 +43,12 @@ export const loadPost = (postId) => async (dispatch, getState) => {
 };
 
 export const addComment =
-  (setError, setLoading, comment, postID) => async (dispatch, getState) => {
+  (setError, setLoading, comment, postID, setUploadProgress) =>
+  async (dispatch, getState) => {
     try {
       setLoading(true);
 
-      await addCommentRepository(comment);
+      await addCommentRepository(comment, setUploadProgress);
       dispatch(loadComments(postID));
     } catch (err) {
       setError(err);

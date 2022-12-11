@@ -20,6 +20,11 @@ export const DetailsContainer = styled.div`
   flex: 1;
 `;
 
+export const LikesWrapper = styled.div`
+  display: flex;
+  margin-right: 5px;
+`;
+
 export const Likes = styled(Typography)`
   && {
     margin: 0px 0px -3px 5px;

@@ -1,6 +1,6 @@
 import services from '../../../services/index';
 
-export const createPostRepository = async (post) => {
+export const createPostRepository = async (post, setUploadProgress) => {
   const postDTO = mapPostToDto(post);
   const DTO = {
     post: postDTO,
@@ -17,7 +17,7 @@ export const createPostRepository = async (post) => {
     });
     formData.append('postId', postId);
 
-    await services.postFile('/upload/post', formData);
+    await services.postFile('/upload/post', formData, setUploadProgress);
   }
 };
 

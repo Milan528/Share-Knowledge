@@ -6,12 +6,14 @@ import {
   DateIcon,
   ButtonText,
   DetailsContainer,
+  LikesWrapper,
 } from './styles';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useNavigate } from 'react-router';
 import { viewPostRoute } from '../../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 const Details = (props) => {
   const navigate = useNavigate();
@@ -19,8 +21,12 @@ const Details = (props) => {
 
   const currentPage = useSelector((state) => state.home.currentPage);
   const postPerPage = useSelector((state) => state.home.postPerPage);
-  
-  const {tags: {selectedTags}, posts : { posts }, ...homepageFilters} = useSelector((state) => state.home);
+
+  const {
+    tags: { selectedTags },
+    posts: { posts },
+    ...homepageFilters
+  } = useSelector((state) => state.home);
 
   const onClick = () => {
     const selectedPostIndex =
@@ -36,9 +42,9 @@ const Details = (props) => {
         state: {
           homepageFilters: {
             ...homepageFilters,
-            selectedTags
+            selectedTags,
           },
-          selectedPostIndex
+          selectedPostIndex,
         },
       }
     );
@@ -47,8 +53,14 @@ const Details = (props) => {
   return (
     <Container>
       <DetailsContainer>
-        <ThumbUpIcon />
-        <Likes color="textSecondary"> {likes} </Likes>
+        <LikesWrapper>
+          <ThumbUpOffAltIcon />
+          <Likes color="textSecondary"> {likes} </Likes>
+        </LikesWrapper>
+        <LikesWrapper>
+          <ThumbDownOffAltIcon />
+          <Likes color="textSecondary"> -1 </Likes>
+        </LikesWrapper>
         <DateIcon />
         <Typography> {date}</Typography>
       </DetailsContainer>

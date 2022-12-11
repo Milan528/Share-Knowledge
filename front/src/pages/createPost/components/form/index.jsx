@@ -32,6 +32,7 @@ import { addPost } from '../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import * as routes from '../../../../app/router/routes';
+import LinearWithValueLabel from '../../../../components/linearPogressWithLabel';
 
 const Form = () => {
   const [type, setType] = useState('question');
@@ -46,6 +47,8 @@ const Form = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.createPost.loading);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const tagsLoading = useSelector((state) => state.createPost.tags.loading);
 
   const handleTextareaChange = (event) => {
     const value = event.target.value;
@@ -90,7 +93,7 @@ const Form = () => {
         documents,
         videos,
       };
-      dispatch(addPost(post, () => setSubmitSuccess(true)));
+      dispatch(addPost(post, () => setSubmitSuccess(true), setUploadProgress));
     }
   };
 
@@ -158,13 +161,20 @@ const Form = () => {
             Odustani
           </ControllsText>
         </CancelButton>
-        <SubmitButton onClick={onSubmit} variant="outlined" disabled={loading}>
+        <SubmitButton
+          onClick={onSubmit}
+          variant="outlined"
+          disabled={loading || tagsLoading}
+        >
           <ControllsText variant="button" color="inherit">
             Potvrdi
           </ControllsText>
         </SubmitButton>
-        <Dialog message={message} setMessage={setMessage} />
       </ControllsContainer>
+      <Dialog message={message} setMessage={setMessage} />
+      {loading > 0 ? (
+        <LinearWithValueLabel uploadProgress={uploadProgress} />
+      ) : null}
     </StyledPaper>
   );
 };

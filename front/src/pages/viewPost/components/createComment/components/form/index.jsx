@@ -23,6 +23,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
+import LinearWithValueLabel from '../../../../../../components/linearPogressWithLabel';
 
 const Form = () => {
   const [error, setError] = useState('');
@@ -32,6 +33,7 @@ const Form = () => {
   const [documents, setDocuments] = useState([]);
   const [videos, setVideos] = useState([]);
   const [description, setDescription] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const [searchParams] = useSearchParams();
   let postID = searchParams.get('postId');
@@ -67,9 +69,11 @@ const Form = () => {
         description,
         images,
         documents,
-        videos
+        videos,
       };
-      dispatch(addComment(setError, setLoading, comment, postID));
+      dispatch(
+        addComment(setError, setLoading, comment, postID, setUploadProgress)
+      );
     }
   };
 
@@ -81,8 +85,10 @@ const Form = () => {
         onChange={handleTextareaChange}
         value={description}
       />
-      <AttatchemntsContainer 
-        attatchemntExists={images.length>0 || documents.length>0 || videos.length > 0}
+      <AttatchemntsContainer
+        attatchemntExists={
+          images.length > 0 || documents.length > 0 || videos.length > 0
+        }
       >
         <ImageUploaderViewerContainer>
           <ImageUploader setFiles={setImages} files={images} />
@@ -92,7 +98,7 @@ const Form = () => {
               name: image.name, //'1.png'
             }))}
             setFiles={setImages}
-            />
+          />
         </ImageUploaderViewerContainer>
 
         <FileUploaderViewerContainer>
@@ -102,17 +108,17 @@ const Form = () => {
               src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
               name: document.name, //'1.pdf'
             }))}
-            />
+          />
         </FileUploaderViewerContainer>
 
         <VideoUploaderViewerContainer>
-          <VideoUploader setFiles={setVideos} files={videos}/>
+          <VideoUploader setFiles={setVideos} files={videos} />
           <VideoViewer
             files={videos.map((video) => ({
               src: URL.createObjectURL(video), //'http://localhost:4000/files/1.pdf'
               name: video.name, //'1.pdf'
             }))}
-            />
+          />
         </VideoUploaderViewerContainer>
       </AttatchemntsContainer>
       <ControllsContainer>
@@ -123,7 +129,9 @@ const Form = () => {
         </SubmitButton>
         <Dialog message={message} setMessage={setMessage} />
       </ControllsContainer>
-
+      {loading > 0 ? (
+        <LinearWithValueLabel uploadProgress={uploadProgress} />
+      ) : null}
       <ErrorHolder exists={error === '' ? false : true}>
         {error + '   '}
         <span onClick={() => setError('')}>Ok</span>

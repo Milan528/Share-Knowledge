@@ -59,6 +59,11 @@ INSERT INTO `share_knowledge`.`postLikedBy` (`postId`, `userId`) VALUES
 (3, 2),
 (4, 1);
 
+INSERT INTO `share_knowledge`.`postDislikedBy` (`postId`, `userId`) VALUES
+(2, 3),
+(3, 3),
+(4, 3);
+
 INSERT INTO `share_knowledge`.`comment` (`text`, `date`, `userId`, `postId`) VALUES
 ( 'Ovo je prvi komentar ', '2022-12-03', 1, 1),
 ( 'Ovo je drugi komentar ', '2022-12-04', 1, 1),

@@ -1,8 +1,18 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import { Container, Likes, DateIcon, DetailsContainer, LikesContainer, DateContainer } from './styles';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import {
+  Container,
+  Likes,
+  DateIcon,
+  DetailsContainer,
+  LikesContainer,
+  DateContainer,
+  StyledButton,
+} from './styles';
+import ThumbUp from '@mui/icons-material/ThumbUp';
 import { useNavigate } from 'react-router';
+import ThumbDown from '@mui/icons-material/ThumbDown';
+import { Button } from '@mui/material';
 
 const dateFormat = (date) => {
   let splitedDate = date.split('-');
@@ -20,10 +30,14 @@ const Details = (props) => {
   return (
     <Container>
       <DetailsContainer>
-        <LikesContainer>
-          <ThumbUpIcon />
+        <StyledButton>
+          <ThumbUp />
           <Likes color="textSecondary"> {likes} </Likes>
-        </LikesContainer>
+        </StyledButton>
+        <StyledButton color="primary">
+          <ThumbDown />
+          <Likes color="textSecondary"> {likes} </Likes>
+        </StyledButton>
         <DateContainer>
           <DateIcon />
           <Typography> {dateFormat(date)} </Typography>

@@ -17,7 +17,7 @@ export const mapDTOToComments = (dto) => {
   return dto.map((comment) => mapDTOToComment(comment));
 };
 
-export const addCommentRepository = async (comment) => {
+export const addCommentRepository = async (comment, setUploadProgress) => {
   const commentDTO = mapCommentToDto(comment);
   const DTO = {
     comment: commentDTO,
@@ -36,7 +36,7 @@ export const addCommentRepository = async (comment) => {
     });
     formData.append('commentId', commentId);
 
-    await services.postFile('/upload/comment', formData);
+    await services.postFile('/upload/comment', formData, setUploadProgress);
   }
 };
 
