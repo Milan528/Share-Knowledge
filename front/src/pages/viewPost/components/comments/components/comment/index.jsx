@@ -5,12 +5,12 @@ import Details from './details';
 
 const Comment = (props) => {
   const { data } = props;
-  const { text, files, likes, id, date } = data;
+  const { text, files, likes, dislikes, id, date } = data;
 
   return (
     <StyledPaper elevation={1}>
       <Content text={text} files={files} />
-      <Details likes={likes} postId={id} date={date} />
+      <Details likes={likes} postId={id} date={date} dislikes={dislikes}/>
     </StyledPaper>
   );
 };

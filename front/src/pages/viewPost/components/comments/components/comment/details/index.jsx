@@ -23,7 +23,7 @@ const dateFormat = (date) => {
 
 const Details = (props) => {
   // const navigate = useNavigate();
-  const { likes, date } = props;
+  const { likes, date, dislikes } = props;
   // const { postId } = props;
 
   return (
@@ -35,7 +35,7 @@ const Details = (props) => {
         </StyledButton>
         <StyledButton color="primary">
           <ThumbDown />
-          <Likes color="textSecondary"> {likes} </Likes>
+          <Likes color="textSecondary"> {dislikes} </Likes>
         </StyledButton>
         <DateContainer>
           <DateIcon />

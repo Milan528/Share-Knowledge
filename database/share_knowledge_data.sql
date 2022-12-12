@@ -72,12 +72,14 @@ INSERT INTO `share_knowledge`.`comment` (`text`, `date`, `userId`, `postId`) VAL
 
 INSERT INTO `share_knowledge`.`commentLikedBy` (`commentId`, `userId`) VALUES
 (1, 1),
-(1, 2),
 (1, 3),
 (2, 1),
 (3, 1),
 (3, 2),
 (4, 1);
+
+INSERT INTO `share_knowledge`.`commentDislikedBy` (`commentId`, `userId`) VALUES
+(1, 2);
 
 INSERT INTO `share_knowledge`.`comment_file` (`path`, `ext`, `commentId`) VALUES
 ('2.docx', '.docx', '1'),

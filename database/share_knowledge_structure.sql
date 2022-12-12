@@ -95,7 +95,7 @@ FOREIGN KEY (userId) REFERENCES user(id),
 FOREIGN KEY (commentId) REFERENCES comment(id) 
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE commenDislikedBy (
+CREATE TABLE commentDislikedBy (
 commentId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (commentId,userId),
