@@ -37,6 +37,7 @@ export const DateContainer = styled.div`
   display: flex;
   flex: 1;
   justify-content: end;
+  align-items: center;
 `;
 
 export const StyledButton = styled(Button)`

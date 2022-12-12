@@ -7,16 +7,20 @@ import { useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
+import TableOfUsers from './components/tableOfUsers';
 
 const Users = () => {
   const { error, loading } = useSelector((state) => state.users);
+  const { token, role } = useSelector((state) => state.app);
 
   const viewToRender = (
     <>
       <Navbar />
       <ContentContainer>
-        <h1>Missing table of all users</h1>
-        <Form />
+        <h1>Najaktivniji članovi</h1>
+        <TableOfUsers/>
+
+        {token && role==="admin"? <Form /> : null}
         {loading ? <Loader /> : null};
       </ContentContainer>
       <Footer />

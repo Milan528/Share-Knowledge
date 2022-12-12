@@ -15,7 +15,7 @@ export const register = (email, password) => async (dispatch, getState) => {
     dispatch(setToken(user.token));
     dispatch(setRole(user.role));
   } catch (err) {
-    setError(serialize(err));
+    dispatch(setError(serialize(err)));
   } finally {
     dispatch(setLoading(false));
   }
