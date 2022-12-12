@@ -31,6 +31,7 @@ export const loadComments = (postId) => async (dispatch, getState) => {
 };
 
 export const loadPost = (postId) => async (dispatch, getState) => {
+  //used when viewing post from url (exp. sending post url to someone), not from homepage
   try {
     dispatch(setLoadingPost(true));
     const post = await getPostRepository(postId);

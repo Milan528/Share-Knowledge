@@ -22,8 +22,10 @@ const Post = () => {
   const { loading, error, post } = state;
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const [selectedPostIndex, setSelectedPostIndex] = useState(location.state.selectedPostIndex)
-  const homepageFilters = location.state.homepageFilters;
+  const [selectedPostIndex, setSelectedPostIndex] = useState(
+    location.state ? location.state.selectedPostIndex : null
+  );
+  const homepageFilters = location.state ? location.state.homepageFilters : null;
   const searchParamsPostId = searchParams.get('postId');
 
   const navigate = useNavigate();

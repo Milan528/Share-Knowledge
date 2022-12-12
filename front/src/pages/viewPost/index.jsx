@@ -17,10 +17,10 @@ const ViewPost = () => {
   const token = useSelector((state) => state.app.token);
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedPostIndex, setSelectedPostIndex] = useState(
-    location.state.selectedPostIndex
+  const [selectedPostIndex] = useState(
+    location.state ? location.state.selectedPostIndex : null
   );
-  const homepageFilters = location.state.homepageFilters;
+  const homepageFilters = location.state ? location.state.homepageFilters : null;
   const [searchParams] = useSearchParams();
   const postID = searchParams.get('postId');
 

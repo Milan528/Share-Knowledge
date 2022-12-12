@@ -18,22 +18,67 @@ const orderSql = {
 
 function selectPost(postId) {
   let sql = '';
-  sql += 'Select id, text, title, type, likes, date, group_concat(tagId) as tags ';
+  sql += 'Select id, text, title, type, likes, dislikes,  date, group_concat(tagId) as tags ';
   sql += 'from ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT myTable2.id,text,title,type,likes, date,tagId ';
+  sql1 += 'SELECT myTable2.id,text,title,type,likes, dislikes, date,tagId ';
   sql1 += 'FROM ( ';
 
-  let sql2 = '';
-  sql2 += 'select id, title, text, type, date, postId, COUNT(*) AS likes ';
-  sql2 += 'from post ';
-  sql2 += 'join postLikedBy ';
-  sql2 += 'ON post.id=postLikedBy.postId ';
-  sql2 += `WHERE id = ${postId} `;
-  sql2 += 'GROUP BY id ';
+  const selectPostWithLikes = () => {
+    let sql2 = '';
+    sql2 += 'select id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
+    sql2 += 'from ( ';
 
-  sql1 += sql2;
+    let sql3 = '';
+    sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
+    sql3 += 'from post ';
+    sql3 += 'left join postLikedBy  ';
+    sql3 += 'ON post.id=postLikedBy.postId ';
+    sql3 += `WHERE id = ${postId} `;
+
+    sql2 += sql3;
+    sql2 += ') as myTable10 ';
+    sql2 += 'GROUP BY id ';
+
+    return sql2;
+  };
+
+  const selectPostWithDislikes = () => {
+    let sql2 = '';
+    sql2 += 'select id, title, text, type, date, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
+    sql2 += 'from ( ';
+
+    let sql3 = '';
+    sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as dislikedPostId ';
+    sql3 += 'from post ';
+    sql3 += 'left join postDislikedBy  ';
+    sql3 += 'ON post.id=postDislikedBy.postId ';
+    sql3 += `WHERE id = ${postId} `;
+
+    sql2 += sql3;
+    sql2 += ') as myTable10 ';
+    sql2 += 'GROUP BY id ';
+
+    return sql2;
+  };
+
+  const selectPostsWithLikesAndDislikes = () => {
+    let sql = '';
+    sql +=
+      'SELECT postWithLikes.id, postWithLikes.title, postWithLikes.text, postWithLikes.type, postWithLikes.date, postWithLikes.likes, postWithDislikes.dislikes ';
+    sql += 'FROM ( ';
+    sql += selectPostWithLikes();
+    sql += ') as postWithLikes ';
+    sql += 'join ( ';
+    sql += selectPostWithDislikes();
+    sql += ') postWithDislikes ';
+    sql += 'on postWithLikes.id=postWithDislikes.id ';
+
+    return sql;
+  };
+
+  sql1 += selectPostsWithLikesAndDislikes();
   sql1 += `) as myTable2 `;
   sql1 += 'JOIN post_tag ON myTable2.id=post_tag.postId ';
 
@@ -55,48 +100,93 @@ function getTotalNumberOfPagesForSpecificPosts(tags, search, type) {
 
 function getFilteredPosts(tags, search, type) {
   let sql = '';
-  sql += 'Select id, text, title, type, likes, date, group_concat(tagId) as tags ';
+  sql += 'Select id, text, title, type, likes, dislikes, date, group_concat(tagId) as tags ';
   sql += 'from ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT myTable2.id,text,title,type,likes, date,tagId ';
+  sql1 += 'SELECT myTable2.id,text,title,type,likes,dislikes, date,tagId ';
   sql1 += 'FROM ( ';
 
-  let sql2 = '';
-  sql2 += 'SELECT id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
-  sql2 += 'FROM (  ';
+  const selectedBasicFilteredPosts = () => {
+    let sql4 = '';
+    sql4 += 'SELECT * FROM post where type in( ';
 
-  let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
-  sql3 += 'FROM ( ';
+    if (type && (type === 'question' || type === 'material')) {
+      sql4 += `'${type}'`;
+    } else {
+      sql4 += `'material','question'`;
+    }
 
-  let sql4 = '';
-  sql4 += 'SELECT * FROM post where type in( ';
+    sql4 += ') ';
 
-  if (type && (type === 'question' || type === 'material')) {
-    sql4 += `'${type}'`;
-  } else {
-    sql4 += `'material','question'`;
-  }
+    if (search && search.trim() !== '') {
+      // sql4 += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
+      sql4 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
+    }
 
-  sql4 += ') ';
+    return sql4;
+  };
 
-  if (search && search.trim() !== '') {
-    // sql4 += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
-    sql4 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
-  }
+  const selectPostsWithLikes = () => {
+    let sql2 = '';
+    sql2 += 'SELECT id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
+    sql2 += 'FROM (  ';
 
-  sql3 += sql4;
-  sql3 += `) as myTable4 `;
-  sql3 += `left join postLikedBy `;
-  sql3 += `on myTable4.id=postLikedBy.postId `;
+    let sql3 = '';
+    sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
+    sql3 += 'FROM ( ';
 
-  sql2 += sql3;
+    sql3 += selectedBasicFilteredPosts();
+    sql3 += `) as myTable4 `;
+    sql3 += `left join postLikedBy `;
+    sql3 += `on myTable4.id=postLikedBy.postId `;
 
-  sql2 += ') as myTable3 ';
-  sql2 += 'GROUP BY id, text, date, likedPostId ';
+    sql2 += sql3;
 
-  sql1 += sql2;
+    sql2 += ') as myTable3 ';
+    sql2 += 'GROUP BY id, text, date, likedPostId ';
+
+    return sql2;
+  };
+
+  const selectPostsWithDislikes = () => {
+    let sql2 = '';
+    sql2 += 'SELECT id, title, text, type, date, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
+    sql2 += 'FROM (  ';
+
+    let sql3 = '';
+    sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as dislikedPostId ';
+    sql3 += 'FROM ( ';
+
+    sql3 += selectedBasicFilteredPosts();
+    sql3 += `) as myTable4 `;
+    sql3 += `left join postDislikedBy `;
+    sql3 += `on myTable4.id=postDislikedBy.postId `;
+
+    sql2 += sql3;
+
+    sql2 += ') as myTable3 ';
+    sql2 += 'GROUP BY id, text, date, dislikedPostId ';
+
+    return sql2;
+  };
+
+  const selectPostsWithLikesAndDislikes = () => {
+    let sql = '';
+    sql +=
+      'SELECT postsWithLikes.id, postsWithLikes.title, postsWithLikes.text, postsWithLikes.type, postsWithLikes.date, postsWithLikes.likes, postsWithDislikes.dislikes ';
+    sql += 'FROM ( ';
+    sql += selectPostsWithLikes();
+    sql += ') as postsWithLikes ';
+    sql += 'join ( ';
+    sql += selectPostsWithDislikes();
+    sql += ') postsWithDislikes ';
+    sql += 'on postsWithLikes.id=postsWithDislikes.id ';
+
+    return sql;
+  };
+
+  sql1 += selectPostsWithLikesAndDislikes();
   sql1 += `) as myTable2 `;
   sql1 += 'JOIN post_tag ON myTable2.id=post_tag.postId ';
 
@@ -110,10 +200,7 @@ function getFilteredPosts(tags, search, type) {
 
   sql += sql1;
   sql += ` ) as myTable `;
-  sql += `group by id, text, title, type, likes, date `;
-
-  console.log(sql);
-
+  sql += `group by id, text, title, type, likes, dislikes, date `;
   return sql;
 }
 
