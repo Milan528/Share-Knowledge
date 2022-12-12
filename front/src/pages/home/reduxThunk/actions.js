@@ -38,7 +38,6 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
     dispatch(loadingPosts(true));
     const { posts, totalNumberOfPages, totalNumberOfPosts } =
       await getAllSpecificPostsRepository(dto);
-
     dispatch(setPosts(posts));
     dispatch(setTotalNumberOfPages(totalNumberOfPages));
     dispatch(setTotalNumberOfPosts(totalNumberOfPosts));

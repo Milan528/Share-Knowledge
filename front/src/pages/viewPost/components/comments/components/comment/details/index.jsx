@@ -5,11 +5,9 @@ import {
   Likes,
   DateIcon,
   DetailsContainer,
-  LikesContainer,
   DateContainer,
   StyledButton,
 } from './styles';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUp from '@mui/icons-material/ThumbUp';
 import ThumbDown from '@mui/icons-material/ThumbDown';
 // import { useNavigate } from 'react-router';

@@ -17,7 +17,7 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 const Details = (props) => {
   const navigate = useNavigate();
-  const { likes, postId, date } = props;
+  const { likes, dislikes, postId, date } = props;
 
   const currentPage = useSelector((state) => state.home.currentPage);
   const postPerPage = useSelector((state) => state.home.postPerPage);
@@ -59,7 +59,7 @@ const Details = (props) => {
         </LikesWrapper>
         <LikesWrapper>
           <ThumbDownOffAltIcon />
-          <Likes color="textSecondary"> -1 </Likes>
+          <Likes color="textSecondary"> {dislikes} </Likes>
         </LikesWrapper>
         <DateIcon />
         <Typography> {date}</Typography>

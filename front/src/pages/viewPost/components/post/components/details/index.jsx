@@ -5,14 +5,12 @@ import {
   Likes,
   DateIcon,
   DetailsContainer,
-  LikesContainer,
   DateContainer,
   StyledButton,
 } from './styles';
 import ThumbUp from '@mui/icons-material/ThumbUp';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import ThumbDown from '@mui/icons-material/ThumbDown';
-import { Button } from '@mui/material';
 
 const dateFormat = (date) => {
   let splitedDate = date.split('-');
@@ -24,8 +22,9 @@ const dateFormat = (date) => {
 };
 
 const Details = (props) => {
-  const navigate = useNavigate();
-  const { likes, postId, date } = props;
+  // const navigate = useNavigate();
+  // const { likes, postId, date, dislikes } = props;
+  const { likes,  date, dislikes } = props;
 
   return (
     <Container>
@@ -36,7 +35,7 @@ const Details = (props) => {
         </StyledButton>
         <StyledButton color="primary">
           <ThumbDown />
-          <Likes color="textSecondary"> {likes} </Likes>
+          <Likes color="textSecondary"> {dislikes} </Likes>
         </StyledButton>
         <DateContainer>
           <DateIcon />

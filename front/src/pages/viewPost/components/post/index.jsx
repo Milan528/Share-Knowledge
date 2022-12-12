@@ -71,7 +71,7 @@ const Post = () => {
   };
 
   const viewToRender = () => {
-    const { title, type, text, files, tags, likes, id, date } = post;
+    const { title, type, text, files, tags, likes, dislikes, id, date } = post;
 
     return (
       <>
@@ -94,7 +94,7 @@ const Post = () => {
           <Title title={title} type={type} />
           <Content text={text} files={files} />
           <Tags tags={tags} />
-          <Details likes={likes} postId={id} date={date} />
+          <Details likes={likes} postId={id} date={date} dislikes={dislikes}/>
         </StyledPaper>
       </>
     );
