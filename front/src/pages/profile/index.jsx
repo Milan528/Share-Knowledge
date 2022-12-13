@@ -6,7 +6,7 @@ import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { ContentContainer } from './styles';
-import SideNavbar from '../../components/sideNavbar';
+import SideNavbar from './components/sideNavbar';
 
 const Profile = () => {
   const { error, loading } = useSelector((state) => state.profile);

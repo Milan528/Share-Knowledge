@@ -6,11 +6,11 @@ import {
   Options,
 } from './styles';
 import { ToggleButton } from './styles';
-import Year from './components/year';
-import Department from './components/department';
+import Posts from './components/posts';
 import Divider from '@mui/material/Divider';
+import Info from './components/info';
 
-const LeftBar = () => {
+const SideNavBar = () => {
   const [hidden, setHidden] = useState(true);
 
   const handleClick = () => {
@@ -25,12 +25,12 @@ const LeftBar = () => {
         </ToggleButton>
         <Divider />
         <Options>
-          <Year hidden={hidden} />
-          <Department hidden={hidden} />
+          <Posts hidden={hidden} />
+          <Info/>
         </Options>
       </SlidingContainer>
     </FixedContainer>
   );
 };
 
-export default LeftBar;
+export default SideNavBar;
