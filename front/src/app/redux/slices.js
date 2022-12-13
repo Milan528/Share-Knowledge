@@ -11,8 +11,11 @@ const appSlice = createSlice({
     setRole: (state, action) => {
       state.role = action.payload;
     },
+    setUsername: (state, action) => {
+      state.username = action.payload;
+    },
   },
 });
 
-export const { setToken, setRole } = appSlice.actions;
+export const { setToken, setRole, setUsername } = appSlice.actions;
 export const appReducer = appSlice.reducer;

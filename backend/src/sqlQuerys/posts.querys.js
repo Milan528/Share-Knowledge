@@ -13,7 +13,7 @@ const QUERY = {
 const orderSql = {
   newest: 'date DESC',
   like: 'likes DESC',
-  dislike: 'likes ASC'
+  dislike: 'dislikes DESC'
 };
 
 function selectPost(postId) {

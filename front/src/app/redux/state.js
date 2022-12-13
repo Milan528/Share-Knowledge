@@ -1,6 +1,7 @@
 export const initialState = {
   token: null,
   role: 'visitor',
+  username: null,
 };
 
 const getState = () => {

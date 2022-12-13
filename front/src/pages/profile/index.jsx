@@ -7,6 +7,8 @@ import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
 import { ContentContainer } from './styles';
 import SideNavbar from './components/sideNavbar';
+import UserInfo from './components/userInfo';
+// import Posts from './components/posts';
 
 const Profile = () => {
   const { error, loading } = useSelector((state) => state.profile);
@@ -14,9 +16,11 @@ const Profile = () => {
   const viewToRender = (
     <>
       <Navbar />
-      <SideNavbar/>
+      <SideNavbar />
       <ContentContainer>
         <h1>Profil</h1>
+        <UserInfo />
+        {/* <Posts /> */}
         {loading ? <Loader /> : null}
       </ContentContainer>
       <Footer />

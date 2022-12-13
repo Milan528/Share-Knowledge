@@ -20,3 +20,22 @@ export const login = (email, password) => async (dispatch, getState) => {
     dispatch(setLoading(false));
   }
 };
+
+export const loadPostsForSpecificUser =
+  (userId) => async (dispatch, getState) => {
+    const DTO = {
+      userId,
+    };
+
+    try {
+      console.log('Loading posts for specific user');
+      // dispatch(setLoading(true));
+      // const user = await loginUserRepository(DTO);
+      // dispatch(setToken(user.token));
+      // dispatch(setRole(user.role));
+    } catch (err) {
+      // setError(serialize(err));
+    } finally {
+      // dispatch(setLoading(false));
+    }
+  };
