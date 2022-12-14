@@ -7,7 +7,17 @@ import { setToken } from '../../../../app/redux/slices';
 const Authorized = () => {
   const navigate = useNavigate();
   const token = useSelector((state) => state.app.token);
+  const username = useSelector((state) => state.app.username);
   const dispatch = useDispatch();
+
+  const handleProfile = () => {
+    navigate(
+      {
+        pathname: profileRoute,
+        search: `username=${username}`,
+      },
+    )
+  }
 
   const handleLogout = () => {
     dispatch(setToken(null));
@@ -22,7 +32,7 @@ const Authorized = () => {
         <div onClick={() => navigate(tagsRoute)}>Tagovi</div>
       </li>
       <li>
-        <div onClick={() => navigate(profileRoute)}>Profil</div>
+        <div onClick={handleProfile}>Profil</div>
       </li>
       <li>
         <div onClick={handleLogout}>Odjavi se</div>

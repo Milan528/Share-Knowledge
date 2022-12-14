@@ -8,6 +8,13 @@ export const StyledListItemHeaderText = styled(ListItemText)`
   }
 `;
 
+export const StyledListItemText = styled(ListItemText)`
+  && {
+    text-align: start;
+    margin-left: 10px;
+  }
+`;
+
 export const StyledMenuItem = styled(MenuItem)`
   && {
     margin-right: ${({ hidden }) => (hidden ? '50px' : '')};

@@ -22,13 +22,14 @@ export const login = (email, password) => async (dispatch, getState) => {
 };
 
 export const loadPostsForSpecificUser =
-  (userId) => async (dispatch, getState) => {
+  (username) => async (dispatch, getState) => {
     const DTO = {
-      userId,
+      username,
     };
 
     try {
       console.log('Loading posts for specific user');
+      console.log(DTO);
       // dispatch(setLoading(true));
       // const user = await loginUserRepository(DTO);
       // dispatch(setToken(user.token));

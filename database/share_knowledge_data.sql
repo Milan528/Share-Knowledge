@@ -1,5 +1,5 @@
 INSERT INTO `share_knowledge`.`user` (`username`, `email`, `password`, `role`) VALUES
-('admin', 'admin@elfak.rs','$2b$10$w1gSmaNYIDSH.xMGYF5OZOXTsIfskuW4BSlVmFR9yepzWDR/jvOIa', 'admin'), -- password = 123
+('myUsername', 'admin@elfak.rs','$2b$10$w1gSmaNYIDSH.xMGYF5OZOXTsIfskuW4BSlVmFR9yepzWDR/jvOIa', 'admin'), -- password = 123
 ('a','a@elfak.rs','123','admin'),
 ('b','b@elfak.rs','123','admin'),
 ('c','c@elfak.rs','123','admin'),

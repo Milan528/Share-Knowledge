@@ -1,35 +1,40 @@
 import React, { useState } from 'react';
 import {
-  FixedContainer,
   SlidingContainer,
   StyledArrow,
-  Options,
+  StyledMenuList,
 } from './styles';
 import { ToggleButton } from './styles';
-import Posts from './components/posts';
 import Divider from '@mui/material/Divider';
-import Info from './components/info';
+import {StyledListItemHeaderText, StyledMenuItem} from "./styles"
+import { useDispatch } from 'react-redux';
+import { setProfileView } from './redux/slices';
+import { profileView } from './redux/state';
 
 const SideNavBar = () => {
   const [hidden, setHidden] = useState(true);
+  const dispatch = useDispatch()
 
-  const handleClick = () => {
-    setHidden(!hidden);
-  };
 
   return (
-    <FixedContainer>
       <SlidingContainer hidden={hidden}>
-        <ToggleButton onClick={handleClick}>
+        <ToggleButton onClick={()=>setHidden(prev => !prev)}>
           <StyledArrow hidden={hidden} />
         </ToggleButton>
         <Divider />
-        <Options>
-          <Posts hidden={hidden} />
-          <Info/>
-        </Options>
+        <StyledMenuList>
+          <StyledMenuItem onClick={()=> dispatch(setProfileView(profileView.posts))} hidden={hidden}>
+            <StyledListItemHeaderText>
+              Objave
+            </StyledListItemHeaderText>
+          </StyledMenuItem>
+          <StyledMenuItem onClick={()=> dispatch(setProfileView(profileView.personalData))} hidden={hidden}>
+            <StyledListItemHeaderText>
+              Informacije
+            </StyledListItemHeaderText>
+          </StyledMenuItem>
+        </StyledMenuList>
       </SlidingContainer>
-    </FixedContainer>
   );
 };
 
