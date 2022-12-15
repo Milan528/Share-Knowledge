@@ -11,7 +11,6 @@ import {
 import { useNavigate } from 'react-router';
 import { viewPostRoute } from '../../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
@@ -19,35 +18,11 @@ const Details = (props) => {
   const navigate = useNavigate();
   const { likes, dislikes, postId, date } = props;
 
-  const currentPage = useSelector((state) => state.home.currentPage);
-  const postPerPage = useSelector((state) => state.home.postPerPage);
-
-  const {
-    tags: { selectedTags },
-    posts: { posts },
-    ...homepageFilters
-  } = useSelector((state) => state.home);
-
   const onClick = () => {
-    const selectedPostIndex =
-      posts.findIndex((post) => post.id === postId) +
-      (currentPage - 1) * postPerPage;
-
-    navigate(
-      {
-        pathname: viewPostRoute,
-        search: `postId=${postId}`,
-      },
-      {
-        state: {
-          homepageFilters: {
-            ...homepageFilters,
-            selectedTags,
-          },
-          selectedPostIndex,
-        },
-      }
-    );
+    navigate({
+      pathname: viewPostRoute,
+      search: `postId=${postId}`,
+    });
   };
 
   return (

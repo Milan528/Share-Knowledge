@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,10 +9,15 @@ import { StyledForm, StyledFormControl, StyledTextField } from './styles';
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { profileView } from '../sideNavbar/redux/state';
+import { useSearchParams } from 'react-router-dom';
 
 const UserInfo = () => {
   const view = useSelector((state) => state.profile.sideNavbar.profileView);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const usernameUrl = searchParams.get('username');
+  const username = useSelector((state) => state.app.username);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -20,8 +25,7 @@ const UserInfo = () => {
     event.preventDefault();
   };
 
-  return (
-    view === profileView.personalData ?
+  return view === profileView.personalData && usernameUrl === username ? (
     <>
       <h1>Informacije</h1>
       <StyledForm noValidate>
@@ -50,9 +54,7 @@ const UserInfo = () => {
       </StyledFormControl>
       <Button variant="outlined">Azuriraj podatke</Button>
     </>
-    :
-    null
-  );
+  ) : null;
 };
 
 export default UserInfo;

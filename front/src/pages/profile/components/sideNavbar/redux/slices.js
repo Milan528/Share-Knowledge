@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import state from './state';
 
 const sideNavbarSlice = createSlice({
-  name: 'sideNavbar',
+  name: 'profileSideNavbar',
   initialState: state,
   reducers: {
     setProfileView: (state, action) => {

@@ -5,18 +5,16 @@ import ThumbUp from '@mui/icons-material/ThumbUp';
 import Time from '@mui/icons-material/AccessTime';
 import { OrdersContainer } from './styles';
 import Tabs from '@mui/material/Tabs';
-import { orderEnum } from '../../../../redux/state';
+import { orderEnum } from '../../redux/state';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOrder } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { setOrder } from '../../redux/slices';
 
-const Order = () => {
-  const order = useSelector((state) => state.home.order);
+export const Order = () => {
+  const order = useSelector((state) => state.profile.posts.order);
   const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     dispatch(setOrder(newValue));
-    dispatch(loadSpecificPosts());
   };
 
   return (

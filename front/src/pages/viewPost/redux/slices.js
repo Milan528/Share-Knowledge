@@ -16,30 +16,25 @@ const viewPostSlice = createSlice({
     comments,
     post,
   },
-  extraReducers: {
-    [commentActions.setComments]: (state, action) => {
-      state.tags = commentsReducer(state.comments, action);
-    },
-
-    [commentActions.setLoading]: (state, action) => {
-      state.tags = commentsReducer(state.comments, action);
-    },
-
-    [commentActions.setError]: (state, action) => {
-      state.tags = commentsReducer(state.comments, action);
-    },
-
-    [postActions.setPost]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(commentActions.setComments, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
+    });
+    builder.addCase(commentActions.setError, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
+    });
+    builder.addCase(commentActions.setLoading, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
+    });
+    builder.addCase(postActions.setPost, (state, action) => {
       state.post = postReducer(state.post, action);
-    },
-
-    [postActions.setLoading]: (state, action) => {
+    });
+    builder.addCase(postActions.setLoading, (state, action) => {
       state.post = postReducer(state.post, action);
-    },
-
-    [postActions.setError]: (state, action) => {
+    });
+    builder.addCase(postActions.setError, (state, action) => {
       state.post = postReducer(state.post, action);
-    },
+    });
   },
 });
 

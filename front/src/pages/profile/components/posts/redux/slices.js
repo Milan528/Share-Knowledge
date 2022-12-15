@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import state from './state';
 
 const postsSlice = createSlice({
-  name: 'posts',
+  name: 'profilePosts',
   initialState: state,
   reducers: {
     setLoading: (state, action) => {
@@ -14,10 +14,13 @@ const postsSlice = createSlice({
     setPosts: (state, action) => {
       state.posts = action.payload;
     },
+    setOrder: (state, action) => {
+      state.order = action.payload;
+    },
   },
 });
 
 export const actions = postsSlice.actions;
-export const { setLoading, setError, setPosts } = postsSlice.actions;
+export const { setLoading, setError, setPosts, setOrder } = postsSlice.actions;
 
 export const postsReducer = postsSlice.reducer;

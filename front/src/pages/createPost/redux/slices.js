@@ -20,22 +20,19 @@ const createPostSlice = createSlice({
       state.error = action.payload;
     },
   },
-  extraReducers: {
-    [tagActions.setSelectedTags]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(tagActions.setSelectedTags, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setAllTags]: (state, action) => {
+    });
+    builder.addCase(tagActions.setAllTags, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setLoading]: (state, action) => {
+    });
+    builder.addCase(tagActions.setLoading, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setError]: (state, action) => {
+    });
+    builder.addCase(tagActions.setError, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
+    });
   },
 });
 

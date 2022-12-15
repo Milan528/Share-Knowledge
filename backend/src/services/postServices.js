@@ -6,20 +6,27 @@ import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
 import { getTodaysDate } from '../tools/dateFormater.js';
 
-export const getPosts = async (req, res) => {
-  const { startIndex = 0, count = 2 } = req.query;
-  const { results, error } = await database.query(QUERYS.SELECT_POSTS, [startIndex, count]);
+export const getPostsByUsername = async (req, res) => {
+  console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  console.log(req.params.username);
+  console.log(req.params.order);
+  const { results, error } = await database.query(
+    QUERYS.SELECT_POSTS_BY_USERNAME(req.params.username)
+  );
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {
-    ResponseManager.OK(res, `No posts found`);
-  } else {
-    ResponseManager.OK(res, `Posts retrieved`, results);
+    return ResponseManager.OK(res, `No posts found`);
   }
+
+  const responseData = {
+    posts: results
+  };
+  await getTagsForPosts(responseData, res);
 };
 
 export const getPost = async (req, res) => {
-  const { results, error } = await database.query(QUERYS.SELECT_POST(req.params.id));
+  const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
   if (error) {
     return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   }
@@ -72,7 +79,7 @@ export const createPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { results, error } = await database.query(QUERYS.SELECT_POST, [req.params.id]);
+  const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
 
   if (!results[0]) {
     ResponseManager.NOT_FOUND(res, `Post by id ${req.params.id} was not found`);

@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
@@ -10,31 +9,37 @@ import SideNavbar from './components/sideNavbar';
 import UserInfo from './components/userInfo';
 import Posts from './components/posts';
 import { useSearchParams } from 'react-router-dom';
-
+import { setProfileView } from './components/sideNavbar/redux/slices';
+import { profileView } from './components/sideNavbar/redux/state';
 
 const Profile = () => {
   const { error, loading } = useSelector((state) => state.profile);
   const [searchParams, setSearchParams] = useSearchParams();
-  const urlUsername = searchParams.get('username');
+  const usernameUrl = searchParams.get('username');
   const username = useSelector((state) => state.app.username);
+  const dispatch = useDispatch();
 
-
-  useEffect(()=>{
-    if(!urlUsername){
-      setSearchParams({ username: username })
+  useEffect(() => {
+    if (!usernameUrl) {
+      setSearchParams({ username: username });
     }
-  },[urlUsername, setSearchParams, username])
+  }, [usernameUrl, setSearchParams, username]);
+
+  useEffect(() => {
+    if (usernameUrl !== username) {
+      dispatch(setProfileView(profileView.posts));
+    }
+  }, [usernameUrl, setSearchParams, username, dispatch]);
 
   const viewToRender = (
     <>
       <Navbar />
       <SideNavbar />
       <ContentContainer>
-        <UserInfo />
         <Posts />
+        <UserInfo />
         {loading ? <Loader /> : null}
       </ContentContainer>
-      <Footer />
     </>
   );
 

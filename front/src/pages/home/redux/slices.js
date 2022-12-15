@@ -44,34 +44,28 @@ const homeSlice = createSlice({
       state.totalNumberOfPosts = action.payload;
     },
   },
-  extraReducers: {
-    [tagActions.setSelectedTags]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(tagActions.setSelectedTags, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setAllTags]: (state, action) => {
+    });
+    builder.addCase(tagActions.setLoading, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setLoading]: (state, action) => {
+    });
+    builder.addCase(tagActions.setAllTags, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [tagActions.setError]: (state, action) => {
+    });
+    builder.addCase(tagActions.setError, (state, action) => {
       state.tags = tagsReducer(state.tags, action);
-    },
-
-    [postActions.setLoading]: (state, action) => {
+    });
+    builder.addCase(postActions.setLoading, (state, action) => {
       state.posts = postsReducer(state.posts, action);
-    },
-
-    [postActions.setError]: (state, action) => {
+    });
+    builder.addCase(postActions.setError, (state, action) => {
       state.posts = postsReducer(state.posts, action);
-    },
-
-    [postActions.setPosts]: (state, action) => {
+    });
+    builder.addCase(postActions.setPosts, (state, action) => {
       state.posts = postsReducer(state.posts, action);
-    },
+    });
   },
 });
 

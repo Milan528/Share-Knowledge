@@ -1,86 +1,90 @@
 const QUERY = {
   CREATE_COMMENT: 'INSERT INTO comment(text, date, postId, userId) VALUES (?, ?, ?,?)',
-  SELECT_COMMENTS_FOR_POST: selectCommentsForPost
+  SELECT_COMMENTS_FOR_POST: (postId) => {
+    let sql = '';
+    sql += selectPostsWithLikesAndDislikes(
+      selectCommentsWithLikes(postId),
+      selectCommentsWithDislikes(postId)
+    );
+
+    return sql;
+  }
 };
 
 export default QUERY;
 
-function selectCommentsForPost(postId) {
+/******************************HELPERS******************************/
+
+function selectPostsWithLikesAndDislikes(
+  sqlSelectCommentsWithLikes,
+  sqlSelectCommentsWithDislikes
+) {
   let sql = '';
+  sql +=
+    'SELECT commentsWithLikes.id, commentsWithLikes.text, commentsWithLikes.date, commentsWithLikes.likes, commentsWithDislikes.dislikes ';
+  sql += 'FROM ( ';
+  sql += sqlSelectCommentsWithLikes;
+  sql += ') as commentsWithLikes ';
+  sql += 'join ( ';
+  sql += sqlSelectCommentsWithDislikes;
+  sql += ') commentsWithDislikes ';
+  sql += 'on commentsWithLikes.id=commentsWithDislikes.id ';
 
-  const selectCommentsWithLikes = () => {
-    let sql = '';
-    sql += 'SELECT id, text, date, SUM(if(likedCommentId=0,0,1)) AS likes ';
-    sql += 'FROM ( ';
+  return sql;
+}
 
-    let sql1 = '';
-    sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as likedCommentId ';
-    sql1 += 'FROM ( ';
+function selectCommentsWithLikes(postId) {
+  let sql = '';
+  sql += 'SELECT id, text, date, SUM(if(likedCommentId=0,0,1)) AS likes ';
+  sql += 'FROM ( ';
 
-    let sql2 = '';
-    sql2 += 'SELECT id, text, date, userId ';
-    sql2 += `FROM comment `;
-    sql2 += `WHERE postId = ${postId} `;
+  let sql1 = '';
+  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as likedCommentId ';
+  sql1 += 'FROM ( ';
 
-    sql1 += sql2;
-    sql1 += ') ';
-    sql1 += 'as myTable ';
-    sql1 += 'left join commentLikedBy ';
-    sql1 += 'on myTable.id=commentLikedBy.commentId ';
+  let sql2 = '';
+  sql2 += 'SELECT id, text, date, userId ';
+  sql2 += `FROM comment `;
+  sql2 += `WHERE postId = ${postId} `;
 
-    sql += sql1;
-    sql += ') ';
-    sql += 'as myTable2 ';
-    sql += 'GROUP BY id, text, date, likedCommentId ';
+  sql1 += sql2;
+  sql1 += ') ';
+  sql1 += 'as myTable ';
+  sql1 += 'left join commentLikedBy ';
+  sql1 += 'on myTable.id=commentLikedBy.commentId ';
 
-    return sql;
-  };
+  sql += sql1;
+  sql += ') ';
+  sql += 'as myTable2 ';
+  sql += 'GROUP BY id, text, date, likedCommentId ';
 
-  const selectCommentsWithDislikes = () => {
-    let sql = '';
-    sql += 'SELECT id, text, date, SUM(if(dislikedCommentId=0,0,1)) AS dislikes ';
-    sql += 'FROM ( ';
+  return sql;
+}
 
-    let sql1 = '';
-    sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as dislikedCommentId ';
-    sql1 += 'FROM ( ';
+function selectCommentsWithDislikes(postId) {
+  let sql = '';
+  sql += 'SELECT id, text, date, SUM(if(dislikedCommentId=0,0,1)) AS dislikes ';
+  sql += 'FROM ( ';
 
-    let sql2 = '';
-    sql2 += 'SELECT id, text, date, userId ';
-    sql2 += `FROM comment `;
-    sql2 += `WHERE postId = ${postId} `;
+  let sql1 = '';
+  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as dislikedCommentId ';
+  sql1 += 'FROM ( ';
 
-    sql1 += sql2;
-    sql1 += ') ';
-    sql1 += 'as myTable ';
-    sql1 += 'left join commentDislikedBy ';
-    sql1 += 'on myTable.id=commentDislikedBy.commentId ';
+  let sql2 = '';
+  sql2 += 'SELECT id, text, date, userId ';
+  sql2 += `FROM comment `;
+  sql2 += `WHERE postId = ${postId} `;
 
-    sql += sql1;
-    sql += ') ';
-    sql += 'as myTable2 ';
-    sql += 'GROUP BY id, text, date, dislikedCommentId ';
+  sql1 += sql2;
+  sql1 += ') ';
+  sql1 += 'as myTable ';
+  sql1 += 'left join commentDislikedBy ';
+  sql1 += 'on myTable.id=commentDislikedBy.commentId ';
 
-    return sql;
-  };
+  sql += sql1;
+  sql += ') ';
+  sql += 'as myTable2 ';
+  sql += 'GROUP BY id, text, date, dislikedCommentId ';
 
-  const selectPostsWithLikesAndDislikes = () => {
-    let sql = '';
-    sql +=
-      'SELECT commentsWithLikes.id, commentsWithLikes.text, commentsWithLikes.date, commentsWithLikes.likes, commentsWithDislikes.dislikes ';
-    sql += 'FROM ( ';
-    sql += selectCommentsWithLikes();
-    sql += ') as commentsWithLikes ';
-    sql += 'join ( ';
-    sql += selectCommentsWithDislikes();
-    sql += ') commentsWithDislikes ';
-    sql += 'on commentsWithLikes.id=commentsWithDislikes.id ';
-
-    return sql;
-  };
-
-  sql += selectPostsWithLikesAndDislikes();
-
-  console.log(sql);
   return sql;
 }

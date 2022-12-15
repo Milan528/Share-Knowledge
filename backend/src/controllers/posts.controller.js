@@ -1,8 +1,8 @@
 import services from '../services/index.js';
 const { postServices } = services;
 
-export const getPosts = async (req, res) => {
-  return postServices.getPosts(req, res);
+export const getPostsByUsername = async (req, res) => {
+  return postServices.getPostsByUsername(req, res);
 };
 
 export const getPost = async (req, res) => {

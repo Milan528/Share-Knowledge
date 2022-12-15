@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import state from './state';
 
 const tagsSlice = createSlice({
-  name: 'tags',
+  name: 'viewPostTags',
   initialState: state,
   reducers: {
     setLoading: (state, action) => {

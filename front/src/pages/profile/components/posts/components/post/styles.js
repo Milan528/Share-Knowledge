@@ -9,4 +9,5 @@ export const StyledPaper = styled(Paper)`
   flex-grow: 1;
   display: flex-block;
   border: 0.5px solid #c9cace;
+  width: 100%;
 `;

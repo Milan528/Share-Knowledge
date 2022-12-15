@@ -2,7 +2,7 @@ import initialState from './state';
 import { createSlice } from '@reduxjs/toolkit';
 
 const commentsSlice = createSlice({
-  name: 'comments',
+  name: 'viewPostComments',
   initialState: initialState,
   reducers: {
     setLoading: (state, action) => {

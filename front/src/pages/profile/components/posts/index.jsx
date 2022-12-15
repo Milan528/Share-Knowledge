@@ -1,53 +1,75 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { profileView } from '../sideNavbar/redux/state';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect } from 'react';
-// import { loadPostsForSpecificUser } from '../../reduxThunk/actions';
-// import Post from './components/post';
-// import ErrorDialog from '../../../../components/errorDialog/index';
-// import Loader from '../../../../components/loader';
-// import { setError } from './redux/slices';
-// import Typography from '@mui/material/Typography';
-// import Fade from '@mui/material/Fade';
-// import { StyledPaper } from './styles';
+import { Order } from './components/order';
+import { StyledDivider } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import Post from './components/post';
+import ErrorDialog from '../../../../components/errorDialog';
+import Loader from '../../../../components/loader';
+import { setError } from './redux/slices';
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
+import { StyledPaper } from './styles';
+import { useSearchParams } from 'react-router-dom';
+import { loadUserPosts } from '../../reduxThunk/actions';
 
 const Posts = () => {
   const view = useSelector((state) => state.profile.sideNavbar.profileView);
-  // const dispatch = useDispatch();
-  // const state = useSelector((state) => state.home.posts);
-  // const { loading, error, posts } = state;
+  const order = useSelector((state) => state.profile.posts.order);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.profile.posts);
+  const { loading, error, posts } = state;
+  const [searchParams] = useSearchParams();
+  const username = searchParams.get('username');
 
-  // useEffect(() => {
-  //   const userId = 1;
-  //   // dispatch(loadPostsForSpecificUser(userId));
-  // }, [dispatch]);
+  useEffect(() => {
+    if (username && view === profileView.posts)
+      dispatch(loadUserPosts(username, order));
+  }, [dispatch, username, view, order]);
 
-  // const postsView = () => {
-  //   if (posts.length === 0) {
-  //     return (
-  //       <Fade in={true}>
-  //         <StyledPaper elevation={4}>
-  //           <Typography variant="h5">
-  //             {'Sadržaj još uvek nije kreiran!'}
-  //           </Typography>
-  //         </StyledPaper>
-  //       </Fade>
-  //     );
-  //   } else {
-  //     return posts.map((data, index) => <Post key={index} data={data} />);
-  //   }
-  // };
+  const postsView = () => {
+    if (posts.length === 0) {
+      return (
+        <>
+          <StyledDivider />
+          <Fade in={true}>
+            <StyledPaper elevation={4}>
+              <Typography variant="h5">Nema kreiranih objava!</Typography>
+            </StyledPaper>
+          </Fade>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Order />
+          <StyledDivider />
+          {posts.map((data, index) => (
+            <Post key={index} data={data} />
+          ))}
+        </>
+      );
+    }
+  };
 
-  // return error ? (
-  //   <ErrorDialog error={error} handleError={setError} />
-  // ) : loading ? (
-  //   <Loader />
-  // ) : (
-  //   postsView()
-  // );
+  const viewToRender = () => {
+    if (view === profileView.posts) {
+      return (
+        <>
+          <h1>Objave</h1>
 
-  return view === profileView.posts ? <h1>List of posts...</h1> :  null
+          {postsView()}
+          {loading ? <Loader /> : null}
+        </>
+      );
+    } else return null;
+  };
+
+  return error ? (
+    <ErrorDialog error={error} handleError={setError} />
+  ) : (
+    viewToRender()
+  );
 };
 
 export default Posts;

@@ -1,5 +1,6 @@
 import React from "react";
 import {Container, StyledTypography, StyledBookIcon, StyledHelpIcon} from "./styles";
+import Tooltip from '@mui/material/Tooltip';
 
 const Title = (props) => {
   const { title, type } = props;
@@ -7,10 +8,14 @@ const Title = (props) => {
       <Container>
         <StyledTypography>{title}</StyledTypography>
     
-         {type === "answer" ? (
-           <StyledBookIcon />
+         {type === "material" ? (
+            <Tooltip title="Materijal">
+              <StyledBookIcon />
+            </Tooltip>
            ) : (
-          <StyledHelpIcon  />
+            <Tooltip title="Pitanje">
+              <StyledHelpIcon  />
+            </Tooltip>
         )}  
       </Container>
   );

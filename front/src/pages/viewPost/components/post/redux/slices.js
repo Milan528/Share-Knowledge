@@ -2,7 +2,7 @@ import initialState from './state';
 import { createSlice } from '@reduxjs/toolkit';
 
 const postSlice = createSlice({
-  name: 'post',
+  name: 'viewPostPost',
   initialState: initialState,
   reducers: {
     setLoading: (state, action) => {

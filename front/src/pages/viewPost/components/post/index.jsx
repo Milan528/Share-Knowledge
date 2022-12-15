@@ -25,79 +25,92 @@ const Post = () => {
   const [selectedPostIndex, setSelectedPostIndex] = useState(
     location.state ? location.state.selectedPostIndex : null
   );
-  const homepageFilters = location.state ? location.state.homepageFilters : null;
+  const homepageFilters = location.state
+    ? location.state.homepageFilters
+    : null;
   const searchParamsPostId = searchParams.get('postId');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!Number.isFinite(selectedPostIndex)){
+    if (!Number.isFinite(selectedPostIndex)) {
       dispatch(loadPost(searchParamsPostId));
     }
   }, [dispatch, searchParamsPostId, selectedPostIndex]);
 
-  useEffect(()=> {
-    if(Number.isFinite(selectedPostIndex)){
-
-      dispatch(loadSpecificPost(selectedPostIndex, homepageFilters, (postId) => {
-        navigate(
-          {
-            pathname: viewPostRoute,
-            search: `postId=${postId}`,
-          },
-          {
-            state: {
-              homepageFilters,
-              selectedPostIndex
+  useEffect(() => {
+    if (Number.isFinite(selectedPostIndex)) {
+      dispatch(
+        loadSpecificPost(selectedPostIndex, homepageFilters, (postId) => {
+          navigate(
+            {
+              pathname: viewPostRoute,
+              search: `postId=${postId}`,
             },
-          }
-        );
-      }))
+            {
+              state: {
+                homepageFilters,
+                selectedPostIndex,
+              },
+            }
+          );
+        })
+      );
     }
-  },[selectedPostIndex, dispatch, homepageFilters, navigate])
+  }, [selectedPostIndex, dispatch, homepageFilters, navigate]);
 
   const handleNextPost = () => {
     const { totalNumberOfPosts } = homepageFilters;
-    setSelectedPostIndex(prev => (prev+1)%totalNumberOfPosts)
+    setSelectedPostIndex((prev) => (prev + 1) % totalNumberOfPosts);
   };
 
   const handlePreviousPost = () => {
     const { totalNumberOfPosts } = homepageFilters;
-    if(selectedPostIndex - 1 < 0 ){
-      setSelectedPostIndex(totalNumberOfPosts-1)
-    }else {
-      setSelectedPostIndex(selectedPostIndex-1)
+    if (selectedPostIndex - 1 < 0) {
+      setSelectedPostIndex(totalNumberOfPosts - 1);
+    } else {
+      setSelectedPostIndex(selectedPostIndex - 1);
     }
   };
 
   const viewToRender = () => {
-    const { title, type, text, files, tags, likes, dislikes, id, date } = post;
+    if (post) {
+      const { title, type, text, files, tags, likes, dislikes, id, date } =
+        post;
 
-    return (
-      <>
-        <HeadingContainer>
-          {location.state ? (
-            <Button variant="outlined" onClick={handlePreviousPost}>
-              <ChevronLeftIcon />
-            </Button>
-          ) : null}
-          <StyledH1>
-            {post.type === 'answer' ? 'Materijal' : 'Pitanje'}
-          </StyledH1>
-          {location.state ? (
-            <Button variant="outlined" onClick={handleNextPost}>
-              <ChevronRightIcon />
-            </Button>
-          ) : null}
-        </HeadingContainer>
-        <StyledPaper elevation={1}>
-          <Title title={title} type={type} />
-          <Content text={text} files={files} />
-          <Tags tags={tags} />
-          <Details likes={likes} postId={id} date={date} dislikes={dislikes}/>
-        </StyledPaper>
-      </>
-    );
+      return (
+        <>
+          <HeadingContainer>
+            {location.state ? (
+              <Button variant="outlined" onClick={handlePreviousPost}>
+                <ChevronLeftIcon />
+              </Button>
+            ) : null}
+            <StyledH1>
+              {post.type === 'answer' ? 'Materijal' : 'Pitanje'}
+            </StyledH1>
+            {location.state ? (
+              <Button variant="outlined" onClick={handleNextPost}>
+                <ChevronRightIcon />
+              </Button>
+            ) : null}
+          </HeadingContainer>
+          <StyledPaper elevation={1}>
+            <Title title={title} type={type} />
+            <Content text={text} files={files} />
+            <Tags tags={tags} />
+            <Details
+              likes={likes}
+              postId={id}
+              date={date}
+              dislikes={dislikes}
+            />
+          </StyledPaper>
+        </>
+      );
+    } else {
+      return null;
+    }
   };
 
   return error ? (

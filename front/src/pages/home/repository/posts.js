@@ -13,7 +13,6 @@ export const getAllSpecificPostsRepository = async (data) => {
 export const mapDTOToPost = (dto) => {
   return {
     ...dto,
-    type: dto.type,
     date: formatDate(new Date(dto.date)),
   };
 };

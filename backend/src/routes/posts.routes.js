@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getPost,
-  getPosts,
+  getPostsByUsername,
   createPost,
   deletePost,
   updatePost,
@@ -11,8 +11,9 @@ import tokenValidation from '../tools/tokenValidation.js';
 
 const postsRoutes = express.Router();
 
-postsRoutes.route('/').get(getPosts).post(tokenValidation, createPost);
+postsRoutes.route('/').post(tokenValidation, createPost);
 postsRoutes.route('/:id').get(getPost).put(updatePost).delete(deletePost);
 postsRoutes.route('/specificPosts').post(getSpecificPosts);
+postsRoutes.route('/user/:username/:order').get(getPostsByUsername);
 
 export default postsRoutes;

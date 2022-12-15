@@ -14,7 +14,13 @@ const Post = (props) => {
       <Title title={title} type={type} />
       <Content text={text} files={files} />
       <Tags tags={tags} />
-      <Details likes={likes} postId={id} date={date} data={data} dislikes={dislikes}/>
+      <Details
+        likes={likes}
+        postId={id}
+        date={date}
+        data={data}
+        dislikes={dislikes}
+      />
     </StyledPaper>
   );
 };
