@@ -7,12 +7,8 @@ import ResponseManager from '../tools/ResponseManager/index.js';
 import { getTodaysDate } from '../tools/dateFormater.js';
 
 export const getPostsByUsername = async (req, res) => {
-  console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  console.log(req.params.username);
-  console.log(req.params.order);
-  const { results, error } = await database.query(
-    QUERYS.SELECT_POSTS_BY_USERNAME(req.params.username)
-  );
+  const { username, order } = req.query;
+  const { results, error } = await database.query(QUERYS.SELECT_POSTS_BY_USERNAME(username, order));
   if (error) {
     return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (!results) {

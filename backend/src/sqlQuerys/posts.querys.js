@@ -9,20 +9,15 @@ const QUERY = {
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
 
-  SELECT_POSTS_BY_USERNAME: (username) => {
-    return selectPostsWithLikesAndDislikes(
+  SELECT_POSTS_BY_USERNAME: (username, order) => {
+    let sql = 'SELECT * FROM ( ';
+    sql += selectPostsWithLikesAndDislikes(
       selectPostsWithLikes(selectSinglePostWithoutLikesAndDislikesByUsername(username)),
       selectPostsWithDislikes(selectSinglePostWithoutLikesAndDislikesByUsername(username))
     );
-
-    // let sql = 'SELECT * FROM ( ';
-    // sql += selectPostsWithLikesAndDislikes(
-    //   selectPostsWithLikes(selectSinglePostWithoutLikesAndDislikesByUsername(username)),
-    //   selectPostsWithDislikes(selectSinglePostWithoutLikesAndDislikesByUsername(username))
-    // );
-    // sql += `order by ${orderSql[order]} `;
-    // sql += ') as orderedTable ';
-    // return sql;
+    sql += `order by ${orderSql[order]} `;
+    sql += ') as orderedTable ';
+    return sql;
   },
 
   SELECT_POST_BY_POSTID: (postId) => {
