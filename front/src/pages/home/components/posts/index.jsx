@@ -15,6 +15,8 @@ const Posts = () => {
   const state = useSelector((state) => state.home.posts);
   const { loading, error, posts } = state;
 
+  console.log(posts);
+
   useEffect(() => {
     dispatch(loadSpecificPosts());
   }, [dispatch]);

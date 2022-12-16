@@ -1,7 +1,7 @@
 import QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import database from '../tools/database.js';
 import ResponseManager from '../tools/ResponseManager/index.js';
-import { postLikeDislikeStatus } from './postServices.js';
+import { getPostLikes, postLikeDislikeStatus } from './postServices.js';
 
 export const createPostLike = async (req, res) => {
   const { userID, postID } = req.body;
@@ -11,7 +11,7 @@ export const createPostLike = async (req, res) => {
   } else if (!results) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
   } else {
-    return ResponseManager.CREATED(res, `Post like created`, postLikeDislikeStatus.liked);
+    await getPostLikes(res, postID, `Post like created`, postLikeDislikeStatus.liked);
   }
 };
 
@@ -25,6 +25,6 @@ export const deletePostLike = async (req, res) => {
   if (!results) {
     ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
   } else {
-    ResponseManager.OK(res, `Post like deleted`, postLikeDislikeStatus.none);
+    await getPostLikes(res, postID, `Post like deleted`, postLikeDislikeStatus.none);
   }
 };

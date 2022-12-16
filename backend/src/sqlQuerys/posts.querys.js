@@ -94,7 +94,7 @@ const QUERY = {
 export default QUERY;
 
 /******************************HELPERS_SINGLE_POST******************************/
-function selectSinglePostWithLikesAndDislikes(postId) {
+export function selectSinglePostWithLikesAndDislikes(postId) {
   let sql = '';
   sql +=
     'SELECT postWithLikes.id, postWithLikes.title, postWithLikes.text, postWithLikes.type, postWithLikes.date, postWithLikes.likes, postWithDislikes.dislikes ';

@@ -1,33 +1,9 @@
 import React, { useState } from 'react';
 import logo from '../../../../assets/Logo.jpg';
-import {
-  ContextMenuContainerDiv,
-  LogoContainerDiv,
-  StyledContextMenu,
-  StyledLogo,
-} from './styles';
+import { ContextMenuContainerDiv, StyledLogo } from './styles';
 import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
 import { useEffect } from 'react';
-
-// export const Logo = () => {
-//   const navigate = useNavigate();
-
-//   const handleClick = (e) => {
-//     console.log(e.type);
-//     console.log(e.button);
-//     //
-//   };
-
-//   return (
-//     <StyledLogo onClick={handleClick} onContextMenu={handleClick}>
-//       <img src={logo} alt="logo" />
-//       <span>ShareKnowledge</span>
-//     </StyledLogo>
-//   );
-// };
-
-// export default Logo;
 
 const buttons = {
   left: 0,
@@ -59,7 +35,6 @@ export const Logo = () => {
       setMouseX(e.clientX);
       setMouseY(e.clientY);
       setMenuVisible(true);
-      console.log('right');
     } else if (e.button === buttons.back) {
       console.log('back');
     } else if (e.button === buttons.forward) {

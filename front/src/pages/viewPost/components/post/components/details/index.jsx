@@ -10,13 +10,10 @@ import {
   LikeIcon,
   DislikeIcon,
 } from './styles';
-import ThumbUp from '@mui/icons-material/ThumbUp';
-import ThumbDown from '@mui/icons-material/ThumbDown';
 import {
   addPostDislike,
   addPostLike,
   checkUserLikeDislike,
-  handlePostLikeUnlike,
   removePostDislike,
   removePostLike,
 } from '../../../../reduxThunk/actions';
@@ -30,14 +27,14 @@ export const postLikeDislikeStatus = {
 };
 
 const Details = (props) => {
-  const { likes, date, dislikes, postId } = props;
+  const { likes: propLikes, date, dislikes: propDislikes, postId } = props;
+  const [likes, setLikes] = useState(propLikes);
+  const [dislikes, setDislikes] = useState(propDislikes);
   const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
-
-  console.log(likeDislikeStatus);
 
   useEffect(() => {
     if (token) {
@@ -51,12 +48,20 @@ const Details = (props) => {
         )
       );
     }
-  }, [token, postId]);
+  }, [token, postId, dispatch]);
 
   const handleLike = () => {
     if (likeDislikeStatus === postLikeDislikeStatus.none) {
       dispatch(
-        addPostLike(token, postId, setError, setLoading, setLikeDislikeStatus)
+        addPostLike(
+          token,
+          postId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setLikes,
+          setDislikes
+        )
       );
     } else if (likeDislikeStatus === postLikeDislikeStatus.liked) {
       dispatch(
@@ -65,7 +70,9 @@ const Details = (props) => {
           postId,
           setError,
           setLoading,
-          setLikeDislikeStatus
+          setLikeDislikeStatus,
+          setLikes,
+          setDislikes
         )
       );
     }
@@ -79,7 +86,9 @@ const Details = (props) => {
           postId,
           setError,
           setLoading,
-          setLikeDislikeStatus
+          setLikeDislikeStatus,
+          setLikes,
+          setDislikes
         )
       );
     } else if (likeDislikeStatus === postLikeDislikeStatus.disliked) {
@@ -89,7 +98,9 @@ const Details = (props) => {
           postId,
           setError,
           setLoading,
-          setLikeDislikeStatus
+          setLikeDislikeStatus,
+          setLikes,
+          setDislikes
         )
       );
     }
@@ -100,11 +111,7 @@ const Details = (props) => {
       <DetailsContainer>
         <StyledButton onClick={handleLike} disabled={loading}>
           <LikeIcon like_dislike_status={likeDislikeStatus} />
-          <Likes color="textSecondary">
-            {likeDislikeStatus === postLikeDislikeStatus.liked
-              ? Number(likes) + 1
-              : likes}
-          </Likes>
+          <Likes color="textSecondary">{likes}</Likes>
         </StyledButton>
         <StyledButton
           color="primary"
@@ -112,11 +119,7 @@ const Details = (props) => {
           disabled={loading}
         >
           <DislikeIcon like_dislike_status={likeDislikeStatus} />
-          <Likes color="textSecondary">
-            {likeDislikeStatus === postLikeDislikeStatus.disliked
-              ? Number(dislikes) + 1
-              : dislikes}
-          </Likes>
+          <Likes color="textSecondary">{dislikes}</Likes>
         </StyledButton>
         {error ? <p>Unable to like/unlike posts. Error ocured.</p> : null}
         <DateContainer>

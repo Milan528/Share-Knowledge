@@ -18,5 +18,3 @@ export const ContextMenuContainerDiv = styled.ul`
   border: 0.5px solid #c9cace;
   padding: 10px;
 `;
-
-export const LogoContainerDiv = styled.div``;

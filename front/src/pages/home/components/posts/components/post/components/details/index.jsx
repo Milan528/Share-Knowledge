@@ -14,8 +14,6 @@ import { useNavigate } from 'react-router';
 import { viewPostRoute } from '../../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 const Details = (props) => {
   const navigate = useNavigate();

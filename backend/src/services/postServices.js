@@ -1,4 +1,4 @@
-import QUERYS from '../sqlQuerys/posts.querys.js';
+import QUERYS, { selectSinglePostWithLikesAndDislikes } from '../sqlQuerys/posts.querys.js';
 import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import POST_TAG_QUERYS from '../sqlQuerys/postTag.querys.js';
@@ -232,4 +232,22 @@ async function getPostFiles(responseData, res) {
   }
 
   return ResponseManager.OK(res, `Posts retrieved`, responseData);
+}
+
+export async function getPostLikes(res, postId, message, status) {
+  const { results, error } = await database.query(selectSinglePostWithLikesAndDislikes(postId));
+
+  if (error) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+  }
+  if (!results) {
+    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+  } else {
+    const { likes, dislikes } = results[0];
+    ResponseManager.OK(res, message, {
+      status,
+      likes,
+      dislikes
+    });
+  }
 }
