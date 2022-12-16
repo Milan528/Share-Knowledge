@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Today from '@mui/icons-material/Today';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+
+export const LikeIcon = styled(ThumbUpOffAltIcon)`
+  color: grey;
+`;
+
+export const DislikeIcon = styled(ThumbDownOffAltIcon)`
+  color: grey;
+`;
 
 export const ButtonText = styled(Typography)`
   && {

@@ -5,6 +5,8 @@ import * as uploadFileServices from './uploadFileServices.js';
 import * as commentServices from './commentServices.js';
 import * as postLikedByServices from './postLikedByServices.js';
 import * as postDislikedByServices from './postDislikedByServices.js';
+import * as commentLikedByServices from './commentLikedByServices.js';
+import * as commentDislikedByServices from './commentDislikedByServices.js';
 
 const services = {
   postServices,
@@ -13,7 +15,9 @@ const services = {
   uploadFileServices,
   commentServices,
   postLikedByServices,
-  postDislikedByServices
+  postDislikedByServices,
+  commentLikedByServices,
+  commentDislikedByServices
 };
 
 export default services;

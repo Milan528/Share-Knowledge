@@ -9,9 +9,9 @@ import {
   createPostLike,
   deletePostLike,
   createPostDislike,
-  deletePostDislike
+  deletePostDislike,
+  getPostLikeDislikeStatus
 } from '../controllers/posts.controller.js';
-import { getPostLikeDislikeStatus } from '../services/postServices.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
 const postsRoutes = express.Router();

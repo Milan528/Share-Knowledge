@@ -42,5 +42,5 @@ export const deletePostDislike = async (req, res) => {
 };
 
 export const getPostLikeDislikeStatus = async (req, res) => {
-  return postDislikedByServices.getPostLikeDislikeStatus(req, res);
+  return postServices.getPostLikeDislikeStatus(req, res);
 };

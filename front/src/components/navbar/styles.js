@@ -35,12 +35,3 @@ export const StyledNav = styled.nav`
     align-items: center;
   }
 `;
-
-export const StyledLogo = styled.div`
-  padding: 2px;
-
-  img {
-    width: 50px;
-    height: 50px;
-  }
-`;

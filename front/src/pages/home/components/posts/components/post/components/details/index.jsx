@@ -7,6 +7,8 @@ import {
   ButtonText,
   DetailsContainer,
   LikesWrapper,
+  LikeIcon,
+  DislikeIcon,
 } from './styles';
 import { useNavigate } from 'react-router';
 import { viewPostRoute } from '../../../../../../../../app/router/routes';
@@ -54,11 +56,13 @@ const Details = (props) => {
     <Container>
       <DetailsContainer>
         <LikesWrapper>
-          <ThumbUpOffAltIcon />
+          <LikeIcon />
+          {/* <ThumbUpOffAltIcon /> */}
           <Likes color="textSecondary"> {likes} </Likes>
         </LikesWrapper>
         <LikesWrapper>
-          <ThumbDownOffAltIcon />
+          <DislikeIcon />
+          {/* <ThumbDownOffAltIcon /> */}
           <Likes color="textSecondary"> {dislikes} </Likes>
         </LikesWrapper>
         <DateIcon />

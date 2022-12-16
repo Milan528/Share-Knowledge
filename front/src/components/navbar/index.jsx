@@ -1,21 +1,23 @@
 import React from 'react';
-import logo from '../../assets/Logo.jpg';
-import { StyledLogo, StyledNav, StyledHeader } from './styles';
+import { StyledNav, StyledHeader } from './styles';
 import { useNavigate } from 'react-router';
 import Authorized from './components/authorized';
 import Unauthorized from './components/unauthorized';
-import { homeRoute } from '../../app/router/routes';
+import Logo from './components/logo';
 
 export const Navbar = () => {
   const navigate = useNavigate();
 
+  const handleClick = (e) => {
+    console.log(e.type);
+    console.log(e.button);
+    // () => navigate(homeRoute)
+  };
+
   return (
     <StyledHeader>
       <StyledNav>
-        <StyledLogo onClick={() => navigate(homeRoute)}>
-          <img src={logo} alt="logo" />
-          <span>ShareKnowledge</span>
-        </StyledLogo>
+        <Logo />
         <Authorized />
         <Unauthorized />
       </StyledNav>

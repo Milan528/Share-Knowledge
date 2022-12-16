@@ -7,6 +7,8 @@ import {
   DetailsContainer,
   DateContainer,
   StyledButton,
+  LikeIcon,
+  DislikeIcon,
 } from './styles';
 import ThumbUp from '@mui/icons-material/ThumbUp';
 import ThumbDown from '@mui/icons-material/ThumbDown';
@@ -21,6 +23,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
+export const postLikeDislikeStatus = {
+  liked: 'liked',
+  disliked: 'disliked',
+  none: 'none',
+};
+
 const Details = (props) => {
   const { likes, date, dislikes, postId } = props;
   const token = useSelector((state) => state.app.token);
@@ -29,11 +37,7 @@ const Details = (props) => {
   const [loading, setLoading] = useState(true);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
 
-  const postLikeDislikeStatus = {
-    liked: 'liked',
-    disliked: 'disliked',
-    none: 'none',
-  };
+  console.log(likeDislikeStatus);
 
   useEffect(() => {
     if (token) {
@@ -54,7 +58,7 @@ const Details = (props) => {
       dispatch(
         addPostLike(token, postId, setError, setLoading, setLikeDislikeStatus)
       );
-    } else {
+    } else if (likeDislikeStatus === postLikeDislikeStatus.liked) {
       dispatch(
         removePostLike(
           token,
@@ -78,7 +82,7 @@ const Details = (props) => {
           setLikeDislikeStatus
         )
       );
-    } else {
+    } else if (likeDislikeStatus === postLikeDislikeStatus.disliked) {
       dispatch(
         removePostDislike(
           token,
@@ -95,16 +99,24 @@ const Details = (props) => {
     <Container>
       <DetailsContainer>
         <StyledButton onClick={handleLike} disabled={loading}>
-          <ThumbUp />
-          <Likes color="textSecondary"> {likes} </Likes>
+          <LikeIcon like_dislike_status={likeDislikeStatus} />
+          <Likes color="textSecondary">
+            {likeDislikeStatus === postLikeDislikeStatus.liked
+              ? Number(likes) + 1
+              : likes}
+          </Likes>
         </StyledButton>
         <StyledButton
           color="primary"
           onClick={handleDislike}
           disabled={loading}
         >
-          <ThumbDown />
-          <Likes color="textSecondary"> {dislikes} </Likes>
+          <DislikeIcon like_dislike_status={likeDislikeStatus} />
+          <Likes color="textSecondary">
+            {likeDislikeStatus === postLikeDislikeStatus.disliked
+              ? Number(dislikes) + 1
+              : dislikes}
+          </Likes>
         </StyledButton>
         {error ? <p>Unable to like/unlike posts. Error ocured.</p> : null}
         <DateContainer>

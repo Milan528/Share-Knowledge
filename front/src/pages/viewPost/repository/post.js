@@ -22,7 +22,7 @@ export const getSpecificPostRepository = async (data) => {
   const dto = await services.post('/posts/specificPosts', data);
   return {
     post: mapDTOToPost(dto.data.posts[0]),
-    //This two are also returned, but not used
+    //These two are also returned, but not used
     // totalNumberOfPages: dto.data.totalNumberOfPages,
     // totalNumberOfPosts: dto.data.totalNumberOfPosts,
   };
@@ -30,25 +30,25 @@ export const getSpecificPostRepository = async (data) => {
 
 export const getPostLikeDislikeStatusRepository = async (data) => {
   const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.message;
+  return dto.data;
 };
 
 export const addPostLikeRepository = async (data) => {
-  const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.message;
+  const dto = await services.post('/posts/like', data);
+  return dto.data;
 };
 
-export const removePostLike = async (data) => {
-  const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.message;
+export const removePostLikeRepository = async (data) => {
+  const dto = await services.delete('/posts/like', data);
+  return dto.data;
 };
 
-export const addPostDislike = async (data) => {
-  const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.message;
+export const addPostDislikeRepository = async (data) => {
+  const dto = await services.post('/posts/dislike', data);
+  return dto.data;
 };
 
-export const removePostDislike = async (data) => {
-  const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.message;
+export const removePostDislikeRepository = async (data) => {
+  const dto = await services.delete('/posts/dislike', data);
+  return dto.data;
 };

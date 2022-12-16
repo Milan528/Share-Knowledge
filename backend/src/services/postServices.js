@@ -8,14 +8,14 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import POST_LIKED_BY_QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 
+export const postLikeDislikeStatus = {
+  liked: 'liked',
+  disliked: 'disliked',
+  none: 'none'
+};
+
 export const getPostLikeDislikeStatus = async (req, res) => {
   const { userID, postID } = req.body;
-
-  const postLikeDislikeStatus = {
-    liked: 'liked',
-    disliked: 'disliked',
-    none: 'none'
-  };
 
   const { results, error } = await database.query(POST_LIKED_BY_QUERYS.SELECT_POST_LIKE, [
     userID,
@@ -25,7 +25,8 @@ export const getPostLikeDislikeStatus = async (req, res) => {
   if (error) {
     return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
   } else if (results[0]) {
-    return ResponseManager.OK(res, postLikeDislikeStatus.liked);
+    const data = postLikeDislikeStatus.liked;
+    return ResponseManager.OK(res, `Like status is: ${data}`, data);
   } else if (!results[0]) {
     await checkPostDislikeStatus(req, res);
   }
@@ -39,9 +40,11 @@ export const getPostLikeDislikeStatus = async (req, res) => {
     if (error) {
       return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
     } else if (results[0]) {
-      return ResponseManager.OK(res, postLikeDislikeStatus.disliked);
+      const data = postLikeDislikeStatus.disliked;
+      return ResponseManager.OK(res, `Like status is: ${data}`, data);
     } else if (!results[0]) {
-      return ResponseManager.OK(res, postLikeDislikeStatus.none);
+      const data = postLikeDislikeStatus.none;
+      return ResponseManager.OK(res, `Like status is: ${data}`, data);
     }
   }
 };
