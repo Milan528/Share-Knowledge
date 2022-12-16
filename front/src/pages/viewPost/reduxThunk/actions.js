@@ -14,6 +14,7 @@ import {
   addCommentRepository,
 } from '../repository/comments';
 import {
+  getPostLikeDislikeStatusRepository,
   getPostRepository,
   getSpecificPostRepository,
 } from '../repository/post';
@@ -80,5 +81,98 @@ export const loadSpecificPost =
       dispatch(setErrorPost(serialize(err)));
     } finally {
       dispatch(setLoadingPost(false));
+    }
+  };
+
+export const checkUserLikeDislike =
+  (token, postId, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const DTO = {
+      token,
+      postId,
+    };
+
+    try {
+      setLoading(true);
+      const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
+      setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const addPostLike =
+  (token, postId, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const DTO = {
+      token,
+      postId,
+    };
+
+    try {
+      setLoading(true);
+      // const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
+      // setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const removePostLike =
+  (token, postId, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const DTO = {
+      token,
+      postId,
+    };
+
+    try {
+      setLoading(true);
+      // const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
+      // setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+export const addPostDislike =
+  (token, postId, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const DTO = {
+      token,
+      postId,
+    };
+
+    try {
+      setLoading(true);
+      // const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
+      // setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+export const removePostDislike =
+  (token, postId, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const DTO = {
+      token,
+      postId,
+    };
+
+    try {
+      setLoading(true);
+      // const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
+      // setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
     }
   };

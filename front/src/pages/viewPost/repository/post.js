@@ -22,7 +22,33 @@ export const getSpecificPostRepository = async (data) => {
   const dto = await services.post('/posts/specificPosts', data);
   return {
     post: mapDTOToPost(dto.data.posts[0]),
+    //This two are also returned, but not used
     // totalNumberOfPages: dto.data.totalNumberOfPages,
     // totalNumberOfPosts: dto.data.totalNumberOfPosts,
   };
+};
+
+export const getPostLikeDislikeStatusRepository = async (data) => {
+  const dto = await services.post('/posts/postLikeDislikeStatus', data);
+  return dto.message;
+};
+
+export const addPostLikeRepository = async (data) => {
+  const dto = await services.post('/posts/postLikeDislikeStatus', data);
+  return dto.message;
+};
+
+export const removePostLike = async (data) => {
+  const dto = await services.post('/posts/postLikeDislikeStatus', data);
+  return dto.message;
+};
+
+export const addPostDislike = async (data) => {
+  const dto = await services.post('/posts/postLikeDislikeStatus', data);
+  return dto.message;
+};
+
+export const removePostDislike = async (data) => {
+  const dto = await services.post('/posts/postLikeDislikeStatus', data);
+  return dto.message;
 };
