@@ -2,9 +2,11 @@ import services from '../services/index.js';
 const { authServices } = services;
 
 export const loginUser = async (req, res) => {
-  return authServices.loginUser(req, res);
+  const response = await authServices.loginUser(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const registerUser = async (req, res) => {
-  return authServices.registerUser(req, res);
+  const response = await authServices.registerUser(req);
+  return res.status(response.statusCode).send(response);
 };

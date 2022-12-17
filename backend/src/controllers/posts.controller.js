@@ -2,45 +2,56 @@ import services from '../services/index.js';
 const { postServices, postLikedByServices, postDislikedByServices } = services;
 
 export const getPostsByUsername = async (req, res) => {
-  return postServices.getPostsByUsername(req, res);
+  const response = await postServices.getPostsByUsername(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const getPost = async (req, res) => {
-  return postServices.getPost(req, res);
+  const response = await postServices.getPost(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createPost = async (req, res) => {
-  return postServices.createPost(req, res);
+  const response = await postServices.createPost(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const updatePost = async (req, res) => {
-  return postServices.updatePost(req, res);
+  const response = await postServices.updatePost(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deletePost = async (req, res) => {
-  return postServices.deletePost(req, res);
+  const response = await postServices.deletePost(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const getSpecificPosts = async (req, res) => {
-  return postServices.getSpecificPosts(req, res);
+  const response = await postServices.getSpecificPosts(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createPostLike = async (req, res) => {
-  return postLikedByServices.createPostLike(req, res);
+  const response = await postLikedByServices.createPostLike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deletePostLike = async (req, res) => {
-  return postLikedByServices.deletePostLike(req, res);
+  const response = await postLikedByServices.deletePostLike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createPostDislike = async (req, res) => {
-  return postDislikedByServices.createPostDislike(req, res);
+  const response = await postDislikedByServices.createPostDislike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deletePostDislike = async (req, res) => {
-  return postDislikedByServices.deletePostDislike(req, res);
+  const response = await postDislikedByServices.deletePostDislike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const getPostLikeDislikeStatus = async (req, res) => {
-  return postServices.getPostLikeDislikeStatus(req, res);
+  const response = await postServices.getPostLikeDislikeStatus(req);
+  return res.status(response.statusCode).send(response);
 };

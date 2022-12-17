@@ -1,28 +1,24 @@
 import QUERYS from '../sqlQuerys/commentDislikedBy.querys.js';
 import database from '../tools/database.js';
-import ResponseManager from '../tools/ResponseManager/index.js';
+import response from '../tools/response/index.js';
 import { commentLikeDislikeStatus } from './commentServices.js';
 
-export const createCommentDislike = async (req, res) => {
+export const createCommentDislike = async (req) => {
   const { userID, commentID } = req.body;
   const { results, error } = await database.query(QUERYS.CREATE_COMMENT_DISLIKE, [
     userID,
     commentID
   ]);
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   } else if (!results) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return ResponseManager.CREATED(
-      res,
-      `Comment dislike created`,
-      commentLikeDislikeStatus.disliked
-    );
+    return response.CREATED(`Comment dislike created`, commentLikeDislikeStatus.disliked);
   }
 };
 
-export const deleteCommentDislike = async (req, res) => {
+export const deleteCommentDislike = async (req) => {
   const { userID, commentID } = req.body;
   const { results, error } = await database.query(QUERYS.DELETE_COMMENT_DISLIKE, [
     userID,
@@ -30,11 +26,11 @@ export const deleteCommentDislike = async (req, res) => {
   ]);
 
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    ResponseManager.OK(res, `Comment dislike deleted`, commentLikeDislikeStatus.none);
+    return response.OK(`Comment dislike deleted`, commentLikeDislikeStatus.none);
   }
 };

@@ -1,5 +1,5 @@
 import path from 'path';
-import ResponseManager from '../ResponseManager/index.js';
+import response from '../response/index.js';
 import allowed_ext from './allowedFileExtensions.js';
 
 const IMAGE_MB = 5; // 5 MB
@@ -25,14 +25,11 @@ const fileSizeLimiter = (req, res, next) => {
     }
   });
 
-  if (images.length > 10)
-    return ResponseManager.BAD_REQUEST(res, "Images number can't be greater than 10");
+  if (images.length > 10) return response.BAD_REQUEST("Images number can't be greater than 10");
 
-  if (docs.length > 10)
-    return ResponseManager.BAD_REQUEST(res, "Documents number can't be greater than 10");
+  if (docs.length > 10) return response.BAD_REQUEST("Documents number can't be greater than 10");
 
-  if (videos.length > 3)
-    return ResponseManager.BAD_REQUEST(res, "Videos number can't be greater than 3");
+  if (videos.length > 3) return response.BAD_REQUEST("Videos number can't be greater than 3");
 
   let filesOverLimit = [];
   filesOverLimit = filesOverLimit.concat(checkFilesSizeLimit(images, IMAGE_SIZE_LIMIT));
@@ -45,7 +42,7 @@ const fileSizeLimiter = (req, res, next) => {
     const message = `Upload failed. ${filesOverLimit.toString()} ${properVerb} over the file size limit.`;
     message += `Size limit for Images is ${IMAGE_MB}, for documents is ${DOC_MB} and for videos is ${VIDEO_MB}. `;
 
-    return ResponseManager.BAD_REQUEST(res, message);
+    return response.BAD_REQUEST(message);
   }
 
   next();

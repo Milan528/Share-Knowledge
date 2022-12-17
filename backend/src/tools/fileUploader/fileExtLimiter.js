@@ -1,5 +1,5 @@
 import path from 'path';
-import ResponseManager from '../ResponseManager/index.js';
+import response from '../response/index.js';
 
 const fileExtLimiter = (allowedExtArray) => {
   return (req, res, next) => {
@@ -18,7 +18,7 @@ const fileExtLimiter = (allowedExtArray) => {
         ', '
       );
 
-      return ResponseManager.BAD_REQUEST(res, message);
+      return response.BAD_REQUEST(message);
     }
 
     next();

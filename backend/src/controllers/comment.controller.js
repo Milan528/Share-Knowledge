@@ -2,29 +2,36 @@ import services from '../services/index.js';
 const { commentServices, commentLikedByServices, commentDislikedByServices } = services;
 
 export const getCommentsForPost = async (req, res) => {
-  return commentServices.getCommentsForPost(req, res);
+  const response = await commentServices.getCommentsForPost(req);
+  return res.status(response.statusCode).send(response);
 };
 
-export const createComment = async (req, res) => {
-  return commentServices.createComment(req, res);
+export const createComment = async (req) => {
+  const response = await commentServices.createComment(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createCommentLike = async (req, res) => {
-  return commentLikedByServices.createCommentLike(req, res);
+  const response = await commentLikedByServices.createCommentLike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deleteCommentLike = async (req, res) => {
-  return commentLikedByServices.deleteCommentLike(req, res);
+  const response = await commentLikedByServices.deleteCommentLike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createCommentDislike = async (req, res) => {
-  return commentDislikedByServices.createCommentDislike(req, res);
+  const response = await commentDislikedByServices.createCommentDislike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deleteCommentDislike = async (req, res) => {
-  return commentDislikedByServices.deleteCommentDislike(req, res);
+  const response = await commentDislikedByServices.deleteCommentDislike(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const getCommentLikeDislikeStatus = async (req, res) => {
-  return commentServices.getCommentLikeDislikeStatus(req, res);
+  const response = await commentServices.getCommentLikeDislikeStatus(req);
+  return res.status(response.statusCode).send(response);
 };

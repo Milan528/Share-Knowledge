@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import ResponseManager from './ResponseManager/index.js';
+import response from './response/index.js';
 
 dotenv.config();
 
@@ -9,12 +9,12 @@ const tokenValidation = (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (token === 'undefined' || token === 'null') {
-    return ResponseManager.BAD_REQUEST(res, `Token is undefined`);
+    return response.BAD_REQUEST(`Token is undefined`);
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
-      return ResponseManager.BAD_REQUEST(res, err.message);
+      return response.BAD_REQUEST(err.message);
     }
 
     req.body.userID = user.id;

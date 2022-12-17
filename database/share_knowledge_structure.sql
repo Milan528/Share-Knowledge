@@ -15,8 +15,8 @@ DROP TABLE IF EXISTS user;
 
 CREATE TABLE user (
     id int(15) NOT NULL AUTO_INCREMENT,
-    username varchar(25) NOT NULL,
-    email varchar(25) NOT NULL,
+    username varchar(128) NOT NULL,
+    email varchar(128) NOT NULL,
     password varchar(1000) NOT NULL,
     role varchar(25) NOT NULL,
     PRIMARY KEY (id),

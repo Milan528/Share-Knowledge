@@ -3,10 +3,10 @@ import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import POST_TAG_QUERYS from '../sqlQuerys/postTag.querys.js';
 import database from '../tools/database.js';
-import ResponseManager from '../tools/ResponseManager/index.js';
 import { getTodaysDate } from '../tools/dateFormater.js';
 import POST_LIKED_BY_QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
+import response from '../tools/response/index.js';
 
 export const postLikeDislikeStatus = {
   liked: 'liked',
@@ -14,7 +14,7 @@ export const postLikeDislikeStatus = {
   none: 'none'
 };
 
-export const getPostLikeDislikeStatus = async (req, res) => {
+export const getPostLikeDislikeStatus = async (req) => {
   const { userID, postID } = req.body;
 
   const { results, error } = await database.query(POST_LIKED_BY_QUERYS.SELECT_POST_LIKE, [
@@ -23,62 +23,62 @@ export const getPostLikeDislikeStatus = async (req, res) => {
   ]);
 
   if (error) {
-    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   } else if (results[0]) {
     const data = postLikeDislikeStatus.liked;
-    return ResponseManager.OK(res, `Like status is: ${data}`, data);
+    return response.OK(`Like status is: ${data}`, data);
   } else if (!results[0]) {
-    await checkPostDislikeStatus(req, res);
-  }
-
-  async function checkPostDislikeStatus(req, res) {
-    const { results, error } = await database.query(POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE, [
-      userID,
-      postID
-    ]);
-
-    if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-    } else if (results[0]) {
-      const data = postLikeDislikeStatus.disliked;
-      return ResponseManager.OK(res, `Like status is: ${data}`, data);
-    } else if (!results[0]) {
-      const data = postLikeDislikeStatus.none;
-      return ResponseManager.OK(res, `Like status is: ${data}`, data);
-    }
+    return await checkPostDislikeStatus(userID, postID);
   }
 };
 
-export const getPostsByUsername = async (req, res) => {
+async function checkPostDislikeStatus(userID, postID) {
+  const { results, error } = await database.query(POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE, [
+    userID,
+    postID
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (results[0]) {
+    const data = postLikeDislikeStatus.disliked;
+    return response.OK(`Like status is: ${data}`, data);
+  } else if (!results[0]) {
+    const data = postLikeDislikeStatus.none;
+    return response.OK(`Like status is: ${data}`, data);
+  }
+}
+
+export const getPostsByUsername = async (req) => {
   const { username, order } = req.query;
   const { results, error } = await database.query(QUERYS.SELECT_POSTS_BY_USERNAME(username, order));
   if (error) {
-    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   } else if (!results) {
-    return ResponseManager.OK(res, `No posts found`);
+    return response.OK(`No posts found`);
   }
 
   const responseData = {
     posts: results
   };
-  await getTagsForPosts(responseData, res);
+  return await getTagsForPosts(responseData);
 };
 
-export const getPost = async (req, res) => {
+export const getPost = async (req) => {
   const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
   if (error) {
-    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results[0]) {
-    return ResponseManager.OK(res, `No post found`);
+    return response.OK(`No post found`);
   }
   const responseData = {
     posts: results
   };
-  await getTagsForPosts(responseData, res);
+  return await getTagsForPosts(responseData);
 };
 
-export const createPost = async (req, res) => {
+export const createPost = async (req) => {
   const { userID, post } = req.body;
   post.userId = userID;
   post.date = getTodaysDate();
@@ -90,39 +90,35 @@ export const createPost = async (req, res) => {
     post.date
   ]);
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   } else if (!results) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
     const postID = results.insertId;
 
-    await addTagForPost(res, postID, post.tags);
-  }
-
-  async function addTagForPost(res, postID, tags) {
-    for (const tag of tags) {
-      const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [
-        postID,
-        tag
-      ]);
-
-      if (error) {
-        return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
-      } else if (!results) {
-        return ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
-      }
-    }
-
-    return ResponseManager.CREATED(res, `Post created`, postID);
+    return await addTagForPost(postID, post.tags);
   }
 };
 
-export const updatePost = async (req, res) => {
+async function addTagForPost(postID, tags) {
+  for (const tag of tags) {
+    const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [postID, tag]);
+
+    if (error) {
+      return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+    } else if (!results) {
+      return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+    }
+  }
+
+  return response.CREATED(`Post created`, postID);
+}
+
+export const updatePost = async (req) => {
   const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
 
   if (!results[0]) {
-    ResponseManager.NOT_FOUND(res, `Post by id ${req.params.id} was not found`);
-    return;
+    return response.NOT_FOUND(`Post by id ${req.params.id} was not found`);
   }
 
   const { results: results2, error: error2 } = await database.query(QUERYS.UPDATE_POST, [
@@ -131,58 +127,58 @@ export const updatePost = async (req, res) => {
   ]);
 
   if (error2) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
     const post = {
       id: req.params.id,
       ...req.body
     };
-    ResponseManager.OK(`Post updated`, post);
+    return response.OK(`Post updated`, post);
   }
 };
 
-export const deletePost = async (req, res) => {
+export const deletePost = async (req) => {
   const { results, error } = await database.query(QUERYS.DELETE_POST, [req.params.id]);
 
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    ResponseManager.OK(`Post deleted`);
+    return response.OK(`Post deleted`);
   }
 };
 
-export const getSpecificPosts = async (req, res) => {
+export const getSpecificPosts = async (req) => {
   let { search, startIndex, count, tags, type, order } = req.body;
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order);
   let { results, error } = await database.query(sql);
 
   if (error) {
-    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results) {
-    return ResponseManager.OK(res, `No data for selected search`);
+    return response.OK(`No data for selected search`);
   }
 
   const dto = {
     posts: results
   };
 
-  await getTotalNumberOfPagesForSpecificPosts(req, res, dto);
+  return await getTotalNumberOfPagesForSpecificPosts(req, dto);
 };
 
-export const getTotalNumberOfPagesForSpecificPosts = async (req, res, dto) => {
+export const getTotalNumberOfPagesForSpecificPosts = async (req, dto) => {
   let { search, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS(tags, search, type);
   let { results, error } = await database.query(sql);
 
   if (error) {
-    return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results) {
-    return ResponseManager.OK(res, `No data for selected search`);
+    return response.OK(`No data for selected search`);
   }
 
   const totalRows = results[0].totalRows;
@@ -191,20 +187,20 @@ export const getTotalNumberOfPagesForSpecificPosts = async (req, res, dto) => {
   dto.totalNumberOfPages = totalNumberOfPages;
   dto.totalNumberOfPosts = totalRows;
 
-  await getTagsForPosts(dto, res);
+  return await getTagsForPosts(dto);
 };
 
-async function getTagsForPosts(responseData, res) {
+async function getTagsForPosts(responseData) {
   const posts = responseData.posts;
   for (const post of posts) {
     let { results, error } = await database.query(TAG_QUERYS.SELECT_TAGS_FOR_POST_ID, post.id);
     let tagsArray = [];
 
     if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+      return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
     }
     if (!results) {
-      return ResponseManager.OK(res, `No data for selected search`);
+      return response.OK(`No data for selected search`);
     }
     for (const result of results) {
       let tag = {
@@ -215,10 +211,10 @@ async function getTagsForPosts(responseData, res) {
     }
     post.tags = tagsArray;
   }
-  await getPostFiles(responseData, res);
+  return await getPostFiles(responseData);
 }
 
-async function getPostFiles(responseData, res) {
+async function getPostFiles(responseData) {
   const posts = responseData.posts;
   for (let post of posts) {
     const { results: postFiles, error } = await database.query(
@@ -226,25 +222,26 @@ async function getPostFiles(responseData, res) {
       post.id
     );
     if (error) {
-      return ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+      return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
     }
     post.files = !postFiles ? [] : postFiles;
   }
 
-  return ResponseManager.OK(res, `Posts retrieved`, responseData);
+  return response.OK(`Posts retrieved`, responseData);
 }
 
-export async function getPostLikes(res, postId, message, status) {
+export async function getPostLikes(postId, message, status) {
   const { results, error } = await database.query(selectSinglePostWithLikesAndDislikes(postId));
 
   if (error) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `An unexpected error occured`);
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results) {
-    ResponseManager.INTERNAL_SERVER_ERROR(res, `Error occurred`);
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
     const { likes, dislikes } = results[0];
-    ResponseManager.OK(res, message, {
+
+    return response.OK(`Error occurred`, message, {
       status,
       likes,
       dislikes

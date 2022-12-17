@@ -2,13 +2,16 @@ import services from '../services/index.js';
 const { tagsServices } = services;
 
 export const getTags = async (req, res) => {
-  return tagsServices.getTags(req, res);
+  const response = await tagsServices.getTags(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const createTag = async (req, res) => {
-  return tagsServices.createTag(req, res);
+  const response = await tagsServices.createTag(req);
+  return res.status(response.statusCode).send(response);
 };
 
 export const deleteTag = async (req, res) => {
-  return tagsServices.deleteTag(req, res);
+  const response = await tagsServices.deleteTag(req);
+  return res.status(response.statusCode).send(response);
 };

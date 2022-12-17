@@ -1,8 +1,7 @@
-import ResponseManager from '../ResponseManager/index.js';
+import response from '../response/index.js';
 
 const filesPayloadExists = (req, res, next) => {
-  if (!req.files) return ResponseManager.BAD_REQUEST(res, 'Missing files');
-
+  if (!req.files) return response.BAD_REQUEST('Missing files');
   next();
 };
 
