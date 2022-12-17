@@ -48,7 +48,7 @@ function SELECT_POST_BY_POSTID(postId) {
 }
 
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
-export function selectSinglePostWithLikesAndDislikes(
+function selectSinglePostWithLikesAndDislikes(
   tableOfSinglePostWithLikes,
   tableOfSinglePostWithDislikes
 ) {

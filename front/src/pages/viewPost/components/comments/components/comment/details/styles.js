@@ -2,6 +2,18 @@ import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
 import Today from '@mui/icons-material/Today';
 import { Button } from '@mui/material';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import { commentLikeDislikeStatus } from '.';
+
+export const LikeIcon = styled(ThumbUpOffAltIcon)`
+  color: ${({ like_dislike_status }) =>
+    like_dislike_status === commentLikeDislikeStatus.liked ? 'green' : ''};
+`;
+export const DislikeIcon = styled(ThumbDownOffAltIcon)`
+  color: ${({ like_dislike_status }) =>
+    like_dislike_status === commentLikeDislikeStatus.disliked ? 'red' : ''};
+`;
 
 export const ButtonText = styled(Typography)`
   && {

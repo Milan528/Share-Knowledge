@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Container,
@@ -7,39 +7,158 @@ import {
   DetailsContainer,
   DateContainer,
   StyledButton,
+  LikeIcon,
+  DislikeIcon,
 } from './styles';
-import ThumbUp from '@mui/icons-material/ThumbUp';
-import ThumbDown from '@mui/icons-material/ThumbDown';
-// import { useNavigate } from 'react-router';
-
-const dateFormat = (date) => {
-  let splitedDate = date.split('-');
-  const day = splitedDate[0];
-  const month = splitedDate[1];
-  const year = splitedDate[2];
-  let formatedDate = `${day}.${month}.${year}`;
-  return formatedDate;
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addCommentDislike,
+  addCommentLike,
+  checkUserLikeDislikeForComment,
+  removeCommentDislike,
+  removeCommentLike,
+} from '../../../../../reduxThunk/actions';
+export const commentLikeDislikeStatus = {
+  liked: 'liked',
+  disliked: 'disliked',
+  none: 'none',
 };
-
 const Details = (props) => {
-  // const navigate = useNavigate();
-  const { likes, date, dislikes } = props;
-  // const { postId } = props;
+  const { likes: propLikes, date, dislikes: propDislikes, commentId } = props;
+  const [likes, setLikes] = useState(propLikes);
+  const [dislikes, setDislikes] = useState(propDislikes);
+  const token = useSelector((state) => state.app.token);
+  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(
+        checkUserLikeDislikeForComment(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus
+        )
+      );
+    }
+  }, [token, commentId, dispatch]);
+
+  const handleLike = () => {
+    if (token && likeDislikeStatus === commentLikeDislikeStatus.none) {
+      dispatch(
+        addCommentLike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setLikes
+        )
+      );
+    } else if (token && likeDislikeStatus === commentLikeDislikeStatus.liked) {
+      dispatch(
+        removeCommentLike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setLikes
+        )
+      );
+    } else if (
+      token &&
+      likeDislikeStatus === commentLikeDislikeStatus.disliked
+    ) {
+      dispatch(
+        removeCommentDislike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setDislikes,
+          () =>
+            dispatch(
+              addCommentLike(
+                commentId,
+                setError,
+                setLoading,
+                setLikeDislikeStatus,
+                setLikes
+              )
+            )
+        )
+      );
+    }
+  };
+
+  const handleDislike = () => {
+    if (token && likeDislikeStatus === commentLikeDislikeStatus.none) {
+      dispatch(
+        addCommentDislike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setDislikes
+        )
+      );
+    } else if (
+      token &&
+      likeDislikeStatus === commentLikeDislikeStatus.disliked
+    ) {
+      dispatch(
+        removeCommentDislike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setDislikes
+        )
+      );
+    } else if (token && likeDislikeStatus === commentLikeDislikeStatus.liked) {
+      dispatch(
+        removeCommentLike(
+          commentId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setLikes,
+          () =>
+            dispatch(
+              addCommentDislike(
+                commentId,
+                setError,
+                setLoading,
+                setLikeDislikeStatus,
+                setDislikes
+              )
+            )
+        )
+      );
+    }
+  };
 
   return (
     <Container>
       <DetailsContainer>
-        <StyledButton>
-          <ThumbUp />
-          <Likes color="textSecondary"> {likes} </Likes>
+        <StyledButton onClick={handleLike} disabled={loading}>
+          <LikeIcon like_dislike_status={likeDislikeStatus} />
+          <Likes color="textSecondary">{likes}</Likes>
         </StyledButton>
-        <StyledButton color="primary">
-          <ThumbDown />
-          <Likes color="textSecondary"> {dislikes} </Likes>
+        <StyledButton
+          color="primary"
+          onClick={handleDislike}
+          disabled={loading}
+        >
+          <DislikeIcon like_dislike_status={likeDislikeStatus} />
+          <Likes color="textSecondary">{dislikes}</Likes>
         </StyledButton>
+        {error ? <p>Unable to like/unlike. Error ocured.</p> : null}
         <DateContainer>
           <DateIcon />
-          <Typography> {dateFormat(date)} </Typography>
+          <Typography> {date} </Typography>
         </DateContainer>
       </DetailsContainer>
     </Container>

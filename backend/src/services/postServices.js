@@ -1,4 +1,4 @@
-import QUERYS, { selectSinglePostWithLikesAndDislikes } from '../sqlQuerys/posts.querys.js';
+import QUERYS from '../sqlQuerys/posts.querys.js';
 import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import POST_TAG_QUERYS from '../sqlQuerys/postTag.querys.js';
@@ -194,25 +194,6 @@ export const getTotalNumberOfPagesForSpecificPosts = async (req, dto) => {
   dto.totalNumberOfPosts = totalRows;
 
   return await getTagsForPosts(dto);
-};
-
-export const getPostLikes = async (postId, message, status) => {
-  const { results, error } = await database.query(selectSinglePostWithLikesAndDislikes(postId));
-
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  }
-  if (!results) {
-    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
-  } else {
-    const { likes, dislikes } = results[0];
-
-    return response.OK(`Error occurred`, message, {
-      status,
-      likes,
-      dislikes
-    });
-  }
 };
 
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */

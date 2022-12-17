@@ -39,13 +39,7 @@ const Details = (props) => {
   useEffect(() => {
     if (token) {
       dispatch(
-        checkUserLikeDislike(
-          token,
-          postId,
-          setError,
-          setLoading,
-          setLikeDislikeStatus
-        )
+        checkUserLikeDislike(postId, setError, setLoading, setLikeDislikeStatus)
       );
     }
   }, [token, postId, dispatch]);
@@ -153,7 +147,7 @@ const Details = (props) => {
           <DislikeIcon like_dislike_status={likeDislikeStatus} />
           <Likes color="textSecondary">{dislikes}</Likes>
         </StyledButton>
-        {error ? <p>Unable to like/unlike posts. Error ocured.</p> : null}
+        {error ? <p>Unable to like/unlike. Error ocured.</p> : null}
         <DateContainer>
           <DateIcon />
           <Typography> {date} </Typography>

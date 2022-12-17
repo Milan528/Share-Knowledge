@@ -14,7 +14,6 @@ export const commentLikeDislikeStatus = {
 
 export const getCommentLikeDislikeStatus = async (req) => {
   const { userID, commentID } = req.body;
-
   const { results, error } = await database.query(COMMENT_LIKED_BY_QUERYS.SELECT_COMMENT_LIKE, [
     userID,
     commentID

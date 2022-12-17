@@ -12,6 +12,11 @@ import serialize from '../../../utils/serialize';
 import {
   getCommentsRepository,
   addCommentRepository,
+  getCommentLikeDislikeStatusRepository,
+  addCommentLikeRepository,
+  removeCommentLikeRepository,
+  addCommentDislikeRepository,
+  removeCommentDislikeRepository,
 } from '../repository/comments';
 import {
   addPostDislikeRepository,
@@ -89,8 +94,11 @@ export const loadSpecificPost =
   };
 
 export const checkUserLikeDislike =
-  (token, postID, setError, setLoading, setLikeDislikeStatus) =>
+  (postID, setError, setLoading, setLikeDislikeStatus) =>
   async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
     const DTO = {
       token,
       postID,
@@ -195,6 +203,128 @@ export const removePostDislike =
     try {
       setLoading(true);
       const status = await removePostDislikeRepository(DTO);
+      setLikeDislikeStatus(status);
+      setDislikes((prev) => Number(prev) - 1);
+      if (clb) clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const checkUserLikeDislikeForComment =
+  (commentID, setError, setLoading, setLikeDislikeStatus) =>
+  async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
+    const DTO = {
+      token,
+      commentID,
+    };
+
+    try {
+      setLoading(true);
+      const likeDislikeStatus = await getCommentLikeDislikeStatusRepository(
+        DTO
+      );
+      setLikeDislikeStatus(likeDislikeStatus);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const addCommentLike =
+  (commentID, setError, setLoading, setLikeDislikeStatus, setLikes) =>
+  async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
+
+    const DTO = {
+      token,
+      commentID,
+    };
+
+    try {
+      setLoading(true);
+      const status = await addCommentLikeRepository(DTO);
+      setLikeDislikeStatus(status);
+      setLikes((prev) => Number(prev) + 1);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const removeCommentLike =
+  (commentID, setError, setLoading, setLikeDislikeStatus, setLikes, clb) =>
+  async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
+
+    const DTO = {
+      token,
+      commentID,
+    };
+
+    try {
+      setLoading(true);
+      const status = await removeCommentLikeRepository(DTO);
+      setLikeDislikeStatus(status);
+      setLikes((prev) => Number(prev) - 1);
+      if (clb) clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const addCommentDislike =
+  (commentID, setError, setLoading, setLikeDislikeStatus, setDislikes) =>
+  async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
+
+    const DTO = {
+      token,
+      commentID,
+    };
+
+    try {
+      setLoading(true);
+      const status = await addCommentDislikeRepository(DTO);
+      setLikeDislikeStatus(status);
+      setDislikes((prev) => Number(prev) + 1);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const removeCommentDislike =
+  (commentID, setError, setLoading, setLikeDislikeStatus, setDislikes, clb) =>
+  async (dispatch, getState) => {
+    const {
+      app: { token },
+    } = getState();
+
+    const DTO = {
+      token,
+      commentID,
+    };
+
+    try {
+      setLoading(true);
+      const status = await removeCommentDislikeRepository(DTO);
       setLikeDislikeStatus(status);
       setDislikes((prev) => Number(prev) - 1);
       if (clb) clb();

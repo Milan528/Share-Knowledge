@@ -40,6 +40,31 @@ export const addCommentRepository = async (comment, setUploadProgress) => {
   }
 };
 
+export const getCommentLikeDislikeStatusRepository = async (data) => {
+  const dto = await services.post('/comments/commentLikeDislikeStatus', data);
+  return dto.data;
+};
+
+export const addCommentLikeRepository = async (data) => {
+  const dto = await services.post('/comments/like', data);
+  return dto.data;
+};
+
+export const removeCommentLikeRepository = async (data) => {
+  const dto = await services.delete('/comments/like', data);
+  return dto.data;
+};
+
+export const addCommentDislikeRepository = async (data) => {
+  const dto = await services.post('/comments/dislike', data);
+  return dto.data;
+};
+
+export const removeCommentDislikeRepository = async (data) => {
+  const dto = await services.delete('/comments/dislike', data);
+  return dto.data;
+};
+
 function mapCommentToDto(comment) {
   return {
     text: comment.description,

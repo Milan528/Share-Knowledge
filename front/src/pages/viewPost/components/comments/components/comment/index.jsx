@@ -10,7 +10,7 @@ const Comment = (props) => {
   return (
     <StyledPaper elevation={1}>
       <Content text={text} files={files} />
-      <Details likes={likes} postId={id} date={date} dislikes={dislikes}/>
+      <Details likes={likes} commentId={id} date={date} dislikes={dislikes} />
     </StyledPaper>
   );
 };
