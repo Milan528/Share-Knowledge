@@ -75,8 +75,18 @@ const Post = () => {
 
   const viewToRender = () => {
     if (post) {
-      const { title, type, text, files, tags, likes, dislikes, id, date } =
-        post;
+      const {
+        title,
+        type,
+        text,
+        files,
+        tags,
+        likes,
+        dislikes,
+        id,
+        date,
+        postedBy,
+      } = post;
 
       return (
         <>
@@ -104,6 +114,7 @@ const Post = () => {
               postId={id}
               date={date}
               dislikes={dislikes}
+              postedBy={postedBy}
             />
           </StyledPaper>
         </>

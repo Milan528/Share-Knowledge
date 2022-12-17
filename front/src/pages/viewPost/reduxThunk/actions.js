@@ -69,6 +69,7 @@ export const addComment =
   };
 
 export const loadSpecificPost =
+  //used when viewing post after clicking on arrows
   (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
     const { selectedTags, type, search, order } = homepageFilters;
 

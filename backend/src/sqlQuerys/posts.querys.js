@@ -25,12 +25,15 @@ export default QUERY;
 /*********************************ONE*********************************/
 
 function SELECT_POST_BY_POSTID(postId) {
-  let sql = '';
-  sql += 'Select id, text, title, type, likes, dislikes,  date, group_concat(tagId) as tags ';
+  let sql =
+    'Select postWithNoUsername.id, text, title, type, likes, dislikes,  date, tags, username as postedBy ';
+  sql += `from (`;
+  sql +=
+    'Select id, text, title, type, likes, dislikes,  date, userId ,group_concat(tagId) as tags ';
   sql += 'from ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT myTable2.id,text,title,type,likes, dislikes, date,tagId ';
+  sql1 += 'SELECT myTable2.id,text,title,type,likes, dislikes, date,tagId ,userId ';
   sql1 += 'FROM ( ';
 
   sql1 += selectSinglePostWithLikesAndDislikes(
@@ -39,10 +42,12 @@ function SELECT_POST_BY_POSTID(postId) {
   );
   sql1 += `) as myTable2 `;
   sql1 += 'JOIN post_tag ON myTable2.id=post_tag.postId ';
-
   sql += sql1;
   sql += ` ) as myTable `;
   sql += `group by id `;
+  sql += `) as postWithNoUsername `;
+  sql += 'join user ';
+  sql += 'ON postWithNoUsername.userId=user.id ';
 
   return sql;
 }
@@ -54,7 +59,7 @@ function selectSinglePostWithLikesAndDislikes(
 ) {
   let sql = '';
   sql +=
-    'SELECT postWithLikes.id, postWithLikes.title, postWithLikes.text, postWithLikes.type, postWithLikes.date, postWithLikes.likes, postWithDislikes.dislikes ';
+    'SELECT postWithLikes.id, postWithLikes.title, postWithLikes.text, postWithLikes.type, postWithLikes.date, postWithLikes.likes, postWithDislikes.dislikes, postWithLikes.userId ';
   sql += 'FROM ( ';
   sql += tableOfSinglePostWithLikes;
   sql += ') as postWithLikes ';
@@ -68,11 +73,11 @@ function selectSinglePostWithLikesAndDislikes(
 
 function selectSinglePostWithLikes(postId) {
   let sql2 = '';
-  sql2 += 'select id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
+  sql2 += 'select id, title, text, type, date, userId ,SUM(if(likedPostId=0,0,1)) AS likes  ';
   sql2 += 'from ( ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
+  sql3 += 'SELECT id, title, text, type, date, post.userId, COALESCE(postId, 0) as likedPostId ';
   sql3 += 'from post ';
   sql3 += 'left join postLikedBy  ';
   sql3 += 'ON post.id=postLikedBy.postId ';
@@ -87,11 +92,11 @@ function selectSinglePostWithLikes(postId) {
 
 function selectSinglePostWithDislikes(postId) {
   let sql2 = '';
-  sql2 += 'select id, title, text, type, date, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
+  sql2 += 'select id, title, text, type, date, userId, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
   sql2 += 'from ( ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as dislikedPostId ';
+  sql3 += 'SELECT id, title, text, type, date, post.userId, COALESCE(postId, 0) as dislikedPostId ';
   sql3 += 'from post ';
   sql3 += 'left join postDislikedBy  ';
   sql3 += 'ON post.id=postDislikedBy.postId ';
@@ -112,13 +117,16 @@ function SELECT_POSTS_BY_USERNAME(username, order) {
     selectPostsWithLikes(selectPostsWithoutLikesAndDislikesByUsername(username)),
     selectPostsWithDislikes(selectPostsWithoutLikesAndDislikesByUsername(username))
   );
+
   sql += `order by ${orderSql[order]} `;
   sql += ') as orderedTable ';
   return sql;
 }
 
 function SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order) {
-  let sql = 'SELECT * FROM ( ';
+  let sql =
+    'SELECT t.id, t.text, t.title, t.type, t.likes, t.dislikes, t.date, t.username as postedBy, t.tags ';
+  sql += 'FROM ( ';
   sql += filterByTagsPostsWithLikesAndDislikes(
     tags,
     selectPostsWithLikesAndDislikes(
@@ -127,7 +135,7 @@ function SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order) {
     )
   );
   sql += `order by ${orderSql[order]} `;
-  sql += ') as tableToLimit ';
+  sql += ') as t ';
   sql += `limit ${startIndex},${count}; `;
   return sql;
 }
@@ -144,6 +152,7 @@ function SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS(tags, search, type) {
     )
   );
   sql += ') as myTable3 ';
+
   return sql;
 }
 
@@ -170,11 +179,12 @@ function SELECT_SPECIFIC_POSTS_IDS(ids, startIndex, count) {
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
 function filterByTagsPostsWithLikesAndDislikes(tags, tableOfPostsWithLikesAndDislikes) {
   let sql = '';
-  sql += 'Select id, text, title, type, likes, dislikes, date, group_concat(tagId) as tags ';
+  sql +=
+    'Select id, text, title, type, likes, dislikes, date, username, group_concat(tagId) as tags ';
   sql += 'from ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT myTable2.id,text,title,type,likes,dislikes, date,tagId ';
+  sql1 += 'SELECT myTable2.id,text,title,type,likes,dislikes, date, username, tagId ';
   sql1 += 'FROM ( ';
 
   sql1 += tableOfPostsWithLikesAndDislikes;
@@ -192,12 +202,18 @@ function filterByTagsPostsWithLikesAndDislikes(tags, tableOfPostsWithLikesAndDis
   sql += sql1;
   sql += ` ) as myTable `;
   sql += `group by id, text, title, type, likes, dislikes, date `;
+
   return sql;
 }
 
 function filterByTypeSearchPostsWithoutLikesAndDislikes(type, search) {
   let sql4 = '';
-  sql4 += 'SELECT * FROM post where type in( ';
+  sql4 += 'SELECT post.id, post.title, post.text, post.type, post.date, post.userId, username ';
+  sql4 += 'FROM post ';
+  sql4 += 'join user ';
+  sql4 += 'on post.userId=user.id ';
+
+  sql4 += 'where type in( ';
 
   if (type && (type === 'question' || type === 'material')) {
     sql4 += `'${type}'`;
@@ -208,7 +224,6 @@ function filterByTypeSearchPostsWithoutLikesAndDislikes(type, search) {
   sql4 += ') ';
 
   if (search && search.trim() !== '') {
-    // sql4 += `and (title LIKE '%${search}%' or text LIKE '%${search}%') `;
     sql4 += `and MATCH(title,text) AGAINST('${search}*' IN BOOLEAN MODE) `;
   }
 
@@ -218,7 +233,7 @@ function filterByTypeSearchPostsWithoutLikesAndDislikes(type, search) {
 function selectPostsWithLikesAndDislikes(tableOfPostsWithLikes, tableOfPostsWithDislikes) {
   let sql = '';
   sql +=
-    'SELECT postsWithLikes.id, postsWithLikes.title, postsWithLikes.text, postsWithLikes.type, postsWithLikes.date, postsWithLikes.likes, postsWithDislikes.dislikes ';
+    'SELECT postsWithLikes.id, postsWithLikes.title, postsWithLikes.text, postsWithLikes.type, postsWithLikes.date, postsWithLikes.likes, postsWithDislikes.dislikes, postsWithDislikes.username ';
   sql += 'FROM ( ';
   sql += tableOfPostsWithLikes;
   sql += ') as postsWithLikes ';
@@ -226,17 +241,16 @@ function selectPostsWithLikesAndDislikes(tableOfPostsWithLikes, tableOfPostsWith
   sql += tableOfPostsWithDislikes;
   sql += ') postsWithDislikes ';
   sql += 'on postsWithLikes.id=postsWithDislikes.id ';
-
   return sql;
 }
 
 function selectPostsWithLikes(tableOfPostsWithoutLikes) {
   let sql2 = '';
-  sql2 += 'SELECT id, title, text, type, date, SUM(if(likedPostId=0,0,1)) AS likes  ';
+  sql2 += 'SELECT id, title, text, type, date, username, SUM(if(likedPostId=0,0,1)) AS likes  ';
   sql2 += 'FROM (  ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as likedPostId ';
+  sql3 += 'SELECT id, title, text, type, date, username, COALESCE(postId, 0) as likedPostId ';
   sql3 += 'FROM ( ';
 
   sql3 += tableOfPostsWithoutLikes;
@@ -247,18 +261,19 @@ function selectPostsWithLikes(tableOfPostsWithoutLikes) {
   sql2 += sql3;
 
   sql2 += ') as myTable3 ';
-  sql2 += 'GROUP BY id, text, date, likedPostId ';
+  sql2 += 'GROUP BY id, text, date, username, likedPostId ';
 
   return sql2;
 }
 
 function selectPostsWithDislikes(tableOfPostsWithoutDislikes) {
   let sql2 = '';
-  sql2 += 'SELECT id, title, text, type, date, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
+  sql2 +=
+    'SELECT id, title, text, type, date, username, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
   sql2 += 'FROM (  ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, COALESCE(postId, 0) as dislikedPostId ';
+  sql3 += 'SELECT id, title, text, type, date, username, COALESCE(postId, 0) as dislikedPostId ';
   sql3 += 'FROM ( ';
 
   sql3 += tableOfPostsWithoutDislikes;
@@ -269,14 +284,14 @@ function selectPostsWithDislikes(tableOfPostsWithoutDislikes) {
   sql2 += sql3;
 
   sql2 += ') as myTable3 ';
-  sql2 += 'GROUP BY id, text, date, dislikedPostId ';
+  sql2 += 'GROUP BY id, text, date, username, dislikedPostId ';
 
   return sql2;
 }
 
 function selectPostsWithoutLikesAndDislikesByUsername(username) {
   let sql = '';
-  sql += 'select post.id, post.title, post.text, post.type, post.date, post.userId ';
+  sql += 'select post.id, post.title, post.text, post.type, post.date, post.userId, username ';
   sql += 'from post ';
   sql += 'join user ';
   sql += 'on user.id=post.userId ';
