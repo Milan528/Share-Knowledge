@@ -1,6 +1,5 @@
 import express from 'express';
 import {
-  getPost,
   getPostsByUsername,
   createPost,
   deletePost,
@@ -10,14 +9,15 @@ import {
   deletePostLike,
   createPostDislike,
   deletePostDislike,
-  getPostLikeDislikeStatus
+  getPostLikeDislikeStatus,
+  getPostById
 } from '../controllers/posts.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
 const postsRoutes = express.Router();
 
 postsRoutes.route('/').post(tokenValidation, createPost);
-postsRoutes.route('/postId/:id').get(getPost).put(updatePost).delete(deletePost);
+postsRoutes.route('/postId/:id').get(getPostById).put(updatePost).delete(deletePost);
 postsRoutes.route('/specificPosts').post(getSpecificPosts);
 postsRoutes.route('/user').get(getPostsByUsername);
 postsRoutes

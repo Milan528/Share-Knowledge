@@ -1,5 +1,9 @@
 import React from 'react';
-import { profileRoute, tagsRoute, usersRoute } from '../../../../app/router/routes';
+import {
+  profileRoute,
+  tagsRoute,
+  usersRoute,
+} from '../../../../app/router/routes';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../../../app/redux/slices';
@@ -11,13 +15,11 @@ const Authorized = () => {
   const dispatch = useDispatch();
 
   const handleProfile = () => {
-    navigate(
-      {
-        pathname: profileRoute,
-        search: `username=${username}`,
-      },
-    )
-  }
+    navigate({
+      pathname: profileRoute,
+      search: `username=${username}`,
+    });
+  };
 
   const handleLogout = () => {
     dispatch(setToken(null));

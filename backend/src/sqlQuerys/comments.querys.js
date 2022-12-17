@@ -1,32 +1,37 @@
 const QUERY = {
   CREATE_COMMENT: 'INSERT INTO comment(text, date, postId, userId) VALUES (?, ?, ?,?)',
-  SELECT_COMMENTS_FOR_POST: (postId) => {
-    let sql = '';
-    sql += selectPostsWithLikesAndDislikes(
-      selectCommentsWithLikes(postId),
-      selectCommentsWithDislikes(postId)
-    );
-
-    return sql;
-  }
+  SELECT_COMMENTS_FOR_POST
 };
 
 export default QUERY;
 
-/******************************HELPERS******************************/
+/*********************************ONE*********************************/
 
-function selectPostsWithLikesAndDislikes(
-  sqlSelectCommentsWithLikes,
-  sqlSelectCommentsWithDislikes
-) {
+/* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
+
+/*********************************MANY*********************************/
+
+function SELECT_COMMENTS_FOR_POST(postId) {
+  let sql = '';
+  sql += selectCommentsWithLikesAndDislikes(
+    selectCommentsWithLikes(postId),
+    selectCommentsWithDislikes(postId)
+  );
+
+  return sql;
+}
+
+/* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
+
+function selectCommentsWithLikesAndDislikes(tableOfCommentsWithLikes, tableOfCommentsWithDislikes) {
   let sql = '';
   sql +=
     'SELECT commentsWithLikes.id, commentsWithLikes.text, commentsWithLikes.date, commentsWithLikes.likes, commentsWithDislikes.dislikes ';
   sql += 'FROM ( ';
-  sql += sqlSelectCommentsWithLikes;
+  sql += tableOfCommentsWithLikes;
   sql += ') as commentsWithLikes ';
   sql += 'join ( ';
-  sql += sqlSelectCommentsWithDislikes;
+  sql += tableOfCommentsWithDislikes;
   sql += ') commentsWithDislikes ';
   sql += 'on commentsWithLikes.id=commentsWithDislikes.id ';
 

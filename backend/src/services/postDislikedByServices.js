@@ -11,7 +11,8 @@ export const createPostDislike = async (req) => {
   } else if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return await getPostLikes(postID, `Post dislike created`, postLikeDislikeStatus.disliked);
+    // return await getPostLikes(postID, `Post dislike created`, postLikeDislikeStatus.disliked);
+    return response.OK(`Post dislike created`, postLikeDislikeStatus.disliked);
   }
 };
 
@@ -25,6 +26,7 @@ export const deletePostDislike = async (req) => {
   if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return await getPostLikes(postID, `Post dislike deleted`, postLikeDislikeStatus.none);
+    // return await getPostLikes(postID, `Post dislike deleted`, postLikeDislikeStatus.none);
+    return response.OK(`Post dislike deleted`, postLikeDislikeStatus.none);
   }
 };

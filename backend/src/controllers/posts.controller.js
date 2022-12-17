@@ -6,8 +6,8 @@ export const getPostsByUsername = async (req, res) => {
   return res.status(response.statusCode).send(response);
 };
 
-export const getPost = async (req, res) => {
-  const response = await postServices.getPost(req);
+export const getPostById = async (req, res) => {
+  const response = await postServices.getPostById(req);
   return res.status(response.statusCode).send(response);
 };
 

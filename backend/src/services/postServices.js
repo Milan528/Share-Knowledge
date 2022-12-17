@@ -14,6 +14,8 @@ export const postLikeDislikeStatus = {
   none: 'none'
 };
 
+/*********************************ONE*********************************/
+
 export const getPostLikeDislikeStatus = async (req) => {
   const { userID, postID } = req.body;
 
@@ -32,23 +34,6 @@ export const getPostLikeDislikeStatus = async (req) => {
   }
 };
 
-async function checkPostDislikeStatus(userID, postID) {
-  const { results, error } = await database.query(POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE, [
-    userID,
-    postID
-  ]);
-
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (results[0]) {
-    const data = postLikeDislikeStatus.disliked;
-    return response.OK(`Like status is: ${data}`, data);
-  } else if (!results[0]) {
-    const data = postLikeDislikeStatus.none;
-    return response.OK(`Like status is: ${data}`, data);
-  }
-}
-
 export const getPostsByUsername = async (req) => {
   const { username, order } = req.query;
   const { results, error } = await database.query(QUERYS.SELECT_POSTS_BY_USERNAME(username, order));
@@ -64,7 +49,7 @@ export const getPostsByUsername = async (req) => {
   return await getTagsForPosts(responseData);
 };
 
-export const getPost = async (req) => {
+export const getPostById = async (req) => {
   const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
   if (error) {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
@@ -99,20 +84,6 @@ export const createPost = async (req) => {
     return await addTagForPost(postID, post.tags);
   }
 };
-
-async function addTagForPost(postID, tags) {
-  for (const tag of tags) {
-    const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [postID, tag]);
-
-    if (error) {
-      return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-    } else if (!results) {
-      return response.INTERNAL_SERVER_ERROR(`Error occurred`);
-    }
-  }
-
-  return response.CREATED(`Post created`, postID);
-}
 
 export const updatePost = async (req) => {
   const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
@@ -149,6 +120,41 @@ export const deletePost = async (req) => {
     return response.OK(`Post deleted`);
   }
 };
+
+/* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
+
+async function checkPostDislikeStatus(userID, postID) {
+  const { results, error } = await database.query(POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE, [
+    userID,
+    postID
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (results[0]) {
+    const data = postLikeDislikeStatus.disliked;
+    return response.OK(`Like status is: ${data}`, data);
+  } else if (!results[0]) {
+    const data = postLikeDislikeStatus.none;
+    return response.OK(`Like status is: ${data}`, data);
+  }
+}
+
+async function addTagForPost(postID, tags) {
+  for (const tag of tags) {
+    const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [postID, tag]);
+
+    if (error) {
+      return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+    } else if (!results) {
+      return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+    }
+  }
+
+  return response.CREATED(`Post created`, postID);
+}
+
+/*********************************MANY*********************************/
 
 export const getSpecificPosts = async (req) => {
   let { search, startIndex, count, tags, type, order } = req.body;
@@ -190,6 +196,27 @@ export const getTotalNumberOfPagesForSpecificPosts = async (req, dto) => {
   return await getTagsForPosts(dto);
 };
 
+export const getPostLikes = async (postId, message, status) => {
+  const { results, error } = await database.query(selectSinglePostWithLikesAndDislikes(postId));
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  } else {
+    const { likes, dislikes } = results[0];
+
+    return response.OK(`Error occurred`, message, {
+      status,
+      likes,
+      dislikes
+    });
+  }
+};
+
+/* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
+
 async function getTagsForPosts(responseData) {
   const posts = responseData.posts;
   for (const post of posts) {
@@ -228,23 +255,4 @@ async function getPostFiles(responseData) {
   }
 
   return response.OK(`Posts retrieved`, responseData);
-}
-
-export async function getPostLikes(postId, message, status) {
-  const { results, error } = await database.query(selectSinglePostWithLikesAndDislikes(postId));
-
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  }
-  if (!results) {
-    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
-  } else {
-    const { likes, dislikes } = results[0];
-
-    return response.OK(`Error occurred`, message, {
-      status,
-      likes,
-      dislikes
-    });
-  }
 }

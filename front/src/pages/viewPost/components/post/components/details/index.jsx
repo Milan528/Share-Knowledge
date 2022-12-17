@@ -51,56 +51,88 @@ const Details = (props) => {
   }, [token, postId, dispatch]);
 
   const handleLike = () => {
-    if (likeDislikeStatus === postLikeDislikeStatus.none) {
+    if (token && likeDislikeStatus === postLikeDislikeStatus.none) {
       dispatch(
         addPostLike(
-          token,
           postId,
           setError,
           setLoading,
           setLikeDislikeStatus,
-          setLikes,
-          setDislikes
+          setLikes
         )
       );
-    } else if (likeDislikeStatus === postLikeDislikeStatus.liked) {
+    } else if (token && likeDislikeStatus === postLikeDislikeStatus.liked) {
       dispatch(
         removePostLike(
-          token,
           postId,
           setError,
           setLoading,
           setLikeDislikeStatus,
-          setLikes,
-          setDislikes
+          setLikes
+        )
+      );
+    } else if (token && likeDislikeStatus === postLikeDislikeStatus.disliked) {
+      dispatch(
+        removePostDislike(
+          postId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setDislikes,
+          () =>
+            dispatch(
+              addPostLike(
+                postId,
+                setError,
+                setLoading,
+                setLikeDislikeStatus,
+                setLikes
+              )
+            )
         )
       );
     }
   };
 
   const handleDislike = () => {
-    if (likeDislikeStatus === postLikeDislikeStatus.none) {
+    if (token && likeDislikeStatus === postLikeDislikeStatus.none) {
       dispatch(
         addPostDislike(
-          token,
           postId,
           setError,
           setLoading,
           setLikeDislikeStatus,
-          setLikes,
           setDislikes
         )
       );
-    } else if (likeDislikeStatus === postLikeDislikeStatus.disliked) {
+    } else if (token && likeDislikeStatus === postLikeDislikeStatus.disliked) {
       dispatch(
         removePostDislike(
-          token,
+          postId,
+          setError,
+          setLoading,
+          setLikeDislikeStatus,
+          setDislikes
+        )
+      );
+    } else if (token && likeDislikeStatus === postLikeDislikeStatus.liked) {
+      dispatch(
+        removePostLike(
           postId,
           setError,
           setLoading,
           setLikeDislikeStatus,
           setLikes,
-          setDislikes
+          () =>
+            dispatch(
+              addPostDislike(
+                postId,
+                setError,
+                setLoading,
+                setLikeDislikeStatus,
+                setDislikes
+              )
+            )
         )
       );
     }
