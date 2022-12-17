@@ -7,14 +7,32 @@ import Tags from './components/tags';
 
 const Post = (props) => {
   const { data } = props;
-  const { title, type, text, files, tags, likes, dislikes, id, date } = data;
+  const {
+    title,
+    type,
+    text,
+    files,
+    tags,
+    likes,
+    dislikes,
+    id,
+    date,
+    postedBy,
+  } = data;
 
   return (
     <StyledPaper elevation={1}>
       <Title title={title} type={type} />
       <Content text={text} files={files} />
       <Tags tags={tags} />
-      <Details likes={likes} postId={id} date={date} data={data} dislikes={dislikes}/>
+      <Details
+        likes={likes}
+        postId={id}
+        date={date}
+        data={data}
+        dislikes={dislikes}
+        postedBy={postedBy}
+      />
     </StyledPaper>
   );
 };

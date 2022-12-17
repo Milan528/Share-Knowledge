@@ -11,13 +11,17 @@ import {
   DislikeIcon,
 } from './styles';
 import { useNavigate } from 'react-router';
-import { viewPostRoute } from '../../../../../../../../app/router/routes';
+import {
+  profileRoute,
+  viewPostRoute,
+} from '../../../../../../../../app/router/routes';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Details = (props) => {
   const navigate = useNavigate();
-  const { likes, dislikes, postId, date } = props;
+  const { likes, dislikes, postId, date, postedBy } = props;
 
   const currentPage = useSelector((state) => state.home.currentPage);
   const postPerPage = useSelector((state) => state.home.postPerPage);
@@ -50,6 +54,13 @@ const Details = (props) => {
     );
   };
 
+  const handleVisitUserProfile = () => {
+    navigate({
+      pathname: profileRoute,
+      search: `username=${postedBy}`,
+    });
+  };
+
   return (
     <Container>
       <DetailsContainer>
@@ -63,6 +74,10 @@ const Details = (props) => {
           {/* <ThumbDownOffAltIcon /> */}
           <Likes color="textSecondary"> {dislikes} </Likes>
         </LikesWrapper>
+        <Button onClick={handleVisitUserProfile}>
+          <AccountCircleIcon />
+          {postedBy}
+        </Button>
         <DateIcon />
         <Typography> {date}</Typography>
       </DetailsContainer>

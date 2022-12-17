@@ -91,7 +91,9 @@ const ImageViewer = (props) => {
     <MinHeightContainer>
       <Container>
         <ImageContainer>
-          <Image image={files[activeSlide].src} />
+          <Image>
+            <img src={files[activeSlide].src} />
+          </Image>
         </ImageContainer>
         <ControlsContainer>
           {files.length > 1 ? (
