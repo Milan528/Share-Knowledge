@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   Container,
   Likes,
@@ -14,15 +13,11 @@ import {
 import {
   addPostDislike,
   addPostLike,
-  checkUserLikeDislike,
   removePostDislike,
   removePostLike,
 } from '../../../../reduxThunk/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { profileRoute } from '../../../../../../app/router/routes';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 export const postLikeDislikeStatus = {
   liked: 'liked',
@@ -36,7 +31,6 @@ const Details = (props) => {
     date,
     dislikes: propDislikes,
     postId,
-    postedBy,
     likeStatus,
   } = props;
   const [likes, setLikes] = useState(propLikes);
@@ -46,7 +40,6 @@ const Details = (props) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(likeStatus);
-  const navigate = useNavigate();
 
   const handleLike = () => {
     if (token && likeDislikeStatus === postLikeDislikeStatus.none) {
@@ -136,13 +129,6 @@ const Details = (props) => {
     }
   };
 
-  const handleVisitUserProfile = () => {
-    navigate({
-      pathname: profileRoute,
-      search: `username=${postedBy}`,
-    });
-  };
-
   return (
     <Container>
       <DetailsContainer>
@@ -159,10 +145,6 @@ const Details = (props) => {
           <Likes color="textSecondary">{dislikes}</Likes>
         </StyledButton>
         {error ? <p>Unable to like/unlike. Error ocured.</p> : null}
-        <Button onClick={handleVisitUserProfile}>
-          <AccountCircleIcon />
-          {postedBy}
-        </Button>
         <DateContainer>
           <DateIcon />
           <Typography> {date} </Typography>

@@ -3,7 +3,7 @@ import { StyledText, ContentContainer } from './styles';
 import {
   FileViewer,
   ImageViewer,
-  VideoViewer
+  VideoViewer,
 } from '../../../../../../../components/fileManager';
 import { FilesSelector } from '../../../../../../../utils/filesSelector';
 

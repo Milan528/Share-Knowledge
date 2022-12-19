@@ -8,13 +8,7 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
-export const StyledTypography = styled(Typography)`
-  text: {
-    margin-bottom: 20;
-    display: flex;
-    word-wrap: break-word;
-  }
-`;
+export const StyledTypography = styled(Typography)``;
 
 export const StyledHelpIcon = styled(HelpIcon)`
   margin-left: 20;
@@ -22,4 +16,8 @@ export const StyledHelpIcon = styled(HelpIcon)`
 
 export const StyledBookIcon = styled(BookIcon)`
   margin-left: 20;
+`;
+
+export const PostedByContainer = styled.div`
+  display: flex;
 `;

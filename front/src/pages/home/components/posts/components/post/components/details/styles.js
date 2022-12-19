@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
-import Today from '@mui/icons-material/Today';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
@@ -38,11 +37,5 @@ export const LikesWrapper = styled.div`
 export const Likes = styled(Typography)`
   && {
     margin: 0px 0px -3px 5px;
-  }
-`;
-
-export const DateIcon = styled(Today)`
-  && {
-    margin-left: 10px;
   }
 `;

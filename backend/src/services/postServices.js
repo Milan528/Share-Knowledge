@@ -17,10 +17,11 @@ export const postLikeDislikeStatus = {
 
 /*********************************ONE*********************************/
 
-export const getPostLikeDislikeStatus = async (req, responseData) => {
+export const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {
   tokenValidation(req, null, () => {});
   const userID = req.body.userID;
   const { posts } = responseData;
+  console.log(posts);
 
   if (userID) {
     for (let post of posts) {
@@ -49,6 +50,9 @@ export const getPostLikeDislikeStatus = async (req, responseData) => {
           post.likeStatus = postLikeDislikeStatus.none;
         }
       }
+
+      if (post.userId === userID) post.owner = true;
+      else post.owner = false;
     }
   }
 
@@ -162,7 +166,14 @@ async function addTagForPost(postID, tags) {
 
 export const getPostsForHomepageFilters = async (req) => {
   let { search, startIndex, count, tags, type, order } = req.body;
-  const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order);
+  const sql = QUERYS.SELECT_POSTS_FOR_HOMEPAGE_FILTERS(
+    tags,
+    search,
+    startIndex,
+    count,
+    type,
+    order
+  );
   let { results, error } = await database.query(sql);
 
   if (error) {
@@ -224,7 +235,7 @@ async function getTagsForPosts(req, responseData) {
     post.tags = tagsArray;
   }
 
-  return await getPostLikeDislikeStatus(req, responseData);
+  return await getPostLikeDislikeStatusAndOwnership(req, responseData);
 }
 
 async function getPostFiles(responseData) {

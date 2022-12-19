@@ -14,7 +14,7 @@ const QUERY = {
   /*********************************MANY*********************************/
 
   SELECT_POSTS_BY_USERNAME,
-  SELECT_FILTERED_POSTS,
+  SELECT_POSTS_FOR_HOMEPAGE_FILTERS,
   SELECT_TOTAL_NUMBER_OF_PAGES_FOR_HOME_PAGE_FILTERS,
   SELECT_SPECIFIC_POSTS_TAGS,
   SELECT_SPECIFIC_POSTS_IDS
@@ -26,7 +26,7 @@ export default QUERY;
 
 function SELECT_POST_BY_POSTID(postId) {
   let sql =
-    'Select postWithNoUsername.id, text, title, type, likes, dislikes,  date, tags, username as postedBy ';
+    'Select postWithNoUsername.id, text, title, type, likes, dislikes,  date, userId, tags, username as postedBy ';
   sql += `from (`;
   sql +=
     'Select id, text, title, type, likes, dislikes,  date, userId ,group_concat(tagId) as tags ';
@@ -123,9 +123,9 @@ function SELECT_POSTS_BY_USERNAME(username, order) {
   return sql;
 }
 
-function SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order) {
+function SELECT_POSTS_FOR_HOMEPAGE_FILTERS(tags, search, startIndex, count, type, order) {
   let sql =
-    'SELECT t.id, t.text, t.title, t.type, t.likes, t.dislikes, t.date, t.username as postedBy, t.tags ';
+    'SELECT t.id, t.text, t.title, t.type, t.likes, t.dislikes, t.date, t.userId, t.username as postedBy, t.tags ';
   sql += 'FROM ( ';
   sql += filterByTagsPostsWithLikesAndDislikes(
     tags,
@@ -180,11 +180,11 @@ function SELECT_SPECIFIC_POSTS_IDS(ids, startIndex, count) {
 function filterByTagsPostsWithLikesAndDislikes(tags, tableOfPostsWithLikesAndDislikes) {
   let sql = '';
   sql +=
-    'Select id, text, title, type, likes, dislikes, date, username, group_concat(tagId) as tags ';
+    'Select id, text, title, type, likes, dislikes, date, userId, username, group_concat(tagId) as tags ';
   sql += 'from ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT myTable2.id,text,title,type,likes,dislikes, date, username, tagId ';
+  sql1 += 'SELECT myTable2.id,text,title,type,likes,dislikes, date, userId, username, tagId ';
   sql1 += 'FROM ( ';
 
   sql1 += tableOfPostsWithLikesAndDislikes;
@@ -233,7 +233,7 @@ function filterByTypeSearchPostsWithoutLikesAndDislikes(type, search) {
 function selectPostsWithLikesAndDislikes(tableOfPostsWithLikes, tableOfPostsWithDislikes) {
   let sql = '';
   sql +=
-    'SELECT postsWithLikes.id, postsWithLikes.title, postsWithLikes.text, postsWithLikes.type, postsWithLikes.date, postsWithLikes.likes, postsWithDislikes.dislikes, postsWithDislikes.username ';
+    'SELECT postsWithLikes.id, postsWithLikes.title, postsWithLikes.text, postsWithLikes.type, postsWithLikes.date, postsWithLikes.likes, postsWithDislikes.dislikes, postsWithDislikes.username, postsWithDislikes.userId ';
   sql += 'FROM ( ';
   sql += tableOfPostsWithLikes;
   sql += ') as postsWithLikes ';
@@ -246,11 +246,13 @@ function selectPostsWithLikesAndDislikes(tableOfPostsWithLikes, tableOfPostsWith
 
 function selectPostsWithLikes(tableOfPostsWithoutLikes) {
   let sql2 = '';
-  sql2 += 'SELECT id, title, text, type, date, username, SUM(if(likedPostId=0,0,1)) AS likes  ';
+  sql2 +=
+    'SELECT id, title, text, type, date, username, userId, SUM(if(likedPostId=0,0,1)) AS likes  ';
   sql2 += 'FROM (  ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, username, COALESCE(postId, 0) as likedPostId ';
+  sql3 +=
+    'SELECT id, title, text, type, date, username, myTable4.userId, COALESCE(postId, 0) as likedPostId ';
   sql3 += 'FROM ( ';
 
   sql3 += tableOfPostsWithoutLikes;
@@ -269,11 +271,12 @@ function selectPostsWithLikes(tableOfPostsWithoutLikes) {
 function selectPostsWithDislikes(tableOfPostsWithoutDislikes) {
   let sql2 = '';
   sql2 +=
-    'SELECT id, title, text, type, date, username, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
+    'SELECT id, title, text, type, date, username, userId, SUM(if(dislikedPostId=0,0,1)) AS dislikes  ';
   sql2 += 'FROM (  ';
 
   let sql3 = '';
-  sql3 += 'SELECT id, title, text, type, date, username, COALESCE(postId, 0) as dislikedPostId ';
+  sql3 +=
+    'SELECT id, title, text, type, date, username, myTable4.userId, COALESCE(postId, 0) as dislikedPostId ';
   sql3 += 'FROM ( ';
 
   sql3 += tableOfPostsWithoutDislikes;

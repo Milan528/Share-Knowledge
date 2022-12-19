@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, VideoContainer } from './styles';
 import { FormControl } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,10 +9,18 @@ const VideoViewer = (props) => {
   const { files } = props; //files = [{src: URL.createObjectURL(...), name: "fileName"},...]
   const [fileIndex, setFileIndex] = useState(-1);
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const iframeRef = useRef(null);
   const handleFileChange = (event) => {
     let index = event.target.value;
     setFileIndex(index);
+  };
+
+  const handleIframeLoad = () => {
+    var elmnt =
+      iframeRef.current.contentWindow.document.getElementsByTagName('video')[0];
+    elmnt.style.width = '100%';
+    elmnt.style.height = '100%';
+    elmnt.style.objectFit = 'fill';
   };
 
   useEffect(() => {
@@ -46,13 +54,16 @@ const VideoViewer = (props) => {
             Open file in new tab
           </Link>
           <VideoContainer>
-            <iframe src={files[0].src}/>
+            <iframe
+              src={files[0].src}
+              ref={iframeRef}
+              onLoad={handleIframeLoad}
+            />
           </VideoContainer>
         </>
       ) : null}
     </>
-  ) : null
-  
+  ) : null;
 };
 
 export default VideoViewer;

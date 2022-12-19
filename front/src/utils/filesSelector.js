@@ -11,3 +11,7 @@ export const FilesSelector = {
   selectDocuments: (files) => selectFiles(files, '.doc', '.docx', '.pdf'),
   selectVideos: (files) => selectFiles(files, '.mp4'),
 };
+
+export const getFileExtensionFromFileName = (fileName) => {
+  return fileName.split('.').pop();
+};

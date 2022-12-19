@@ -24,7 +24,6 @@ const Content = (props) => {
 
   return (
     <>
-      <StyledText>{text}</StyledText>
       <ImageViewer
         files={images(files).map((image) => ({
           src: process.env.REACT_APP_BASE_URL + '/files/' + image.path, //'http://localhost:4000/files/1.png'
@@ -37,6 +36,7 @@ const Content = (props) => {
           name: document.path, //'1.pdf'
         }))}
       />
+      <StyledText>{text}</StyledText>
     </>
   );
 };

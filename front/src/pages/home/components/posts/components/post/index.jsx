@@ -22,17 +22,10 @@ const Post = (props) => {
 
   return (
     <StyledPaper elevation={1}>
-      <Title title={title} type={type} />
+      <Title title={title} type={type} postedBy={postedBy} date={date} />
       <Content text={text} files={files} />
       <Tags tags={tags} />
-      <Details
-        likes={likes}
-        postId={id}
-        date={date}
-        data={data}
-        dislikes={dislikes}
-        postedBy={postedBy}
-      />
+      <Details likes={likes} postId={id} data={data} dislikes={dislikes} />
     </StyledPaper>
   );
 };
