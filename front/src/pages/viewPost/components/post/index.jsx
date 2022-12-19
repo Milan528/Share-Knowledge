@@ -90,6 +90,7 @@ const Post = () => {
         id,
         date,
         postedBy,
+        likeStatus,
       } = post;
 
       return (
@@ -119,6 +120,7 @@ const Post = () => {
               date={date}
               dislikes={dislikes}
               postedBy={postedBy}
+              likeStatus={likeStatus}
             />
           </StyledPaper>
         </>

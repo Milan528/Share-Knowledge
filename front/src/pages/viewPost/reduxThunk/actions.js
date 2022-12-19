@@ -20,7 +20,6 @@ import {
 import {
   addPostDislikeRepository,
   addPostLikeRepository,
-  getPostLikeDislikeStatusRepository,
   getPostRepository,
   loadPostForHomepageFiltersRepository,
   removePostDislikeRepository,
@@ -29,12 +28,8 @@ import {
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {
-    const {
-      app: { token },
-    } = getState();
-
     dispatch(setLoadingComment(true));
-    const comments = await getCommentsRepository(postId, token);
+    const comments = await getCommentsRepository(postId);
     dispatch(setComments(comments));
   } catch (err) {
     dispatch(setErrorComment(serialize(err)));
@@ -61,7 +56,6 @@ export const addComment =
   async (dispatch, getState) => {
     try {
       setLoading(true);
-
       await addCommentRepository(comment, setUploadProgress);
       dispatch(loadComments(postID));
     } catch (err) {
@@ -94,28 +88,6 @@ export const loadPostForHomepageFilters =
       dispatch(setErrorPost(serialize(err)));
     } finally {
       dispatch(setLoadingPost(false));
-    }
-  };
-
-export const checkUserLikeDislike =
-  (postID, setError, setLoading, setLikeDislikeStatus) =>
-  async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-    const DTO = {
-      token,
-      postID,
-    };
-
-    try {
-      setLoading(true);
-      const likeDislikeStatus = await getPostLikeDislikeStatusRepository(DTO);
-      setLikeDislikeStatus(likeDislikeStatus);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
     }
   };
 

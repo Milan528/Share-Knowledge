@@ -9,7 +9,6 @@ import {
   deletePostLike,
   createPostDislike,
   deletePostDislike,
-  getPostLikeDislikeStatus,
   getPostById
 } from '../controllers/posts.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
@@ -28,6 +27,5 @@ postsRoutes
   .route('/dislike')
   .post(tokenValidation, createPostDislike)
   .delete(tokenValidation, deletePostDislike);
-postsRoutes.route('/postLikeDislikeStatus').post(tokenValidation, getPostLikeDislikeStatus);
 
 export default postsRoutes;

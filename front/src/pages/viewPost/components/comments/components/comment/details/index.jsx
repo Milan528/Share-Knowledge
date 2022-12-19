@@ -35,7 +35,7 @@ const Details = (props) => {
   const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(likeStatus);
 
   const handleLike = () => {

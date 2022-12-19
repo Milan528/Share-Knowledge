@@ -50,8 +50,3 @@ export const deletePostDislike = async (req, res) => {
   const response = await postDislikedByServices.deletePostDislike(req);
   return res.status(response.statusCode).send(response);
 };
-
-export const getPostLikeDislikeStatus = async (req, res) => {
-  const response = await postServices.getPostLikeDislikeStatus(req);
-  return res.status(response.statusCode).send(response);
-};

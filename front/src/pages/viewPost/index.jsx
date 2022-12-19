@@ -20,7 +20,9 @@ const ViewPost = () => {
   const [selectedPostIndex] = useState(
     location.state ? location.state.selectedPostIndex : null
   );
-  const homepageFilters = location.state ? location.state.homepageFilters : null;
+  const homepageFilters = location.state
+    ? location.state.homepageFilters
+    : null;
   const [searchParams] = useSearchParams();
   const postID = searchParams.get('postId');
 

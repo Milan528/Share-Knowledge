@@ -28,11 +28,6 @@ export const loadPostForHomepageFiltersRepository = async (data) => {
   };
 };
 
-export const getPostLikeDislikeStatusRepository = async (data) => {
-  const dto = await services.post('/posts/postLikeDislikeStatus', data);
-  return dto.data;
-};
-
 export const addPostLikeRepository = async (data) => {
   const dto = await services.post('/posts/like', data);
   return dto.data;

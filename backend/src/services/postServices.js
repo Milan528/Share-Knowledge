@@ -7,6 +7,7 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import POST_LIKED_BY_QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import response from '../tools/response/index.js';
+import tokenValidation from '../tools/tokenValidation.js';
 
 export const postLikeDislikeStatus = {
   liked: 'liked',
@@ -16,22 +17,42 @@ export const postLikeDislikeStatus = {
 
 /*********************************ONE*********************************/
 
-export const getPostLikeDislikeStatus = async (req) => {
-  const { userID, postID } = req.body;
+export const getPostLikeDislikeStatus = async (req, responseData) => {
+  tokenValidation(req, null, () => {});
+  const userID = req.body.userID;
+  const { posts } = responseData;
 
-  const { results, error } = await database.query(POST_LIKED_BY_QUERYS.SELECT_POST_LIKE, [
-    userID,
-    postID
-  ]);
+  if (userID) {
+    for (let post of posts) {
+      const postID = post.id;
 
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (results[0]) {
-    const data = postLikeDislikeStatus.liked;
-    return response.OK(`Like status is: ${data}`, data);
-  } else if (!results[0]) {
-    return await checkPostDislikeStatus(userID, postID);
+      const { results: likesResults, error: likesError } = await database.query(
+        POST_LIKED_BY_QUERYS.SELECT_POST_LIKE,
+        [userID, postID]
+      );
+
+      if (likesError) {
+        return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+      } else if (likesResults[0]) {
+        post.likeStatus = postLikeDislikeStatus.liked;
+      } else if (!likesResults[0]) {
+        const { results: dislikesResults, error: dislikesError } = await database.query(
+          POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE,
+          [userID, postID]
+        );
+
+        if (dislikesError) {
+          return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+        } else if (dislikesResults[0]) {
+          post.likeStatus = postLikeDislikeStatus.disliked;
+        } else if (!dislikesResults[0]) {
+          post.likeStatus = postLikeDislikeStatus.none;
+        }
+      }
+    }
   }
+
+  return await getPostFiles(responseData);
 };
 
 export const getPostsByUsername = async (req) => {
@@ -46,7 +67,7 @@ export const getPostsByUsername = async (req) => {
   const responseData = {
     posts: results
   };
-  return await getTagsForPosts(responseData);
+  return await getTagsForPosts(req, responseData);
 };
 
 export const getPostById = async (req) => {
@@ -60,7 +81,7 @@ export const getPostById = async (req) => {
   const responseData = {
     posts: results
   };
-  return await getTagsForPosts(responseData);
+  return await getTagsForPosts(req, responseData);
 };
 
 export const createPost = async (req) => {
@@ -123,23 +144,6 @@ export const deletePost = async (req) => {
 
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
 
-async function checkPostDislikeStatus(userID, postID) {
-  const { results, error } = await database.query(POST_DISLIKED_BY_QUERYS.SELECT_POST_DISLIKE, [
-    userID,
-    postID
-  ]);
-
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (results[0]) {
-    const data = postLikeDislikeStatus.disliked;
-    return response.OK(`Like status is: ${data}`, data);
-  } else if (!results[0]) {
-    const data = postLikeDislikeStatus.none;
-    return response.OK(`Like status is: ${data}`, data);
-  }
-}
-
 async function addTagForPost(postID, tags) {
   for (const tag of tags) {
     const { results, error } = await database.query(POST_TAG_QUERYS.CREATE_POST_TAG, [postID, tag]);
@@ -193,12 +197,12 @@ const getTotalNumberOfPagesForHomepageFilters = async (req, dto) => {
   dto.totalNumberOfPages = totalNumberOfPages;
   dto.totalNumberOfPosts = totalRows;
 
-  return await getTagsForPosts(dto);
+  return await getTagsForPosts(req, dto);
 };
 
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
 
-async function getTagsForPosts(responseData) {
+async function getTagsForPosts(req, responseData) {
   const posts = responseData.posts;
   for (const post of posts) {
     let { results, error } = await database.query(TAG_QUERYS.SELECT_TAGS_FOR_POST_ID, post.id);
@@ -219,7 +223,8 @@ async function getTagsForPosts(responseData) {
     }
     post.tags = tagsArray;
   }
-  return await getPostFiles(responseData);
+
+  return await getPostLikeDislikeStatus(req, responseData);
 }
 
 async function getPostFiles(responseData) {

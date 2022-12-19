@@ -1,8 +1,8 @@
 import services from '../../../services';
 import { formatDate } from '../../../utils/dateFormater';
 
-export const getCommentsRepository = async (postId, token) => {
-  const dto = await services.get(`/comments/post/${postId}/user/${token}`);
+export const getCommentsRepository = async (postId) => {
+  const dto = await services.get(`/comments/post/${postId}`);
   return mapDTOToComments(dto.data);
 };
 

@@ -37,23 +37,16 @@ const Details = (props) => {
     dislikes: propDislikes,
     postId,
     postedBy,
+    likeStatus,
   } = props;
   const [likes, setLikes] = useState(propLikes);
   const [dislikes, setDislikes] = useState(propDislikes);
   const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [likeDislikeStatus, setLikeDislikeStatus] = useState(likeStatus);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      dispatch(
-        checkUserLikeDislike(postId, setError, setLoading, setLikeDislikeStatus)
-      );
-    }
-  }, [token, postId, dispatch]);
 
   const handleLike = () => {
     if (token && likeDislikeStatus === postLikeDislikeStatus.none) {
