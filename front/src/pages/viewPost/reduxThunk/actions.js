@@ -12,7 +12,6 @@ import serialize from '../../../utils/serialize';
 import {
   getCommentsRepository,
   addCommentRepository,
-  getCommentLikeDislikeStatusRepository,
   addCommentLikeRepository,
   removeCommentLikeRepository,
   addCommentDislikeRepository,
@@ -30,8 +29,12 @@ import {
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {
+    const {
+      app: { token },
+    } = getState();
+
     dispatch(setLoadingComment(true));
-    const comments = await getCommentsRepository(postId);
+    const comments = await getCommentsRepository(postId, token);
     dispatch(setComments(comments));
   } catch (err) {
     dispatch(setErrorComment(serialize(err)));
@@ -207,30 +210,6 @@ export const removePostDislike =
       setLikeDislikeStatus(status);
       setDislikes((prev) => Number(prev) - 1);
       if (clb) clb();
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-export const checkUserLikeDislikeForComment =
-  (commentID, setError, setLoading, setLikeDislikeStatus) =>
-  async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-    const DTO = {
-      token,
-      commentID,
-    };
-
-    try {
-      setLoading(true);
-      const likeDislikeStatus = await getCommentLikeDislikeStatusRepository(
-        DTO
-      );
-      setLikeDislikeStatus(likeDislikeStatus);
     } catch (err) {
       setError(err);
     } finally {

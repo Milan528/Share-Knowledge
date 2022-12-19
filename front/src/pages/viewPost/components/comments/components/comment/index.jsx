@@ -5,12 +5,18 @@ import Details from './details';
 
 const Comment = (props) => {
   const { data } = props;
-  const { text, files, likes, dislikes, id, date } = data;
+  const { text, files, likes, dislikes, id, date, likeStatus } = data;
 
   return (
     <StyledPaper elevation={1}>
       <Content text={text} files={files} />
-      <Details likes={likes} commentId={id} date={date} dislikes={dislikes} />
+      <Details
+        likes={likes}
+        commentId={id}
+        date={date}
+        dislikes={dislikes}
+        likeStatus={likeStatus}
+      />
     </StyledPaper>
   );
 };

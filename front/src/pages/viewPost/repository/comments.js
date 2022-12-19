@@ -1,8 +1,8 @@
 import services from '../../../services';
 import { formatDate } from '../../../utils/dateFormater';
 
-export const getCommentsRepository = async (postId) => {
-  const dto = await services.get(`/comments/post/${postId}`);
+export const getCommentsRepository = async (postId, token) => {
+  const dto = await services.get(`/comments/post/${postId}/user/${token}`);
   return mapDTOToComments(dto.data);
 };
 
@@ -38,11 +38,6 @@ export const addCommentRepository = async (comment, setUploadProgress) => {
 
     await services.postFile('/upload/comment', formData, setUploadProgress);
   }
-};
-
-export const getCommentLikeDislikeStatusRepository = async (data) => {
-  const dto = await services.post('/comments/commentLikeDislikeStatus', data);
-  return dto.data;
 };
 
 export const addCommentLikeRepository = async (data) => {

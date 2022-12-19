@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import {
   Container,
@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addCommentDislike,
   addCommentLike,
-  checkUserLikeDislikeForComment,
   removeCommentDislike,
   removeCommentLike,
 } from '../../../../../reduxThunk/actions';
@@ -24,27 +23,20 @@ export const commentLikeDislikeStatus = {
   none: 'none',
 };
 const Details = (props) => {
-  const { likes: propLikes, date, dislikes: propDislikes, commentId } = props;
+  const {
+    likes: propLikes,
+    date,
+    dislikes: propDislikes,
+    commentId,
+    likeStatus,
+  } = props;
   const [likes, setLikes] = useState(propLikes);
   const [dislikes, setDislikes] = useState(propDislikes);
   const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [likeDislikeStatus, setLikeDislikeStatus] = useState(null);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(
-        checkUserLikeDislikeForComment(
-          commentId,
-          setError,
-          setLoading,
-          setLikeDislikeStatus
-        )
-      );
-    }
-  }, [token, commentId, dispatch]);
+  const [likeDislikeStatus, setLikeDislikeStatus] = useState(likeStatus);
 
   const handleLike = () => {
     if (token && likeDislikeStatus === commentLikeDislikeStatus.none) {

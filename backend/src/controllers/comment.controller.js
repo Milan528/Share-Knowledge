@@ -30,8 +30,3 @@ export const deleteCommentDislike = async (req, res) => {
   const response = await commentDislikedByServices.deleteCommentDislike(req);
   return res.status(response.statusCode).send(response);
 };
-
-export const getCommentLikeDislikeStatus = async (req, res) => {
-  const response = await commentServices.getCommentLikeDislikeStatus(req);
-  return res.status(response.statusCode).send(response);
-};

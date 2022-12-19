@@ -5,6 +5,7 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import COMMENT_LIKED_BY_QUERYS from '../sqlQuerys/commentLikedBy.querys.js';
 import COMMENT_DISLIKED_BY_QUERYS from '../sqlQuerys/commentDislikedBy.querys.js';
 import response from '../tools/response/index.js';
+import tokenValidation from '../tools/tokenValidation.js';
 
 export const commentLikeDislikeStatus = {
   liked: 'liked',
@@ -12,42 +13,44 @@ export const commentLikeDislikeStatus = {
   none: 'none'
 };
 
-export const getCommentLikeDislikeStatus = async (req) => {
-  const { userID, commentID } = req.body;
-  const { results, error } = await database.query(COMMENT_LIKED_BY_QUERYS.SELECT_COMMENT_LIKE, [
-    userID,
-    commentID
-  ]);
+export const getCommentLikeDislikeStatus = async (req, comments) => {
+  tokenValidation(req, null, () => {});
+  const userID = req.body.userID;
 
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (results[0]) {
-    const data = commentLikeDislikeStatus.liked;
-    return response.OK(`Like status is: ${data}`, data);
-  } else if (!results[0]) {
-    return await checkCommentDislikeStatus(userID, commentID);
+  if (userID) {
+    for (let comment of comments) {
+      const commentID = comment.id;
+      const { results: likedResults, error: likesError } = await database.query(
+        COMMENT_LIKED_BY_QUERYS.SELECT_COMMENT_LIKE,
+        [userID, commentID]
+      );
+
+      if (likesError) {
+        return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+      } else if (likedResults[0]) {
+        comment.likeStatus = commentLikeDislikeStatus.liked;
+      } else if (!likedResults[0]) {
+        const { results: dislikeResults, error: dislikeError } = await database.query(
+          COMMENT_DISLIKED_BY_QUERYS.SELECT_COMMENT_DISLIKE,
+          [userID, commentID]
+        );
+
+        if (dislikeError) {
+          return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+        } else if (dislikeResults[0]) {
+          comment.likeStatus = commentLikeDislikeStatus.disliked;
+        } else if (!dislikeResults[0]) {
+          comment.likeStatus = commentLikeDislikeStatus.none;
+        }
+      }
+    }
   }
+  return await getCommentFiles(comments);
 };
-
-async function checkCommentDislikeStatus(userID, commentID) {
-  const { results, error } = await database.query(
-    COMMENT_DISLIKED_BY_QUERYS.SELECT_COMMENT_DISLIKE,
-    [userID, commentID]
-  );
-
-  if (error) {
-    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (results[0]) {
-    const data = commentLikeDislikeStatus.disliked;
-    return response.OK(`Like status is: ${data}`, data);
-  } else if (!results[0]) {
-    const data = commentLikeDislikeStatus.none;
-    return response.OK(`Like status is: ${data}`, data);
-  }
-}
 
 export const getCommentsForPost = async (req) => {
   const { postId } = req.params;
+
   let { results, error } = await database.query(QUERYS.SELECT_COMMENTS_FOR_POST(postId));
   if (error) {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
@@ -56,7 +59,7 @@ export const getCommentsForPost = async (req) => {
     return response.OK(`No comments for selected post`);
   }
 
-  return await getCommentFiles(results);
+  return await getCommentLikeDislikeStatus(req, results);
 };
 
 async function getCommentFiles(comments) {

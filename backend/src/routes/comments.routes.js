@@ -5,15 +5,14 @@ import {
   createCommentLike,
   deleteCommentLike,
   createCommentDislike,
-  deleteCommentDislike,
-  getCommentLikeDislikeStatus
+  deleteCommentDislike
 } from '../controllers/comment.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
 const commentRoutes = express.Router();
 
 commentRoutes.route('/').post(tokenValidation, createComment);
-commentRoutes.route('/post/:postId').get(getCommentsForPost);
+commentRoutes.route('/post/:postId/user/:token').get(getCommentsForPost);
 
 commentRoutes
   .route('/like')
@@ -23,6 +22,5 @@ commentRoutes
   .route('/dislike')
   .post(tokenValidation, createCommentDislike)
   .delete(tokenValidation, deleteCommentDislike);
-commentRoutes.route('/commentLikeDislikeStatus').post(tokenValidation, getCommentLikeDislikeStatus);
 
 export default commentRoutes;
