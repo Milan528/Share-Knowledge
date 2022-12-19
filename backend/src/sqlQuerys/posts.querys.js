@@ -15,7 +15,7 @@ const QUERY = {
 
   SELECT_POSTS_BY_USERNAME,
   SELECT_FILTERED_POSTS,
-  SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS,
+  SELECT_TOTAL_NUMBER_OF_PAGES_FOR_HOME_PAGE_FILTERS,
   SELECT_SPECIFIC_POSTS_TAGS,
   SELECT_SPECIFIC_POSTS_IDS
 };
@@ -140,7 +140,7 @@ function SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order) {
   return sql;
 }
 
-function SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS(tags, search, type) {
+function SELECT_TOTAL_NUMBER_OF_PAGES_FOR_HOME_PAGE_FILTERS(tags, search, type) {
   let sql = '';
   sql += 'select count(*) as totalRows ';
   sql += 'from ( ';

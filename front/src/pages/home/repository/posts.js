@@ -1,8 +1,8 @@
 import services from '../../../services/index';
 import { formatDate } from '../../../utils/dateFormater';
 
-export const getAllSpecificPostsRepository = async (data) => {
-  const dto = await services.post('/posts/specificPosts', data);
+export const loadPostsForHomepageFiltersRepository = async (data) => {
+  const dto = await services.post('/posts/postsForHomepageFilters', data);
   return {
     posts: mapDTOToPosts(dto.data.posts),
     totalNumberOfPages: dto.data.totalNumberOfPages,

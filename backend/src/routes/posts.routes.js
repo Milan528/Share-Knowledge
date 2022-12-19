@@ -4,7 +4,7 @@ import {
   createPost,
   deletePost,
   updatePost,
-  getSpecificPosts,
+  getPostsForHomepageFilters,
   createPostLike,
   deletePostLike,
   createPostDislike,
@@ -18,7 +18,7 @@ const postsRoutes = express.Router();
 
 postsRoutes.route('/').post(tokenValidation, createPost);
 postsRoutes.route('/postId/:id').get(getPostById).put(updatePost).delete(deletePost);
-postsRoutes.route('/specificPosts').post(getSpecificPosts);
+postsRoutes.route('/postsForHomepageFilters').post(getPostsForHomepageFilters);
 postsRoutes.route('/user').get(getPostsByUsername);
 postsRoutes
   .route('/like')

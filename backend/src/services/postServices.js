@@ -156,7 +156,7 @@ async function addTagForPost(postID, tags) {
 
 /*********************************MANY*********************************/
 
-export const getSpecificPosts = async (req) => {
+export const getPostsForHomepageFilters = async (req) => {
   let { search, startIndex, count, tags, type, order } = req.body;
   const sql = QUERYS.SELECT_FILTERED_POSTS(tags, search, startIndex, count, type, order);
   let { results, error } = await database.query(sql);
@@ -172,12 +172,12 @@ export const getSpecificPosts = async (req) => {
     posts: results
   };
 
-  return await getTotalNumberOfPagesForSpecificPosts(req, dto);
+  return await getTotalNumberOfPagesForHomepageFilters(req, dto);
 };
 
-export const getTotalNumberOfPagesForSpecificPosts = async (req, dto) => {
+const getTotalNumberOfPagesForHomepageFilters = async (req, dto) => {
   let { search, count, tags, type } = req.body;
-  const sql = QUERYS.SELECT_TOTAL_NUMBER_OF_PAGES_FOR_SPECIFICS_POSTS(tags, search, type);
+  const sql = QUERYS.SELECT_TOTAL_NUMBER_OF_PAGES_FOR_HOME_PAGE_FILTERS(tags, search, type);
   let { results, error } = await database.query(sql);
 
   if (error) {

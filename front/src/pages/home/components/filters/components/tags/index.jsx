@@ -7,7 +7,10 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { setSelectedTags } from './redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadSpecificPosts, loadTags } from '../../../../reduxThunk/actions';
+import {
+  loadPostsForHomepageFilters,
+  loadTags,
+} from '../../../../reduxThunk/actions';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -20,7 +23,8 @@ const Tags = () => {
   const handleOnChange = (event, value) => {
     if (value) dispatch(setSelectedTags(value));
 
-    if (value.length < selectedTags.length) dispatch(loadSpecificPosts());
+    if (value.length < selectedTags.length)
+      dispatch(loadPostsForHomepageFilters());
   };
 
   useEffect(() => {
@@ -28,7 +32,7 @@ const Tags = () => {
   }, [dispatch]);
 
   const handleOnClose = () => {
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return (

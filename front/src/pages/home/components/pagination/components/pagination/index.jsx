@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyledPagination } from './styles';
 import { setCurrentPage } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 
 const Pagination = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const Pagination = () => {
 
   const handleCurrentPageNumberChange = (event, paginationCurrentPage) => {
     dispatch(setCurrentPage(paginationCurrentPage));
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return totalNumberOfPages ? (

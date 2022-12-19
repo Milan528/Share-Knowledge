@@ -1,4 +1,4 @@
-import { getAllSpecificPostsRepository } from '../repository/posts';
+import { loadPostsForHomepageFiltersRepository } from '../repository/posts';
 import { getAllTagsRepository } from '../repository/tags';
 import {
   setAllTags,
@@ -13,7 +13,7 @@ import {
 import serialize from '../../../utils/serialize';
 import { setTotalNumberOfPages, setTotalNumberOfPosts } from '../redux/slices';
 
-export const loadSpecificPosts = () => async (dispatch, getState) => {
+export const loadPostsForHomepageFilters = () => async (dispatch, getState) => {
   const {
     home: {
       tags: { selectedTags },
@@ -37,7 +37,7 @@ export const loadSpecificPosts = () => async (dispatch, getState) => {
   try {
     dispatch(loadingPosts(true));
     const { posts, totalNumberOfPages, totalNumberOfPosts } =
-      await getAllSpecificPostsRepository(dto);
+      await loadPostsForHomepageFiltersRepository(dto);
     dispatch(setPosts(posts));
     dispatch(setTotalNumberOfPages(totalNumberOfPages));
     dispatch(setTotalNumberOfPosts(totalNumberOfPosts));

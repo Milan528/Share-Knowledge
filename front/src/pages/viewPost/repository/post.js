@@ -18,8 +18,8 @@ export const mapDTOToPosts = (dto) => {
   return dto.map((post) => mapDTOToPost(post));
 };
 
-export const getSpecificPostRepository = async (data) => {
-  const dto = await services.post('/posts/specificPosts', data);
+export const loadPostForHomepageFiltersRepository = async (data) => {
+  const dto = await services.post('/posts/postsForHomepageFilters', data);
   return {
     post: mapDTOToPost(dto.data.posts[0]),
     //These two are also returned, but not used

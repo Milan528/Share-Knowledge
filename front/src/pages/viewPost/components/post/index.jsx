@@ -8,7 +8,7 @@ import Details from './components/details';
 import Tags from './components/tags';
 import { setError } from './redux/slices';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadPost, loadSpecificPost } from '../../reduxThunk/actions';
+import { loadPost, loadPostForHomepageFilters } from '../../reduxThunk/actions';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { HeadingContainer, StyledH1 } from './styles';
 import Button from '@mui/material/Button';
@@ -41,20 +41,24 @@ const Post = () => {
   useEffect(() => {
     if (Number.isFinite(selectedPostIndex)) {
       dispatch(
-        loadSpecificPost(selectedPostIndex, homepageFilters, (postId) => {
-          navigate(
-            {
-              pathname: viewPostRoute,
-              search: `postId=${postId}`,
-            },
-            {
-              state: {
-                homepageFilters,
-                selectedPostIndex,
+        loadPostForHomepageFilters(
+          selectedPostIndex,
+          homepageFilters,
+          (postId) => {
+            navigate(
+              {
+                pathname: viewPostRoute,
+                search: `postId=${postId}`,
               },
-            }
-          );
-        })
+              {
+                state: {
+                  homepageFilters,
+                  selectedPostIndex,
+                },
+              }
+            );
+          }
+        )
       );
     }
   }, [selectedPostIndex, dispatch, homepageFilters, navigate]);

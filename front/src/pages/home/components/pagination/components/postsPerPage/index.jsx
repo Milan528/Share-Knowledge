@@ -5,7 +5,7 @@ import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 import { StyledFormControl } from './styles';
 import { setCurrentPage, setPostPerPage } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 
 const PostsPerPage = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const PostsPerPage = () => {
   const handlePostNumberChange = (event) => {
     dispatch(setPostPerPage(event.target.value));
     dispatch(setCurrentPage(1));
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return (

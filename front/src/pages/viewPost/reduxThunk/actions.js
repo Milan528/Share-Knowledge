@@ -23,7 +23,7 @@ import {
   addPostLikeRepository,
   getPostLikeDislikeStatusRepository,
   getPostRepository,
-  getSpecificPostRepository,
+  loadPostForHomepageFiltersRepository,
   removePostDislikeRepository,
   removePostLikeRepository,
 } from '../repository/post';
@@ -41,7 +41,7 @@ export const loadComments = (postId) => async (dispatch, getState) => {
 };
 
 export const loadPost = (postId) => async (dispatch, getState) => {
-  //used when viewing post from url (exp. sending post url to someone), not from homepage
+  //used when sending post url to someone (no homape filters)
   try {
     dispatch(setLoadingPost(true));
     const post = await getPostRepository(postId);
@@ -68,8 +68,8 @@ export const addComment =
     }
   };
 
-export const loadSpecificPost =
-  //used when viewing post after clicking on arrows
+export const loadPostForHomepageFilters =
+  //used when coming from homepage (there are homepage fitlers)
   (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
     const { selectedTags, type, search, order } = homepageFilters;
 
@@ -84,7 +84,7 @@ export const loadSpecificPost =
 
     try {
       dispatch(setLoadingPost(true));
-      const { post } = await getSpecificPostRepository(dto);
+      const { post } = await loadPostForHomepageFiltersRepository(dto);
       dispatch(setPost(post));
       clb(post.id);
     } catch (err) {

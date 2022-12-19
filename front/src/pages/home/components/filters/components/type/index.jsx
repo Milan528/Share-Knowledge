@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { setType } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 
 const ScrollableTabs = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const ScrollableTabs = () => {
 
   const handleChange = (event) => {
     dispatch(setType(event.target.value));
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return (

@@ -6,7 +6,7 @@ import Tabs from '@mui/material/Tabs';
 import { orderEnum } from '../../../../redux/state';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrder } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
@@ -16,7 +16,7 @@ const Order = () => {
 
   const handleChange = (event, newValue) => {
     dispatch(setOrder(newValue));
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return (

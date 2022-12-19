@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { loadSpecificPosts } from '../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../reduxThunk/actions';
 import Post from './components/post';
 import ErrorDialog from '../../../../components/errorDialog/index';
 import Loader from '../../../../components/loader';
@@ -16,7 +16,7 @@ const Posts = () => {
   const { loading, error, posts } = state;
 
   useEffect(() => {
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   }, [dispatch]);
 
   const postsView = () => {

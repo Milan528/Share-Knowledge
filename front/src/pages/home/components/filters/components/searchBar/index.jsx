@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import debounce from '../../../../../../utils/debounce';
 import { setSearch } from '../../../../redux/slices';
-import { loadSpecificPosts } from '../../../../reduxThunk/actions';
+import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -11,11 +11,15 @@ const Search = () => {
 
   const handleOnChange = (event) => {
     dispatch(setSearch(event.target.value));
-    dispatch(loadSpecificPosts());
+    dispatch(loadPostsForHomepageFilters());
   };
 
   return (
-    <TextField label="Search" defaultValue={search} onChange={debounce(handleOnChange, 500)} />
+    <TextField
+      label="Search"
+      defaultValue={search}
+      onChange={debounce(handleOnChange, 500)}
+    />
   );
 };
 
