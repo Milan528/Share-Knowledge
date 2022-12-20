@@ -22,7 +22,11 @@ const ScrollableTabs = () => {
       <FormControl>
         <InputLabel>Tip</InputLabel>
         <StyledSelect value={type} label="Tip" onChange={handleChange}>
-          <StyledMenuItem value={'all'}>Sve</StyledMenuItem>
+          <StyledMenuItem value={'all'}>
+            Sve
+            <HelpIcon />
+            <Book />
+          </StyledMenuItem>
           <StyledMenuItem value={'question'}>
             Pitanja <HelpIcon />
           </StyledMenuItem>

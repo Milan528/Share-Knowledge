@@ -48,7 +48,8 @@ INSERT INTO `share_knowledge`.`post_file` (`path`, `ext`, `postId`) VALUES
 ('1.pdf', '.pdf', '1'),
 ('2.png', '.png', '1'),
 ('3.jpg', '.jpg', '1'),
-('1.png', '.png', '1');
+('1.png', '.png', '1'),
+('1.mp4', '.mp4', '1');
 
 INSERT INTO `share_knowledge`.`postLikedBy` (`postId`, `userId`) VALUES
 (1, 1),

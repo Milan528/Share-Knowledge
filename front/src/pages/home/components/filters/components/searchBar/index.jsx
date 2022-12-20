@@ -16,7 +16,7 @@ const Search = () => {
 
   return (
     <TextField
-      label="Search"
+      label="Pretraga po naslovu ili sadržaju"
       defaultValue={search}
       onChange={debounce(handleOnChange, 500)}
     />

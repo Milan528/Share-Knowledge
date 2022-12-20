@@ -7,9 +7,6 @@ import {
   SubmitButton,
   ErrorHolder,
   AttatchemntsContainer,
-  ImageUploaderViewerContainer,
-  FileUploaderViewerContainer,
-  VideoUploaderViewerContainer,
 } from './styles';
 import Dialog from '../../../../../../components/dialog';
 import {
@@ -90,7 +87,7 @@ const Form = () => {
           images.length > 0 || documents.length > 0 || videos.length > 0
         }
       >
-        <ImageUploaderViewerContainer>
+        {/* <ImageUploaderViewerContainer>
           <ImageUploader setFiles={setImages} files={images} />
           <ImageViewer
             files={images.map((image) => ({
@@ -119,7 +116,7 @@ const Form = () => {
               name: video.name, //'1.pdf'
             }))}
           />
-        </VideoUploaderViewerContainer>
+        </VideoUploaderViewerContainer> */}
       </AttatchemntsContainer>
       <ControllsContainer>
         <SubmitButton disabled={loading} onClick={onSubmit} variant="outlined">

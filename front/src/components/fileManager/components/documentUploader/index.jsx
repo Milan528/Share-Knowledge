@@ -3,7 +3,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { StyledButton, StyledDeleteButton, UploadContainer } from './styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const FileUploader = (props) => {
+const DocumentUploader = (props) => {
   const { setFiles, files } = props;
   const inputRef = createRef();
 
@@ -26,17 +26,17 @@ const FileUploader = (props) => {
         accept=".pdf, .doc*"
         multiple="multiple"
       />
-        {files.length > 0 ? (
-          <StyledDeleteButton
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            onClick={() => setFiles([])}
-          >
-            Delete files
-          </StyledDeleteButton>
-        ) : null}
+      {files.length > 0 ? (
+        <StyledDeleteButton
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          onClick={() => setFiles([])}
+        >
+          Delete files
+        </StyledDeleteButton>
+      ) : null}
     </UploadContainer>
   );
 };
 
-export default FileUploader;
+export default DocumentUploader;

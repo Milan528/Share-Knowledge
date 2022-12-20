@@ -63,7 +63,7 @@ const Details = (props) => {
       </DetailsContainer>
       <Button size="small" onClick={onClick} variant="outlined">
         <ButtonText variant="button" color="inherit">
-          Prikaži objavu-
+          Prikaži objavu
         </ButtonText>
       </Button>
     </Container>

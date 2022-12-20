@@ -20,11 +20,8 @@ import Dialog from '../../../../components/dialog';
 import Tags from './components/tags';
 import {
   FileUploader,
-  FileViewer,
   ImageUploader,
-  ImageViewer,
   VideoUploader,
-  VideoViewer,
 } from '../../../../components/fileManager';
 import { useNavigate } from 'react-router';
 import { homeRoute } from '../../../../app/router/routes';
@@ -123,7 +120,7 @@ const Form = () => {
           images.length > 0 || documents.length > 0 || videos.length > 0
         }
       >
-        <ImageUploaderViewerContainer>
+        {/* <ImageUploaderViewerContainer>
           <ImageUploader setFiles={setImages} files={images} />
           <ImageViewer
             files={images.map((image) => ({
@@ -152,7 +149,7 @@ const Form = () => {
               name: video.name, //'1.pdf'
             }))}
           />
-        </VideoUploaderViewerContainer>
+        </VideoUploaderViewerContainer> */}
       </AttatchemntsContainer>
 
       <ControllsContainer>
