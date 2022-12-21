@@ -32,7 +32,7 @@ CREATE TABLE post (
     date date NOT NULL,
     userId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES user(id) ,
+    FOREIGN KEY (userId) REFERENCES user(id),
     FULLTEXT (title,text)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
@@ -47,16 +47,16 @@ CREATE TABLE postLikedBy (
 postId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (postId,userId),
-FOREIGN KEY (userId) REFERENCES user(id), 
-FOREIGN KEY (postId) REFERENCES post(id) 
+FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE, 
+FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE postDislikedBy (
 postId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (postId,userId),
-FOREIGN KEY (userId) REFERENCES user(id), 
-FOREIGN KEY (postId) REFERENCES post(id) 
+FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE, 
+FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE post_file (
@@ -65,15 +65,15 @@ CREATE TABLE post_file (
     ext varchar(256) NOT NULL,
     postId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (postId) REFERENCES post(id) 
+    FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE post_tag (
     postId int NOT NULL,
     tagId int NOT NULL,
     PRIMARY KEY (postId,tagId),
-    FOREIGN KEY (postId) REFERENCES post(id), 
-    FOREIGN KEY (tagId) REFERENCES tags(id)
+    FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE, 
+    FOREIGN KEY (tagId) REFERENCES tags(id) 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE comment (
@@ -83,24 +83,24 @@ CREATE TABLE comment (
     userId int NOT NULL,
     postId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (userId) REFERENCES user(id),
-    FOREIGN KEY (postId) REFERENCES post(id)
+    FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8; 
 
 CREATE TABLE commentLikedBy (
 commentId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (commentId,userId),
-FOREIGN KEY (userId) REFERENCES user(id), 
-FOREIGN KEY (commentId) REFERENCES comment(id) 
+FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE, 
+FOREIGN KEY (commentId) REFERENCES comment(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE commentDislikedBy (
 commentId int NOT NULL,
 userId int NOT NULL, 
 PRIMARY KEY (commentId,userId),
-FOREIGN KEY (userId) REFERENCES user(id), 
-FOREIGN KEY (commentId) REFERENCES comment(id) 
+FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE, 
+FOREIGN KEY (commentId) REFERENCES comment(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE comment_file (
@@ -109,5 +109,5 @@ CREATE TABLE comment_file (
     ext varchar(256) NOT NULL,
     commentId int NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (commentId) REFERENCES comment(id) 
+    FOREIGN KEY (commentId) REFERENCES comment(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

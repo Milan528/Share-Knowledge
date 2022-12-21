@@ -21,7 +21,6 @@ export const getPostLikeDislikeStatusAndOwnership = async (req, responseData) =>
   tokenValidation(req, null, () => {});
   const userID = req.body.userID;
   const { posts } = responseData;
-  console.log(posts);
 
   if (userID) {
     for (let post of posts) {

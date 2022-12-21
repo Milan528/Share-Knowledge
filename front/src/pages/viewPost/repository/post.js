@@ -47,3 +47,8 @@ export const removePostDislikeRepository = async (data) => {
   const dto = await services.delete('/posts/dislike', data);
   return dto.data;
 };
+
+export const deletePostRepository = async (postId) => {
+  const dto = await services.delete(`/posts/postId/${postId}`);
+  return dto.data;
+};

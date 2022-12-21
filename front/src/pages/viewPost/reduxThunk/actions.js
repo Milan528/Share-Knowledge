@@ -20,6 +20,7 @@ import {
 import {
   addPostDislikeRepository,
   addPostLikeRepository,
+  deletePostRepository,
   getPostRepository,
   loadPostForHomepageFiltersRepository,
   removePostDislikeRepository,
@@ -94,12 +95,7 @@ export const loadPostForHomepageFilters =
 export const addPostLike =
   (postID, setError, setLoading, setLikeDislikeStatus, setLikes) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       postID,
     };
 
@@ -118,12 +114,7 @@ export const addPostLike =
 export const removePostLike =
   (postID, setError, setLoading, setLikeDislikeStatus, setLikes, clb) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       postID,
     };
 
@@ -143,12 +134,7 @@ export const removePostLike =
 export const addPostDislike =
   (postID, setError, setLoading, setLikeDislikeStatus, setDislikes) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       postID,
     };
 
@@ -167,12 +153,7 @@ export const addPostDislike =
 export const removePostDislike =
   (postID, setError, setLoading, setLikeDislikeStatus, setDislikes, clb) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       postID,
     };
 
@@ -192,12 +173,7 @@ export const removePostDislike =
 export const addCommentLike =
   (commentID, setError, setLoading, setLikeDislikeStatus, setLikes) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       commentID,
     };
 
@@ -216,12 +192,7 @@ export const addCommentLike =
 export const removeCommentLike =
   (commentID, setError, setLoading, setLikeDislikeStatus, setLikes, clb) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       commentID,
     };
 
@@ -241,12 +212,7 @@ export const removeCommentLike =
 export const addCommentDislike =
   (commentID, setError, setLoading, setLikeDislikeStatus, setDislikes) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       commentID,
     };
 
@@ -265,12 +231,7 @@ export const addCommentDislike =
 export const removeCommentDislike =
   (commentID, setError, setLoading, setLikeDislikeStatus, setDislikes, clb) =>
   async (dispatch, getState) => {
-    const {
-      app: { token },
-    } = getState();
-
     const DTO = {
-      token,
       commentID,
     };
 
@@ -284,5 +245,17 @@ export const removeCommentDislike =
       setError(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+export const deletePost =
+  (postID, setError, setLoading) => async (dispatch, getState) => {
+    try {
+      // setLoading(true);
+      const status = await deletePostRepository(postID);
+    } catch (err) {
+      // setError(err);
+    } finally {
+      // setLoading(false);
     }
   };

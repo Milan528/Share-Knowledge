@@ -46,7 +46,7 @@ const Post = () => {
 
       return (
         <StyledPaper elevation={1}>
-          <Title title={title} type={type} postedBy={postedBy} />
+          <Title title={title} type={type} postedBy={postedBy} id={id} />
           <Content text={text} files={files} />
           <Tags tags={tags} />
           <Details
