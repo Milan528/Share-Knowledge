@@ -3,7 +3,7 @@ import { profileView } from '../sideNavbar/redux/state';
 import { Order } from './components/order';
 import { StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import Post from './components/post';
+import PostPreview from '../../../../components/postPreview';
 import ErrorDialog from '../../../../components/errorDialog';
 import Loader from '../../../../components/loader';
 import { setError } from './redux/slices';
@@ -45,7 +45,7 @@ const Posts = () => {
           <Order />
           <StyledDivider />
           {posts.map((data, index) => (
-            <Post key={index} data={data} />
+            <PostPreview key={index} data={data} />
           ))}
         </>
       );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loadPostsForHomepageFilters } from '../../reduxThunk/actions';
-import Post from './components/post';
+import PostPreview from '../../../../components/postPreview';
 import ErrorDialog from '../../../../components/errorDialog/index';
 import Loader from '../../../../components/loader';
 import { setError } from './redux/slices';
@@ -31,7 +31,9 @@ const Posts = () => {
         </Fade>
       );
     } else {
-      return posts.map((data, index) => <Post key={index} data={data} />);
+      return posts.map((data, index) => (
+        <PostPreview key={index} data={data} />
+      ));
     }
   };
 

@@ -6,14 +6,17 @@ import {
   StyledBookIcon,
   StyledHelpIcon,
   PostedByContainer,
+  DateIcon,
+  StyledPostedByTypography,
 } from './styles';
-import { profileRoute } from '../../../../../../app/router/routes';
+import { profileRoute } from '../../../../app/router/routes';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Typography from '@mui/material/Typography';
 
 const Title = (props) => {
-  const { title, type, postedBy } = props;
+  const { title, type, postedBy, date } = props;
   const navigate = useNavigate();
 
   const handleVisitUserProfile = () => {
@@ -26,8 +29,6 @@ const Title = (props) => {
   return (
     <div>
       <Container>
-        <StyledTypography variant="h5">{title}</StyledTypography>
-
         {type === 'material' ? (
           <Tooltip title="Materijal">
             <StyledBookIcon />
@@ -37,9 +38,14 @@ const Title = (props) => {
             <StyledHelpIcon />
           </Tooltip>
         )}
+        <StyledTypography variant="h5">{title}</StyledTypography>
+        <DateIcon />
+        <Typography> {date}</Typography>
       </Container>
       <PostedByContainer>
-        <StyledTypography variant="h6">Postavio/la</StyledTypography>
+        <StyledPostedByTypography variant="h6">
+          Posted by{' '}
+        </StyledPostedByTypography>
         <Button onClick={handleVisitUserProfile}>
           <AccountCircleIcon />
           {postedBy}

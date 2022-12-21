@@ -6,26 +6,26 @@ import {
   ControllsText,
   SubmitButton,
   ErrorHolder,
-  AttatchemntsContainer,
 } from './styles';
 import Dialog from '../../../../../../components/dialog';
-import {
-  FileUploader,
-  FileViewer,
-  ImageUploader,
-  ImageViewer,
-  VideoUploader,
-  VideoViewer,
-} from '../../../../../../components/fileManager';
+import { FileViewer } from '../../../../../../components/fileViewer';
+import { FileUploader } from '../../../../../../components/fileUploader';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { addComment } from '../../../../reduxThunk/actions';
 import LinearWithValueLabel from '../../../../../../components/linearPogressWithLabel';
+import {
+  selectImages,
+  selectPdfDocuments,
+  selectVideos,
+  selectWordDocuments,
+} from '../../../../../../utils/filesSelector';
 
 const Form = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [attachments, setAttachemnts] = useState([]);
   const [images, setImages] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -36,6 +36,15 @@ const Form = () => {
   let postID = searchParams.get('postId');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setImages(selectImages(attachments));
+    setVideos(selectVideos(attachments));
+    setDocuments(
+      ...selectWordDocuments(attachments),
+      ...selectPdfDocuments(attachments)
+    );
+  }, [attachments]);
 
   useEffect(() => {
     if (!loading) {
@@ -76,48 +85,19 @@ const Form = () => {
 
   return (
     <StyledPaper elevation={0}>
+      <FileViewer
+        files={attachments.map((attachment) => ({
+          src: URL.createObjectURL(attachment),
+          name: attachment.name,
+        }))}
+      />
       <StyledTextareaAutosize
         minRows={10}
         placeholder="Sadrzaj"
         onChange={handleTextareaChange}
         value={description}
       />
-      <AttatchemntsContainer
-        attatchemntExists={
-          images.length > 0 || documents.length > 0 || videos.length > 0
-        }
-      >
-        {/* <ImageUploaderViewerContainer>
-          <ImageUploader setFiles={setImages} files={images} />
-          <ImageViewer
-            files={images.map((image) => ({
-              src: URL.createObjectURL(image), //'http://localhost:4000/files/1.png'
-              name: image.name, //'1.png'
-            }))}
-            setFiles={setImages}
-          />
-        </ImageUploaderViewerContainer>
-
-        <FileUploaderViewerContainer>
-          <FileUploader setFiles={setDocuments} files={documents} />
-          <FileViewer
-            files={documents.map((document) => ({
-              src: URL.createObjectURL(document), //'http://localhost:4000/files/1.pdf'
-              name: document.name, //'1.pdf'
-            }))}
-          />
-        </FileUploaderViewerContainer>
-
-        <VideoUploaderViewerContainer>
-          <VideoUploader setFiles={setVideos} files={videos} />
-          <VideoViewer
-            files={videos.map((video) => ({
-              src: URL.createObjectURL(video), //'http://localhost:4000/files/1.pdf'
-              name: video.name, //'1.pdf'
-            }))}
-          />
-        </VideoUploaderViewerContainer> */}
-      </AttatchemntsContainer>
+      <FileUploader setFiles={setAttachemnts} files={attachments} />
       <ControllsContainer>
         <SubmitButton disabled={loading} onClick={onSubmit} variant="outlined">
           <ControllsText variant="button" color="inherit">

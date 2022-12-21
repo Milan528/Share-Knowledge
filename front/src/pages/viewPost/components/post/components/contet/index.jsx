@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledText } from './styles';
-import { FileViewer } from '../../../../../../components/fileManager';
+import { FileViewer } from '../../../../../../components/fileViewer';
 
 const Content = (props) => {
   const { text, files } = props;

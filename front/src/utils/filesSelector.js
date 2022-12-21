@@ -15,8 +15,9 @@ const selectFiles = (files, ...fileTypes) => {
 export const selectImages = (files) =>
   selectFiles(files, '.png', '.jpg', '.jpeg');
 
-export const selectWord = (files) => selectFiles(files, '.doc', '.docx');
+export const selectWordDocuments = (files) =>
+  selectFiles(files, '.doc', '.docx');
 
-export const selectPdf = (files) => selectFiles(files, '.pdf');
+export const selectPdfDocuments = (files) => selectFiles(files, '.pdf');
 
 export const selectVideos = (files) => selectFiles(files, '.mp4');

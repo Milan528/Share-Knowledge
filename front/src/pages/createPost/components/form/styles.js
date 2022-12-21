@@ -69,19 +69,3 @@ export const CancelButton = styled(Button)`
     margin-right: 10px;
   }
 `;
-
-export const ImageUploaderViewerContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-export const FileUploaderViewerContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-export const VideoUploaderViewerContainer = styled.div`
-  margin-bottom: 10px;
-`;
-
-export const AttatchemntsContainer = styled.div`
-  display: ${({ attatchemntExists }) => (attatchemntExists ? 'block' : 'flex')};
-`;
