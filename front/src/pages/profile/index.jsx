@@ -43,7 +43,7 @@ const Profile = () => {
     </>
   );
 
-  if (error) return <ErrorDialog error={error} handleError={setError} />;
+  if (error) return <ErrorDialog error={error} setError={setError} />;
   else return viewToRender;
 };
 

@@ -26,6 +26,7 @@ import {
   removePostDislikeRepository,
   removePostLikeRepository,
 } from '../repository/post';
+import { setError, setLoading } from '../redux/slices';
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {
@@ -67,7 +68,7 @@ export const addComment =
   };
 
 export const loadPostForHomepageFilters =
-  //used when coming from homepage (there are homepage fitlers)
+  //used when coming from homepage
   (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
     const { selectedTags, type, search, order } = homepageFilters;
 
@@ -86,6 +87,7 @@ export const loadPostForHomepageFilters =
       dispatch(setPost(post));
       clb(post.id);
     } catch (err) {
+      console.log(err);
       dispatch(setErrorPost(serialize(err)));
     } finally {
       dispatch(setLoadingPost(false));
@@ -248,14 +250,13 @@ export const removeCommentDislike =
     }
   };
 
-export const deletePost =
-  (postID, setError, setLoading) => async (dispatch, getState) => {
-    try {
-      // setLoading(true);
-      const status = await deletePostRepository(postID);
-    } catch (err) {
-      // setError(err);
-    } finally {
-      // setLoading(false);
-    }
-  };
+export const deletePost = (postID) => async (dispatch, getState) => {
+  try {
+    dispatch(setLoading(true));
+    await deletePostRepository(postID);
+  } catch (err) {
+    dispatch(setError(serialize(err)));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};

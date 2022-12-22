@@ -38,7 +38,7 @@ const Posts = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} handleError={setError} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

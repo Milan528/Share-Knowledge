@@ -42,6 +42,30 @@ const request = async (method, url, DTO, formData, setUploadProgress) => {
   }
 };
 
+const getVideoFile = async (url) => {
+  // url: 'http://localhost:4000/files/1.mp4'
+
+  try {
+    const res = await axios(url, {
+      responseType: 'blob',
+    });
+    return URL.createObjectURL(res.data);
+  } catch (error) {
+    axiosErrorLoger(error);
+    if (error.response) {
+      throw new Error(
+        `Request made, but the server responded with an error: ${error.response.data.message}.`
+      );
+    } else if (error.request) {
+      throw new Error(
+        `Request made but no response is received from the server. `
+      );
+    } else {
+      throw new Error(`Error occured while setting up the request`);
+    }
+  }
+};
+
 const method = {
   get: 'get',
   post: 'post',
@@ -56,6 +80,7 @@ const services = {
   delete: async (url, DTO) => await request(method.delete, url, DTO),
   postFile: async (url, formData, setUploadProgress) =>
     await request(method.post, url, undefined, formData, setUploadProgress),
+  getVideoFile: async (url) => await getVideoFile(url),
 };
 
 export default services;

@@ -7,6 +7,7 @@ import * as postLikedByServices from './postLikedByServices.js';
 import * as postDislikedByServices from './postDislikedByServices.js';
 import * as commentLikedByServices from './commentLikedByServices.js';
 import * as commentDislikedByServices from './commentDislikedByServices.js';
+import * as userServices from './userServices.js';
 
 const services = {
   postServices,
@@ -17,7 +18,8 @@ const services = {
   postLikedByServices,
   postDislikedByServices,
   commentLikedByServices,
-  commentDislikedByServices
+  commentDislikedByServices,
+  userServices
 };
 
 export default services;

@@ -1,6 +1,12 @@
+export const userRole = {
+  visitor: 'visitor',
+  admin: 'admin',
+  moderator: 'moderator',
+};
+
 export const initialState = {
   token: null,
-  role: 'visitor',
+  role: userRole.visitor,
   username: null,
 };
 

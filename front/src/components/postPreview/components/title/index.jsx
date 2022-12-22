@@ -44,7 +44,7 @@ const Title = (props) => {
       </Container>
       <PostedByContainer>
         <StyledPostedByTypography variant="h6">
-          Posted by{' '}
+          Postavio/la{' '}
         </StyledPostedByTypography>
         <Button onClick={handleVisitUserProfile}>
           <AccountCircleIcon />

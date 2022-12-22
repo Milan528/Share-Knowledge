@@ -3,7 +3,15 @@ import { formatDate } from '../../../utils/dateFormater';
 
 export const getPostRepository = async (postId) => {
   const dto = await services.get(`/posts/postId/${postId}`);
-  return mapDTOToPost(dto.data.posts[0]);
+  if (dto.data.posts.length > 0) {
+    return mapDTOToPost(dto.data.posts[0]);
+  } else {
+    throw new Error(
+      'There are no posts.' +
+        'If you see a post after closing this dialog, that post is ' +
+        'probbably deleted and you see post from your cache.'
+    );
+  }
 };
 
 export const mapDTOToPost = (dto) => {
@@ -20,12 +28,21 @@ export const mapDTOToPosts = (dto) => {
 
 export const loadPostForHomepageFiltersRepository = async (data) => {
   const dto = await services.post('/posts/postsForHomepageFilters', data);
-  return {
-    post: mapDTOToPost(dto.data.posts[0]),
-    //These two are also returned, but not used
-    // totalNumberOfPages: dto.data.totalNumberOfPages,
-    // totalNumberOfPosts: dto.data.totalNumberOfPosts,
-  };
+
+  if (dto.data.posts.length > 0) {
+    return {
+      post: mapDTOToPost(dto.data.posts[0]),
+      //These two are also returned, but not used
+      // totalNumberOfPages: dto.data.totalNumberOfPages,
+      // totalNumberOfPosts: dto.data.totalNumberOfPosts,
+    };
+  } else {
+    throw new Error(
+      'There are no posts, go back to home page and check filters.' +
+        'If you see a post after closing this dialog, that post is ' +
+        'probbably deleted and you see post from your cache.'
+    );
+  }
 };
 
 export const addPostLikeRepository = async (data) => {

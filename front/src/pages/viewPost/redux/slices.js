@@ -9,12 +9,22 @@ import {
   actions as postActions,
 } from '../components/post/redux/slices';
 import post from '../components/post/redux/state';
+import state from './state';
 
 const viewPostSlice = createSlice({
   name: 'viewPost',
   initialState: {
+    ...state,
     comments,
     post,
+  },
+  reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(commentActions.setComments, (state, action) => {
@@ -39,3 +49,4 @@ const viewPostSlice = createSlice({
 });
 
 export const viewPostReducer = viewPostSlice.reducer;
+export const { setLoading, setError } = viewPostSlice.actions;

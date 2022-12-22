@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { Container, ControllsContainer } from './styles';
 
-export default function Form() {
+export const UserForm = () => {
   const [role, setRole] = useState('1');
 
   const handleUserChange = (e, user) => {};
@@ -21,7 +21,6 @@ export default function Form() {
     <Container>
       <Autocomplete
         onChange={handleUserChange}
-        // options={allUsers}
         options={[]}
         getOptionLabel={(option) =>
           option.length === 0 ? '' : option.username
@@ -45,4 +44,6 @@ export default function Form() {
       </ControllsContainer>
     </Container>
   );
-}
+};
+
+export default UserForm;

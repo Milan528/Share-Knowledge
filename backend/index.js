@@ -23,3 +23,4 @@ router.use('/upload', routes.uploadRoutes);
 router.use('/tags', routes.tagsRoutes);
 router.use('/auth', routes.authRoutes);
 router.use('/comments', routes.commentsRoutes);
+router.use('/users', routes.usersRoutes);

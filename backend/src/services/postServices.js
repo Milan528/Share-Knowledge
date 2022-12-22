@@ -79,7 +79,7 @@ export const getPostById = async (req) => {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
   if (!results[0]) {
-    return response.OK(`No post found`);
+    return response.OK(`No post found`, { posts: [] });
   }
   const responseData = {
     posts: results
@@ -141,7 +141,7 @@ export const deletePost = async (req) => {
   if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return response.OK(`Post deleted`);
+    return response.OK(`Post deleted`, [req.params.id]);
   }
 };
 

@@ -1,28 +1,47 @@
-import initialState from './state';
 import { createSlice } from '@reduxjs/toolkit';
+
+import userForm from '../components/userForm/redux/state';
+import {
+  userFormReducer,
+  actions as userFormActions,
+} from '../components/userForm/redux/slices';
+
+import usersTable from '../components/usersTable/redux/state';
+import {
+  usersTableReducer,
+  actions as usersTableActions,
+} from '../components/usersTable/redux/slices';
 
 const usersSlice = createSlice({
   name: 'users',
-  initialState: initialState,
-  reducers: {
-    setLoading: (state, action) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
-    setRole: (state, action) => {
-      state.role = action.payload;
-    },
-    setAllUsers: (state, action) => {
-      state.allUsers = action.payload;
-    },
+  initialState: {
+    userForm,
+    usersTable,
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(userFormActions.setError, (state, action) => {
+      state.userForm = userFormReducer(state.userForm, action);
+    });
+    builder.addCase(userFormActions.setLoading, (state, action) => {
+      state.userForm = userFormReducer(state.userForm, action);
+    });
+    builder.addCase(userFormActions.setRole, (state, action) => {
+      state.userForm = userFormReducer(state.userForm, action);
+    });
+    builder.addCase(userFormActions.setUser, (state, action) => {
+      state.userForm = userFormReducer(state.userForm, action);
+    });
+    builder.addCase(usersTableActions.setError, (state, action) => {
+      state.usersTable = usersTableReducer(state.usersTable, action);
+    });
+    builder.addCase(usersTableActions.setLoading, (state, action) => {
+      state.usersTable = usersTableReducer(state.usersTable, action);
+    });
+    builder.addCase(usersTableActions.setUsers, (state, action) => {
+      state.usersTable = usersTableReducer(state.usersTable, action);
+    });
   },
 });
 
-export const { setLoading, setError, setUser, setRole, setAllUsers } =
-  usersSlice.actions;
 export const usersReducer = usersSlice.reducer;

@@ -9,33 +9,37 @@ import { useDispatch } from 'react-redux';
 
 function isJsonString(str) {
   try {
-      JSON.parse(str);
+    JSON.parse(str);
   } catch (e) {
-      return false;
+    return false;
   }
   return true;
 }
 
 export default function ResponsiveDialog(props) {
-  const { error, handleError } = props;
+  const { error, setError } = props;
   const dispatch = useDispatch();
-  
+
   const handleClose = () => {
-    dispatch(handleError(null));
+    dispatch(setError(null));
   };
 
   useEffect(() => {
     return () => {
-      dispatch(handleError(null));
+      dispatch(setError(null));
     };
-  }, [dispatch, handleError]);
+  }, [dispatch, setError]);
 
   return (
     <Dialog open={true} onClose={handleClose}>
       <DialogTitle>Error</DialogTitle>
-      <DialogContent >
-        <DialogContentText style={{whiteSpace: 'break-spaces'}}>
-          {isJsonString(error) ? `${(JSON.parse(error)).message}\nFor more details open developer tools.` : error.toString()}
+      <DialogContent>
+        <DialogContentText style={{ whiteSpace: 'break-spaces' }}>
+          {isJsonString(error)
+            ? `${
+                JSON.parse(error).message
+              }\nFor more details open developer tools.`
+            : error.toString()}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

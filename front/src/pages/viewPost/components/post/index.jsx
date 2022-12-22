@@ -26,7 +26,7 @@ const Post = () => {
     if (!homepageFilters) {
       dispatch(loadPost(searchParamsPostId));
     }
-  }, [dispatch, searchParamsPostId]);
+  }, [dispatch, searchParamsPostId, homepageFilters]);
 
   const viewToRender = () => {
     if (post) {
@@ -64,7 +64,7 @@ const Post = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} handleError={setError} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

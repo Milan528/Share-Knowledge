@@ -60,7 +60,7 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
     </TagsContainer>
   );
 
-  if (error) return <ErrorDialog error={error} handleError={setError} />;
+  if (error) return <ErrorDialog error={error} setError={setError} />;
   else if (loading) return <Loader />;
   else return viewToRender;
 };

@@ -6,14 +6,18 @@ import { StyledListItemHeaderText, StyledMenuItem } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileView } from './redux/slices';
 import { profileView } from './redux/state';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { tagsRoute, usersRoute } from '../../../../app/router/routes';
+import { userRole } from '../../../../app/redux/state';
 
 const SideNavBar = () => {
+  const navigate = useNavigate();
   const [hidden, setHidden] = useState(true);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const usernameUrl = searchParams.get('username');
   const username = useSelector((state) => state.app.username);
+  const role = useSelector((state) => state.app.role);
 
   return (
     <SlidingContainer hidden={hidden}>
@@ -37,6 +41,14 @@ const SideNavBar = () => {
           </StyledMenuItem>
         ) : null}
       </StyledMenuList>
+      <StyledMenuItem onClick={() => navigate(usersRoute)} hidden={hidden}>
+        <StyledListItemHeaderText>Korisnici</StyledListItemHeaderText>
+      </StyledMenuItem>
+      {userRole.admin === role ? (
+        <StyledMenuItem onClick={() => navigate(tagsRoute)} hidden={hidden}>
+          <StyledListItemHeaderText>Tagovi</StyledListItemHeaderText>
+        </StyledMenuItem>
+      ) : null}
     </SlidingContainer>
   );
 };

@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-  profileRoute,
-  tagsRoute,
-  usersRoute,
-} from '../../../../app/router/routes';
+import { profileRoute } from '../../../../app/router/routes';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../../../app/redux/slices';
+import { setToken, setRole, setUsername } from '../../../../app/redux/slices';
+import { initialState } from '../../../../app/redux/state';
 
 const Authorized = () => {
   const navigate = useNavigate();
@@ -22,17 +19,13 @@ const Authorized = () => {
   };
 
   const handleLogout = () => {
-    dispatch(setToken(null));
+    dispatch(setToken(initialState.token));
+    dispatch(setRole(initialState.role));
+    dispatch(setUsername(initialState.username));
   };
 
   return token ? (
     <ul>
-      <li>
-        <div onClick={() => navigate(usersRoute)}>Korisnici</div>
-      </li>
-      <li>
-        <div onClick={() => navigate(tagsRoute)}>Tagovi</div>
-      </li>
       <li>
         <div onClick={handleProfile}>Profil</div>
       </li>

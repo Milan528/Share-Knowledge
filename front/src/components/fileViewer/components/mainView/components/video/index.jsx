@@ -1,6 +1,8 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import services from '../../../../../../services';
+import Loader from '../../../../../loader';
+import ErrorDialog from '../../../../../errorDialog';
 import { VideoContainer } from './styles';
 
 export const VideoView = ({ file }) => {
@@ -12,12 +14,15 @@ export const VideoView = ({ file }) => {
   useEffect(() => {
     const loadVideoFile = async () => {
       if (file.src.split(':')[0] !== 'blob') {
-        const res = await axios(file.src, {
-          responseType: 'blob',
-        });
-        let blob = res.data;
-
-        setVideoFile(URL.createObjectURL(blob));
+        try {
+          setLoading(true);
+          const video = await services.getVideoFile(file.src);
+          setVideoFile(video);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
       } else {
         setVideoFile(file.src);
       }
@@ -26,13 +31,23 @@ export const VideoView = ({ file }) => {
     loadVideoFile();
   }, [file]);
 
-  if (videoFile)
-    return (
-      <VideoContainer>
-        <video controls>
-          <source src={videoFile} type="video/mp4" />
-        </video>
-      </VideoContainer>
-    );
-  else return <h1>no video file</h1>;
+  const viewToRender = () => {
+    if (videoFile)
+      return (
+        <VideoContainer>
+          <video controls>
+            <source src={videoFile} type="video/mp4" />
+          </video>
+        </VideoContainer>
+      );
+    else return <h1>no video file</h1>;
+  };
+
+  return error ? (
+    <ErrorDialog error={error} setError={setError} />
+  ) : loading ? (
+    <Loader />
+  ) : (
+    viewToRender()
+  );
 };
