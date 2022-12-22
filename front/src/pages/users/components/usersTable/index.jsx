@@ -12,11 +12,11 @@ import { loadUserAndLikes } from '../../reduxThunk/actions';
 import Loader from '../../../../components/loader';
 import ErrorDialog from '../../../../components/errorDialog';
 import { setError } from './redux/slices';
-import { Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { profileRoute } from '../../../../app/router/routes';
 import { userRole } from '../../../../utils/enums';
+import { StyledButton } from './styles';
 
 export const UsersTable = () => {
   const { error, loading, users } = useSelector(
@@ -24,7 +24,7 @@ export const UsersTable = () => {
   );
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const username = useSelector((state) => state.app.username);
   const role = useSelector((state) => state.app.role);
   const navigate = useNavigate();
@@ -85,12 +85,12 @@ export const UsersTable = () => {
                       ) + 1}
                     </TableCell>
                     <TableCell>
-                      <Button
+                      <StyledButton
                         onClick={() => handleVisitUserProfile(user.username)}
                       >
                         <AccountCircleIcon />
                         {user.username}
-                      </Button>
+                      </StyledButton>
                     </TableCell>
 
                     <TableCell>{user.likes}</TableCell>

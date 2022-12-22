@@ -6,6 +6,7 @@ import COMMENT_LIKED_BY_QUERYS from '../sqlQuerys/commentLikedBy.querys.js';
 import COMMENT_DISLIKED_BY_QUERYS from '../sqlQuerys/commentDislikedBy.querys.js';
 import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
+import { commentLikeDislikeStatus } from '../tools/enums.js';
 
 export const getCommentLikeDislikeStatus = async (req, comments) => {
   tokenValidation(req, null, () => {});

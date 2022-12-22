@@ -8,10 +8,6 @@ import {
   ControllsText,
   CancelButton,
   SubmitButton,
-  ImageUploaderViewerContainer,
-  FileUploaderViewerContainer,
-  VideoUploaderViewerContainer,
-  AttatchemntsContainer,
 } from './styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';

@@ -17,12 +17,16 @@ import {
 } from '../../reduxThunk/actions';
 import { userRole } from '../../../../utils/enums';
 
+const mapUserRoleToView = (role) => {
+  if (role === userRole.admin) return 'admin';
+
+  if (role === userRole.moderator) return 'moderator';
+
+  if (role === userRole.visitor) return 'član';
+};
+
 export const UserForm = () => {
-  // const [role, setRole] = useState('1');
   const [role, setRole] = useState('');
-  // const { error, loading, allUsers, user, role } = useSelector(
-  //   (state) => state.users.userForm
-  // );
   const { error, loading, allUsers } = useSelector(
     (state) => state.users.userForm
   );
@@ -33,8 +37,15 @@ export const UserForm = () => {
     dispatch(loadUsernamesWithRoles());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (selectedUser) {
+      setRole(selectedUser.role);
+    } else {
+      setRole('');
+    }
+  }, [dispatch, selectedUser]);
+
   const handleOnChange = (event, value) => {
-    console.log(value);
     if (value) {
       setSelectedUser(value);
     } else {
@@ -47,13 +58,14 @@ export const UserForm = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(updateUserRole(selectedUser.username, selectedUser.role));
+    dispatch(updateUserRole(selectedUser.username, role));
   };
 
   const viewToRender = (
     <Container>
       <Autocomplete
         fullWidth
+        value={selectedUser}
         onChange={handleOnChange}
         options={allUsers}
         getOptionLabel={(option) =>
@@ -70,28 +82,32 @@ export const UserForm = () => {
         InputProps={{
           readOnly: true,
         }}
-        value={selectedUser ? selectedUser.role : ''}
+        value={selectedUser ? mapUserRoleToView(selectedUser.role) : ''}
         fullWidth
       />
       <FormControl variant="outlined" fullWidth disabled={!selectedUser}>
-        <InputLabel id="demo-simple-select-label">Nova rola</InputLabel>
+        <InputLabel>Nova rola</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={selectedUser ? role : ''}
           onChange={handleRoleChange}
           label="Nova rola"
         >
-          <MenuItem value={userRole.visitor}>Član</MenuItem>
-          <MenuItem value={userRole.moderator}>Moderator</MenuItem>
-          <MenuItem value={userRole.admin}>Admin</MenuItem>
+          <MenuItem value={userRole.visitor}>
+            {mapUserRoleToView(userRole.visitor)}
+          </MenuItem>
+          <MenuItem value={userRole.moderator}>
+            {mapUserRoleToView(userRole.moderator)}
+          </MenuItem>
+          <MenuItem value={userRole.admin}>
+            {mapUserRoleToView(userRole.admin)}
+          </MenuItem>
         </Select>
       </FormControl>
       <ControllsContainer>
         <Button variant="outlined">Odustani</Button>
         <Button
           variant="outlined"
-          disabled={!selectedUser}
+          disabled={!selectedUser || selectedUser.role === role}
           onClick={handleSubmit}
         >
           Potvrdi
