@@ -16,6 +16,8 @@ import {
   updateUserRole,
 } from '../../reduxThunk/actions';
 import { userRole } from '../../../../utils/enums';
+import { useNavigate } from 'react-router-dom';
+import { profileRoute } from '../../../../app/router/routes';
 
 const mapUserRoleToView = (role) => {
   if (role === userRole.admin) return 'admin';
@@ -32,6 +34,7 @@ export const UserForm = () => {
   );
   const dispatch = useDispatch();
   const [selectedUser, setSelectedUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadUsernamesWithRoles());
@@ -104,7 +107,9 @@ export const UserForm = () => {
         </Select>
       </FormControl>
       <ControllsContainer>
-        <Button variant="outlined">Odustani</Button>
+        <Button variant="outlined" onClick={() => navigate(profileRoute)}>
+          Odustani
+        </Button>
         <Button
           variant="outlined"
           disabled={!selectedUser || selectedUser.role === role}
