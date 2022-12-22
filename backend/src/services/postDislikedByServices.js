@@ -1,7 +1,7 @@
 import QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import database from '../tools/database.js';
+import { postLikeDislikeStatus } from '../tools/enums.js';
 import response from '../tools/response/index.js';
-import { postLikeDislikeStatus } from './postServices.js';
 
 export const createPostDislike = async (req) => {
   const { userID, postID } = req.body;

@@ -1,7 +1,7 @@
 import QUERYS from '../sqlQuerys/commentLikedBy.querys.js';
 import database from '../tools/database.js';
+import { commentLikeDislikeStatus } from '../tools/enums.js';
 import response from '../tools/response/index.js';
-import { commentLikeDislikeStatus } from './commentServices.js';
 
 export const createCommentLike = async (req) => {
   const { userID, commentID } = req.body;

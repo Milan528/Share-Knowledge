@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { setType } from '../../../../redux/slices';
 import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
+import { postType } from '../../../../../../utils/enums';
 
 const ScrollableTabs = () => {
   const dispatch = useDispatch();
@@ -22,15 +23,15 @@ const ScrollableTabs = () => {
       <FormControl>
         <InputLabel>Tip</InputLabel>
         <StyledSelect value={type} label="Tip" onChange={handleChange}>
-          <StyledMenuItem value={'all'}>
+          <StyledMenuItem value={postType.all}>
             Sve
             <HelpIcon />
             <Book />
           </StyledMenuItem>
-          <StyledMenuItem value={'question'}>
+          <StyledMenuItem value={postType.question}>
             Pitanja <HelpIcon />
           </StyledMenuItem>
-          <StyledMenuItem value={'material'}>
+          <StyledMenuItem value={postType.material}>
             Materijali <Book />
           </StyledMenuItem>
         </StyledSelect>

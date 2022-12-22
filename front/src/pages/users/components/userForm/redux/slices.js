@@ -11,8 +11,8 @@ const userFormSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setAllUsers: (state, action) => {
+      state.allUsers = action.payload;
     },
     setRole: (state, action) => {
       state.role = action.payload;
@@ -21,6 +21,7 @@ const userFormSlice = createSlice({
 });
 
 export const actions = userFormSlice.actions;
-export const { setLoading, setError, setUser, setRole } = userFormSlice.actions;
+export const { setLoading, setError, setAllUsers, setRole } =
+  userFormSlice.actions;
 
 export const userFormReducer = userFormSlice.reducer;

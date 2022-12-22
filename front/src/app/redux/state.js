@@ -1,8 +1,4 @@
-export const userRole = {
-  visitor: 'visitor',
-  admin: 'admin',
-  moderator: 'moderator',
-};
+import { userRole } from '../../utils/enums';
 
 export const initialState = {
   token: null,

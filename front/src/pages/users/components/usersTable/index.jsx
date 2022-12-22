@@ -16,6 +16,7 @@ import { Button } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { profileRoute } from '../../../../app/router/routes';
+import { userRole } from '../../../../utils/enums';
 
 export const UsersTable = () => {
   const { error, loading, users } = useSelector(
@@ -25,6 +26,7 @@ export const UsersTable = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const username = useSelector((state) => state.app.username);
+  const role = useSelector((state) => state.app.role);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export const UsersTable = () => {
               <TableCell>Redni broj</TableCell>
               <TableCell>Korisnik</TableCell>
               <TableCell>Lajkovi</TableCell>
+              {role === userRole.admin ? <TableCell>Rola</TableCell> : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -81,8 +84,7 @@ export const UsersTable = () => {
                         (someUser) => someUser.username === user.username
                       ) + 1}
                     </TableCell>
-                    {/* <TableCell>{user.username}</TableCell> */}
-                    <TableCell align="left">
+                    <TableCell>
                       <Button
                         onClick={() => handleVisitUserProfile(user.username)}
                       >
@@ -92,6 +94,9 @@ export const UsersTable = () => {
                     </TableCell>
 
                     <TableCell>{user.likes}</TableCell>
+                    {role === userRole.admin ? (
+                      <TableCell>{user.role}</TableCell>
+                    ) : null}
                   </TableRow>
                 );
               })}

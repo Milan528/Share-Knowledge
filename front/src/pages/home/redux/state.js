@@ -1,8 +1,4 @@
-export const orderEnum = {
-  newest: 'newest',
-  like: 'like',
-  dislike: 'dislike',
-};
+import { orderEnum } from '../../../utils/enums';
 
 export const initialState = {
   filtersVisibility: true,

@@ -9,12 +9,6 @@ import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
-export const postLikeDislikeStatus = {
-  liked: 'liked',
-  disliked: 'disliked',
-  none: 'none'
-};
-
 /*********************************ONE*********************************/
 
 export const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {

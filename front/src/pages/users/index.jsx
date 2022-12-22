@@ -5,7 +5,7 @@ import Footer from '../../components/footer';
 import UserForm from './components/userForm';
 import { useSelector } from 'react-redux';
 import UsersTable from './components/usersTable';
-import { userRole } from '../../app/redux/state';
+import { userRole } from '../../utils/enums';
 
 const Users = () => {
   const { role } = useSelector((state) => state.app);

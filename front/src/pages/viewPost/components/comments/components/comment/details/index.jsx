@@ -17,11 +17,8 @@ import {
   removeCommentDislike,
   removeCommentLike,
 } from '../../../../../reduxThunk/actions';
-export const commentLikeDislikeStatus = {
-  liked: 'liked',
-  disliked: 'disliked',
-  none: 'none',
-};
+import { commentLikeDislikeStatus } from '../../../../../../../utils/enums';
+
 const Details = (props) => {
   const {
     likes: propLikes,

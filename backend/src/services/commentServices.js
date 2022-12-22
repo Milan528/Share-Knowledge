@@ -7,12 +7,6 @@ import COMMENT_DISLIKED_BY_QUERYS from '../sqlQuerys/commentDislikedBy.querys.js
 import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
-export const commentLikeDislikeStatus = {
-  liked: 'liked',
-  disliked: 'disliked',
-  none: 'none'
-};
-
 export const getCommentLikeDislikeStatus = async (req, comments) => {
   tokenValidation(req, null, () => {});
   const userID = req.body.userID;

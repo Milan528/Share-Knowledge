@@ -4,7 +4,7 @@ import Today from '@mui/icons-material/Today';
 import { Button } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import { postLikeDislikeStatus } from '.';
+import { postLikeDislikeStatus } from '../../../../../../utils/enums';
 
 export const LikeIcon = styled(ThumbUpOffAltIcon)`
   color: ${({ like_dislike_status }) =>

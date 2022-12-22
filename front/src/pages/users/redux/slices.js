@@ -29,7 +29,7 @@ const usersSlice = createSlice({
     builder.addCase(userFormActions.setRole, (state, action) => {
       state.userForm = userFormReducer(state.userForm, action);
     });
-    builder.addCase(userFormActions.setUser, (state, action) => {
+    builder.addCase(userFormActions.setAllUsers, (state, action) => {
       state.userForm = userFormReducer(state.userForm, action);
     });
     builder.addCase(usersTableActions.setError, (state, action) => {

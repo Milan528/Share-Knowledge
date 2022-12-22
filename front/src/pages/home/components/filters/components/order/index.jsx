@@ -3,12 +3,12 @@ import Tab from '@mui/material/Tab';
 import Time from '@mui/icons-material/AccessTime';
 import { OrdersContainer } from './styles';
 import Tabs from '@mui/material/Tabs';
-import { orderEnum } from '../../../../redux/state';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrder } from '../../../../redux/slices';
 import { loadPostsForHomepageFilters } from '../../../../reduxThunk/actions';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import { orderEnum } from '../../../../../../utils/enums';
 
 const Order = () => {
   const order = useSelector((state) => state.home.order);

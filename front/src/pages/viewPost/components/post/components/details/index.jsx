@@ -18,12 +18,7 @@ import {
 } from '../../../../reduxThunk/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-
-export const postLikeDislikeStatus = {
-  liked: 'liked',
-  disliked: 'disliked',
-  none: 'none',
-};
+import { postLikeDislikeStatus } from '../../../../../../utils/enums';
 
 const Details = (props) => {
   const {

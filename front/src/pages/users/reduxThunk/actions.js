@@ -3,7 +3,17 @@ import {
   setLoading as setLoadingUsersTable,
   setUsers,
 } from '../components/usersTable/redux/slices';
-import { loadUserAndLikesRepository } from '../repository/users';
+import {
+  setError as setErrorUserForm,
+  setLoading as setLoadingUserForm,
+  setAllUsers,
+} from '../components/userForm/redux/slices';
+import {
+  loadUserAndLikesRepository,
+  loadUsernamesWithRolesRepository,
+  updateUserRoleRepository,
+} from '../repository/users';
+
 import serialize from '../../../utils/serialize';
 
 export const loadUserAndLikes = () => async (dispatch, getState) => {
@@ -17,3 +27,34 @@ export const loadUserAndLikes = () => async (dispatch, getState) => {
     dispatch(setLoadingUsersTable(false));
   }
 };
+
+export const loadUsernamesWithRoles = () => async (dispatch, getState) => {
+  try {
+    dispatch(setLoadingUserForm(true));
+    const usernamesWithRoles = await loadUsernamesWithRolesRepository();
+    dispatch(setAllUsers(usernamesWithRoles));
+  } catch (err) {
+    dispatch(setErrorUserForm(serialize(err)));
+  } finally {
+    dispatch(setLoadingUserForm(false));
+  }
+};
+
+export const updateUserRole =
+  (username, role) => async (dispatch, getState) => {
+    try {
+      const DTO = {
+        username,
+        role,
+      };
+
+      dispatch(setLoadingUserForm(true));
+      await updateUserRoleRepository(DTO);
+      dispatch(loadUserAndLikes());
+      dispatch(loadUsernamesWithRoles());
+    } catch (err) {
+      dispatch(setErrorUserForm(serialize(err)));
+    } finally {
+      dispatch(setLoadingUserForm(false));
+    }
+  };

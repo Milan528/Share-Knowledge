@@ -8,7 +8,7 @@ import { setProfileView } from './redux/slices';
 import { profileView } from './redux/state';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { tagsRoute, usersRoute } from '../../../../app/router/routes';
-import { userRole } from '../../../../app/redux/state';
+import { userRole } from '../../../../utils/enums';
 
 const SideNavBar = () => {
   const navigate = useNavigate();
