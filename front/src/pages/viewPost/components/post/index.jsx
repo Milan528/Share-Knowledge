@@ -27,14 +27,13 @@ const Post = () => {
 
   useEffect(() => {
     if (!homepageFilters && !Number.isFinite(postIndex)) {
-      console.log('Aaaaaaaaa');
       dispatch(loadPost(searchParamsPostId));
     }
   }, [dispatch, searchParamsPostId, homepageFilters, postIndex]);
 
   useEffect(() => {
     if (homepageFilters && Number.isFinite(postIndex)) {
-      // console.log('bbbbbbbb');
+      console.log('bbbbbbbb');
       dispatch(
         loadPostForHomepageFilters(postIndex, homepageFilters, (postId) => {
           navigate(
@@ -47,6 +46,7 @@ const Post = () => {
                 homepageFilters,
                 postIndex,
               },
+              replace: true,
             }
           );
         })
