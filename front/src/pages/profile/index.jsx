@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
-import { ContentContainer } from './styles';
+import { ContentContainer, MainContainer } from './styles';
 import SideNavbar from './components/sideNavbar';
 import UserInfo from './components/userInfo';
 import Posts from './components/posts';
@@ -34,12 +34,14 @@ const Profile = () => {
   const viewToRender = (
     <>
       <Navbar />
-      <SideNavbar />
-      <ContentContainer>
-        <Posts />
-        <UserInfo />
-        {loading ? <Loader /> : null}
-      </ContentContainer>
+      <MainContainer>
+        <SideNavbar />
+        <ContentContainer>
+          <Posts />
+          <UserInfo />
+          {loading ? <Loader /> : null}
+        </ContentContainer>
+      </MainContainer>
     </>
   );
 
