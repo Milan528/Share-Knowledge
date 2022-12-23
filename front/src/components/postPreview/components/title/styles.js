@@ -18,6 +18,7 @@ export const DateContainer = styled.div`
 export const StyledTypography = styled(Typography)`
   && {
     flex: 1;
+    cursor: initial;
   }
 `;
 

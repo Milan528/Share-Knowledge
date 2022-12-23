@@ -5,6 +5,7 @@ export const profileView = {
 
 export const initialState = {
   profileView: profileView.posts,
+  sideNavbarHidden: false,
 };
 
 const getState = () => {

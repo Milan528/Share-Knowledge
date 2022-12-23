@@ -52,4 +52,3 @@ const viewPostSlice = createSlice({
 });
 
 export const viewPostReducer = viewPostSlice.reducer;
-export const { setLoading, setError } = viewPostSlice.actions;

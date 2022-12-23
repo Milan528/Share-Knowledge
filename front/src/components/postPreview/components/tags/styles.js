@@ -3,5 +3,6 @@ import Chip from '@mui/material/Chip';
 
 export const StyledChip = styled(Chip)`
   && {
+    cursor: initial;
   }
 `;

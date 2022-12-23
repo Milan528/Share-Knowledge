@@ -30,6 +30,9 @@ const profileSlice = createSlice({
     builder.addCase(sideNavbarActions.setProfileView, (state, action) => {
       state.sideNavbar = sideNavbarReducer(state.sideNavbar, action);
     });
+    builder.addCase(sideNavbarActions.setSideNavbarHidden, (state, action) => {
+      state.sideNavbar = sideNavbarReducer(state.sideNavbar, action);
+    });
     builder.addCase(postsActions.setLoading, (state, action) => {
       state.posts = postsReducer(state.posts, action);
     });

@@ -17,8 +17,8 @@ export default function Router() {
         <Route element={<PrivateRoutes />}>
           <Route path={routes.createPostRoute} element={<CreatePost />} exact />
           <Route path={routes.tagsRoute} element={<Tags />} exact />
-          <Route path={routes.profileRoute} element={<Profile />} exact />
           <Route path={routes.usersRoute} element={<Users />} exact />
+          <Route path={routes.profileRoute} element={<Profile />} exact />
         </Route>
         <Route path={routes.viewPostRoute} element={<ViewPost />} exact />
         <Route path={routes.homeRoute} element={<Home />} />

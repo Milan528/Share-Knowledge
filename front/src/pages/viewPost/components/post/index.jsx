@@ -33,7 +33,6 @@ const Post = () => {
 
   useEffect(() => {
     if (homepageFilters && Number.isFinite(postIndex)) {
-      console.log('bbbbbbbb');
       dispatch(
         loadPostForHomepageFilters(postIndex, homepageFilters, (postId) => {
           navigate(

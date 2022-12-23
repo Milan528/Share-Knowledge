@@ -23,7 +23,7 @@ export const Heading = () => {
     if (Number.isFinite(selectedPostIndex)) {
       dispatch(setPostIndex(selectedPostIndex));
     }
-  }, [selectedPostIndex]);
+  }, [selectedPostIndex, dispatch]);
 
   const handleNextPost = () => {
     const { totalNumberOfPosts } = homepageFilters;

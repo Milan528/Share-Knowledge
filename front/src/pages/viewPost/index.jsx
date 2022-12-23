@@ -8,17 +8,12 @@ import CreateComment from './components/createComment';
 import { useSelector } from 'react-redux';
 import { AddComment } from './components/addComment';
 import Heading from './components/heading';
-import { setError } from './redux/slices';
-import Loader from '../../components/loader';
-import ErrorDialog from '../../components/errorDialog';
 
 const ViewPost = () => {
   const createCommentRef = useRef(null);
   const token = useSelector((state) => state.app.token);
-  const loading = useSelector((state) => state.viewPost.loading);
-  const error = useSelector((state) => state.viewPost.error);
 
-  const viewToRender = () => (
+  return (
     <>
       <Navbar />
       <Heading />
@@ -32,14 +27,6 @@ const ViewPost = () => {
       </ContentContainer>
       <Footer />
     </>
-  );
-
-  return error ? (
-    <ErrorDialog error={error} setError={setError} />
-  ) : loading ? (
-    <Loader />
-  ) : (
-    viewToRender()
   );
 };
 

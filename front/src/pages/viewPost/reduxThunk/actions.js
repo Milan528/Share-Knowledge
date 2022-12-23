@@ -27,8 +27,6 @@ import {
   removePostDislikeRepository,
   removePostLikeRepository,
 } from '../repository/post';
-import { setError, setLoading } from '../redux/slices';
-import { delayTest } from '../../../utils/delay';
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {

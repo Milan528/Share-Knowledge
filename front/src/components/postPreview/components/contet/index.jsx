@@ -17,9 +17,14 @@ const Content = (props) => {
     if (ext.includes('.mp4')) return Video;
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
+
   return (
     <>
-      <StyledText>{text}</StyledText>
+      <StyledText onClick={handleClick}>{text}</StyledText>
       {files.map((file, index) => (
         <StyledImg
           src={selectFileImage(file)}

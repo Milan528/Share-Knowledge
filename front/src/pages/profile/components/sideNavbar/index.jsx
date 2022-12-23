@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Container,
   OptionsContainer,
   SlidingContainer,
   StyledArrow,
@@ -9,7 +8,7 @@ import {
 } from './styles';
 import { StyledListItemHeaderText } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileView } from './redux/slices';
+import { setProfileView, setSideNavbarHidden } from './redux/slices';
 import { profileView } from './redux/state';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { tagsRoute, usersRoute } from '../../../../app/router/routes';
@@ -18,12 +17,14 @@ import { Divider, MenuItem } from '@mui/material';
 
 const SideNavBar = () => {
   const navigate = useNavigate();
-  const [hidden, setHidden] = useState(true);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const usernameUrl = searchParams.get('username');
   const username = useSelector((state) => state.app.username);
   const role = useSelector((state) => state.app.role);
+  const hidden = useSelector(
+    (state) => state.profile.sideNavbar.sideNavbarHidden
+  );
 
   return (
     <SlidingContainer hidden={hidden}>
@@ -51,7 +52,7 @@ const SideNavBar = () => {
           </MenuItem>
         ) : null}
       </OptionsContainer>
-      <ToggleContainer onClick={() => setHidden((prev) => !prev)}>
+      <ToggleContainer onClick={() => dispatch(setSideNavbarHidden(!hidden))}>
         <StyledArrow hidden={hidden} />
       </ToggleContainer>
     </SlidingContainer>

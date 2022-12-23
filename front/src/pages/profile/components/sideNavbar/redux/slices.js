@@ -8,9 +8,12 @@ const sideNavbarSlice = createSlice({
     setProfileView: (state, action) => {
       state.profileView = action.payload;
     },
+    setSideNavbarHidden: (state, action) => {
+      state.sideNavbarHidden = action.payload;
+    },
   },
 });
 
-export const { setProfileView } = sideNavbarSlice.actions;
+export const { setProfileView, setSideNavbarHidden } = sideNavbarSlice.actions;
 export const actions = sideNavbarSlice.actions;
 export const sideNavbarReducer = sideNavbarSlice.reducer;

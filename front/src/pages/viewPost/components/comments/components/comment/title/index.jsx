@@ -1,10 +1,7 @@
-import { Tooltip } from '@mui/material';
 import React from 'react';
 import {
   Container,
   StyledTypography,
-  StyledBookIcon,
-  StyledHelpIcon,
   PostedByContainer,
   DateIcon,
   StyledPostedByTypography,
@@ -17,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { profileRoute } from '../../../../../../../app/router/routes';
 
 const Title = (props) => {
-  const { title, type, postedBy, date } = props;
+  const { title, postedBy, date } = props;
   const navigate = useNavigate();
 
   const handleVisitUserProfile = () => {
@@ -30,15 +27,6 @@ const Title = (props) => {
   return (
     <>
       <Container>
-        {type === 'material' ? (
-          <Tooltip title="Materijal">
-            <StyledBookIcon />
-          </Tooltip>
-        ) : (
-          <Tooltip title="Pitanje">
-            <StyledHelpIcon />
-          </Tooltip>
-        )}
         <PostedByContainer>
           <StyledPostedByTypography variant="h6">
             Postavio/la{' '}

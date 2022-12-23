@@ -27,6 +27,11 @@ const Title = (props) => {
     });
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
+
   return (
     <>
       <Container>
@@ -53,7 +58,9 @@ const Title = (props) => {
           <Typography> {date}</Typography>
         </DateContainer>
       </Container>
-      <StyledTypography variant="h5">{title}</StyledTypography>
+      <StyledTypography onClick={handleClick} variant="h5">
+        {title}
+      </StyledTypography>
     </>
   );
 };

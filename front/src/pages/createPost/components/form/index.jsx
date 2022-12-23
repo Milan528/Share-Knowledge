@@ -29,6 +29,7 @@ import {
   selectVideos,
   selectWordDocuments,
 } from '../../../../utils/filesSelector';
+import { postType } from '../../../../utils/enums';
 
 const Form = () => {
   const [type, setType] = useState('question');
@@ -118,14 +119,14 @@ const Form = () => {
       />
       <StyledTextareaAutosize
         minRows={10}
-        placeholder="Sadrzaj"
+        placeholder="Sadržaj"
         onChange={handleTextareaChange}
       />
       <Type>
         <InputLabel>Tip</InputLabel>
         <Select value={type} onChange={handleTypeChange}>
-          <MenuItem value={'question'}>Pitanje</MenuItem>
-          <MenuItem value={'material'}>Materijal</MenuItem>
+          <MenuItem value={postType.question}>Pitanje</MenuItem>
+          <MenuItem value={postType.material}>Materijal</MenuItem>
         </Select>
       </Type>
       <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />

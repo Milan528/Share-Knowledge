@@ -54,7 +54,11 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
         }}
         style={{ width: '100%' }}
         renderInput={(params) => (
-          <TextField {...params} label="Selected Tags" placeholder="Tags" />
+          <TextField
+            {...params}
+            label="Odaberi godinu, smer, predmt..."
+            placeholder="Odabrani tagovi"
+          />
         )}
       />
     </TagsContainer>
