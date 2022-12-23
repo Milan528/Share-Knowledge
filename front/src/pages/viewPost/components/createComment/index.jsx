@@ -4,7 +4,7 @@ import Form from './components/form';
 const CreateComment = React.forwardRef((props, ref) => {
   return (
     <>
-      <h1 ref={ref}>Create comment</h1>
+      <h1 ref={ref}>Kreiraj komentar</h1>
       <Form />
     </>
   );

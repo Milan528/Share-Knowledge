@@ -9,12 +9,15 @@ import Tags from './components/tags';
 import { setError } from './redux/slices';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadPost } from '../../reduxThunk/actions';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { viewPostRoute } from '../../../../app/router/routes';
+import { loadPostForHomepageFilters } from '../../reduxThunk/actions';
 
 const Post = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.viewPost.post);
-  const { loading, error, post } = state;
+  const { loading, error, post, postIndex } = state;
   const [searchParams] = useSearchParams();
   const searchParamsPostId = searchParams.get('postId');
   const location = useLocation();
@@ -23,10 +26,33 @@ const Post = () => {
     : null;
 
   useEffect(() => {
-    if (!homepageFilters) {
+    if (!homepageFilters && !Number.isFinite(postIndex)) {
+      console.log('Aaaaaaaaa');
       dispatch(loadPost(searchParamsPostId));
     }
-  }, [dispatch, searchParamsPostId, homepageFilters]);
+  }, [dispatch, searchParamsPostId, homepageFilters, postIndex]);
+
+  useEffect(() => {
+    if (homepageFilters && Number.isFinite(postIndex)) {
+      // console.log('bbbbbbbb');
+      dispatch(
+        loadPostForHomepageFilters(postIndex, homepageFilters, (postId) => {
+          navigate(
+            {
+              pathname: viewPostRoute,
+              search: `postId=${postId}`,
+            },
+            {
+              state: {
+                homepageFilters,
+                postIndex,
+              },
+            }
+          );
+        })
+      );
+    }
+  }, [postIndex, dispatch, homepageFilters, navigate]);
 
   const viewToRender = () => {
     if (post) {
@@ -46,13 +72,12 @@ const Post = () => {
 
       return (
         <StyledPaper elevation={1}>
-          <Title title={title} type={type} postedBy={postedBy} id={id} />
+          <Title title={title} type={type} postedBy={postedBy} date={date} />
           <Content text={text} files={files} />
           <Tags tags={tags} />
           <Details
             likes={likes}
             postId={id}
-            date={date}
             dislikes={dislikes}
             likeStatus={likeStatus}
           />

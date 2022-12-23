@@ -2,6 +2,7 @@ const initialState = {
   loading: true,
   error: null,
   post: null,
+  postIndex: null,
 };
 
 const getState = () => {

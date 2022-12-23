@@ -2,35 +2,44 @@ import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import HelpIcon from '@mui/icons-material/Help';
 import BookIcon from '@mui/icons-material/MenuBook';
-import { IconButton } from '@mui/material';
+import Today from '@mui/icons-material/Today';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
-export const StyledTypography = styled(Typography)``;
+export const DateContainer = styled.div`
+  display: flex;
+  align-items: center;
+  min-width: fit-content;
+`;
+
+export const StyledTypography = styled(Typography)`
+  && {
+    flex: 1;
+  }
+`;
 
 export const StyledHelpIcon = styled(HelpIcon)`
-  margin-left: 20;
+  margin-right: 5px;
 `;
 
 export const StyledBookIcon = styled(BookIcon)`
-  margin-left: 20;
+  margin-right: 5px;
 `;
 
 export const PostedByContainer = styled.div`
   display: flex;
-`;
-
-export const ControllsContainer = styled.div`
-  display: flex;
   flex: 1;
-  justify-content: end;
+  flex-wrap: wrap;
+  min-width: fit-content;
 `;
 
-export const StyledDeleteIconButton = styled(IconButton)`
+export const DateIcon = styled(Today)`
   && {
-    margin-right: -8px;
+    margin-left: 10px;
   }
 `;
+
+export const StyledPostedByTypography = styled(Typography)``;

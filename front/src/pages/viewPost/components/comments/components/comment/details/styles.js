@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Typography from '@mui/material/Typography';
-import Today from '@mui/icons-material/Today';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { commentLikeDislikeStatus } from '../../../../../../../utils/enums';
@@ -39,21 +38,20 @@ export const Likes = styled(Typography)`
   }
 `;
 
-export const DateIcon = styled(Today)`
-  && {
-    margin-left: 10px;
-  }
-`;
-
-export const DateContainer = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: end;
-`;
-
 export const StyledButton = styled(Button)`
   && {
     color: rgb(0 0 0 / 87%);
+  }
+`;
+
+export const ControllsContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: end;
+`;
+
+export const StyledDeleteIconButton = styled(IconButton)`
+  && {
+    margin-right: -8px;
   }
 `;

@@ -8,7 +8,7 @@ import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 import { commentLikeDislikeStatus } from '../tools/enums.js';
 
-export const getCommentLikeDislikeStatus = async (req, comments) => {
+const getCommentLikeDislikeStatusAndOwnership = async (req, comments) => {
   tokenValidation(req, null, () => {});
   const userID = req.body.userID;
 
@@ -39,6 +39,9 @@ export const getCommentLikeDislikeStatus = async (req, comments) => {
           comment.likeStatus = commentLikeDislikeStatus.none;
         }
       }
+
+      if (comment.userId === userID) comment.owner = true;
+      else comment.owner = false;
     }
   }
   return await getCommentFiles(comments);
@@ -55,7 +58,20 @@ export const getCommentsForPost = async (req) => {
     return response.OK(`No comments for selected post`);
   }
 
-  return await getCommentLikeDislikeStatus(req, results);
+  return await getCommentLikeDislikeStatusAndOwnership(req, results);
+};
+
+export const deleteComment = async (req) => {
+  const { results, error } = await database.query(QUERYS.DELETE_COMMENT, [req.params.id]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  } else {
+    return response.OK(`Comment deleted`, [req.params.id]);
+  }
 };
 
 async function getCommentFiles(comments) {

@@ -3,23 +3,27 @@ import Button from '@mui/material/Button';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { HeadingContainer, StyledH1 } from './styles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { viewPostRoute } from '../../../../app/router/routes';
-import { loadPostForHomepageFilters } from '../../reduxThunk/actions';
+import { setPostIndex } from '../post/redux/slices';
 
 export const Heading = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const state = useSelector((state) => state.viewPost.post);
   const { post } = state;
-  const navigate = useNavigate();
   const homepageFilters = location.state
     ? location.state.homepageFilters
     : null;
   const [selectedPostIndex, setSelectedPostIndex] = useState(
     location.state ? location.state.selectedPostIndex : null
   );
+
+  useEffect(() => {
+    if (Number.isFinite(selectedPostIndex)) {
+      dispatch(setPostIndex(selectedPostIndex));
+    }
+  }, [selectedPostIndex]);
 
   const handleNextPost = () => {
     const { totalNumberOfPosts } = homepageFilters;
@@ -34,31 +38,6 @@ export const Heading = () => {
       setSelectedPostIndex(selectedPostIndex - 1);
     }
   };
-
-  useEffect(() => {
-    if (homepageFilters) {
-      dispatch(
-        loadPostForHomepageFilters(
-          selectedPostIndex,
-          homepageFilters,
-          (postId) => {
-            navigate(
-              {
-                pathname: viewPostRoute,
-                search: `postId=${postId}`,
-              },
-              {
-                state: {
-                  homepageFilters,
-                  selectedPostIndex,
-                },
-              }
-            );
-          }
-        )
-      );
-    }
-  }, [selectedPostIndex, dispatch, homepageFilters, navigate]);
 
   if (post) {
     return (

@@ -12,7 +12,7 @@ import { postLikeDislikeStatus } from '../tools/enums.js';
 
 /*********************************ONE*********************************/
 
-export const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {
+const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {
   tokenValidation(req, null, () => {});
   const userID = req.body.userID;
   const { posts } = responseData;

@@ -2,6 +2,7 @@ import express from 'express';
 import {
   getCommentsForPost,
   createComment,
+  deleteComment,
   createCommentLike,
   deleteCommentLike,
   createCommentDislike,
@@ -13,6 +14,7 @@ const commentRoutes = express.Router();
 
 commentRoutes.route('/').post(tokenValidation, createComment);
 commentRoutes.route('/post/:postId').get(getCommentsForPost);
+commentRoutes.route('/commentId/:id').delete(deleteComment);
 
 commentRoutes
   .route('/like')

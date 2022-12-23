@@ -1,5 +1,6 @@
 const QUERY = {
   CREATE_COMMENT: 'INSERT INTO comment(text, date, postId, userId) VALUES (?, ?, ?,?)',
+  DELETE_COMMENT: 'DELETE FROM comment WHERE id = ?',
   SELECT_COMMENTS_FOR_POST
 };
 
@@ -26,7 +27,7 @@ function SELECT_COMMENTS_FOR_POST(postId) {
 function selectCommentsWithLikesAndDislikes(tableOfCommentsWithLikes, tableOfCommentsWithDislikes) {
   let sql = '';
   sql +=
-    'SELECT commentsWithLikes.id, commentsWithLikes.text, commentsWithLikes.date, commentsWithLikes.likes, commentsWithDislikes.dislikes ';
+    'SELECT commentsWithLikes.id, commentsWithLikes.text, commentsWithLikes.date, commentsWithLikes.likes, commentsWithLikes.username as postedBy, commentsWithDislikes.dislikes ';
   sql += 'FROM ( ';
   sql += tableOfCommentsWithLikes;
   sql += ') as commentsWithLikes ';
@@ -40,16 +41,18 @@ function selectCommentsWithLikesAndDislikes(tableOfCommentsWithLikes, tableOfCom
 
 function selectCommentsWithLikes(postId) {
   let sql = '';
-  sql += 'SELECT id, text, date, SUM(if(likedCommentId=0,0,1)) AS likes ';
+  sql += 'SELECT id, text, date, username, SUM(if(likedCommentId=0,0,1)) AS likes ';
   sql += 'FROM ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as likedCommentId ';
+  sql1 += 'SELECT id, text, date, username, COALESCE(commentId, 0) as likedCommentId ';
   sql1 += 'FROM ( ';
 
   let sql2 = '';
-  sql2 += 'SELECT id, text, date, userId ';
+  sql2 += 'SELECT comment.id, text, date, username ';
   sql2 += `FROM comment `;
+  sql2 += `join user `;
+  sql2 += `on user.id= comment.userId `;
   sql2 += `WHERE postId = ${postId} `;
 
   sql1 += sql2;
@@ -68,16 +71,18 @@ function selectCommentsWithLikes(postId) {
 
 function selectCommentsWithDislikes(postId) {
   let sql = '';
-  sql += 'SELECT id, text, date, SUM(if(dislikedCommentId=0,0,1)) AS dislikes ';
+  sql += 'SELECT id, text, date, username, SUM(if(dislikedCommentId=0,0,1)) AS dislikes ';
   sql += 'FROM ( ';
 
   let sql1 = '';
-  sql1 += 'SELECT id, text, date, COALESCE(commentId, 0) as dislikedCommentId ';
+  sql1 += 'SELECT id, text, date, username, COALESCE(commentId, 0) as dislikedCommentId ';
   sql1 += 'FROM ( ';
 
   let sql2 = '';
-  sql2 += 'SELECT id, text, date, userId ';
+  sql2 += 'SELECT comment.id, text, date, username ';
   sql2 += `FROM comment `;
+  sql2 += `join user `;
+  sql2 += `on user.id= comment.userId `;
   sql2 += `WHERE postId = ${postId} `;
 
   sql1 += sql2;

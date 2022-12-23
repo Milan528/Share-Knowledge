@@ -16,6 +16,7 @@ import {
   removeCommentLikeRepository,
   addCommentDislikeRepository,
   removeCommentDislikeRepository,
+  deleteCommentRepository,
 } from '../repository/comments';
 import {
   addPostDislikeRepository,
@@ -27,6 +28,7 @@ import {
   removePostLikeRepository,
 } from '../repository/post';
 import { setError, setLoading } from '../redux/slices';
+import { delayTest } from '../../../utils/delay';
 
 export const loadComments = (postId) => async (dispatch, getState) => {
   try {
@@ -250,13 +252,37 @@ export const removeCommentDislike =
     }
   };
 
-export const deletePost = (postID) => async (dispatch, getState) => {
-  try {
-    dispatch(setLoading(true));
-    await deletePostRepository(postID);
-  } catch (err) {
-    dispatch(setError(serialize(err)));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
+export const deletePost =
+  (postID, setLoading, setError, clb) => async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await deletePostRepository(postID);
+      clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const deleteComment =
+  (commentID, setLoading, setError) => async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await deleteCommentRepository(commentID);
+
+      const {
+        viewPost: {
+          comments: { comments },
+        },
+      } = getState();
+
+      dispatch(
+        setComments(comments.filter((comment) => comment.id !== commentID))
+      );
+    } catch (err) {
+      setError(serialize(err));
+    } finally {
+      setLoading(false);
+    }
+  };

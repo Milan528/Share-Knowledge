@@ -66,3 +66,8 @@ function mapCommentToDto(comment) {
     postID: comment.postID,
   };
 }
+
+export const deleteCommentRepository = async (commentId) => {
+  const dto = await services.delete(`/comments/commentId/${commentId}`);
+  return dto.data;
+};

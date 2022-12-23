@@ -45,6 +45,9 @@ const viewPostSlice = createSlice({
     builder.addCase(postActions.setError, (state, action) => {
       state.post = postReducer(state.post, action);
     });
+    builder.addCase(postActions.setPostIndex, (state, action) => {
+      state.post = postReducer(state.post, action);
+    });
   },
 });
 

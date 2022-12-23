@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
 import {
   Container,
   Likes,
-  DateIcon,
   DetailsContainer,
-  DateContainer,
   StyledButton,
   LikeIcon,
   DislikeIcon,
+  ControllsContainer,
+  StyledDeleteIconButton,
 } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addCommentDislike,
   addCommentLike,
+  deleteComment,
   removeCommentDislike,
   removeCommentLike,
 } from '../../../../../reduxThunk/actions';
 import { commentLikeDislikeStatus } from '../../../../../../../utils/enums';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { CircularProgress, Tooltip } from '@mui/material';
 
 const Details = (props) => {
   const {
     likes: propLikes,
-    date,
     dislikes: propDislikes,
     commentId,
     likeStatus,
@@ -31,17 +32,29 @@ const Details = (props) => {
   const [dislikes, setDislikes] = useState(propDislikes);
   const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [errorLikeDislike, setErrorLikeDislike] = useState(null);
+  const [loadingLikeDislike, setLoadingLikeDislike] = useState(false);
   const [likeDislikeStatus, setLikeDislikeStatus] = useState(likeStatus);
+  const [errorCommentDeleting, setErrorCommentDeleting] = useState(null);
+  const [loadingCommentDeleting, setLoadingCommentDeleting] = useState(false);
+
+  const handleDelete = () => {
+    dispatch(
+      deleteComment(
+        commentId,
+        setLoadingCommentDeleting,
+        setErrorCommentDeleting
+      )
+    );
+  };
 
   const handleLike = () => {
     if (token && likeDislikeStatus === commentLikeDislikeStatus.none) {
       dispatch(
         addCommentLike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setLikes
         )
@@ -50,8 +63,8 @@ const Details = (props) => {
       dispatch(
         removeCommentLike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setLikes
         )
@@ -63,16 +76,16 @@ const Details = (props) => {
       dispatch(
         removeCommentDislike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setDislikes,
           () =>
             dispatch(
               addCommentLike(
                 commentId,
-                setError,
-                setLoading,
+                setErrorLikeDislike,
+                setLoadingLikeDislike,
                 setLikeDislikeStatus,
                 setLikes
               )
@@ -87,8 +100,8 @@ const Details = (props) => {
       dispatch(
         addCommentDislike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setDislikes
         )
@@ -100,8 +113,8 @@ const Details = (props) => {
       dispatch(
         removeCommentDislike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setDislikes
         )
@@ -110,16 +123,16 @@ const Details = (props) => {
       dispatch(
         removeCommentLike(
           commentId,
-          setError,
-          setLoading,
+          setErrorLikeDislike,
+          setLoadingLikeDislike,
           setLikeDislikeStatus,
           setLikes,
           () =>
             dispatch(
               addCommentDislike(
                 commentId,
-                setError,
-                setLoading,
+                setErrorLikeDislike,
+                setLoadingLikeDislike,
                 setLikeDislikeStatus,
                 setDislikes
               )
@@ -132,23 +145,33 @@ const Details = (props) => {
   return (
     <Container>
       <DetailsContainer>
-        <StyledButton onClick={handleLike} disabled={loading}>
+        <StyledButton onClick={handleLike} disabled={loadingLikeDislike}>
           <LikeIcon like_dislike_status={likeDislikeStatus} />
           <Likes color="textSecondary">{likes}</Likes>
         </StyledButton>
         <StyledButton
           color="primary"
           onClick={handleDislike}
-          disabled={loading}
+          disabled={loadingLikeDislike}
         >
           <DislikeIcon like_dislike_status={likeDislikeStatus} />
           <Likes color="textSecondary">{dislikes}</Likes>
         </StyledButton>
-        {error ? <p>Unable to like/unlike. Error ocured.</p> : null}
-        <DateContainer>
-          <DateIcon />
-          <Typography> {date} </Typography>
-        </DateContainer>
+        {errorLikeDislike ? <p>Unable to like/unlike. Error ocured.</p> : null}
+
+        <ControllsContainer>
+          {loadingCommentDeleting ? <CircularProgress /> : null}
+          {errorCommentDeleting ? 'Brisanje neuspesno' : null}
+          <Tooltip title="Obriši">
+            <StyledDeleteIconButton
+              onClick={handleDelete}
+              disabled={loadingCommentDeleting}
+              color="primary"
+            >
+              <DeleteIcon />
+            </StyledDeleteIconButton>
+          </Tooltip>
+        </ControllsContainer>
       </DetailsContainer>
     </Container>
   );

@@ -11,6 +11,11 @@ export const createComment = async (req) => {
   return res.status(response.statusCode).send(response);
 };
 
+export const deleteComment = async (req, res) => {
+  const response = await commentServices.deleteComment(req);
+  return res.status(response.statusCode).send(response);
+};
+
 export const createCommentLike = async (req, res) => {
   const response = await commentLikedByServices.createCommentLike(req);
   return res.status(response.statusCode).send(response);
