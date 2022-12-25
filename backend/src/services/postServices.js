@@ -9,6 +9,7 @@ import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 import { postLikeDislikeStatus } from '../tools/enums.js';
+import { removeCommentFiles, removePostFiles } from './fileServices.js';
 
 /*********************************ONE*********************************/
 
@@ -128,6 +129,13 @@ export const updatePost = async (req) => {
 };
 
 export const deletePost = async (req) => {
+  const { results: commentRes, error: commentError } = await database.query(
+    QUERYS.GET_POST_COMMENT_IDS,
+    [req.params.id]
+  );
+  if (commentError) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
   const { results, error } = await database.query(QUERYS.DELETE_POST, [req.params.id]);
 
   if (error) {
@@ -136,7 +144,11 @@ export const deletePost = async (req) => {
   if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return response.OK(`Post deleted`, [req.params.id]);
+    await removePostFiles(req.params.id);
+    for (const commnetId of commentRes) {
+      removeCommentFiles(commnetId.id);
+    }
+    return response.OK('Post removed', [req.params.id]);
   }
 };
 

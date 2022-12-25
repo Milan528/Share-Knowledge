@@ -4,5 +4,6 @@ import styled from 'styled-components';
 export const StyledText = styled(Typography)`
   && {
     margin-bottom: 10px;
+    white-space: pre-wrap;
   }
 `;

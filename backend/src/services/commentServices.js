@@ -7,6 +7,7 @@ import COMMENT_DISLIKED_BY_QUERYS from '../sqlQuerys/commentDislikedBy.querys.js
 import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 import { commentLikeDislikeStatus } from '../tools/enums.js';
+import { removeCommentFiles } from './fileServices.js';
 
 const getCommentLikeDislikeStatusAndOwnership = async (req, comments) => {
   tokenValidation(req, null, () => {});
@@ -70,6 +71,7 @@ export const deleteComment = async (req) => {
   if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
+    await removeCommentFiles(req.params.id);
     return response.OK(`Comment deleted`, [req.params.id]);
   }
 };

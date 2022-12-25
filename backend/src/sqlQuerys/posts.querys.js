@@ -10,6 +10,7 @@ const QUERY = {
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
   SELECT_POST_BY_POSTID,
+  GET_POST_COMMENT_IDS: 'SELECT id from comment where postId = ?',
 
   /*********************************MANY*********************************/
 

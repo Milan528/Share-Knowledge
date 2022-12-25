@@ -6,7 +6,7 @@ export const getCommentsForPost = async (req, res) => {
   return res.status(response.statusCode).send(response);
 };
 
-export const createComment = async (req) => {
+export const createComment = async (req, res) => {
   const response = await commentServices.createComment(req);
   return res.status(response.statusCode).send(response);
 };

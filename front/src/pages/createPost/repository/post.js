@@ -7,7 +7,6 @@ export const createPostRepository = async (post, setUploadProgress) => {
   };
   const response = await services.post('/posts', DTO);
   const postId = response.data;
-
   const formData = new FormData();
   const allFiles = post.images.concat(post.documents.concat(post.videos));
 

@@ -57,8 +57,7 @@ const Form = () => {
     setImages(selectImages(attachments));
     setVideos(selectVideos(attachments));
     setDocuments(
-      ...selectWordDocuments(attachments),
-      ...selectPdfDocuments(attachments)
+      selectWordDocuments(attachments).concat(selectPdfDocuments(attachments))
     );
   }, [attachments]);
 

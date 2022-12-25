@@ -5,6 +5,7 @@ import { dirname } from 'path';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import database from '../tools/database.js';
 import response from '../tools/response/index.js';
+import fs from 'fs';
 
 const createFilePath = (filename) => {
   const __filename = fileURLToPath(import.meta.url);
@@ -15,12 +16,12 @@ const createFilePath = (filename) => {
 
 export const uploadPostFile = async (req) => {
   const postId = req.body.postId;
-  return await uploadFile(req, FILE_QUERYS.CREATE_FILE_FOR_POST, postId);
+  return await uploadFile(req, FILE_QUERYS.CREATE_FILE_FOR_POST, postId, 'posts');
 };
 
 export const uploadCommentFile = async (req) => {
   const commentId = req.body.commentId;
-  return await uploadFile(req, FILE_QUERYS.CREATE_FILE_FOR_COMMENT, commentId);
+  return await uploadFile(req, FILE_QUERYS.CREATE_FILE_FOR_COMMENT, commentId, 'comments');
 };
 
 async function insertFileInfoIntoTable(query, filepath, ext, postId) {
@@ -32,12 +33,12 @@ async function insertFileInfoIntoTable(query, filepath, ext, postId) {
   }
 }
 
-async function uploadFile(req, table, fileId) {
+async function uploadFile(req, table, id, directory) {
   const files = req.files;
 
   Object.keys(files).forEach((key) => {
     const file = files[key];
-    const uniqueFileName = uuidv4() + '-' + file.name;
+    const uniqueFileName = `${directory}/${id}/${file.name}`;
     const filepath = createFilePath(uniqueFileName);
     const ext = '.' + file.mimetype.split('/')[1];
 
@@ -45,12 +46,24 @@ async function uploadFile(req, table, fileId) {
       if (err) {
         return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`, err);
       } else {
-        return await insertFileInfoIntoTable(table, uniqueFileName, ext, fileId);
+        return await insertFileInfoIntoTable(table, uniqueFileName, ext, id);
       }
     });
   });
 
   return response.OK('Files uploaded');
+}
+
+async function removeFiles(id, directory) {
+  fs.rmSync(`files/${directory}/${id}`, { recursive: true, force: true });
+}
+
+export async function removePostFiles(id) {
+  await removeFiles(id, 'posts');
+}
+
+export async function removeCommentFiles(id) {
+  await removeFiles(id, 'comments');
 }
 
 //******************SERVICE FOR DOWNLOADING FILE DIRECTLY FROM SERVER*********************/
