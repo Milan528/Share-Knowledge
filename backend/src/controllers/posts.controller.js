@@ -50,3 +50,13 @@ export const deletePostDislike = async (req, res) => {
   const response = await postDislikedByServices.deletePostDislike(req);
   return res.status(response.statusCode).send(response);
 };
+
+export const reportPost = async (req, res) => {
+  const response = await postServices.reportPost(req);
+  return res.status(response.statusCode).send(response);
+};
+
+export const getReportedPosts = async (req, res) => {
+  const response = await postServices.getReportedPosts(req);
+  return res.status(response.statusCode).send(response);
+};

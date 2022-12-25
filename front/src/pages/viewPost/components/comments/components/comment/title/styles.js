@@ -13,12 +13,6 @@ export const DateContainer = styled.div`
   min-width: fit-content;
 `;
 
-export const StyledTypography = styled(Typography)`
-  && {
-    flex: 1;
-  }
-`;
-
 export const PostedByContainer = styled.div`
   display: flex;
   flex: 1;

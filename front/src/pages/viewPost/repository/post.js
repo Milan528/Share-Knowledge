@@ -69,3 +69,8 @@ export const deletePostRepository = async (postId) => {
   const dto = await services.delete(`/posts/postId/${postId}`);
   return dto.data;
 };
+
+export const reportPostRepository = async (DTO) => {
+  const dto = await services.post(`/posts/report`, DTO);
+  return dto.data;
+};

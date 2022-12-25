@@ -15,6 +15,7 @@ import {
   deletePost,
   removePostDislike,
   removePostLike,
+  reportPost,
 } from '../../../../reduxThunk/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -23,12 +24,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { CircularProgress, Tooltip } from '@mui/material';
 import { homeRoute } from '../../../../../../app/router/routes';
 import { useNavigate } from 'react-router-dom';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 
 const Details = (props) => {
   const {
     likes: propLikes,
     dislikes: propDislikes,
     postId,
+    postedBy,
     likeStatus,
   } = props;
   const [likes, setLikes] = useState(propLikes);
@@ -41,6 +44,19 @@ const Details = (props) => {
   const navigate = useNavigate();
   const [errorPostDeleting, setErrorPostDeleting] = useState(null);
   const [loadingPostDeleting, setLoadingPostDeleting] = useState(false);
+  const [errorPostReporting, setErrorPostReporting] = useState(null);
+  const [loadingPostReporting, setLoadingPostReporting] = useState(false);
+
+  const handleReport = () => {
+    dispatch(
+      reportPost(
+        postId,
+        postedBy,
+        setLoadingPostReporting,
+        setErrorPostReporting
+      )
+    );
+  };
 
   const handleDelete = () => {
     dispatch(
@@ -165,6 +181,16 @@ const Details = (props) => {
               color="primary"
             >
               <DeleteIcon />
+            </StyledDeleteIconButton>
+          </Tooltip>
+
+          <Tooltip title="Prijavi objavu">
+            <StyledDeleteIconButton
+              onClick={handleReport}
+              disabled={loadingPostDeleting}
+              color="primary"
+            >
+              <PriorityHighIcon />
             </StyledDeleteIconButton>
           </Tooltip>
         </ControllsContainer>

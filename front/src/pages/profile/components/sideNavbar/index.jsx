@@ -35,6 +35,17 @@ const SideNavBar = () => {
           <MenuItem onClick={() => dispatch(setProfileView(profileView.posts))}>
             <StyledListItemHeaderText>Objave</StyledListItemHeaderText>
           </MenuItem>
+          {userRole.admin === role ? (
+            <MenuItem
+              onClick={() =>
+                dispatch(setProfileView(profileView.reportedPosts))
+              }
+            >
+              <StyledListItemHeaderText>
+                Prijavljene objave
+              </StyledListItemHeaderText>
+            </MenuItem>
+          ) : null}
           {usernameUrl === username ? (
             <MenuItem
               onClick={() => dispatch(setProfileView(profileView.personalData))}

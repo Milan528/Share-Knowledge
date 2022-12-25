@@ -1,18 +1,20 @@
-export const profileView = {
-  posts: 'posts',
-  reportedPosts: 'reportedPosts',
-  personalData: 'personalData',
+export const orderEnum = {
+  newest: 'newest',
+  like: 'like',
+  dislike: 'dislike',
 };
 
 export const initialState = {
-  profileView: profileView.posts,
-  sideNavbarHidden: false,
+  loading: false,
+  error: null,
+  posts: [],
+  order: orderEnum.newest,
 };
 
 const getState = () => {
   if (localStorage.getItem('profile')) {
     const state = JSON.parse(localStorage.getItem('profile'));
-    return state.sideNavbar;
+    return state.posts;
   } else return initialState;
 };
 

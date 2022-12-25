@@ -11,6 +11,7 @@ import Posts from './components/posts';
 import { useSearchParams } from 'react-router-dom';
 import { setProfileView } from './components/sideNavbar/redux/slices';
 import { profileView } from './components/sideNavbar/redux/state';
+import ReportedPosts from './components/reportedPosts';
 
 const Profile = () => {
   const { error, loading } = useSelector((state) => state.profile);
@@ -38,6 +39,7 @@ const Profile = () => {
         <SideNavbar />
         <ContentContainer>
           <Posts />
+          <ReportedPosts />
           <UserInfo />
           {loading ? <Loader /> : null}
         </ContentContainer>

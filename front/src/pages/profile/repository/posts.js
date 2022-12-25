@@ -5,9 +5,11 @@ export const loadUserPostsRepository = async (username, order) => {
   const dto = await services.get(
     `/posts/user?username=${username}&order=${order}`
   );
-  // 		"url": "http://localhost:3000/quotes?tags=life,science&page=1&pageSize=1&sortBy=author&sortDirection=asc",
-  // 		"method": "GET"
-  // 	},
+  return mapDTOToPosts(dto.data.posts);
+};
+
+export const loadReportedPostsRepository = async (username, order) => {
+  const dto = await services.get(`/posts/reports`);
   return mapDTOToPosts(dto.data.posts);
 };
 

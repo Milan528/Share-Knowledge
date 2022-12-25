@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
+DROP TABLE IF EXISTS postReportedBy;
 DROP TABLE IF EXISTS comment_file;
 DROP TABLE IF EXISTS commentLikedBy;
 DROP TABLE IF EXISTS commentDislikedBy;
@@ -111,3 +112,13 @@ CREATE TABLE comment_file (
     PRIMARY KEY (id),
     FOREIGN KEY (commentId) REFERENCES comment(id) ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE postReportedBy (
+postId int NOT NULL,
+postedById int NOT NULL, 
+reportedById int NOT NULL, 
+PRIMARY KEY (postId,reportedById),
+FOREIGN KEY (postId) REFERENCES post(id) ON DELETE CASCADE,
+FOREIGN KEY (postedById) REFERENCES user(id) ON DELETE CASCADE, 
+FOREIGN KEY (reportedById) REFERENCES user(id) ON DELETE CASCADE 
+) DEFAULT CHARSET=utf8;

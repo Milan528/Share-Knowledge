@@ -1,4 +1,5 @@
 import QUERYS from '../sqlQuerys/posts.querys.js';
+import POST_REPORT_QUERYS from '../sqlQuerys/postReportedBy.querys.js';
 import TAG_QUERYS from '../sqlQuerys/tags.querys.js';
 import FILE_QUERYS from '../sqlQuerys/files.querys.js';
 import POST_TAG_QUERYS from '../sqlQuerys/postTag.querys.js';
@@ -10,6 +11,8 @@ import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 import { postLikeDislikeStatus } from '../tools/enums.js';
 import { removeCommentFiles, removePostFiles } from './fileServices.js';
+import services from './index.js';
+import HttpStatus from '../tools/response/httpStatus.js';
 
 /*********************************ONE*********************************/
 
@@ -152,6 +155,27 @@ export const deletePost = async (req) => {
   }
 };
 
+export const reportPost = async (req) => {
+  const { postedBy, postID, userID } = req.body;
+
+  const { results, error } = await database.query(POST_REPORT_QUERYS.SELECT, [userID, postID]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results[0]) {
+    const res = await services.userServices.getUserByUsername(postedBy);
+    if (res.statusCode === HttpStatus.OK.code) {
+      const postedByID = res.data.id;
+      return await addReportPostEntry(postID, postedByID, userID);
+    } else {
+      return res;
+    }
+  } else {
+    return response.OK(`Already reported`);
+  }
+};
+
 /* - - - - - - - - - - - - - - -HELPERS- - - - - - - - - - - - - - - */
 
 async function addTagForPost(postID, tags) {
@@ -166,6 +190,22 @@ async function addTagForPost(postID, tags) {
   }
 
   return response.CREATED(`Post created`, postID);
+}
+
+async function addReportPostEntry(postId, postedById, reportedById) {
+  const { results, error } = await database.query(POST_REPORT_QUERYS.CREATE_REPORT_POST, [
+    reportedById,
+    postId,
+    postedById
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  }
+
+  return response.CREATED(`Report created`, postId);
 }
 
 /*********************************MANY*********************************/
@@ -194,6 +234,30 @@ export const getPostsForHomepageFilters = async (req) => {
   };
 
   return await getTotalNumberOfPagesForHomepageFilters(req, dto);
+};
+
+export const getReportedPosts = async (req) => {
+  let { results, error } = await database.query(POST_REPORT_QUERYS.SELECT_REPORTED_POSTS);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.NOT_FOUND(`No data for selected search`);
+  } else {
+    let postArray = [];
+    for (let reportEtnry of results) {
+      req.params.id = reportEtnry.postId;
+      let res = await getPostById(req);
+
+      if (res.statusCode === HttpStatus.OK.code) {
+        postArray.push(res.data);
+      } else {
+        return res;
+      }
+    }
+    console.log(postArray);
+    return response.OK('Reported posts', postArray);
+  }
 };
 
 const getTotalNumberOfPagesForHomepageFilters = async (req, dto) => {

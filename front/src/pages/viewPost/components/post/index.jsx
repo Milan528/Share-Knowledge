@@ -79,6 +79,7 @@ const Post = () => {
             postId={id}
             dislikes={dislikes}
             likeStatus={likeStatus}
+            postedBy={postedBy}
           />
         </StyledPaper>
       );

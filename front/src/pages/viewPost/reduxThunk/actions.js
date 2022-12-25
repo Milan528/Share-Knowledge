@@ -26,6 +26,7 @@ import {
   loadPostForHomepageFiltersRepository,
   removePostDislikeRepository,
   removePostLikeRepository,
+  reportPostRepository,
 } from '../repository/post';
 
 export const loadComments = (postId) => async (dispatch, getState) => {
@@ -256,6 +257,23 @@ export const deletePost =
       setLoading(true);
       await deletePostRepository(postID);
       clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const reportPost =
+  (postID, postedBy, setLoading, setError) => async (dispatch, getState) => {
+    const DTO = {
+      postID,
+      postedBy,
+    };
+
+    try {
+      setLoading(true);
+      await reportPostRepository(DTO);
     } catch (err) {
       setError(err);
     } finally {

@@ -1,5 +1,6 @@
 const QUERY = {
   SELECT_USER_BY_EMAIL: 'SELECT * FROM user WHERE email = ?',
+  SELECT_USER_BY_USERNAME: 'SELECT * FROM user WHERE username = ?',
   CREATE_USER: 'INSERT INTO user(username, email, password, role) VALUES (?, ?, ?, ?)',
   SELECT_USERS_AND_ROLES: 'select username, role from user',
   SELECT_TOTAL_LIKES_FOR_USER,

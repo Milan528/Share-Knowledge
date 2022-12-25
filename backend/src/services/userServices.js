@@ -32,3 +32,14 @@ export const updateUserRole = async (req) => {
     return response.OK(`User role updated`, results);
   }
 };
+
+export const getUserByUsername = async (username) => {
+  const { results, error } = await database.query(QUERYS.SELECT_USER_BY_USERNAME, [username]);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results[0]) {
+    return response.NOT_FOUND(`No user found`);
+  } else {
+    return response.OK(`User found`, results[0]);
+  }
+};

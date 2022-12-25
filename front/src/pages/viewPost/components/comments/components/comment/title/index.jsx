@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Container,
-  StyledTypography,
   PostedByContainer,
   DateIcon,
   StyledPostedByTypography,
@@ -14,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import { profileRoute } from '../../../../../../../app/router/routes';
 
 const Title = (props) => {
-  const { title, postedBy, date } = props;
+  const { postedBy, date } = props;
   const navigate = useNavigate();
 
   const handleVisitUserProfile = () => {
@@ -41,7 +40,6 @@ const Title = (props) => {
           <Typography> {date}</Typography>
         </DateContainer>
       </Container>
-      <StyledTypography variant="h5">{title}</StyledTypography>
     </>
   );
 };
