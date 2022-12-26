@@ -248,14 +248,14 @@ export const getReportedPosts = async (req) => {
     for (let reportEtnry of results) {
       req.params.id = reportEtnry.postId;
       let res = await getPostById(req);
+      const post = res.data.posts[0];
 
       if (res.statusCode === HttpStatus.OK.code) {
-        postArray.push(res.data);
+        postArray.push(post);
       } else {
         return res;
       }
     }
-    console.log(postArray);
     return response.OK('Reported posts', postArray);
   }
 };

@@ -10,6 +10,7 @@ export const loadUserPostsRepository = async (username, order) => {
 
 export const loadReportedPostsRepository = async (username, order) => {
   const dto = await services.get(`/posts/reports`);
+  console.log(dto);
   return mapDTOToPosts(dto.data.posts);
 };
 

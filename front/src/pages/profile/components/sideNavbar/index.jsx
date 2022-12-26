@@ -10,13 +10,11 @@ import { StyledListItemHeaderText } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileView, setSideNavbarHidden } from './redux/slices';
 import { profileView } from './redux/state';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { tagsRoute, usersRoute } from '../../../../app/router/routes';
+import { useSearchParams } from 'react-router-dom';
 import { userRole } from '../../../../utils/enums';
 import { Divider, MenuItem } from '@mui/material';
 
 const SideNavBar = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const usernameUrl = searchParams.get('username');
@@ -29,7 +27,7 @@ const SideNavBar = () => {
   return (
     <SlidingContainer hidden={hidden}>
       <OptionsContainer>
-        Kontole
+        Profil
         <Divider />
         <StyledMenuList>
           <MenuItem onClick={() => dispatch(setProfileView(profileView.posts))}>
@@ -54,14 +52,6 @@ const SideNavBar = () => {
             </MenuItem>
           ) : null}
         </StyledMenuList>
-        <MenuItem onClick={() => navigate(usersRoute)}>
-          <StyledListItemHeaderText>Korisnici</StyledListItemHeaderText>
-        </MenuItem>
-        {userRole.admin === role ? (
-          <MenuItem onClick={() => navigate(tagsRoute)}>
-            <StyledListItemHeaderText>Tagovi</StyledListItemHeaderText>
-          </MenuItem>
-        ) : null}
       </OptionsContainer>
       <ToggleContainer onClick={() => dispatch(setSideNavbarHidden(!hidden))}>
         <StyledArrow hidden={hidden} />
