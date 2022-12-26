@@ -11,4 +11,5 @@ export const StyledPaper = styled(Paper)`
   border: 0.5px solid #c9cace;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;

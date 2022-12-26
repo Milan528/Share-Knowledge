@@ -16,13 +16,14 @@ const CommentPreview = (props) => {
     // likeStatus,
     // owner,
     postedBy,
+    postId,
   } = data;
 
   return (
     <StyledPaper elevation={1}>
       <Title postedBy={postedBy} id={id} date={date} />
       <Content text={text} files={files} />
-      <Details likes={likes} dislikes={dislikes} />
+      <Details likes={likes} dislikes={dislikes} postId={postId} />
     </StyledPaper>
   );
 };
