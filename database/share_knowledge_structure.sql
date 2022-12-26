@@ -1,6 +1,7 @@
-CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+SELECT * FROM share_knowledge.user;CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
+DROP TABLE IF EXISTS blackList;
 DROP TABLE IF EXISTS commentReportedBy;
 DROP TABLE IF EXISTS postReportedBy;
 DROP TABLE IF EXISTS comment_file;
@@ -21,6 +22,7 @@ CREATE TABLE user (
     email varchar(128) NOT NULL,
     password varchar(1000) NOT NULL,
     role varchar(25) NOT NULL,
+    banned BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE (username),
     UNIQUE (email)
@@ -132,4 +134,11 @@ PRIMARY KEY (commentId,reportedById),
 FOREIGN KEY (commentId) REFERENCES comment(id) ON DELETE CASCADE,
 FOREIGN KEY (postedById) REFERENCES user(id) ON DELETE CASCADE, 
 FOREIGN KEY (reportedById) REFERENCES user(id) ON DELETE CASCADE 
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE blackList (
+email int NOT NULL,
+date dateTime NOT NULL, 
+ip varchar(1000) NOT NULL,
+PRIMARY KEY (email)
 ) DEFAULT CHARSET=utf8;

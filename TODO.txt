@@ -1,0 +1,5 @@
+TO DO: ukloni prijavu (komentar, objava)
+TO DO: na profilu nekog korisnika, admin ima opcije bann/unbann user, blacklist user (obrise sav njegov sadrzaj i doda ga u tabelu)
+TO DO: OPCIJE ZA AZURIRANJE SIFRE, USERNAME-A NA PROFILU
+TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
+DONE: provera da li je user bannovan prilikom logovanja

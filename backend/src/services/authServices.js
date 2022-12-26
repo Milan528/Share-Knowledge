@@ -23,7 +23,7 @@ export const loginUser = async (req) => {
   const { results, error } = await database.query(QUERYS.SELECT_USER_BY_EMAIL, email);
   if (error) {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
-  } else if (!results) {
+  } else if (!results || results.length === 0) {
     return response.NOT_FOUND(`User not found`, results);
   } else {
     const user = results[0];

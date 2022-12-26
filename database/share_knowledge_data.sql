@@ -5,6 +5,10 @@ INSERT INTO `share_knowledge`.`user` (`username`, `email`, `password`, `role`) V
 ('c','c@elfak.rs','123','admin'),
 ('d','d@elfak.rs','123','admin');
 
+UPDATE user
+SET banned = true
+where username='a';
+
 INSERT INTO `share_knowledge`.`post` (`title`,`text`,`type`,`date`, `userId`) VALUES
 ( 'Naslov', 'Tekst', 'material', '2022-12-03', 1),
 ( 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto', 'question', '2022-12-03', 1),
