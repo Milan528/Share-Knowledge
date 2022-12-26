@@ -158,7 +158,10 @@ export const deletePost = async (req) => {
 export const reportPost = async (req) => {
   const { postedBy, postID, userID } = req.body;
 
-  const { results, error } = await database.query(POST_REPORT_QUERYS.SELECT, [userID, postID]);
+  const { results, error } = await database.query(POST_REPORT_QUERYS.SELECT_REPORTED_POST, [
+    userID,
+    postID
+  ]);
 
   if (error) {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);

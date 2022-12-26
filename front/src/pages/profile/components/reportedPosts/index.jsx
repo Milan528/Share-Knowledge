@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { profileView } from '../sideNavbar/redux/state';
-import { Order } from './components/order';
 import { StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import PostPreview from '../../../../components/postPreview';
@@ -10,8 +9,7 @@ import { setError } from './redux/slices';
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import { StyledPaper } from './styles';
-import { useSearchParams } from 'react-router-dom';
-import { loadReportedPosts, loadUserPosts } from '../../reduxThunk/actions';
+import { loadReportedPosts } from '../../reduxThunk/actions';
 
 const ReportedPosts = () => {
   const view = useSelector((state) => state.profile.sideNavbar.profileView);
@@ -19,8 +17,6 @@ const ReportedPosts = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.profile.posts);
   const { loading, error, posts } = state;
-  const [searchParams] = useSearchParams();
-  const username = searchParams.get('username');
 
   useEffect(() => {
     if (view === profileView.reportedPosts) dispatch(loadReportedPosts());
@@ -33,7 +29,7 @@ const ReportedPosts = () => {
           <StyledDivider />
           <Fade in={true}>
             <StyledPaper elevation={4}>
-              <Typography variant="h5">Nema kreiranih objava!</Typography>
+              <Typography variant="h5">Nema prijavljenih objava!</Typography>
             </StyledPaper>
           </Fade>
         </>
@@ -41,7 +37,6 @@ const ReportedPosts = () => {
     } else {
       return (
         <>
-          <Order />
           <StyledDivider />
           {posts.map((data, index) => (
             <PostPreview key={index} data={data} />

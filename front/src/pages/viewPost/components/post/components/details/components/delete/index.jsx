@@ -6,7 +6,7 @@ import { StyledDeleteIconButton } from './styles';
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { homeRoute } from '../../../../../../../../app/router/routes';
-import AlertDialog from '../../../components/dialog';
+import AlertDialog from '../../../../../../../../components/alertDialog';
 
 export const Delete = ({ postId }) => {
   const [errorPostDeleting, setErrorPostDeleting] = useState(null);

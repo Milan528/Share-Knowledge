@@ -18,7 +18,7 @@ export const StyledArrow = styled(DoubleArrow)`
 export const SlidingContainer = styled.div`
   margin-top: -20px;
   display: flex;
-  left: ${({ hidden }) => (hidden ? '-160px' : '0px')};
+  left: ${({ hidden }) => (hidden ? '-180px' : '0px')};
   transition: 0.3s ease-out;
   text-align: right;
   overflow: auto;

@@ -10,6 +10,11 @@ import {
   postsReducer,
   actions as postsActions,
 } from '../components/posts/redux/slices';
+import comments from '../components/reportedComments/redux/state';
+import {
+  commentsReducer,
+  actions as commentsActions,
+} from '../components/reportedComments/redux/slices';
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -17,6 +22,7 @@ const profileSlice = createSlice({
     ...state,
     sideNavbar,
     posts,
+    comments,
   },
   reducers: {
     setLoading: (state, action) => {
@@ -44,6 +50,15 @@ const profileSlice = createSlice({
     });
     builder.addCase(postsActions.setOrder, (state, action) => {
       state.posts = postsReducer(state.posts, action);
+    });
+    builder.addCase(commentsActions.setComments, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
+    });
+    builder.addCase(commentsActions.setError, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
+    });
+    builder.addCase(commentsActions.setLoading, (state, action) => {
+      state.comments = commentsReducer(state.comments, action);
     });
   },
 });

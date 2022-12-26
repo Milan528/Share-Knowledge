@@ -27,6 +27,7 @@ const Comment = (props) => {
         commentId={id}
         dislikes={dislikes}
         likeStatus={likeStatus}
+        postedBy={postedBy}
       />
     </StyledPaper>
   );

@@ -1,6 +1,7 @@
 export const profileView = {
   posts: 'posts',
   reportedPosts: 'reportedPosts',
+  reportedComments: 'reportedComments',
   personalData: 'personalData',
 };
 

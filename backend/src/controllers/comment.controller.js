@@ -35,3 +35,13 @@ export const deleteCommentDislike = async (req, res) => {
   const response = await commentDislikedByServices.deleteCommentDislike(req);
   return res.status(response.statusCode).send(response);
 };
+
+export const reportComment = async (req, res) => {
+  const response = await commentServices.reportComment(req);
+  return res.status(response.statusCode).send(response);
+};
+
+export const getReportedComments = async (req, res) => {
+  const response = await commentServices.getReportedComments(req);
+  return res.status(response.statusCode).send(response);
+};

@@ -33,17 +33,7 @@ const SideNavBar = () => {
           <MenuItem onClick={() => dispatch(setProfileView(profileView.posts))}>
             <StyledListItemHeaderText>Objave</StyledListItemHeaderText>
           </MenuItem>
-          {userRole.admin === role ? (
-            <MenuItem
-              onClick={() =>
-                dispatch(setProfileView(profileView.reportedPosts))
-              }
-            >
-              <StyledListItemHeaderText>
-                Prijavljene objave
-              </StyledListItemHeaderText>
-            </MenuItem>
-          ) : null}
+
           {usernameUrl === username ? (
             <MenuItem
               onClick={() => dispatch(setProfileView(profileView.personalData))}
@@ -52,6 +42,32 @@ const SideNavBar = () => {
             </MenuItem>
           ) : null}
         </StyledMenuList>
+        {userRole.admin === role ? (
+          <>
+            <Divider />
+            Admin
+            <StyledMenuList>
+              <MenuItem
+                onClick={() =>
+                  dispatch(setProfileView(profileView.reportedPosts))
+                }
+              >
+                <StyledListItemHeaderText>
+                  Prijavljene objave
+                </StyledListItemHeaderText>
+              </MenuItem>
+              <MenuItem
+                onClick={() =>
+                  dispatch(setProfileView(profileView.reportedComments))
+                }
+              >
+                <StyledListItemHeaderText>
+                  Prijavljeni komentari
+                </StyledListItemHeaderText>
+              </MenuItem>
+            </StyledMenuList>
+          </>
+        ) : null}
       </OptionsContainer>
       <ToggleContainer onClick={() => dispatch(setSideNavbarHidden(!hidden))}>
         <StyledArrow hidden={hidden} />

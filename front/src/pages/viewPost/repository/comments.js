@@ -71,3 +71,8 @@ export const deleteCommentRepository = async (commentId) => {
   const dto = await services.delete(`/comments/commentId/${commentId}`);
   return dto.data;
 };
+
+export const reportCommentRepository = async (DTO) => {
+  const dto = await services.post(`/comments/report`, DTO);
+  return dto.data;
+};

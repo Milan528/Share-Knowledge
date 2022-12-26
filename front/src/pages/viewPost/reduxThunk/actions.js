@@ -17,6 +17,7 @@ import {
   addCommentDislikeRepository,
   removeCommentDislikeRepository,
   deleteCommentRepository,
+  reportCommentRepository,
 } from '../repository/comments';
 import {
   addPostDislikeRepository,
@@ -298,6 +299,25 @@ export const deleteComment =
       );
     } catch (err) {
       setError(serialize(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const reportComment =
+  (commentID, postedBy, setLoading, setError) => async (dispatch, getState) => {
+    const DTO = {
+      commentID,
+      postedBy,
+    };
+
+    console.log(DTO);
+
+    try {
+      setLoading(true);
+      await reportCommentRepository(DTO);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }

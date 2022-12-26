@@ -60,7 +60,7 @@ export const Logo = () => {
         onContextMenu={(e) => e.preventDefault()}
       >
         <img src={logo} alt="logo" />
-        <span>ShareKnowledge</span>
+        <span>PodeliMaterijal</span>
       </StyledLogo>
       {menuVisible ? (
         <ContextMenuContainerDiv

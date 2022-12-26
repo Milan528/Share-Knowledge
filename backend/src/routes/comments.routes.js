@@ -6,7 +6,9 @@ import {
   createCommentLike,
   deleteCommentLike,
   createCommentDislike,
-  deleteCommentDislike
+  deleteCommentDislike,
+  reportComment,
+  getReportedComments
 } from '../controllers/comment.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
@@ -24,5 +26,8 @@ commentRoutes
   .route('/dislike')
   .post(tokenValidation, createCommentDislike)
   .delete(tokenValidation, deleteCommentDislike);
+
+commentRoutes.route('/report').post(tokenValidation, reportComment);
+commentRoutes.route('/reports').get(tokenValidation, getReportedComments);
 
 export default commentRoutes;

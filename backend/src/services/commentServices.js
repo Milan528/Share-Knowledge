@@ -8,6 +8,9 @@ import response from '../tools/response/index.js';
 import tokenValidation from '../tools/tokenValidation.js';
 import { commentLikeDislikeStatus } from '../tools/enums.js';
 import { removeCommentFiles } from './fileServices.js';
+import COMMENT_REPORT_QUERYS from '../sqlQuerys/commentReportedBy.querys.js';
+import services from './index.js';
+import HttpStatus from '../tools/response/httpStatus.js';
 
 const getCommentLikeDislikeStatusAndOwnership = async (req, comments) => {
   tokenValidation(req, null, () => {});
@@ -114,3 +117,79 @@ export const createComment = async (req) => {
     return response.CREATED(`Post created`, commentID);
   }
 };
+
+const getCommentById = async (req) => {
+  let { results, error } = await database.query(QUERYS.SELECT_COMMENT_BY_ID(req.params.id));
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.OK(`No comment found`);
+  }
+
+  return await getCommentLikeDislikeStatusAndOwnership(req, results);
+};
+
+export const getReportedComments = async (req) => {
+  let { results, error } = await database.query(COMMENT_REPORT_QUERYS.SELECT_REPORTED_COMMENTS);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.NOT_FOUND(`No repported comments`);
+  } else {
+    let commentArray = [];
+    for (let reportEtnry of results) {
+      req.params.id = reportEtnry.commentId;
+      let res = await getCommentById(req);
+      const comment = res.data[0];
+
+      if (res.statusCode === HttpStatus.OK.code) {
+        commentArray.push(comment);
+      } else {
+        return res;
+      }
+    }
+    return response.OK('Reported comments', commentArray);
+  }
+};
+
+export const reportComment = async (req) => {
+  const { postedBy, commentID, userID } = req.body;
+
+  const { results, error } = await database.query(COMMENT_REPORT_QUERYS.SELECT_REPORTED_COMMENT, [
+    userID,
+    commentID
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results[0]) {
+    const res = await services.userServices.getUserByUsername(postedBy);
+    if (res.statusCode === HttpStatus.OK.code) {
+      const postedByID = res.data.id;
+      return await addReportCommentEntry(commentID, postedByID, userID);
+    } else {
+      return res;
+    }
+  } else {
+    return response.OK(`Already reported`);
+  }
+};
+
+async function addReportCommentEntry(commentId, postedById, reportedById) {
+  const { results, error } = await database.query(COMMENT_REPORT_QUERYS.CREATE_REPORT_COMMENT, [
+    reportedById,
+    commentId,
+    postedById
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  }
+
+  return response.CREATED(`Comment created`, commentId);
+}

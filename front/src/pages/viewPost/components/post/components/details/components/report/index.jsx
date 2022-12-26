@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { reportPost } from '../../../../../../reduxThunk/actions';
 import { StyledReportIconButton } from './styles';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-import AlertDialog from '../../../components/dialog';
+import AlertDialog from '../../../../../../../../components/alertDialog';
 
 export const Report = ({ postId, postedBy }) => {
   const dispatch = useDispatch();
@@ -28,8 +28,7 @@ export const Report = ({ postId, postedBy }) => {
       <AlertDialog
         title="Prijavi objavu"
         description={`Prijavljena objava će biti pregledana. Ukoliko objava 
-        sadrži neprikladan sadržaj biće ukolnjena sa platforme. Ukoliko je korisnik bez razloga
-        prijavio objavu, njegov nalog će biti trajno suspendovan.`}
+        sadrži neprikladan sadržaj biće ukolnjena sa platforme. `}
         open={dialogOpen}
         setOpen={setDialogOpen}
         handleSubmit={() =>
