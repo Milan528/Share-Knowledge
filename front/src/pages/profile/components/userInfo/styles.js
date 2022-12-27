@@ -1,7 +1,20 @@
 import styled from 'styled-components';
-import TextField from '@mui/material/TextField';
+import { Button, TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
-import { Divider } from '@mui/material';
+
+export const StyledFormControl = styled(FormControl)`
+  && {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`;
+
+export const StyledTextField = styled(TextField)`
+  && {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+`;
 
 export const ContentContainer = styled.div`
   min-width: 230px;
@@ -10,32 +23,21 @@ export const ContentContainer = styled.div`
   justify-content: center;
 `;
 
-export const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const StyledTextField = styled(TextField)`
-  && {
-    width: 25ch;
-    margin-top: 20px;
-  }
-`;
-
-export const StyledFormControl = styled(FormControl)`
-  && {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-`;
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: center;
 `;
 
-export const StyledDivider = styled(Divider)`
+export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px;
+`;
+
+export const StyledButton = styled(Button)`
   && {
-    margin-top: 5px;
+    margin-top: 10px;
   }
 `;
