@@ -8,7 +8,7 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import POST_LIKED_BY_QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import response from '../tools/response/index.js';
-import tokenValidation from '../tools/tokenValidation.js';
+import tokenValidation, { checkIfLogged } from '../tools/tokenValidation.js';
 import { postLikeDislikeStatus } from '../tools/enums.js';
 import { removeCommentFiles, removePostFiles } from './fileServices.js';
 import services from './index.js';
@@ -17,11 +17,10 @@ import HttpStatus from '../tools/response/httpStatus.js';
 /*********************************ONE*********************************/
 
 const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {
-  tokenValidation(req, null, () => {});
-  const userID = req.body.userID;
-  const { posts } = responseData;
-
+  const userID = checkIfLogged(req);
   if (userID) {
+    const { posts } = responseData;
+
     for (let post of posts) {
       const postID = post.id;
 

@@ -1,4 +1,5 @@
-SELECT * FROM share_knowledge.user;CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+-- SELECT * FROM share_knowledge.user;
+CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
 DROP TABLE IF EXISTS blackList;

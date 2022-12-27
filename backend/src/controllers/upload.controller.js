@@ -1,12 +1,12 @@
 import services from '../services/index.js';
-const { uploadFileServices } = services;
+const { fileServices } = services;
 
 export const uploadPostFile = async (req, res) => {
-  const response = await uploadFileServices.uploadPostFile(req);
+  const response = await fileServices.uploadPostFile(req);
   return res.status(response.statusCode).send(response);
 };
 
 export const uploadCommentFile = async (req, res) => {
-  const response = await uploadFileServices.uploadCommentFile(req);
+  const response = await fileServices.uploadCommentFile(req);
   return res.status(response.statusCode).send(response);
 };
