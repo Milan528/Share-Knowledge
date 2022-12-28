@@ -72,7 +72,9 @@ export const getPostsByUsername = async (req) => {
 };
 
 export const getPostById = async (req) => {
-  const { results, error } = await database.query(QUERYS.SELECT_POST_BY_POSTID(req.params.id));
+  const { results, error } = await database.query(
+    QUERYS.SELECT_POST_WITH_USERNAME_BY_POSTID(req.params.id)
+  );
   if (error) {
     return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
   }
@@ -151,6 +153,22 @@ export const deletePost = async (req) => {
       removeCommentFiles(commnetId.id);
     }
     return response.OK('Post removed', [req.params.id]);
+  }
+};
+
+export const dismissReport = async (req) => {
+  const { results, error } = await database.query(POST_REPORT_QUERYS.DELETE_REPORT, [
+    req.params.reportedById,
+    req.params.postId
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  } else {
+    return response.OK('Report dissmised', [req.params.id]);
   }
 };
 
@@ -250,9 +268,10 @@ export const getReportedPosts = async (req) => {
     for (let reportEtnry of results) {
       req.params.id = reportEtnry.postId;
       let res = await getPostById(req);
-      const post = res.data.posts[0];
 
       if (res.statusCode === HttpStatus.OK.code) {
+        const post = res.data.posts[0];
+        post.reportedById = reportEtnry.reportedById;
         postArray.push(post);
       } else {
         return res;
@@ -265,6 +284,7 @@ export const getReportedPosts = async (req) => {
 const getTotalNumberOfPagesForHomepageFilters = async (req, dto) => {
   let { search, count, tags, type } = req.body;
   const sql = QUERYS.SELECT_TOTAL_NUMBER_OF_PAGES_FOR_HOME_PAGE_FILTERS(tags, search, type);
+
   let { results, error } = await database.query(sql);
 
   if (error) {

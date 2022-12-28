@@ -17,10 +17,16 @@ export const mapDTOToPost = (dto) => {
   return {
     ...dto,
     date: formatDate(new Date(dto.date)),
-    postedBy: dto.username,
   };
 };
 
 export const mapDTOToPosts = (dto) => {
   return dto.map((post) => mapDTOToPost(post));
+};
+
+export const dismissReportRepository = async (postId, reportedById) => {
+  const dto = await services.delete(
+    `/posts/dismissReport/postId/${postId}/reportedById/${reportedById}`
+  );
+  return dto.data;
 };

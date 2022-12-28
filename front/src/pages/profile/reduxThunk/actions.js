@@ -4,6 +4,7 @@ import {
   setPosts,
 } from '../components/posts/redux/slices';
 import {
+  dismissReportRepository,
   loadReportedPostsRepository,
   loadUserPostsRepository,
 } from '../repository/posts';
@@ -51,3 +52,17 @@ export const loadReportedComments = () => async (dispatch, getState) => {
     dispatch(setLoadingComments(false));
   }
 };
+
+export const dismissReport =
+  (postId, reportedById, setLoading, setError) =>
+  async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await dismissReportRepository(postId, reportedById);
+      dispatch(loadReportedPosts());
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };

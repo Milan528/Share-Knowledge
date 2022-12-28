@@ -11,7 +11,8 @@ import {
   deletePostDislike,
   getPostById,
   reportPost,
-  getReportedPosts
+  getReportedPosts,
+  dismissReport
 } from '../controllers/posts.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
@@ -31,5 +32,7 @@ postsRoutes
   .delete(tokenValidation, deletePostDislike);
 postsRoutes.route('/report').post(tokenValidation, reportPost);
 postsRoutes.route('/reports').get(tokenValidation, getReportedPosts);
-
+postsRoutes
+  .route('/dismissReport/postId/:postId/reportedById/:reportedById')
+  .delete(tokenValidation, dismissReport);
 export default postsRoutes;

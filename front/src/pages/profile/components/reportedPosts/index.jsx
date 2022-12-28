@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { profileView } from '../sideNavbar/redux/state';
-import { StyledDivider } from './styles';
+import { PostPreviewContainer, StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import PostPreview from '../../../../components/postPreview';
 import ErrorDialog from '../../../../components/errorDialog';
@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import { StyledPaper } from './styles';
 import { loadReportedPosts } from '../../reduxThunk/actions';
+import DismissReport from './components/dismissReport';
 
 const ReportedPosts = () => {
   const view = useSelector((state) => state.profile.sideNavbar.profileView);
@@ -21,6 +22,8 @@ const ReportedPosts = () => {
   useEffect(() => {
     if (view === profileView.reportedPosts) dispatch(loadReportedPosts());
   }, [dispatch, view, order]);
+
+  console.log(posts);
 
   const postsView = () => {
     if (posts.length === 0) {
@@ -39,7 +42,13 @@ const ReportedPosts = () => {
         <>
           <StyledDivider />
           {posts.map((data, index) => (
-            <PostPreview key={index} data={data} />
+            <PostPreviewContainer key={index}>
+              <PostPreview data={data} />
+              <DismissReport
+                postId={data.id}
+                reportedById={data.reportedById}
+              />
+            </PostPreviewContainer>
           ))}
         </>
       );

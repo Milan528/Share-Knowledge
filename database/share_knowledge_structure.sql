@@ -34,7 +34,7 @@ CREATE TABLE post (
     title varchar(100) NOT NULL,
     text varchar(1000) NOT NULL,
     type varchar(100) NOT NULL,
-    date date NOT NULL,
+    date dateTime NOT NULL, 
     userId int NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES user(id),
@@ -84,7 +84,7 @@ CREATE TABLE post_tag (
 CREATE TABLE comment (
     id int NOT NULL AUTO_INCREMENT,
     text varchar(1000) NOT NULL,
-    date date NOT NULL,
+    date dateTime NOT NULL, 
     userId int NOT NULL,
     postId int NOT NULL,
     PRIMARY KEY (id),

@@ -9,7 +9,7 @@ const QUERY = {
   CREATE_POST: 'INSERT INTO post(title, text, type, userId, date) VALUES (?, ?, ?, ?, ?)',
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
-  SELECT_POST_BY_POSTID,
+  SELECT_POST_WITH_USERNAME_BY_POSTID,
   GET_POST_COMMENT_IDS: 'SELECT id from comment where postId = ?',
 
   /*********************************MANY*********************************/
@@ -25,10 +25,22 @@ export default QUERY;
 
 /*********************************ONE*********************************/
 
+function SELECT_POST_WITH_USERNAME_BY_POSTID(postId) {
+  let sql = '';
+  sql +=
+    'Select postTableWithNoUsername.id, text, title, type, likes, dislikes,  date, userId, tags, username as postedBy ';
+  sql += 'from ( ';
+  sql += SELECT_POST_BY_POSTID(postId);
+  sql += ') as postTableWithNoUsername ';
+  sql += 'join user ';
+  sql += 'on user.id=postTableWithNoUsername.userId ';
+
+  return sql;
+}
 function SELECT_POST_BY_POSTID(postId) {
   let sql =
-    'Select postWithNoUsername.id, text, title, type, likes, dislikes,  date, userId, tags, username as postedBy ';
-  sql += `from (`;
+    'Select postWithNoUsername.id, text, title, type, likes, dislikes,  date, userId, tags ';
+  sql += `from ( `;
   sql +=
     'Select id, text, title, type, likes, dislikes,  date, userId ,group_concat(tagId) as tags ';
   sql += 'from ( ';

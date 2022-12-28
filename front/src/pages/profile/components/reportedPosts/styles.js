@@ -21,3 +21,8 @@ export const StyledDivider = styled(Divider)`
     margin-bottom: 10px;
   }
 `;
+
+export const PostPreviewContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
