@@ -3,7 +3,7 @@ import { Container, DetailsContainer, ControllsContainer } from './styles';
 import LikeDislike from './components/likeDislike';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { viewPostRoute } from '../../../../../../../app/router/routes';
+import { viewPostRoute } from '../../../../../../../../../app/router/routes';
 
 const Details = (props) => {
   const { likes, dislikes, postId } = props;

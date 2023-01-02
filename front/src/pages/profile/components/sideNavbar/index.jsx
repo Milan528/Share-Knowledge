@@ -24,6 +24,9 @@ const SideNavBar = () => {
     (state) => state.profile.sideNavbar.sideNavbarHidden
   );
 
+  console.log(username);
+  console.log(usernameUrl);
+
   return (
     <SlidingContainer hidden={hidden}>
       <OptionsContainer>

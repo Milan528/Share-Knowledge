@@ -64,7 +64,10 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
     </TagsContainer>
   );
 
-  if (error) return <ErrorDialog error={error} setError={setError} />;
+  if (error)
+    return (
+      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    );
   else if (loading) return <Loader />;
   else return viewToRender;
 };

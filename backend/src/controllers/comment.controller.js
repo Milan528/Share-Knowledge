@@ -45,3 +45,8 @@ export const getReportedComments = async (req, res) => {
   const response = await commentServices.getReportedComments(req);
   return res.status(response.statusCode).send(response);
 };
+
+export const dismissReport = async (req, res) => {
+  const response = await commentServices.dismissReport(req);
+  return res.status(response.statusCode).send(response);
+};

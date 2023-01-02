@@ -122,7 +122,7 @@ export const UserForm = () => {
   );
 
   return error ? (
-    <ErrorDialog error={error} setError={setError} />
+    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
   ) : loading ? (
     <Loader />
   ) : (

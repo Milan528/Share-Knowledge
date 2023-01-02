@@ -4,7 +4,7 @@ import Quote from './components/quote';
 import Form from './components/form';
 import Logo from './components/logo';
 import Footer from '../../components/footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 import Loader from '../../components/loader';
@@ -13,6 +13,8 @@ import { ContentContainer, MotivationContainer } from './styles';
 
 const Register = () => {
   const { error, loading } = useSelector((state) => state.register);
+  const dispatch = useDispatch();
+
   const viewToRender = (
     <>
       <Navbar />
@@ -29,7 +31,10 @@ const Register = () => {
     </>
   );
 
-  if (error) return <ErrorDialog error={error} setError={setError} />;
+  if (error)
+    return (
+      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    );
   else return viewToRender;
 };
 

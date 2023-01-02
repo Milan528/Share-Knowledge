@@ -8,7 +8,8 @@ import {
   createCommentDislike,
   deleteCommentDislike,
   reportComment,
-  getReportedComments
+  getReportedComments,
+  dismissReport
 } from '../controllers/comment.controller.js';
 import tokenValidation from '../tools/tokenValidation.js';
 
@@ -29,5 +30,9 @@ commentRoutes
 
 commentRoutes.route('/report').post(tokenValidation, reportComment);
 commentRoutes.route('/reports').get(tokenValidation, getReportedComments);
+
+commentRoutes
+  .route('/dismissReport/commentId/:commentId/reportedById/:reportedById')
+  .delete(tokenValidation, dismissReport);
 
 export default commentRoutes;

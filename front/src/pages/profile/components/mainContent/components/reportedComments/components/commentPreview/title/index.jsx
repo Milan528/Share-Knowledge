@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
-import { profileRoute } from '../../../../../../../app/router/routes';
+import { profileRoute } from '../../../../../../../../../app/router/routes';
 
 const Title = (props) => {
   const { postedBy, date } = props;

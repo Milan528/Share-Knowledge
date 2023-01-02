@@ -74,3 +74,68 @@ async function createUser(req, email, password) {
 
   return await loginUser(req);
 }
+
+export const updatePassword = async (req) => {
+  const { newPassword, password, email } = req.body;
+
+  const { results, error } = await database.query(QUERYS.SELECT_USER_BY_EMAIL, email);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results || results.length === 0) {
+    return response.NOT_FOUND(`User not found`, results);
+  } else {
+    const user = results[0];
+
+    if (await bcrypt.compare(password, user.password)) {
+      return await changeAccountPassword(req);
+    } else {
+      return response.NOT_FOUND(`User not found`);
+    }
+  }
+};
+
+export const updateUsername = async (req) => {
+  const { password, email } = req.body;
+
+  const { results, error } = await database.query(QUERYS.SELECT_USER_BY_EMAIL, email);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results || results.length === 0) {
+    return response.NOT_FOUND(`User not found`, results);
+  } else {
+    const user = results[0];
+
+    if (await bcrypt.compare(password, user.password)) {
+      return await changeAccountUsername(req);
+    } else {
+      return response.NOT_FOUND(`User not found`);
+    }
+  }
+};
+
+async function changeAccountPassword(req) {
+  const { newPassword, email } = req.body;
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  const { results, error } = await database.query(QUERYS.UPDATE_PASSWORD(email, hashedPassword));
+  console.log(results);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`User not found`, results);
+  } else {
+    req.body.password = newPassword;
+    return await loginUser(req);
+  }
+}
+
+async function changeAccountUsername(req) {
+  const { newUsername, email } = req.body;
+  const { results, error } = await database.query(QUERYS.UPDATE_USERNAME, [newUsername, email]);
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  } else if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`User not found`, results);
+  } else {
+    return await loginUser(req);
+  }
+}

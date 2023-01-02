@@ -2,19 +2,28 @@ import {
   setLoading as setLoadingPosts,
   setError as setErrorPosts,
   setPosts,
-} from '../components/posts/redux/slices';
+} from '../components/mainContent/components/posts/redux/slices';
 import {
   dismissReportRepository,
   loadReportedPostsRepository,
   loadUserPostsRepository,
 } from '../repository/posts';
 import serialize from '../../../utils/serialize';
-import { loadReportedCommentsRepository } from '../repository/comments';
+import {
+  loadReportedCommentsRepository,
+  dismissCommentReportRepository,
+} from '../repository/comments';
 import {
   setComments,
   setLoading as setLoadingComments,
   setError as setErrorComments,
-} from '../components/reportedComments/redux/slices';
+} from '../components/mainContent/components/reportedComments/redux/slices';
+import {
+  loadUserInfoRepository,
+  changeAccountPasswordRepository,
+  changeAccountUsernameRepository,
+} from '../repository/user';
+import { setRole, setToken, setUsername } from '../../../app/redux/slices';
 
 export const loadUserPosts =
   (username, order) => async (dispatch, getState) => {
@@ -53,13 +62,80 @@ export const loadReportedComments = () => async (dispatch, getState) => {
   }
 };
 
-export const dismissReport =
+export const dismissPostReport =
   (postId, reportedById, setLoading, setError) =>
   async (dispatch, getState) => {
     try {
       setLoading(true);
       await dismissReportRepository(postId, reportedById);
       dispatch(loadReportedPosts());
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const dismissCommentReport =
+  (commentId, reportedById, setLoading, setError) =>
+  async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await dismissCommentReportRepository(commentId, reportedById);
+      dispatch(loadReportedComments());
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const loadUserInfo =
+  (username, setUser, setLoading, setError) => async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      const user = await loadUserInfoRepository(username);
+      setUser(user);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const changeAccountPassword =
+  (newPassword, confirmedPassword, email, setLoading, setError, setUser) =>
+  async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      const user = await changeAccountPasswordRepository(
+        newPassword,
+        confirmedPassword,
+        email
+      );
+      dispatch(setToken(user.token));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const changeAccountUsername =
+  (newUsername, confirmedPassword, email, setLoading, setError, setUser) =>
+  async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      const user = await changeAccountUsernameRepository(
+        newUsername,
+        confirmedPassword,
+        email
+      );
+
+      dispatch(setToken(user.token));
+
+      dispatch(setUsername(user.username));
+      // setUser(user);
     } catch (err) {
       setError(err);
     } finally {

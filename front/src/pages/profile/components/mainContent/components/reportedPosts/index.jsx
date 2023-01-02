@@ -1,27 +1,25 @@
 import React, { useEffect } from 'react';
-import { profileView } from '../sideNavbar/redux/state';
 import { PostPreviewContainer, StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import PostPreview from '../../../../components/postPreview';
-import ErrorDialog from '../../../../components/errorDialog';
-import Loader from '../../../../components/loader';
+import PostPreview from '../../../../../../components/postPreview';
+import ErrorDialog from '../../../../../../components/errorDialog';
+import Loader from '../../../../../../components/loader';
 import { setError } from './redux/slices';
 import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import { StyledPaper } from './styles';
-import { loadReportedPosts } from '../../reduxThunk/actions';
+import { loadReportedPosts } from '../../../../reduxThunk/actions';
 import DismissReport from './components/dismissReport';
 
 const ReportedPosts = () => {
-  const view = useSelector((state) => state.profile.sideNavbar.profileView);
   const order = useSelector((state) => state.profile.posts.order);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.profile.posts);
   const { loading, error, posts } = state;
 
   useEffect(() => {
-    if (view === profileView.reportedPosts) dispatch(loadReportedPosts());
-  }, [dispatch, view, order]);
+    dispatch(loadReportedPosts());
+  }, [dispatch, order]);
 
   console.log(posts);
 
@@ -56,20 +54,18 @@ const ReportedPosts = () => {
   };
 
   const viewToRender = () => {
-    if (view === profileView.reportedPosts) {
-      return (
-        <>
-          <h1>Prijavljene objave</h1>
+    return (
+      <>
+        <h1>Prijavljene objave</h1>
 
-          {postsView()}
-          {loading ? <Loader /> : null}
-        </>
-      );
-    } else return null;
+        {postsView()}
+        {loading ? <Loader /> : null}
+      </>
+    );
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={setError} />
+    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
   ) : (
     viewToRender()
   );

@@ -5,16 +5,16 @@ import {
   sideNavbarReducer,
   actions as sideNavbarActions,
 } from '../components/sideNavbar/redux/slices';
-import posts from '../components/posts/redux/state';
+import posts from '../components/mainContent/components/posts/redux/state';
 import {
   postsReducer,
   actions as postsActions,
-} from '../components/posts/redux/slices';
-import comments from '../components/reportedComments/redux/state';
+} from '../components/mainContent/components/posts/redux/slices';
+import comments from '../components/mainContent/components/reportedComments/redux/state';
 import {
   commentsReducer,
   actions as commentsActions,
-} from '../components/reportedComments/redux/slices';
+} from '../components/mainContent/components/reportedComments/redux/slices';
 
 const profileSlice = createSlice({
   name: 'profile',

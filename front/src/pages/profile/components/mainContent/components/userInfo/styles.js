@@ -33,7 +33,6 @@ export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 10px;
 `;
 
 export const StyledButton = styled(Button)`

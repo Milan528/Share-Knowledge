@@ -4,10 +4,17 @@ const QUERY = {
   CREATE_USER: 'INSERT INTO user(username, email, password, role) VALUES (?, ?, ?, ?)',
   SELECT_USERS_AND_ROLES: 'select username, role from user',
   SELECT_TOTAL_LIKES_FOR_USER,
-  UPDATE_ROLE: 'UPDATE user SET role = ? WHERE username = ?'
+  UPDATE_ROLE: 'UPDATE user SET role = ? WHERE username = ?',
+  UPDATE_PASSWORD,
+  UPDATE_USERNAME: 'UPDATE user SET username = ? WHERE email = ?'
 };
 
 export default QUERY;
+
+function UPDATE_PASSWORD(email, password) {
+  const sql = `UPDATE user SET password = '${password}' WHERE email = '${email}' `;
+  return sql;
+}
 
 function SELECT_TOTAL_LIKES_FOR_USER() {
   let sql = '';

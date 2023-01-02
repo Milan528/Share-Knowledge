@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
-import { commentLikeDislikeStatus } from '../../../../../../../../../utils/enums';
+import { commentLikeDislikeStatus } from '../../../../../../../../../../../utils/enums';
 
 export const LikeIcon = styled(ThumbUpOffAltIcon)`
   color: ${({ like_dislike_status }) =>

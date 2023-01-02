@@ -142,9 +142,10 @@ export const getReportedComments = async (req) => {
     for (let reportEtnry of results) {
       req.params.id = reportEtnry.commentId;
       let res = await getCommentById(req);
-      const comment = res.data[0];
 
       if (res.statusCode === HttpStatus.OK.code) {
+        const comment = res.data[0];
+        comment.reportedById = reportEtnry.reportedById;
         commentArray.push(comment);
       } else {
         return res;
@@ -193,3 +194,19 @@ async function addReportCommentEntry(commentId, postedById, reportedById) {
 
   return response.CREATED(`Comment created`, commentId);
 }
+
+export const dismissReport = async (req) => {
+  const { results, error } = await database.query(COMMENT_REPORT_QUERYS.DELETE_REPORT, [
+    req.params.reportedById,
+    req.params.commentId
+  ]);
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results) {
+    return response.INTERNAL_SERVER_ERROR(`Error occurred`);
+  } else {
+    return response.OK('Report dissmised', [req.params.commentId]);
+  }
+};

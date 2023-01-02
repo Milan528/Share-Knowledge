@@ -1,13 +1,14 @@
 import React from 'react';
 import Navbar from '../../components/navbar';
 import Form from './components/form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, ContentContainer, PageHeading } from './styles';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialog';
 
 const CreatePost = () => {
   const { error } = useSelector((state) => state.createPost);
+  const dispatch = useDispatch();
 
   const viewToRender = (
     <>
@@ -21,7 +22,10 @@ const CreatePost = () => {
     </>
   );
 
-  if (error) return <ErrorDialog error={error} setError={setError} />;
+  if (error)
+    return (
+      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    );
   else return viewToRender;
 };
 

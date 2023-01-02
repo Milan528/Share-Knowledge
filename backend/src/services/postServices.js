@@ -168,7 +168,7 @@ export const dismissReport = async (req) => {
   if (!results) {
     return response.INTERNAL_SERVER_ERROR(`Error occurred`);
   } else {
-    return response.OK('Report dissmised', [req.params.id]);
+    return response.OK('Report dissmised', [req.params.postId]);
   }
 };
 

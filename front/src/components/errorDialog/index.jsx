@@ -21,12 +21,12 @@ export default function ResponsiveDialog(props) {
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(setError(null));
+    setError();
   };
 
   useEffect(() => {
     return () => {
-      dispatch(setError(null));
+      setError();
     };
   }, [dispatch, setError]);
 

@@ -44,7 +44,7 @@ export const VideoView = ({ file }) => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={setError} />
+    <ErrorDialog error={error} setError={() => setError(null)} />
   ) : loading ? (
     <Loader />
   ) : (

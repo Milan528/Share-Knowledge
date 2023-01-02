@@ -15,3 +15,8 @@ export const updateUserRole = async (req, res) => {
   const response = await userServices.updateUserRole(req);
   return res.status(response.statusCode).send(response);
 };
+
+export const getUserByUsername = async (req, res) => {
+  const response = await userServices.getUserByUsername(req.params.username);
+  return res.status(response.statusCode).send(response);
+};

@@ -15,6 +15,7 @@ const CommentPreview = (props) => {
     date,
     // likeStatus,
     // owner,
+
     postedBy,
     postId,
   } = data;
