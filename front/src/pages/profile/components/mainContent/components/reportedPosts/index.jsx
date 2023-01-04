@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { PostPreviewContainer, StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import PostPreview from '../../../../../../components/postPreview';
-import ErrorDialog from '../../../../../../components/errorDialog';
+import ErrorDialog from '../../../../../../components/errorDialogRedux';
 import Loader from '../../../../../../components/loader';
 import { setError } from './redux/slices';
 import Typography from '@mui/material/Typography';
@@ -20,8 +20,6 @@ const ReportedPosts = () => {
   useEffect(() => {
     dispatch(loadReportedPosts());
   }, [dispatch, order]);
-
-  console.log(posts);
 
   const postsView = () => {
     if (posts.length === 0) {
@@ -65,7 +63,7 @@ const ReportedPosts = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : (
     viewToRender()
   );

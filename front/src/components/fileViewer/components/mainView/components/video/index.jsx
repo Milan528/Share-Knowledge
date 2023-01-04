@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import services from '../../../../../../services';
 import Loader from '../../../../../loader';
-import ErrorDialog from '../../../../../errorDialog';
+import ErrorDialog from '../../../../../errorDialog ';
 import { VideoContainer } from './styles';
 
 export const VideoView = ({ file }) => {
@@ -44,7 +44,7 @@ export const VideoView = ({ file }) => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={() => setError(null)} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

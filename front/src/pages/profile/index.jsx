@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Navbar from '../../components/navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
-import ErrorDialog from '../../components/errorDialog';
+import ErrorDialog from '../../components/errorDialogRedux';
 import Loader from '../../components/loader';
 import { ContentContainer, MainContainer, StyledContainer } from './styles';
 import SideNavbar from './components/sideNavbar';
@@ -51,10 +51,7 @@ const Profile = () => {
     </>
   );
 
-  if (error)
-    return (
-      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
-    );
+  if (error) return <ErrorDialog error={error} setError={setError} />;
   else return viewToRender;
 };
 

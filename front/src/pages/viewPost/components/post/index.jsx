@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ErrorDialog from '../../../../components/errorDialog';
+import ErrorDialog from '../../../../components/errorDialogRedux';
 import { StyledPaper } from './styles';
 import Title from './components/title';
 import Loader from '../../../../components/loader';
@@ -89,7 +89,7 @@ const Post = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

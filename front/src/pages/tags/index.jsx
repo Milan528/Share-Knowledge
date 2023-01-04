@@ -2,9 +2,9 @@ import React from 'react';
 import Navbar from '../../components/navbar';
 import DeleteTag from './components/deleteTag';
 import AddTag from './components/addTag';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setError } from './redux/slices';
-import ErrorDialog from '../../components/errorDialog';
+import ErrorDialog from '../../components/errorDialogRedux';
 import Loader from '../../components/loader';
 import { Container, Content, LoaderContainer } from './styles';
 import Footer from '../../components/footer';
@@ -12,7 +12,6 @@ import Footer from '../../components/footer';
 const Tags = () => {
   const error = useSelector((state) => state.tags.error);
   const loading = useSelector((state) => state.tags.loading);
-  const dispatch = useDispatch();
 
   const viewToRender = (
     <>
@@ -28,10 +27,7 @@ const Tags = () => {
     </>
   );
 
-  if (error)
-    return (
-      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
-    );
+  if (error) return <ErrorDialog error={error} setError={setError} />;
   else return viewToRender;
 };
 

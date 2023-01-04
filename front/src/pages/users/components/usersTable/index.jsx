@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUserAndLikes } from '../../reduxThunk/actions';
 import Loader from '../../../../components/loader';
-import ErrorDialog from '../../../../components/errorDialog';
+import ErrorDialog from '../../../../components/errorDialogRedux';
 import { setError } from './redux/slices';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
@@ -116,7 +116,7 @@ export const UsersTable = () => {
   );
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loadPostsForHomepageFilters } from '../../reduxThunk/actions';
 import PostPreview from '../../../../components/postPreview';
-import ErrorDialog from '../../../../components/errorDialog/index';
+import ErrorDialog from '../../../../components/errorDialogRedux';
 import Loader from '../../../../components/loader';
 import { setError } from './redux/slices';
 import Typography from '@mui/material/Typography';
@@ -38,7 +38,7 @@ const Posts = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

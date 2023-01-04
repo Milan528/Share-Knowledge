@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { Container, ControllsContainer, StyledTextField } from './styles';
 import Loader from '../../../../components/loader';
-import ErrorDialog from '../../../../components/errorDialog';
+import ErrorDialog from '../../../../components/errorDialogRedux';
 import { setError } from './redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -122,7 +122,7 @@ export const UserForm = () => {
   );
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

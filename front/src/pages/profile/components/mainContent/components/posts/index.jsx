@@ -3,7 +3,7 @@ import { Order } from './components/order';
 import { StyledDivider } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import PostPreview from '../../../../../../components/postPreview';
-import ErrorDialog from '../../../../../../components/errorDialog';
+import ErrorDialog from '../../../../../../components/errorDialogRedux';
 import Loader from '../../../../../../components/loader';
 import { setError } from './redux/slices';
 import Typography from '@mui/material/Typography';
@@ -61,7 +61,7 @@ const Posts = () => {
   };
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : (
     viewToRender()
   );

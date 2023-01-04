@@ -16,17 +16,17 @@ function isJsonString(str) {
   return true;
 }
 
-export default function ResponsiveDialog(props) {
+export default function ErrorDialog(props) {
   const { error, setError } = props;
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setError();
+    setError(null);
   };
 
   useEffect(() => {
     return () => {
-      setError();
+      setError(null);
     };
   }, [dispatch, setError]);
 

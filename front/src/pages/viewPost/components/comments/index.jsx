@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Comment from './components/comment';
-import ErrorDialog from '../../../../components/errorDialog';
+import ErrorDialog from '../../../../components/errorDialogRedux';
 import Loader from '../../../../components/loader';
 import { setError } from './redux/slices';
 import { loadComments } from '../../reduxThunk/actions';
@@ -19,7 +19,7 @@ const Comments = () => {
   }, [dispatch, postID]);
 
   return error ? (
-    <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (

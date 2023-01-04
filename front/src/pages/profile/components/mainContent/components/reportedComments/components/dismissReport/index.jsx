@@ -4,7 +4,7 @@ import { StyledButton } from './styles';
 import { dismissCommentReport } from '../../../../../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 import Loader from '../../../../../../../../components/loader';
-import ErrorDialog from '../../../../../../../../components/errorDialog';
+import ErrorDialog from '../../../../../../../../components/errorDialog ';
 import { Tooltip } from '@mui/material';
 
 export const DismissReport = ({ commentId, reportedById }) => {
@@ -29,7 +29,7 @@ export const DismissReport = ({ commentId, reportedById }) => {
   return loading ? (
     <Loader />
   ) : error ? (
-    <ErrorDialog error={error} setError={() => setError(null)} />
+    <ErrorDialog error={error} setError={setError} />
   ) : (
     viewToRender
   );

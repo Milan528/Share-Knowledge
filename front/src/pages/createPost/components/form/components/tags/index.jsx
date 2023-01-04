@@ -7,7 +7,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTags } from '../../../../reduxThunk/actions';
-import ErrorDialog from '../../../../../../components/errorDialog';
+import ErrorDialog from '../../../../../../components/errorDialogRedux';
 import { setError } from './redux/slices';
 import Loader from '../../../../../../components/loader';
 
@@ -64,10 +64,7 @@ const Tags = ({ selectedTags, setSelectedTags }) => {
     </TagsContainer>
   );
 
-  if (error)
-    return (
-      <ErrorDialog error={error} setError={() => dispatch(setError(null))} />
-    );
+  if (error) return <ErrorDialog error={error} setError={setError} />;
   else if (loading) return <Loader />;
   else return viewToRender;
 };

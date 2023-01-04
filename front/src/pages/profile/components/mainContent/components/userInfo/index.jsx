@@ -23,7 +23,7 @@ import {
   changeAccountUsername,
 } from '../../../../reduxThunk/actions';
 import Loader from '../../../../../../components/loader';
-import ErrorDialog from '../../../../../../components/errorDialog';
+import ErrorDialog from '../../../../../../components/errorDialog ';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -182,7 +182,7 @@ const UserInfo = () => {
   );
 
   const userInfoView = error ? (
-    <ErrorDialog error={error} setError={() => setError(null)} />
+    <ErrorDialog error={error} setError={setError} />
   ) : loading ? (
     <Loader />
   ) : (
