@@ -40,7 +40,7 @@ const Profile = () => {
         <ContentContainer>
           <StyledContainer>
             <AccountBoxIcon style={{ height: '100%', width: '45px' }} />
-            <h1>{username}</h1>
+            <h1>{usernameUrl}</h1>
           </StyledContainer>
 
           <MainContent />

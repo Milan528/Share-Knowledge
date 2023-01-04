@@ -4,7 +4,7 @@ import { StyledButton } from './styles';
 import { dismissPostReport } from '../../../../../../reduxThunk/actions';
 import { useDispatch } from 'react-redux';
 import Loader from '../../../../../../../../components/loader';
-import ErrorDialog from '../../../../../../../../components/errorDialog ';
+import ErrorDialog from '../../../../../../../../components/errorDialog';
 import { Tooltip } from '@mui/material';
 
 export const DismissReport = ({ postId, reportedById }) => {

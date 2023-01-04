@@ -1,8 +1,8 @@
 import React from 'react';
 import Router from './app/router';
-
+import ErrorBoundary from './components/errorBoundary';
 function App() {
-  return <Router />;
+  return <ErrorBoundary>{<Router />}</ErrorBoundary>;
 }
 
 export default App;

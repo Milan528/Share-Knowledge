@@ -23,7 +23,7 @@ import {
   changeAccountPasswordRepository,
   changeAccountUsernameRepository,
 } from '../repository/user';
-import { setRole, setToken, setUsername } from '../../../app/redux/slices';
+import { setToken, setUsername } from '../../../app/redux/slices';
 
 export const loadUserPosts =
   (username, order) => async (dispatch, getState) => {
@@ -104,7 +104,7 @@ export const loadUserInfo =
   };
 
 export const changeAccountPassword =
-  (newPassword, confirmedPassword, email, setLoading, setError, setUser) =>
+  (newPassword, confirmedPassword, email, setLoading, setError, clb) =>
   async (dispatch, getState) => {
     try {
       setLoading(true);
@@ -114,6 +114,7 @@ export const changeAccountPassword =
         email
       );
       dispatch(setToken(user.token));
+      clb();
     } catch (err) {
       setError(err);
     } finally {
@@ -122,7 +123,7 @@ export const changeAccountPassword =
   };
 
 export const changeAccountUsername =
-  (newUsername, confirmedPassword, email, setLoading, setError, setUser) =>
+  (newUsername, confirmedPassword, email, setLoading, setError, clb) =>
   async (dispatch, getState) => {
     try {
       setLoading(true);
@@ -133,9 +134,8 @@ export const changeAccountUsername =
       );
 
       dispatch(setToken(user.token));
-
       dispatch(setUsername(user.username));
-      // setUser(user);
+      clb(user.username);
     } catch (err) {
       setError(err);
     } finally {

@@ -16,14 +16,10 @@ import {
   StyledButton,
 } from './styles';
 import * as routes from '../../../../app/router/routes';
-
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+import {
+  validateEmail,
+  validatePassword,
+} from '../../../../utils/authValidation';
 
 const Form = () => {
   const [email, setEmail] = useState('');
@@ -42,7 +38,11 @@ const Form = () => {
   }, [token, navigate]);
 
   const handleRegister = () => {
-    if (password !== passwordConfirm) {
+    if (validatePassword(password) === null) {
+      setDialogMessage(
+        `Password must contain minimum eight characters, at least one letter and one number:`
+      );
+    } else if (password !== passwordConfirm) {
       setDialogMessage(`Passwords don't match`);
     } else if (validateEmail(email) === null) {
       setDialogMessage('Mail is not valid');

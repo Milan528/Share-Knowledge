@@ -24,9 +24,6 @@ const SideNavBar = () => {
     (state) => state.profile.sideNavbar.sideNavbarHidden
   );
 
-  console.log(username);
-  console.log(usernameUrl);
-
   return (
     <SlidingContainer hidden={hidden}>
       <OptionsContainer>
@@ -37,7 +34,7 @@ const SideNavBar = () => {
             <StyledListItemHeaderText>Objave</StyledListItemHeaderText>
           </MenuItem>
 
-          {usernameUrl === username ? (
+          {usernameUrl === username || role === userRole.admin ? (
             <MenuItem
               onClick={() => dispatch(setProfileView(profileView.personalData))}
             >

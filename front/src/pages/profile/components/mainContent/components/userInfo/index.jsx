@@ -7,7 +7,7 @@ import {
   StyledTextField,
 } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   IconButton,
   InputAdornment,
@@ -23,13 +23,18 @@ import {
   changeAccountUsername,
 } from '../../../../reduxThunk/actions';
 import Loader from '../../../../../../components/loader';
-import ErrorDialog from '../../../../../../components/errorDialog ';
+import ErrorDialog from '../../../../../../components/errorDialog';
+import { profileRoute } from '../../../../../../app/router/routes';
+import { userRole } from '../../../../../../utils/enums';
+import AdminControlls from './components/adminControlls';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const usernameUrl = searchParams.get('username');
   const username = useSelector((state) => state.app.username);
+  const role = useSelector((state) => state.app.role);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -53,8 +58,22 @@ const UserInfo = () => {
         user.email,
         setLoading,
         setError,
-        setUser
+        handlePasswordUpdated
       )
+    );
+  };
+
+  const handlePasswordUpdated = () => {
+    setPasswordUpdate(false);
+  };
+
+  const handleUsernameUpdated = (newUsername) => {
+    navigate(
+      {
+        pathname: profileRoute,
+        search: `username=${newUsername}`,
+      },
+      { replace: true }
     );
   };
 
@@ -66,14 +85,13 @@ const UserInfo = () => {
         user.email,
         setLoading,
         setError,
-        setUser
+        handleUsernameUpdated
       )
     );
   };
 
   useEffect(() => {
     dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
-    // dispatch(loadUserInfo(null, setUser, setLoading, setError));
   }, [dispatch, usernameUrl]);
 
   const passwordUpdateView = (
@@ -181,11 +199,7 @@ const UserInfo = () => {
     </>
   );
 
-  const userInfoView = error ? (
-    <ErrorDialog error={error} setError={setError} />
-  ) : loading ? (
-    <Loader />
-  ) : (
+  const userInfoView = () => (
     <>
       <h2>Informacije</h2>
       <StyledForm noValidate>
@@ -212,13 +226,34 @@ const UserInfo = () => {
     </>
   );
 
-  return usernameUrl === username ? (
-    <Container>
-      {userInfoView}
-      {usernameUpdate ? usernameUpdateView : null}
-      {passwordUpdate ? passwordUpdateView : null}
-    </Container>
-  ) : null;
+  if (usernameUrl === username) {
+    console.log(user);
+    return (
+      <Container>
+        {error ? (
+          <ErrorDialog error={error} setError={setError} />
+        ) : loading ? (
+          <Loader />
+        ) : user ? (
+          userInfoView()
+        ) : (
+          <h1>Učitavanje informacija je neuspešno</h1>
+        )}
+        {usernameUpdate ? usernameUpdateView : null}
+        {passwordUpdate ? passwordUpdateView : null}
+      </Container>
+    );
+  } else if (role === userRole.admin) {
+    return error ? (
+      <ErrorDialog error={error} setError={setError} />
+    ) : loading ? (
+      <Loader />
+    ) : user ? (
+      <AdminControlls user={user} />
+    ) : (
+      <h1>Učitavanje informacija je neuspešno</h1>
+    );
+  } else return null;
 };
 
 export default UserInfo;

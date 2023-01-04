@@ -4,14 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import response from '../tools/response/index.js';
-
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+import { validateEmail, validatePassword } from '../tools/authValidation.js';
 
 export const loginUser = async (req) => {
   const { email, password } = req.body;
@@ -46,6 +39,10 @@ export const registerUser = async (req) => {
 
   if (validateEmail(email) === null) {
     return response.BAD_REQUEST(`Not a valid email address`);
+  }
+
+  if (validatePassword(password) === null) {
+    return response.BAD_REQUEST(`Not a valid password format`);
   }
 
   const { results, error } = await database.query(QUERYS.SELECT_USER_BY_EMAIL, email);

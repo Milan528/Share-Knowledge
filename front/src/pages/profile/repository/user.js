@@ -2,7 +2,7 @@ import services from '../../../services';
 
 export const loadUserInfoRepository = async (username) => {
   const dto = await services.get(`/users/username/${username}`);
-  return dto.data;
+  return mapUserDTO(dto.data);
 };
 
 export const changeAccountPasswordRepository = async (
@@ -30,3 +30,10 @@ export const changeAccountUsernameRepository = async (
   });
   return dto.data;
 };
+
+function mapUserDTO(user) {
+  return {
+    ...user,
+    banned: user.banned === 1 ? true : false,
+  };
+}

@@ -19,7 +19,8 @@ INSERT INTO `share_knowledge`.`post` (`title`,`text`,`type`,`date`, `userId`) VA
 ( 'dolorem eum magni eos aperiam quia', 'ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae', 'material', '2022-12-03 23:59:59', 1),
 ( 'magnam facilis autem', 'dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas', 'question', '2022-12-03 23:59:59', 1),
 ( 'dolorem dolore est ipsam', 'dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae', 'material', '2022-12-03 23:59:59', 1),
-( 'nesciunt iure omnis dolorem tempora et accusantium', 'consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas', 'question', '2022-12-03 23:59:59', 1);
+( 'nesciunt iure omnis dolorem tempora et accusantium', 'consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas', 'question', '2022-12-03 23:59:59', 1),
+( 'Bag', 'Prijavi bag', 'material', '2022-12-03 23:59:59', 1);
 
 INSERT INTO `share_knowledge`.`tags` (`tag`) VALUES
 ('A'),
@@ -45,7 +46,8 @@ INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
 (8, 5),
 (9, 5),
 (7, 6),
-(10,6);
+(10,6),
+(11,1);
 
 INSERT INTO `share_knowledge`.`post_file` (`path`, `ext`, `postId`) VALUES
 ('posts/1/1.docx', '.docx', '1'),
