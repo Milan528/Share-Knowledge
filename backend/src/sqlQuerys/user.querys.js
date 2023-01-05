@@ -1,12 +1,15 @@
 const QUERY = {
   SELECT_USER_BY_EMAIL: 'SELECT * FROM user WHERE email = ?',
+  SELECT_USER_BY_ID: 'SELECT * FROM user WHERE id = ?',
   SELECT_USER_BY_USERNAME: 'SELECT * FROM user WHERE username = ?',
   CREATE_USER: 'INSERT INTO user(username, email, password, role) VALUES (?, ?, ?, ?)',
   SELECT_USERS_AND_ROLES: 'select username, role from user',
   SELECT_TOTAL_LIKES_FOR_USER,
   UPDATE_ROLE: 'UPDATE user SET role = ? WHERE username = ?',
+  UPDATE_BANNED: 'UPDATE user SET banned = ? WHERE id = ?',
   UPDATE_PASSWORD,
-  UPDATE_USERNAME: 'UPDATE user SET username = ? WHERE email = ?'
+  UPDATE_USERNAME: 'UPDATE user SET username = ? WHERE email = ?',
+  DELETE_USER: 'DELETE FROM user WHERE id = ?'
 };
 
 export default QUERY;

@@ -22,6 +22,9 @@ import {
   loadUserInfoRepository,
   changeAccountPasswordRepository,
   changeAccountUsernameRepository,
+  unbanUserAccountRepository,
+  banUserAccountRepository,
+  blacklistUserAccountRepository,
 } from '../repository/user';
 import { setToken, setUsername } from '../../../app/redux/slices';
 
@@ -136,6 +139,49 @@ export const changeAccountUsername =
       dispatch(setToken(user.token));
       dispatch(setUsername(user.username));
       clb(user.username);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const banUserAccount =
+  (banUserid, setLoading, setError, clb) => async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await banUserAccountRepository(banUserid);
+
+      clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const unbanUserAccount =
+  (unbanUserid, setLoading, setError, clb) => async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await unbanUserAccountRepository(unbanUserid);
+
+      clb();
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+export const blacklistUser =
+  (blacklistUserId, email, setLoading, setError, clb) =>
+  async (dispatch, getState) => {
+    try {
+      setLoading(true);
+      await blacklistUserAccountRepository(blacklistUserId, email);
+
+      clb();
     } catch (err) {
       setError(err);
     } finally {

@@ -9,6 +9,7 @@ const QUERY = {
   CREATE_POST: 'INSERT INTO post(title, text, type, userId, date) VALUES (?, ?, ?, ?, ?)',
   UPDATE_POST: 'UPDATE post SET title = ?, text = ?, type = ?, date = ?, userId = ? WHERE id = ?',
   DELETE_POST: 'DELETE FROM post WHERE id = ?',
+  SELECT_POSTS_FOR_USER_ID,
   SELECT_POST_WITH_USERNAME_BY_POSTID,
   GET_POST_COMMENT_IDS: 'SELECT id from comment where postId = ?',
 
@@ -123,6 +124,12 @@ function selectSinglePostWithDislikes(postId) {
 }
 
 /*********************************MANY*********************************/
+
+function SELECT_POSTS_FOR_USER_ID(userId) {
+  let sql = 'SELECT id from post ';
+  sql += `where userId = ${userId} `;
+  return sql;
+}
 
 function SELECT_POSTS_BY_USERNAME(username, order) {
   let sql = 'SELECT * FROM ( ';

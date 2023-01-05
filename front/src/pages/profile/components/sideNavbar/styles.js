@@ -6,6 +6,7 @@ import { MenuList } from '@mui/material';
 export const StyledMenuList = styled(MenuList)`
   && {
     padding-top: 0px;
+    min-width: 218.33px;
   }
 `;
 

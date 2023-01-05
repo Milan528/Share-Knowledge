@@ -21,12 +21,14 @@ const response = {
   BAD_REQUEST: (...args) =>
     new Response(HttpStatus.BAD_REQUEST.code, HttpStatus.BAD_REQUEST.status, ...args),
 
-  INTERNAL_SERVER_ERROR: (...args) =>
-    new Response(
+  INTERNAL_SERVER_ERROR: (...args) => {
+    // logger()
+    return new Response(
       HttpStatus.INTERNAL_SERVER_ERROR.code,
       HttpStatus.INTERNAL_SERVER_ERROR.status,
       ...args
-    )
+    );
+  }
 };
 
 export default response;

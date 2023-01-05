@@ -16,7 +16,7 @@ function isJsonString(str) {
   return true;
 }
 
-export default function ErrorDialog(props) {
+export const ErrorDialog = (props) => {
   const { error, setError } = props;
   const dispatch = useDispatch();
 
@@ -49,4 +49,6 @@ export default function ErrorDialog(props) {
       </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default ErrorDialog;

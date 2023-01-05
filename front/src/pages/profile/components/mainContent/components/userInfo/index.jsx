@@ -94,6 +94,10 @@ const UserInfo = () => {
     dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
   }, [dispatch, usernameUrl]);
 
+  const reloadUser = () => {
+    dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
+  };
+
   const passwordUpdateView = (
     <>
       <h2>Ažuriraj</h2>
@@ -227,7 +231,6 @@ const UserInfo = () => {
   );
 
   if (usernameUrl === username) {
-    console.log(user);
     return (
       <Container>
         {error ? (
@@ -249,7 +252,7 @@ const UserInfo = () => {
     ) : loading ? (
       <Loader />
     ) : user ? (
-      <AdminControlls user={user} />
+      <AdminControlls user={user} reloadUser={reloadUser} />
     ) : (
       <h1>Učitavanje informacija je neuspešno</h1>
     );

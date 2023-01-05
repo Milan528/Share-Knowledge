@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS `share_knowledge` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `share_knowledge`;
 
-DROP TABLE IF EXISTS blackList;
+DROP TABLE IF EXISTS blacklist;
 DROP TABLE IF EXISTS commentReportedBy;
 DROP TABLE IF EXISTS postReportedBy;
 DROP TABLE IF EXISTS comment_file;
@@ -137,8 +137,8 @@ FOREIGN KEY (postedById) REFERENCES user(id) ON DELETE CASCADE,
 FOREIGN KEY (reportedById) REFERENCES user(id) ON DELETE CASCADE 
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE blackList (
-email int NOT NULL,
+CREATE TABLE blacklist (
+email varchar(128) NOT NULL,
 date dateTime NOT NULL, 
 ip varchar(1000) NOT NULL,
 PRIMARY KEY (email)

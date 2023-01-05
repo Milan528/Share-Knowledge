@@ -65,6 +65,28 @@ export const getCommentsForPost = async (req) => {
   return await getCommentLikeDislikeStatusAndOwnership(req, results);
 };
 
+export const deleteCommentsForUserID = async (userId) => {
+  const { results, error } = await database.query(QUERYS.SELECT_COMMENTS_FOR_USER_ID(userId));
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results || results.length === 0) {
+    return response.NOT_FOUND(`No comments`);
+  } else {
+    for (let commentId of results) {
+      const request = {
+        params: {
+          id: commentId.id
+        }
+      };
+
+      await deleteComment(request);
+    }
+    return response.OK(`Comments deleted`);
+  }
+};
+
 export const deleteComment = async (req) => {
   const { results, error } = await database.query(QUERYS.DELETE_COMMENT, [req.params.id]);
 

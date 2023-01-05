@@ -31,6 +31,25 @@ export const changeAccountUsernameRepository = async (
   return dto.data;
 };
 
+export const blacklistUserAccountRepository = async (
+  blacklistUserId,
+  email
+) => {
+  const dto = await services.post(`/users/blacklistUser`, {
+    email,
+    blacklistUserId,
+  });
+  return dto.data;
+};
+export const banUserAccountRepository = async (banUserId) => {
+  const dto = await services.post(`/users/banUser`, { banUserId });
+  return dto.data;
+};
+export const unbanUserAccountRepository = async (unbanUserId) => {
+  const dto = await services.post(`/users/unbanUser`, { unbanUserId });
+  return dto.data;
+};
+
 function mapUserDTO(user) {
   return {
     ...user,

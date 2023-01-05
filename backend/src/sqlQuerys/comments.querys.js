@@ -2,7 +2,8 @@ const QUERY = {
   CREATE_COMMENT: 'INSERT INTO comment(text, date, postId, userId) VALUES (?, ?, ?,?)',
   DELETE_COMMENT: 'DELETE FROM comment WHERE id = ?',
   SELECT_COMMENT_BY_ID,
-  SELECT_COMMENTS_FOR_POST
+  SELECT_COMMENTS_FOR_POST,
+  SELECT_COMMENTS_FOR_USER_ID
 };
 
 export default QUERY;
@@ -35,6 +36,12 @@ function selectCommentByCommentId(commentId) {
 }
 
 /*********************************MANY*********************************/
+
+function SELECT_COMMENTS_FOR_USER_ID(userId) {
+  let sql = 'SELECT id from comment ';
+  sql += `where userId = ${userId} `;
+  return sql;
+}
 
 function SELECT_COMMENTS_FOR_POST(postId) {
   let sql = '';

@@ -8,7 +8,7 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import POST_LIKED_BY_QUERYS from '../sqlQuerys/postLikedBy.querys.js';
 import POST_DISLIKED_BY_QUERYS from '../sqlQuerys/postDislikedBy.querys.js';
 import response from '../tools/response/index.js';
-import tokenValidation, { checkIfLogged } from '../tools/tokenValidation.js';
+import { checkIfLogged } from '../tools/tokenValidation.js';
 import { postLikeDislikeStatus } from '../tools/enums.js';
 import { removeCommentFiles, removePostFiles } from './fileServices.js';
 import services from './index.js';
@@ -129,6 +129,28 @@ export const updatePost = async (req) => {
       ...req.body
     };
     return response.OK(`Post updated`, post);
+  }
+};
+
+export const deletePostsForUserID = async (userId) => {
+  const { results, error } = await database.query(QUERYS.SELECT_POSTS_FOR_USER_ID(userId));
+
+  if (error) {
+    return response.INTERNAL_SERVER_ERROR(`An unexpected error occured`);
+  }
+  if (!results || results.length === 0) {
+    return response.NOT_FOUND(`No comments`);
+  } else {
+    for (let postId of results) {
+      const request = {
+        params: {
+          id: postId.id
+        }
+      };
+
+      await deletePost(request);
+    }
+    return response.OK(`Posts deleted`);
   }
 };
 

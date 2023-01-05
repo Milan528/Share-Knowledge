@@ -1,5 +1,21 @@
-TO DO: na profilu nekog korisnika, admin ima opcije bann/unbann user, blacklist user (obrise sav njegov sadrzaj i doda ga u tabelu)
-TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
 TO DO: opcija za brisanje objave/komentara samo ako si owner i ako ti post/komentar nije reportovan 
-TO DO: publish user role change web sockets 
 TO DO: reportovani post/komentar nema delete button
+
+TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
+TO DO: publish user role change web sockets 
+
+
+TO DO: ruta za update username prebaci u user routes
+TO DO: update role preko email da ide
+TO DO: IP ADRESAA korisnika koji se registruje i loguje
+TO DO: transakcije za brisanje user-a, ako pukne brisanje 5 komentara, a ima ih 10...
+TO DO: dodaj loger na back za internal server error u response 
+TO Do: razlika izmedju Milan i milan ili miLAn
+TO DO: ne loaduje se username pored profilne ikonice na profilu usera a
+TO DO: odjavi se kao admin na profilu korisnika 'a', a zatim se prijavi kao 'a', pogledaj konzolu, ima error
+TO DO: KAD SE ODJAVIS, idi na home page, login redirektuje na prethodni page
+TO DO: nece prilog uz komentare
+TO DO: sredi sideNavbar
+TO DO: dodaj komentare na profilu, za sada postoje samo postovi usera
+TO DO: POSTAVIO/LA U KREIRANO OD 
+TO DO: na strani za kreiranje posta, tip (pitanje ili materijal), nije u ravni
