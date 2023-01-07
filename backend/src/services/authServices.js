@@ -8,7 +8,6 @@ import { validateEmail, validatePassword } from '../tools/authValidation.js';
 
 export const loginUser = async (req) => {
   const { email, password } = req.body;
-
   if (validateEmail(email) === null) {
     return response.BAD_REQUEST(`Not a valid email address`);
   }

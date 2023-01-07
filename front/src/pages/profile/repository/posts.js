@@ -17,6 +17,7 @@ export const mapDTOToPost = (dto) => {
   return {
     ...dto,
     date: formatDate(new Date(dto.date)),
+    postedBy: dto.username,
   };
 };
 

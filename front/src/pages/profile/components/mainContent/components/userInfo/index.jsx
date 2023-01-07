@@ -91,11 +91,15 @@ const UserInfo = () => {
   };
 
   useEffect(() => {
-    dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
+    if (usernameUrl) {
+      dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
+    }
   }, [dispatch, usernameUrl]);
 
   const reloadUser = () => {
-    dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
+    if (usernameUrl) {
+      dispatch(loadUserInfo(usernameUrl, setUser, setLoading, setError));
+    }
   };
 
   const passwordUpdateView = (

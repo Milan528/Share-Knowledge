@@ -26,13 +26,13 @@ const Post = () => {
     : null;
 
   useEffect(() => {
-    if (!homepageFilters && !Number.isFinite(postIndex)) {
+    if (!homepageFilters && !Number.isFinite(postIndex) && postIndex >= 0) {
       dispatch(loadPost(searchParamsPostId));
     }
   }, [dispatch, searchParamsPostId, homepageFilters, postIndex]);
 
   useEffect(() => {
-    if (homepageFilters && Number.isFinite(postIndex)) {
+    if (homepageFilters && Number.isFinite(postIndex) && postIndex >= 0) {
       dispatch(
         loadPostForHomepageFilters(postIndex, homepageFilters, (postId) => {
           navigate(

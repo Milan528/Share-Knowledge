@@ -17,10 +17,10 @@ import HttpStatus from '../tools/response/httpStatus.js';
 /*********************************ONE*********************************/
 
 const getPostLikeDislikeStatusAndOwnership = async (req, responseData) => {
-  const userID = checkIfLogged(req);
-  if (userID) {
+  const loggedStatus = checkIfLogged(req);
+  if (loggedStatus.status) {
     const { posts } = responseData;
-
+    const userID = loggedStatus.userID;
     for (let post of posts) {
       const postID = post.id;
 

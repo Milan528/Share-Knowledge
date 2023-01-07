@@ -157,6 +157,7 @@ function SELECT_POSTS_FOR_HOMEPAGE_FILTERS(tags, search, startIndex, count, type
   sql += `order by ${orderSql[order]} `;
   sql += ') as t ';
   sql += `limit ${startIndex},${count}; `;
+
   return sql;
 }
 

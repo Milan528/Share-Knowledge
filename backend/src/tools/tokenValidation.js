@@ -25,22 +25,23 @@ const tokenValidation = (req, res, next) => {
 };
 
 export const checkIfLogged = (req) => {
-  let id = null;
+  let loggedStatus = {
+    status: false,
+    userID: null
+  };
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-
   if (token === 'undefined' || token === 'null') {
-    return id;
+    return loggedStatus;
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) {
-      return id;
-    } else {
-      id = user.id;
-      return id;
+    if (!err) {
+      loggedStatus.status = true;
+      loggedStatus.userID = user.id;
     }
   });
+  return loggedStatus;
 };
 
 export default tokenValidation;

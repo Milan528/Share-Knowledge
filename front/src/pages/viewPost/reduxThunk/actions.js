@@ -73,7 +73,6 @@ export const loadPostForHomepageFilters =
   //used when coming from homepage
   (selectedPostIndex, homepageFilters, clb) => async (dispatch, getState) => {
     const { selectedTags, type, search, order } = homepageFilters;
-
     let dto = {
       tags: selectedTags.map((tag) => tag.id),
       startIndex: selectedPostIndex, // redni_broj_strane===redni_broj_posta, kada je broj postova po strani===1
@@ -89,7 +88,7 @@ export const loadPostForHomepageFilters =
       dispatch(setPost(post));
       clb(post.id);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       dispatch(setErrorPost(serialize(err)));
     } finally {
       dispatch(setLoadingPost(false));

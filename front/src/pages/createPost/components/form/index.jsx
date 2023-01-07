@@ -123,7 +123,7 @@ const Form = () => {
       />
       <Type>
         <InputLabel>Tip</InputLabel>
-        <Select value={type} onChange={handleTypeChange}>
+        <Select value={type} onChange={handleTypeChange} label="Tip">
           <MenuItem value={postType.question}>Pitanje</MenuItem>
           <MenuItem value={postType.material}>Materijal</MenuItem>
         </Select>

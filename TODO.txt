@@ -1,28 +1,52 @@
+TO DO: nece prilog uz komentare
+TO DO: sredi sideNavbar
+TO Do: kad nisi ulogaovan puca klik na post
+TO Do: kad udjes na post sa profilne stranice skroluje odma skroz dole
+TO Do: razlika izmedju Milan i milan ili miLAn
 TO DO: opcija za brisanje objave/komentara samo ako si owner i ako ti post/komentar nije reportovan 
 TO DO: reportovani post/komentar nema delete button
 
 TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
 TO DO: publish user role change web sockets 
-
-
-TO DO: ruta za update username prebaci u user routes
-TO DO: update role preko email da ide
 TO DO: IP ADRESAA korisnika koji se registruje i loguje
+
+--------------------------------------------NOT THAT IMPORTANT--------------------------------------------
+TO DO: update role preko email da ide
+TO DO: ruta za update username prebaci u user routes
+TO DO: KAD SE ODJAVIS, idi na home page, login redirektuje na prethodni page (ukoliko bude problema sa redirect onda dodaj ovo)
+TO DO: dodaj komentare na profilu, za sada postoje samo postovi usera
 TO DO: transakcije za brisanje user-a, ako pukne brisanje 5 komentara, a ima ih 10...
 TO DO: dodaj loger na back za internal server error u response 
-TO Do: razlika izmedju Milan i milan ili miLAn
-TO DO: ne loaduje se username pored profilne ikonice na profilu usera a
-TO DO: odjavi se kao admin na profilu korisnika 'a', a zatim se prijavi kao 'a', pogledaj konzolu, ima error
-TO DO: KAD SE ODJAVIS, idi na home page, login redirektuje na prethodni page
-TO DO: nece prilog uz komentare
-TO DO: sredi sideNavbar
-TO DO: dodaj komentare na profilu, za sada postoje samo postovi usera
+
+--------------------------------------------FIXED--------------------------------------------
+TO Do: izmena lozinke ne radi (testirao opet i sad radi ali posle logovanja greska) 
+TO Do: post like ne radi (ne radi zato sto uopste nema likeStatus u post jer se koristi funkcija postsForHomepageFilters ne znam zasto)  --checkIfLogged lose radila funkcija
 TO DO: POSTAVIO/LA U KREIRANO OD 
+TO DO: ne loaduje se username pored profilne ikonice na profilu usera a
+TO Do: login upada u beskonacnu petlju kad uneses lose pdoatke
+TO DO: kada kliknes prikazi post na post sa ID 1 koja ima tekst i naslov od podataka ne radi uopste kako treba iako SQL vraca to kao odgovor (iz nekog razloga je dobija postIdex -1 i pucao back dodao sam proveru za postIdex na stranici)
+TO DO: post idemx na viewpost je -1 od kako je popravljen display username (pazi na ovo za sad kao radi)
+TO DO: odjavi se kao admin na profilu korisnika 'a', a zatim se prijavi kao 'a', pogledaj konzolu, ima error (nisam naleteo na ovaj error pokusao za korisnika b)
 TO DO: na strani za kreiranje posta, tip (pitanje ili materijal), nije u ravni
-TO Do: kad nisi ulogaovan puca klik na post
-TO Do: kad udjes na post sa profilne stranice skroluje odma skroz dole
-TO Do: post like ne radi
-TO Do: izmena lozinke ne radi
+TO DO: stavi da slika bude u ravni sa naslovom
 
 
 
+--------------------------------------------NO RESPONSE FOR ERROR TYPE--------------------------------------------
+Error: Duplicate entry '2-3' for key 'postDislikedBy.PRIMARY'
+    at Packet.asError (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\packets\packet.js:728:17)
+    at Query.execute (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\commands\command.js:29:26)
+    at PoolConnection.handlePacket (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\connection.js:456:32)   
+    at PacketParser.onPacket (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\connection.js:85:12)
+    at PacketParser.executeStart (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\packet_parser.js:75:16)   
+    at Socket.<anonymous> (E:\ReactProjekti\Share-Knowledge\backend\node_modules\mysql2\lib\connection.js:92:25)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10) {
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlState: '23000',
+  sqlMessage: "Duplicate entry '2-3' for key 'postDislikedBy.PRIMARY'",
+  sql: 'INSERT INTO postDislikedBy(userId, postId) VALUES (3,2)'
+}
