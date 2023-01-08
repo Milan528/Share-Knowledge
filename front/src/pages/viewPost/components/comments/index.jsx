@@ -23,9 +23,12 @@ const Comments = () => {
   ) : loading ? (
     <Loader />
   ) : (
-    comments.map((comment) => (
-      <Comment key={JSON.stringify(comment)} data={comment} />
-    ))
+    <div>
+      <h1>Komentari</h1>
+      {comments.map((comment) => (
+        <Comment key={JSON.stringify(comment)} data={comment} />
+      ))}
+    </div>
   );
 };
 

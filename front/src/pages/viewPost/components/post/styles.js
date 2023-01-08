@@ -7,5 +7,6 @@ export const StyledPaper = styled(Paper)`
   min-height: 150px;
   flex-grow: 1;
   display: flex-block;
+
   border: 0.5px solid #c9cace;
 `;

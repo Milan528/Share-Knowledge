@@ -28,7 +28,7 @@ const Title = (props) => {
       <Container>
         <PostedByContainer>
           <StyledPostedByTypography variant="h6">
-            Postavio/la{' '}
+            Postavljeno od{''}
           </StyledPostedByTypography>
           <Button onClick={handleVisitUserProfile}>
             <AccountCircleIcon />

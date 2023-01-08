@@ -1,7 +1,6 @@
 TO DO: nece prilog uz komentare
 TO DO: sredi sideNavbar
 
-
 TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
 TO DO: publish user role change web sockets 
 TO DO: IP ADRESAA korisnika koji se registruje i loguje

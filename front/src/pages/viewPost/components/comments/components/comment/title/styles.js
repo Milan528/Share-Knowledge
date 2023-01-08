@@ -5,6 +5,7 @@ import Today from '@mui/icons-material/Today';
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 `;
 
 export const DateContainer = styled.div`
@@ -18,6 +19,7 @@ export const PostedByContainer = styled.div`
   flex: 1;
   flex-wrap: wrap;
   min-width: fit-content;
+  align-items: center;
 `;
 
 export const DateIcon = styled(Today)`
@@ -26,4 +28,6 @@ export const DateIcon = styled(Today)`
   }
 `;
 
-export const StyledPostedByTypography = styled(Typography)``;
+export const StyledPostedByTypography = styled(Typography)`
+  text-align: center;
+`;
