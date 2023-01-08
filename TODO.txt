@@ -1,10 +1,6 @@
 TO DO: nece prilog uz komentare
 TO DO: sredi sideNavbar
-TO Do: kad nisi ulogaovan puca klik na post
-TO Do: kad udjes na post sa profilne stranice skroluje odma skroz dole
-TO Do: razlika izmedju Milan i milan ili miLAn
-TO DO: opcija za brisanje objave/komentara samo ako si owner i ako ti post/komentar nije reportovan 
-TO DO: reportovani post/komentar nema delete button
+
 
 TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
 TO DO: publish user role change web sockets 
@@ -12,11 +8,13 @@ TO DO: IP ADRESAA korisnika koji se registruje i loguje
 
 --------------------------------------------NOT THAT IMPORTANT--------------------------------------------
 TO DO: update role preko email da ide
+TO Do: razlika izmedju Milan i milan ili miLAn
 TO DO: ruta za update username prebaci u user routes
 TO DO: KAD SE ODJAVIS, idi na home page, login redirektuje na prethodni page (ukoliko bude problema sa redirect onda dodaj ovo)
 TO DO: dodaj komentare na profilu, za sada postoje samo postovi usera
 TO DO: transakcije za brisanje user-a, ako pukne brisanje 5 komentara, a ima ih 10...
 TO DO: dodaj loger na back za internal server error u response 
+TO DO: reportovani post/komentar nema delete button
 
 --------------------------------------------FIXED--------------------------------------------
 TO Do: izmena lozinke ne radi (testirao opet i sad radi ali posle logovanja greska) 
@@ -29,7 +27,10 @@ TO DO: post idemx na viewpost je -1 od kako je popravljen display username (pazi
 TO DO: odjavi se kao admin na profilu korisnika 'a', a zatim se prijavi kao 'a', pogledaj konzolu, ima error (nisam naleteo na ovaj error pokusao za korisnika b)
 TO DO: na strani za kreiranje posta, tip (pitanje ili materijal), nije u ravni
 TO DO: stavi da slika bude u ravni sa naslovom
-
+TO Do: kad nisi ulogaovan puca klik na post (pucalo zbog tokenValidation koj je primao null kao res <---- Darjane genijalno resenje)
+TO DO: opcija za brisanje objave/komentara samo ako si owner i ako admin
+TO DO: report redirect ako nisi logovan
+TO Do: kad udjes na post sa profilne stranice skroluje odma skroz dole (dodao window.scrollTop u useeffect pretpostavljam da se desilo zbog raznih komponenta koje su se ucitavale)
 
 
 --------------------------------------------NO RESPONSE FOR ERROR TYPE--------------------------------------------

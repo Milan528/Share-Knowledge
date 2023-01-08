@@ -5,7 +5,7 @@ import { getTodaysDate } from '../tools/dateFormater.js';
 import COMMENT_LIKED_BY_QUERYS from '../sqlQuerys/commentLikedBy.querys.js';
 import COMMENT_DISLIKED_BY_QUERYS from '../sqlQuerys/commentDislikedBy.querys.js';
 import response from '../tools/response/index.js';
-import tokenValidation from '../tools/tokenValidation.js';
+import tokenValidation, { checkIfLogged } from '../tools/tokenValidation.js';
 import { commentLikeDislikeStatus } from '../tools/enums.js';
 import { removeCommentFiles } from './fileServices.js';
 import COMMENT_REPORT_QUERYS from '../sqlQuerys/commentReportedBy.querys.js';
@@ -13,10 +13,12 @@ import services from './index.js';
 import HttpStatus from '../tools/response/httpStatus.js';
 
 const getCommentLikeDislikeStatusAndOwnership = async (req, comments) => {
-  tokenValidation(req, null, () => {});
-  const userID = req.body.userID;
+  // tokenValidation(req, null, () => {});
+  // const userID = req.body.userID;
+  const loggedRes = checkIfLogged(req);
 
-  if (userID) {
+  if (loggedRes.status) {
+    let userID = loggedRes.userID;
     for (let comment of comments) {
       const commentID = comment.id;
 

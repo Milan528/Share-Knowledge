@@ -1,16 +1,28 @@
 import { CircularProgress, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reportPost } from '../../../../../../reduxThunk/actions';
 import { StyledReportIconButton } from './styles';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import AlertDialog from '../../../../../../../../components/alertDialog';
+import { loginRoute } from '../../../../../../../../app/router/routes';
+import { useNavigate } from 'react-router-dom';
 
 export const Report = ({ postId, postedBy }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.app.token);
   const [errorPostReporting, setErrorPostReporting] = useState(null);
   const [loadingPostReporting, setLoadingPostReporting] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const hadlePostReport = () => {
+    if (token) {
+      setDialogOpen(true);
+    } else {
+      navigate(loginRoute);
+    }
+  };
 
   const viewToRender = (
     <>
@@ -18,7 +30,7 @@ export const Report = ({ postId, postedBy }) => {
       {errorPostReporting ? 'Prijavljivanje neuspesno' : null}
       <Tooltip title="Prijavi objavu">
         <StyledReportIconButton
-          onClick={() => setDialogOpen(true)}
+          onClick={hadlePostReport}
           disabled={loadingPostReporting}
           color="primary"
         >

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { AddCommentContainer, ContentContainer } from './styles';
@@ -12,6 +12,10 @@ import Heading from './components/heading';
 const ViewPost = () => {
   const createCommentRef = useRef(null);
   const token = useSelector((state) => state.app.token);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
