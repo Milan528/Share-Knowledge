@@ -23,12 +23,12 @@ INSERT INTO `share_knowledge`.`post` (`title`,`text`,`type`,`date`, `userId`) VA
 ( 'Bag', 'Prijavi bag', 'material', '2022-12-03 23:59:59', 1);
 
 INSERT INTO `share_knowledge`.`tags` (`tag`) VALUES
-('A'),
-('B'),
-('C'),
-('D'),
-('E'),
-('F');
+('AOR'),
+('MIKS'),
+('GRAFIKA'),
+('DISTRIBUIRANI SISTEMI'),
+('MATEMATIKA'),
+('FIZIKA');
 
 INSERT INTO `share_knowledge`.`post_tag` (`postId`,`tagId`) VALUES
 (1, 1),

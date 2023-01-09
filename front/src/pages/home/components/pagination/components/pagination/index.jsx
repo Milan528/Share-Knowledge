@@ -14,6 +14,7 @@ const Pagination = () => {
   const handleCurrentPageNumberChange = (event, paginationCurrentPage) => {
     dispatch(setCurrentPage(paginationCurrentPage));
     dispatch(loadPostsForHomepageFilters());
+    window.scrollTo(0, 0);
   };
 
   return totalNumberOfPages ? (

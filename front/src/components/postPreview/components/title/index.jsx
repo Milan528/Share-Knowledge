@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import React from 'react';
 import {
-  Container,
+  HeadingContainer,
   StyledTypography,
   StyledBookIcon,
   StyledHelpIcon,
@@ -9,6 +9,7 @@ import {
   DateIcon,
   StyledPostedByTypography,
   DateContainer,
+  StyledH3,
 } from './styles';
 import { profileRoute } from '../../../../app/router/routes';
 import { Button } from '@mui/material';
@@ -32,35 +33,32 @@ const Title = (props) => {
     e.nativeEvent.stopImmediatePropagation();
   };
 
+  const typeIcon =
+    type === 'material' ? (
+      <Tooltip title="Materijal">
+        <StyledBookIcon />
+      </Tooltip>
+    ) : (
+      <Tooltip title="Pitanje">
+        <StyledHelpIcon />
+      </Tooltip>
+    );
+
   return (
     <>
-      <Container>
-        {type === 'material' ? (
-          <Tooltip title="Materijal">
-            <StyledBookIcon />
-          </Tooltip>
-        ) : (
-          <Tooltip title="Pitanje">
-            <StyledHelpIcon />
-          </Tooltip>
-        )}
-        <PostedByContainer>
-          <StyledPostedByTypography variant="h6">
-            Postavljeno od{' '}
-          </StyledPostedByTypography>
-          <Button onClick={handleVisitUserProfile}>
-            <AccountCircleIcon />
-            {postedBy}
-          </Button>
-        </PostedByContainer>
+      <HeadingContainer>
+        <StyledTypography onClick={handleClick} variant="h5">
+          {typeIcon}
+          {title}
+        </StyledTypography>
+      </HeadingContainer>
+      <PostedByContainer>
+        <StyledH3>{postedBy}</StyledH3>
         <DateContainer>
           <DateIcon />
           <Typography> {date}</Typography>
         </DateContainer>
-      </Container>
-      <StyledTypography onClick={handleClick} variant="h5">
-        {title}
-      </StyledTypography>
+      </PostedByContainer>
     </>
   );
 };

@@ -24,7 +24,7 @@ const Comments = () => {
     <Loader />
   ) : (
     <div>
-      <h1>Komentari</h1>
+      {comments.length > 0 ? <h1>Komentari</h1> : null}
       {comments.map((comment) => (
         <Comment key={JSON.stringify(comment)} data={comment} />
       ))}

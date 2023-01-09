@@ -9,7 +9,6 @@ import SideNavbar from './components/sideNavbar';
 import { useSearchParams } from 'react-router-dom';
 import { setProfileView } from './components/sideNavbar/redux/slices';
 import { profileView } from './components/sideNavbar/redux/state';
-import AccountBoxIcon from '@mui/icons-material/Person';
 import MainContent from './components/mainContent';
 
 const Profile = () => {
@@ -34,17 +33,10 @@ const Profile = () => {
   const viewToRender = (
     <>
       <Navbar />
-
       <MainContainer>
         <SideNavbar />
         <ContentContainer>
-          <StyledContainer>
-            <AccountBoxIcon style={{ height: '100%', width: '45px' }} />
-            <h1>{usernameUrl}</h1>
-          </StyledContainer>
-
           <MainContent />
-
           {loading ? <Loader /> : null}
         </ContentContainer>
       </MainContainer>
