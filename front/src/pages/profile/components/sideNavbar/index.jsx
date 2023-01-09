@@ -13,6 +13,7 @@ import { profileView } from './redux/state';
 import { useSearchParams } from 'react-router-dom';
 import { userRole } from '../../../../utils/enums';
 import { Divider, MenuItem } from '@mui/material';
+import { useRef } from 'react';
 
 const SideNavBar = () => {
   const dispatch = useDispatch();
@@ -23,10 +24,17 @@ const SideNavBar = () => {
   const hidden = useSelector(
     (state) => state.profile.sideNavbar.sideNavbarHidden
   );
+  const optionsContainerRef = useRef(null);
 
   return (
-    <SlidingContainer hidden={hidden}>
-      <OptionsContainer>
+    <SlidingContainer
+      widthToHide={
+        hidden && optionsContainerRef.current
+          ? optionsContainerRef.current.offsetWidth
+          : '0'
+      }
+    >
+      <OptionsContainer ref={optionsContainerRef}>
         Profil
         <Divider />
         <StyledMenuList>

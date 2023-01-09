@@ -6,7 +6,6 @@ import { MenuList } from '@mui/material';
 export const StyledMenuList = styled(MenuList)`
   && {
     padding-top: 0px;
-    min-width: 218.33px;
   }
 `;
 
@@ -19,7 +18,7 @@ export const StyledArrow = styled(DoubleArrow)`
 export const SlidingContainer = styled.div`
   margin-top: -20px;
   display: flex;
-  left: ${({ hidden }) => (hidden ? '-180px' : '0px')};
+  left: ${({ widthToHide }) => `-${widthToHide}px`};
   transition: 0.3s ease-out;
   text-align: right;
   overflow: auto;
