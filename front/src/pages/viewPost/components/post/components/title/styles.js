@@ -21,10 +21,8 @@ export const DateContainer = styled.div`
 export const StyledTypography = styled(Typography)`
   && {
     flex: 1;
-    cursor: initial;
     margin-top: -4px;
     display: inline;
-    cursor: pointer;
   }
 `;
 
