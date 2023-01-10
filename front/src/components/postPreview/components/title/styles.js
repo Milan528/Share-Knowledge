@@ -62,7 +62,7 @@ export const StyledH3 = styled.h3`
   font-style: italic;
 
   :hover {
-    padding: 5px;
+    padding: 0px 5px 0px 5px;
     border-radius: 5px;
     color: white;
     background: #1976d2;
