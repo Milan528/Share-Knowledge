@@ -1,18 +1,16 @@
 import { Tooltip } from '@mui/material';
 import React from 'react';
 import {
-  Container,
+  HeadingContainer,
   StyledTypography,
   StyledBookIcon,
   StyledHelpIcon,
   PostedByContainer,
   DateIcon,
-  StyledPostedByTypography,
   DateContainer,
+  StyledH3,
 } from './styles';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import { profileRoute } from '../../../../../../app/router/routes';
 
@@ -27,35 +25,34 @@ const Title = (props) => {
     });
   };
 
+  const typeIcon =
+    type === 'material' ? (
+      <Tooltip title="Materijal">
+        <StyledBookIcon />
+      </Tooltip>
+    ) : (
+      <Tooltip title="Pitanje">
+        <StyledHelpIcon />
+      </Tooltip>
+    );
+
   return (
     <>
-      <Container>
-        {type === 'material' ? (
-          <Tooltip title="Materijal">
-            <StyledBookIcon />
-          </Tooltip>
-        ) : (
-          <Tooltip title="Pitanje">
-            <StyledHelpIcon />
-          </Tooltip>
-        )}
-        <PostedByContainer>
-          <StyledPostedByTypography variant="h6">
-            Postavljeno od{' '}
-          </StyledPostedByTypography>
-          <Button onClick={handleVisitUserProfile}>
-            <AccountCircleIcon />
-            {postedBy}
-          </Button>
-        </PostedByContainer>
+      <HeadingContainer>
+        {typeIcon}
+        <StyledTypography variant="h5">{title}</StyledTypography>
+      </HeadingContainer>
+      <PostedByContainer>
+        <StyledH3 onClick={handleVisitUserProfile}>{postedBy}</StyledH3>
         <DateContainer>
           <DateIcon />
           <Typography> {date}</Typography>
         </DateContainer>
-      </Container>
-      <StyledTypography variant="h5">{title}</StyledTypography>
+      </PostedByContainer>
     </>
   );
 };
+
+
 
 export default Title;

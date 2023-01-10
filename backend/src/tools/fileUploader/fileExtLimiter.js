@@ -10,7 +10,7 @@ const fileExtLimiter = (allowedExtArray) => {
     });
 
     // Are the file extension allowed?
-    const allowed = fileExtensions.every((ext) => allowedExtArray.includes(ext));
+    const allowed = fileExtensions.every((ext) => allowedExtArray.includes(ext.toLowerCase()));
 
     if (!allowed) {
       const message = `Upload failed. Only ${allowedExtArray.toString()} files allowed.`.replaceAll(

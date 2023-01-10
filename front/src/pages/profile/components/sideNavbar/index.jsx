@@ -16,7 +16,6 @@ import { profileView } from './redux/state';
 import { useSearchParams } from 'react-router-dom';
 import { userRole } from '../../../../utils/enums';
 import { MenuItem } from '@mui/material';
-import { useRef } from 'react';
 import MoodIcon from '@mui/icons-material/Mood';
 
 const SideNavBar = () => {
@@ -28,25 +27,16 @@ const SideNavBar = () => {
   const hidden = useSelector(
     (state) => state.profile.sideNavbar.sideNavbarHidden
   );
-  const optionsContainerRef = useRef(null);
 
   return (
-    <SlidingContainer
-      widthToHide={
-        hidden && optionsContainerRef.current
-          ? optionsContainerRef.current.offsetWidth
-          : '0'
-      }
-    >
-      <OptionsContainer ref={optionsContainerRef}>
+    <SlidingContainer isHidden={hidden} >
+      <OptionsContainer isHidden={hidden} >
         <StyledContainer>
           <MoodIcon style={{ height: '100%', width: '20px' }} />
-
           <h3>{usernameUrl}</h3>
         </StyledContainer>
         <StyledDivider />
         <h3>PROFIL</h3>
-        {/* <Typography variant="h6">Profil</Typography> */}
         <StyledMenuList>
           <MenuItem onClick={() => dispatch(setProfileView(profileView.posts))}>
             <StyledListItemHeaderText>Objave</StyledListItemHeaderText>
@@ -85,20 +75,18 @@ const SideNavBar = () => {
                 </StyledListItemHeaderText>
               </MenuItem>
               <StyledDivider />
-              <StyledMenuItem
-                onClick={() => dispatch(setSideNavbarHidden(!hidden))}
-              >
-                <StyledArrow hidden={hidden} />
-              </StyledMenuItem>
             </StyledMenuList>
           </>
         ) : null}
+            <StyledMenuItem
+              onClick={() => dispatch(setSideNavbarHidden(!hidden))}
+            >
+              <StyledArrow hidden={hidden} />
+            </StyledMenuItem>
       </OptionsContainer>
-      {hidden ? (
-        <ToggleContainer onClick={() => dispatch(setSideNavbarHidden(!hidden))}>
-          <StyledArrow hidden={hidden} />
-        </ToggleContainer>
-      ) : null}
+      <ToggleContainer isHidden={hidden} onClick={() => dispatch(setSideNavbarHidden(!hidden))}>
+        <StyledArrow hidden={hidden} />
+      </ToggleContainer>
     </SlidingContainer>
   );
 };

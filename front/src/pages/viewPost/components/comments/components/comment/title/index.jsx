@@ -1,14 +1,11 @@
 import React from 'react';
 import {
-  Container,
   PostedByContainer,
   DateIcon,
-  StyledPostedByTypography,
   DateContainer,
+  StyledH3,
 } from './styles';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import { profileRoute } from '../../../../../../../app/router/routes';
 
@@ -24,23 +21,13 @@ const Title = (props) => {
   };
 
   return (
-    <>
-      <Container>
-        <PostedByContainer>
-          <StyledPostedByTypography variant="h6">
-            Postavljeno od{''}
-          </StyledPostedByTypography>
-          <Button onClick={handleVisitUserProfile}>
-            <AccountCircleIcon />
-            {postedBy}
-          </Button>
-        </PostedByContainer>
+      <PostedByContainer>
+        <StyledH3 onClick={handleVisitUserProfile}>{postedBy}</StyledH3>
         <DateContainer>
           <DateIcon />
           <Typography> {date}</Typography>
         </DateContainer>
-      </Container>
-    </>
+      </PostedByContainer>
   );
 };
 

@@ -6,7 +6,7 @@ export const ImageView = ({ file }) => {
 
   return (
     <Image>
-      <img src={file.src} />
+      <img src={file.src} alt="loading..."/>
     </Image>
   );
 };

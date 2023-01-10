@@ -23,6 +23,7 @@ export const Heading = () => {
     if (Number.isFinite(selectedPostIndex)) {
       dispatch(setPostIndex(selectedPostIndex));
     }
+
   }, [selectedPostIndex, dispatch]);
 
   const handleNextPost = () => {
@@ -39,7 +40,8 @@ export const Heading = () => {
     }
   };
 
-  if (post) {
+
+  if (post && Number.isFinite(selectedPostIndex)) {
     return (
       <HeadingContainer>
         {location.state ? (

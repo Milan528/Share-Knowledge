@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyledText } from './styles';
+import { StyledArrowDownIcon, StyledFilesContainer, StyledText } from './styles';
 import { FileViewer } from '../../../../../../components/fileViewer';
 import { useSelector } from 'react-redux';
-import Checkbox from '@mui/material/Checkbox';
+
+
 
 const Content = (props) => {
   const { text, files } = props;
@@ -19,13 +20,10 @@ const Content = (props) => {
     <>
       <StyledText>{text}</StyledText>
       {files.length > 0 ? (
-        <div>
-          Prikazi priloge za ovu objavu
-          <Checkbox
-            checked={showAttachments}
-            onChange={() => setShowAttachments((prev) => !prev)}
-          />
-        </div>
+        <StyledFilesContainer showAttachments={showAttachments}>
+          Fajlovi 
+          <StyledArrowDownIcon onClick={() => setShowAttachments((prev) => !prev)}/>
+        </StyledFilesContainer>
       ) : null}
       {showAttachments ? (
         <FileViewer

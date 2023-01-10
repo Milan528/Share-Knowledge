@@ -1,17 +1,12 @@
-import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import Today from '@mui/icons-material/Today';
-
-export const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-`;
 
 export const DateContainer = styled.div`
   display: flex;
   align-items: center;
   min-width: fit-content;
+  flex-direction: row-reverse;
+  margin-left: 4px;
 `;
 
 export const PostedByContainer = styled.div`
@@ -20,14 +15,26 @@ export const PostedByContainer = styled.div`
   flex-wrap: wrap;
   min-width: fit-content;
   align-items: center;
+  margin-bottom: 5px;
 `;
 
 export const DateIcon = styled(Today)`
   && {
-    margin-left: 10px;
+    margin-left: 2px;
+    color: #808080;
   }
 `;
 
-export const StyledPostedByTypography = styled(Typography)`
-  text-align: center;
+export const StyledH3 = styled.h3`
+  margin-right: 8px;
+  font-size: 1rem;
+  font-style: italic;
+
+  :hover {
+    padding: 0px 5px 0px 5px;
+    border-radius: 5px;
+    color: white;
+    background: #1976d2;
+  }
 `;
+

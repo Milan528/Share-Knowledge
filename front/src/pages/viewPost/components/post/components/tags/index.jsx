@@ -6,7 +6,7 @@ const Tags = (props) => {
   return (
     <div>
       {tags.map((tag, index) => (
-        <StyledChip label={tag.tag} variant="outlined" key={index} />
+        <StyledChip label={tag.tag} key={index} />
       ))}
     </div>
   );

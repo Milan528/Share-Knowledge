@@ -88,7 +88,6 @@ export const loadPostForHomepageFilters =
       dispatch(setPost(post));
       clb(post.id);
     } catch (err) {
-      // console.log(err);
       dispatch(setErrorPost(serialize(err)));
     } finally {
       dispatch(setLoadingPost(false));
@@ -309,8 +308,6 @@ export const reportComment =
       commentID,
       postedBy,
     };
-
-    console.log(DTO);
 
     try {
       setLoading(true);

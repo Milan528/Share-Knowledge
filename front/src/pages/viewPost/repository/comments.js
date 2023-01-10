@@ -24,13 +24,15 @@ export const addCommentRepository = async (comment, setUploadProgress) => {
   };
   const response = await services.post('/comments', DTO);
   const commentId = response.data;
-
+  console.log(comment)
   const formData = new FormData();
   const allFiles = comment.images.concat(
     comment.documents.concat(comment.videos)
   );
+  console.log(allFiles)
 
   if (allFiles.length > 0) {
+    console.log("testtest")
     allFiles.forEach((file, index) => {
       formData.append(`files${index}`, file);
     });

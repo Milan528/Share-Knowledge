@@ -5,7 +5,7 @@ const getExtensionFromFileName = (fileName) => {
 const selectFiles = (files, ...fileTypes) => {
   const selectedFiles = files.filter((file) =>
     fileTypes.some((fileType) =>
-      fileType.includes(getExtensionFromFileName(file.name))
+      fileType.includes(getExtensionFromFileName(file.name).toLowerCase())
     )
   );
 

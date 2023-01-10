@@ -21,7 +21,6 @@ export const AddComment = React.forwardRef((props, ref) => {
 
   const handleCreateComment = () => {
     if (token) {
-      console.log('skrolujemooo');
       ref.current.scrollIntoView();
     } else {
       navigate(

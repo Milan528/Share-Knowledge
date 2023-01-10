@@ -7,10 +7,8 @@ export const StyledChip = styled(Chip)`
     background: #1976d2;
     color: white;
     margin: 0px 2px 0px 2px;
-    cursor: pointer;
 
     :hover {
-      cursor: default;
       background: #1976d2;
       color: white;
       margin: 0px 2px 0px 2px;

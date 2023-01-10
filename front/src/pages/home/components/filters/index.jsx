@@ -18,7 +18,6 @@ const Fliters = () => {
   const dispatch = useDispatch();
   const filtersVisibility = useSelector((state) => state.home.filtersVisibility);
 
-
   return (
     <FiltersContainer>
       <StyledButtonResize
