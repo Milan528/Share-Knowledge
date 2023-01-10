@@ -8,6 +8,7 @@ import CreateComment from './components/createComment';
 import { useSelector } from 'react-redux';
 import { AddComment } from './components/addComment';
 import Heading from './components/heading';
+import ShowAttachments from './components/showAttachments';
 
 const ViewPost = () => {
   const createCommentRef = useRef(null);
@@ -22,6 +23,7 @@ const ViewPost = () => {
       <Navbar />
       <Heading />
       <ContentContainer>
+        <ShowAttachments />
         <FirstPost />
         <AddCommentContainer>
           <AddComment ref={createCommentRef} />

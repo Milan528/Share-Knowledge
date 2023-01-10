@@ -8,6 +8,7 @@ export const HeadingContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 export const DateContainer = styled.div`
@@ -24,6 +25,7 @@ export const StyledTypography = styled(Typography)`
     cursor: initial;
     margin-top: -4px;
     display: inline;
+    cursor: pointer;
   }
 `;
 
@@ -58,6 +60,13 @@ export const StyledH3 = styled.h3`
   margin-right: 8px;
   font-size: 1rem;
   font-style: italic;
+
+  :hover {
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background: #1976d2;
+  }
 `;
 
 export const StyledPostedByTypography = styled(Typography)``;

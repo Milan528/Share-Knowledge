@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setError } from './redux/slices';
 import ErrorDialog from '../../components/errorDialogRedux';
 import Loader from '../../components/loader';
-import { ContentContainer, MainContainer, StyledContainer } from './styles';
+import { ContentContainer, MainContainer } from './styles';
 import SideNavbar from './components/sideNavbar';
 import { useSearchParams } from 'react-router-dom';
 import { setProfileView } from './components/sideNavbar/redux/slices';

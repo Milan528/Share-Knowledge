@@ -19,11 +19,8 @@ const viewPostSlice = createSlice({
     post,
   },
   reducers: {
-    setLoading: (state, action) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
+    setShowAttachments: (state, action) => {
+      state.showAttachments = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,3 +49,5 @@ const viewPostSlice = createSlice({
 });
 
 export const viewPostReducer = viewPostSlice.reducer;
+
+export const { setShowAttachments } = viewPostSlice.actions;

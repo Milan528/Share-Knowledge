@@ -22,6 +22,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   margin-top: 10px;
   justify-content: flex-end;
+  cursor: pointer;
 `;
 
 export const DetailsContainer = styled.div`

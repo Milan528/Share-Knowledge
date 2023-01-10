@@ -19,8 +19,8 @@ export const SlidingContainer = styled.div`
   color: #1976d2;
   margin-top: -20px;
   display: flex;
-  left: ${({ widthToHide }) => `-${widthToHide}px`};
   transition: 0.3s ease-out;
+  left: ${({ widthToHide }) => `-${widthToHide}px`};
   text-align: right;
   overflow: auto;
   box-shadow: 2px 1px 5px 0 #393a3d26;

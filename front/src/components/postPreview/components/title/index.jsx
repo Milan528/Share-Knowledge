@@ -7,30 +7,25 @@ import {
   StyledHelpIcon,
   PostedByContainer,
   DateIcon,
-  StyledPostedByTypography,
   DateContainer,
   StyledH3,
 } from './styles';
 import { profileRoute } from '../../../../app/router/routes';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 
 const Title = (props) => {
   const { title, type, postedBy, date } = props;
   const navigate = useNavigate();
 
-  const handleVisitUserProfile = () => {
+  const handleVisitUserProfile = (e) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+
     navigate({
       pathname: profileRoute,
       search: `username=${postedBy}`,
     });
-  };
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
   };
 
   const typeIcon =
@@ -47,13 +42,11 @@ const Title = (props) => {
   return (
     <>
       <HeadingContainer>
-        <StyledTypography onClick={handleClick} variant="h5">
-          {typeIcon}
-          {title}
-        </StyledTypography>
+        {typeIcon}
+        <StyledTypography variant="h5">{title}</StyledTypography>
       </HeadingContainer>
       <PostedByContainer>
-        <StyledH3>{postedBy}</StyledH3>
+        <StyledH3 onClick={handleVisitUserProfile}>{postedBy}</StyledH3>
         <DateContainer>
           <DateIcon />
           <Typography> {date}</Typography>

@@ -1,6 +1,5 @@
 export const initialState = {
-  loading: false,
-  error: null,
+  showAttachments: true,
 };
 
 const getState = () => {

@@ -1,5 +1,7 @@
 TO DO: nece prilog uz komentare
 TO Do: komponenta za prikaz sadrzaja ide na novu stranicu ostaje samo donji deo
+TO DO: sideNavbar se mrda pomalo kad se ulazi na profil
+TO DO: refresh brise broj objave na viewPost page
 
 TO DO: web sockets (publish / subscribe) za aktivne korisnike, i provera usera kad se ucitava aplikacija
 TO DO: publish user role change web sockets 

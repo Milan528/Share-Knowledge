@@ -15,7 +15,7 @@ import { setProfileView, setSideNavbarHidden } from './redux/slices';
 import { profileView } from './redux/state';
 import { useSearchParams } from 'react-router-dom';
 import { userRole } from '../../../../utils/enums';
-import { Divider, MenuItem } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import { useRef } from 'react';
 import MoodIcon from '@mui/icons-material/Mood';
 

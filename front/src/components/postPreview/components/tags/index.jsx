@@ -4,15 +4,10 @@ import { StyledChip } from './styles';
 const Tags = (props) => {
   const { tags } = props;
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-  };
-
   return (
     <div>
       {tags.map((tag, index) => (
-        <StyledChip label={tag.tag} key={index} onClick={handleClick} />
+        <StyledChip label={tag.tag} key={index} />
       ))}
     </div>
   );

@@ -11,6 +11,7 @@ export const StyledText = styled(Typography)`
     -webkit-box-orient: vertical;
     cursor: initial;
     white-space: pre-wrap;
+    cursor: pointer;
   }
 `;
 

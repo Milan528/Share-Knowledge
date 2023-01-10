@@ -47,7 +47,7 @@ export const Heading = () => {
             <ChevronLeftIcon />
           </Button>
         ) : null}
-        <StyledH1>{post.type === 'answer' ? 'Materijal' : 'Pitanje'}</StyledH1>
+        <StyledH1>Objava broj {selectedPostIndex + 1}</StyledH1>
         {location.state ? (
           <Button variant="outlined" onClick={handleNextPost}>
             <ChevronRightIcon />
