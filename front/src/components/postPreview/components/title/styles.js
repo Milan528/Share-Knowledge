@@ -60,7 +60,9 @@ export const StyledH3 = styled.h3`
   margin-right: 8px;
   font-size: 1rem;
   font-style: italic;
-
+  padding: 0px 5px 0px 5px;
+  cursor: pointer;  
+  
   :hover {
     padding: 0px 5px 0px 5px;
     border-radius: 5px;

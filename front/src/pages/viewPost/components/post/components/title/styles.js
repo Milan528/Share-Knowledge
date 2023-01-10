@@ -15,7 +15,6 @@ export const DateContainer = styled.div`
   align-items: center;
   min-width: fit-content;
   flex-direction: row-reverse;
-  margin-left: 4px;
 `;
 
 export const StyledTypography = styled(Typography)`
@@ -57,6 +56,8 @@ export const StyledH3 = styled.h3`
   margin-right: 8px;
   font-size: 1rem;
   font-style: italic;
+  padding: 0px 5px 0px 5px;
+  cursor: pointer;  
 
   :hover {
     padding: 0px 5px 0px 5px;
